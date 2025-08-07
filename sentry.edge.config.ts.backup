@@ -1,0 +1,42 @@
+import * as Sentry from "@sentry/nextjs";
+
+const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+
+// Sentry Edge Runtime初期化
+Sentry.init({
+  dsn: SENTRY_DSN,
+  
+  // 環境設定
+  environment: process.env.NODE_ENV || "development",
+  
+  // パフォーマンスモニタリング（Edge Runtimeでは控えめに）
+  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.05 : 0.5,
+  
+  // 開発環境での設定
+  debug: process.env.NODE_ENV === "development",
+  
+  // エラーフィルタリング
+  beforeSend(event, hint) {
+    // Edge Runtime特有のエラー処理
+    if (event.platform === "edge") {
+      event.tags = {
+        ...event.tags,
+        runtime: "edge",
+      };
+    }
+    
+    // 404エラーは無視
+    if (event.exception?.values?.[0]?.value?.includes("404")) {
+      return null;
+    }
+    
+    // Edge Function timeout エラーの特別処理
+    if (event.exception?.values?.[0]?.value?.includes("timeout") ||
+        event.exception?.values?.[0]?.value?.includes("deadline")) {
+      event.level = "warning";
+      event.fingerprint = ["edge-function-timeout"];
+    }
+    
+    return event;
+  },
+}); 

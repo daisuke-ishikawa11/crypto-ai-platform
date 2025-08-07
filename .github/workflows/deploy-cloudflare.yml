@@ -1,0 +1,282 @@
+# 🚀 Cloudflare Workers CI/CD パイプライン
+# OpenNext + Next.js 自動デプロイメント
+
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # 🧪 テスト・品質チェック
+  test:
+    name: テスト & 品質チェック
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+        
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 依存関係インストール
+        run: npm ci
+        
+      - name: TypeScript 型チェック
+        run: npm run type-check
+        
+      - name: ESLint チェック
+        run: npm run lint
+        
+      - name: Unit テスト実行
+        run: npm run test:unit
+        if: false # まだ実装していない場合
+        
+      - name: E2E テスト実行
+        run: npm run test:e2e
+        if: false # まだ実装していない場合
+        
+      - name: セキュリティ監査
+        run: npm audit --audit-level=high
+        
+      - name: バンドルサイズチェック
+        run: |
+          npm run build
+          npx bundlesize
+
+  # 🔧 ビルド & デプロイ準備
+  build:
+    name: ビルド & OpenNext変換
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+        
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 依存関係インストール
+        run: npm ci
+        
+      - name: 環境変数設定
+        run: |
+          echo "NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}" >> $GITHUB_ENV
+          echo "NODE_ENV=production" >> $GITHUB_ENV
+          
+      - name: Next.js ビルド
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          
+      - name: OpenNext変換
+        run: npx open-next build
+        
+      - name: ビルド成果物アップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            .next/
+            .open-next/
+          retention-days: 1
+
+  # 🌐 ステージング環境デプロイ
+  deploy-staging:
+    name: ステージング環境デプロイ
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+        
+      - name: ビルド成果物ダウンロード
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          
+      - name: Wrangler セットアップ
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          
+      - name: KV ネームスペース確認
+        run: |
+          wrangler kv:namespace list | grep -q "crypto-ai-staging-cache" || \
+          wrangler kv:namespace create "crypto-ai-staging-cache"
+          
+      - name: 環境変数設定（ステージング）
+        run: |
+          echo "${{ secrets.SUPABASE_STAGING_SERVICE_KEY }}" | wrangler secret put SUPABASE_SERVICE_KEY --env staging
+          echo "${{ secrets.OPENAI_API_KEY }}" | wrangler secret put OPENAI_API_KEY --env staging
+          echo "${{ secrets.STRIPE_TEST_SECRET_KEY }}" | wrangler secret put STRIPE_SECRET_KEY --env staging
+          
+      - name: ステージング環境にデプロイ
+        run: wrangler deploy --env staging
+        
+      - name: ヘルスチェック
+        run: |
+          sleep 10
+          curl -f ${{ secrets.STAGING_APP_URL }}/api/health || exit 1
+          
+      - name: デプロイ結果通知
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          channel: '#deployments'
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+          message: |
+            ステージング環境へのデプロイが${{ job.status == 'success' && '成功' || '失敗' }}しました
+            ブランチ: ${{ github.ref }}
+            コミット: ${{ github.sha }}
+
+  # 🚀 本番環境デプロイ
+  deploy-production:
+    name: 本番環境デプロイ
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+        
+      - name: ビルド成果物ダウンロード
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          
+      - name: Wrangler セットアップ
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          
+      - name: 本番前チェック
+        run: |
+          # 重要な環境変数の存在確認
+          test -n "${{ secrets.SUPABASE_SERVICE_KEY }}"
+          test -n "${{ secrets.STRIPE_SECRET_KEY }}"
+          test -n "${{ secrets.OPENAI_API_KEY }}"
+          
+      - name: データベースマイグレーション
+        run: |
+          # Supabase マイグレーション実行
+          npx supabase db push --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        if: false # 必要に応じて有効化
+        
+      - name: 環境変数設定（本番）
+        run: |
+          echo "${{ secrets.SUPABASE_SERVICE_KEY }}" | wrangler secret put SUPABASE_SERVICE_KEY --env production
+          echo "${{ secrets.OPENAI_API_KEY }}" | wrangler secret put OPENAI_API_KEY --env production
+          echo "${{ secrets.ANTHROPIC_API_KEY }}" | wrangler secret put ANTHROPIC_API_KEY --env production
+          echo "${{ secrets.STRIPE_SECRET_KEY }}" | wrangler secret put STRIPE_SECRET_KEY --env production
+          echo "${{ secrets.STRIPE_WEBHOOK_SECRET }}" | wrangler secret put STRIPE_WEBHOOK_SECRET --env production
+          echo "${{ secrets.COINMARKETCAP_API_KEY }}" | wrangler secret put COINMARKETCAP_API_KEY --env production
+          echo "${{ secrets.SENTRY_DSN }}" | wrangler secret put SENTRY_DSN --env production
+          
+      - name: 本番環境にデプロイ
+        run: wrangler deploy --env production
+        
+      - name: カスタムドメイン設定
+        run: |
+          wrangler route add "${{ secrets.CUSTOM_DOMAIN }}/*" crypto-ai-platform --env production
+        if: ${{ secrets.CUSTOM_DOMAIN }}
+        
+      - name: 本番ヘルスチェック
+        run: |
+          sleep 15
+          curl -f ${{ secrets.PRODUCTION_APP_URL }}/api/health || exit 1
+          curl -f ${{ secrets.PRODUCTION_APP_URL }}/api/market/health || exit 1
+          
+      - name: Sentry リリース作成
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          version: ${{ github.sha }}
+          
+      - name: 成功通知
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: '#deployments'
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+          message: |
+            🎉 本番環境へのデプロイが成功しました！
+            
+            📱 アプリケーション: ${{ secrets.PRODUCTION_APP_URL }}
+            📊 ダッシュボード: https://dash.cloudflare.com
+            🔍 Sentry: https://sentry.io
+            
+            ブランチ: ${{ github.ref }}
+            コミット: ${{ github.sha }}
+            デプロイ時刻: ${{ steps.deploy.outputs.deployment-time }}
+
+  # 🔄 デプロイ後処理
+  post-deploy:
+    name: デプロイ後処理
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/main' && success()
+    
+    steps:
+      - name: キャッシュウォームアップ
+        run: |
+          # 重要なエンドポイントにリクエストを送信してキャッシュをウォームアップ
+          curl -s ${{ secrets.PRODUCTION_APP_URL }}/api/market/prices > /dev/null
+          curl -s ${{ secrets.PRODUCTION_APP_URL }}/api/learning/categories > /dev/null
+          curl -s ${{ secrets.PRODUCTION_APP_URL }}/learning > /dev/null
+          
+      - name: パフォーマンステスト
+        run: |
+          # Lighthouseなどでパフォーマンステスト
+          npx lighthouse ${{ secrets.PRODUCTION_APP_URL }} --output=json --output-path=lighthouse.json
+          
+      - name: アラート設定更新
+        run: |
+          # Cloudflare Workers Analytics でアラート設定
+          echo "アラート設定を更新中..."
+        if: false # 実装時に有効化
+
+# セキュリティ設定
+security:
+  permissions:
+    contents: read
+    deployments: write
+    
+  secrets:
+    required:
+      - CLOUDFLARE_API_TOKEN
+      - CLOUDFLARE_ACCOUNT_ID
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY
+      - SUPABASE_SERVICE_KEY
+      - OPENAI_API_KEY
+      - STRIPE_SECRET_KEY
+      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY

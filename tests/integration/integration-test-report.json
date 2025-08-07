@@ -1,0 +1,49 @@
+{
+  "passed": 1,
+  "failed": 10,
+  "errors": [
+    {
+      "endpoint": "/api/market/global",
+      "error": "Failed to fetch global market data"
+    },
+    {
+      "endpoint": "/api/market/coinmarketcap",
+      "error": "CoinMarketCap API key is not configured"
+    },
+    {
+      "endpoint": "/api/market/realtime",
+      "error": "invalid json response body at http://localhost:3001/auth/login reason: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+    },
+    {
+      "endpoint": "/api/portfolio/optimize",
+      "error": "invalid json response body at http://localhost:3001/auth/login reason: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+    },
+    {
+      "endpoint": "/api/risk/analysis",
+      "error": "invalid json response body at http://localhost:3001/auth/login reason: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+    },
+    {
+      "endpoint": "/api/ai/chat",
+      "error": "invalid json response body at http://localhost:3001/auth/login reason: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+    },
+    {
+      "endpoint": "/api/ai/prediction",
+      "error": "invalid json response body at http://localhost:3001/auth/login reason: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+    },
+    {
+      "endpoint": "/api/health"
+    },
+    {
+      "endpoint": "/api/invalid-endpoint",
+      "error": "Expected 404, got 500"
+    },
+    {
+      "endpoint": "/api/portfolio/optimize",
+      "error": "Expected 400, got 500"
+    }
+  ],
+  "performance": {
+    "market_binance": 1792
+  },
+  "details": []
+}

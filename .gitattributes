@@ -1,0 +1,69 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Set specific file types to use LF line endings
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.sql text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Ensure these files always use UTF-8 encoding
+*.ts charset=utf-8
+*.tsx charset=utf-8
+*.js charset=utf-8
+*.jsx charset=utf-8
+*.json charset=utf-8
+*.md charset=utf-8
+
+# Binary files should not be normalized
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pyc binary
+*.pdf binary
+*.ez binary
+*.bz2 binary
+*.swp binary
+*.sublime-project binary
+*.sublime-workspace binary
+
+# Documentation files
+README.md text eol=lf
+CHANGELOG.md text eol=lf
+LICENSE text eol=lf
+CLAUDE.md text eol=lf
+PROJECT_EXECUTION_RULES.md text eol=lf
+
+# Configuration files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.eslintrc.* text eol=lf
+.prettierrc.* text eol=lf
+tsconfig.json text eol=lf
+package.json text eol=lf
+package-lock.json text eol=lf
+yarn.lock text eol=lf

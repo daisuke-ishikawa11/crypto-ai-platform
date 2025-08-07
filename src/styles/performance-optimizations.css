@@ -1,0 +1,299 @@
+/* 🚀 パフォーマンス最適化スタイル */
+/* GPU加速、効率的なアニメーション、レンダリング最適化 */
+
+/* GPU加速を有効にするプロパティ */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* スムーズなアニメーション用クラス */
+.smooth-transform {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.smooth-opacity {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+/* 最適化されたホバーエフェクト */
+.optimized-hover {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform, box-shadow;
+}
+
+.optimized-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* パフォーマンス最適化されたシマーエフェクト */
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 効率的なパルスアニメーション */
+.optimized-pulse {
+  animation: optimized-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes optimized-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* レイアウトシフトを防ぐコンテナ */
+.layout-stable {
+  contain: layout style paint;
+}
+
+/* スクロール最適化 */
+.scroll-optimized {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+/* テキストレンダリング最適化 */
+.text-optimized {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 画像レンダリング最適化 */
+.image-optimized {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* コンテナクエリ対応 */
+.container-optimized {
+  container-type: inline-size;
+}
+
+/* メディアクエリ最適化 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer,
+  .optimized-pulse,
+  .smooth-transform,
+  .smooth-opacity {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* 高解像度ディスプレイ最適化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+/* ダークモード最適化 */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-optimized {
+    color-scheme: dark;
+  }
+}
+
+/* レイヤー分離による最適化 */
+.layer-optimized {
+  isolation: isolate;
+  contain: layout style paint;
+}
+
+/* フォーカス最適化 */
+.focus-optimized:focus {
+  outline: 2px solid rgb(59, 130, 246);
+  outline-offset: 2px;
+}
+
+.focus-optimized:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* プリント最適化 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-optimized {
+    color: black !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+}
+
+/* コンテントの可視性最適化 */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* 遅延ハイドレーション用 */
+.hydration-pending {
+  visibility: hidden;
+}
+
+.hydration-complete {
+  visibility: visible;
+  animation: fade-in 0.3s ease-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* グリッドレイアウト最適化 */
+.grid-optimized {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  contain: layout;
+}
+
+/* フレックスボックス最適化 */
+.flex-optimized {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  contain: layout;
+}
+
+/* ロード状態の最適化 */
+.loading-optimized {
+  pointer-events: none;
+  user-select: none;
+  filter: blur(2px);
+  transition: filter 0.3s ease;
+}
+
+.loaded-optimized {
+  pointer-events: auto;
+  user-select: auto;
+  filter: blur(0);
+}
+
+/* メモリ効率最適化 */
+.memory-efficient {
+  contain: strict;
+  content-visibility: auto;
+}
+
+/* スクロールスナップ最適化 */
+.scroll-snap-optimized {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 2rem;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+  scroll-margin-top: 2rem;
+}
+
+/* バックドロップフィルター最適化 */
+.backdrop-optimized {
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  will-change: backdrop-filter;
+}
+
+/* 入力フィールド最適化 */
+.input-optimized {
+  -webkit-appearance: none;
+  appearance: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-optimized:focus {
+  border-color: rgb(59, 130, 246);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* カードアニメーション最適化 */
+.card-optimized {
+  transform: translateZ(0);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform, box-shadow;
+}
+
+.card-optimized:hover {
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ボタンアニメーション最適化 */
+.button-optimized {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: all 0.2s ease;
+  will-change: transform, background-color;
+}
+
+.button-optimized::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.button-optimized:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* タブレット最適化 */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-optimized {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+/* モバイル最適化 */
+@media (max-width: 767px) {
+  .mobile-optimized {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    touch-action: manipulation;
+  }
+}

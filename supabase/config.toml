@@ -1,0 +1,152 @@
+# 🔧 Supabase設定ファイル
+# 暗号通貨AIプラットフォーム用Supabase設定
+
+[api]
+# API設定
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+# データベース設定
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[realtime]
+# リアルタイム機能設定
+enabled = true
+ip_version = "ipv4"
+
+[studio]
+# Supabase Studio設定
+enabled = true
+port = 54323
+api_url = "http://localhost:54321"
+
+[inbucket]
+# メールテスト用
+enabled = true
+port = 54324
+smtp_port = 54325
+
+[storage]
+# ストレージ設定
+enabled = true
+port = 54326
+file_size_limit = "50MiB"
+image_transformation = { enabled = true }
+
+[auth]
+# 認証設定
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://your-domain.com"]
+jwt_expiry = 3600
+enable_signup = true
+enable_confirmations = false
+enable_anonymous_sign_ins = false
+
+# 外部認証プロバイダー設定
+[auth.external.apple]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.azure]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.bitbucket]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.discord]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.facebook]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.github]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.gitlab]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+
+[auth.external.twitter]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.slack]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.spotify]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.twitch]
+enabled = false
+client_id = ""
+secret = ""
+
+[auth.external.zoom]
+enabled = false
+client_id = ""
+secret = ""
+
+# SMTP設定（本番用）
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+template = {
+  invite = "supabase/templates/invite.html",
+  confirmation = "supabase/templates/confirmation.html",
+  recovery = "supabase/templates/recovery.html",
+  magic_link = "supabase/templates/magic_link.html",
+  email_change = "supabase/templates/email_change.html"
+}
+
+# SMS設定
+[auth.sms]
+enable_signup = false
+enable_confirmations = false
+
+# セッション設定
+[auth.sessions]
+timebox = 24
+inactivity_timeout = 8
+
+[edge_runtime]
+# Edge Functions設定
+enabled = true
+ip_version = "ipv4"
+
+[analytics]
+# 分析設定
+enabled = false
+
+[functions]
+# 関数設定
+verify_jwt = false

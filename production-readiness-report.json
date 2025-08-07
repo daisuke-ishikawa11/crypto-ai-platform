@@ -1,0 +1,226 @@
+{
+  "timestamp": "2025-07-19T11:14:23.255Z",
+  "totalScore": 78,
+  "maxScore": 120,
+  "actualScore": 93,
+  "grade": "C+",
+  "checks": [
+    {
+      "category": "環境変数テンプレート",
+      "description": ".env.example が存在",
+      "status": "success"
+    },
+    {
+      "category": "必須環境変数",
+      "description": "10/10 項目確認済み",
+      "status": "success"
+    },
+    {
+      "category": "Next.js設定",
+      "description": "本番設定が不完全です",
+      "status": "warning"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "next.config.js 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "wrangler.toml 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "open-next.config.ts 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "src/middleware.ts 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "src/lib/supabase/schema.sql 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "package.json 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": "tsconfig.json 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ファイル構成",
+      "description": ".env.example 存在確認",
+      "status": "success"
+    },
+    {
+      "category": "ディレクトリ構造",
+      "description": "推奨構造に準拠",
+      "status": "success"
+    },
+    {
+      "category": "依存関係",
+      "description": "8/8 必須パッケージ確認済み",
+      "status": "success"
+    },
+    {
+      "category": "セキュリティ",
+      "description": "高レベル脆弱性なし",
+      "status": "success"
+    },
+    {
+      "category": "TypeScript",
+      "description": "型エラーが存在します",
+      "status": "error"
+    },
+    {
+      "category": "ESLint",
+      "description": "リントエラーが存在します",
+      "status": "warning"
+    },
+    {
+      "category": "ビルド",
+      "description": "プロダクションビルド成功",
+      "status": "success"
+    },
+    {
+      "category": "バンドルサイズ",
+      "description": "3646KB (制限超過)",
+      "status": "warning"
+    },
+    {
+      "category": "開発環境",
+      "description": "サーバー起動確認",
+      "status": "success"
+    },
+    {
+      "category": "セキュリティファイル",
+      "description": "src/lib/security/input-validation.ts 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "セキュリティファイル",
+      "description": "src/lib/security/security-audit.ts 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "セキュリティファイル",
+      "description": "src/middleware.ts 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "脆弱性スキャン",
+      "description": "Critical脆弱性が検出されました",
+      "status": "error"
+    },
+    {
+      "category": "セキュリティヘッダー",
+      "description": "3/3 ヘッダー設定済み",
+      "status": "success"
+    },
+    {
+      "category": "パフォーマンステスト",
+      "description": "テストスクリプト実装済み",
+      "status": "success"
+    },
+    {
+      "category": "Web Vitals監視",
+      "description": "リアルタイム監視実装済み",
+      "status": "success"
+    },
+    {
+      "category": "キャッシュ戦略",
+      "description": "キャッシュ最適化実装済み",
+      "status": "success"
+    },
+    {
+      "category": "Next.js最適化",
+      "description": "パフォーマンス設定が不完全",
+      "status": "warning"
+    },
+    {
+      "category": "テストスイート",
+      "description": "tests/unit 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "テストスイート",
+      "description": "tests/integration 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "テストスイート",
+      "description": "tests/e2e 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "E2Eテスト設定",
+      "description": "Playwright設定完了",
+      "status": "success"
+    },
+    {
+      "category": "ユニットテスト設定",
+      "description": "Jest設定完了",
+      "status": "success"
+    },
+    {
+      "category": "テスト実行",
+      "description": "テスト実行でエラー",
+      "status": "warning"
+    },
+    {
+      "category": "Cloudflare設定",
+      "description": "wrangler.toml設定完了",
+      "status": "success"
+    },
+    {
+      "category": "OpenNext設定",
+      "description": "Edge Runtime設定完了",
+      "status": "success"
+    },
+    {
+      "category": "デプロイスクリプト",
+      "description": "自動デプロイスクリプト実装済み",
+      "status": "success"
+    },
+    {
+      "category": "デプロイコマンド",
+      "description": "デプロイコマンド設定済み",
+      "status": "success"
+    },
+    {
+      "category": "モニタリング",
+      "description": "src/lib/monitoring/performance.ts 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "モニタリング",
+      "description": "src/lib/monitoring/logger.ts 実装済み",
+      "status": "success"
+    },
+    {
+      "category": "エラー監視",
+      "description": "Sentry設定済み",
+      "status": "success"
+    },
+    {
+      "category": "アナリティクス",
+      "description": "アナリティクス実装済み",
+      "status": "success"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "recommendations": [
+    "🔍 定期的な品質チェックの実施",
+    "📊 継続的なモニタリングの実装"
+  ],
+  "readinessStatus": "NEEDS_IMPROVEMENT"
+}
