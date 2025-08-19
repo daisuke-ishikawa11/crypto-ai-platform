@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Check if user has admin privileges
-    const { data: userData } = await (await import('@/lib/supabase/server')).createClient()
+    const { data: userData } = await (await (await import('@/lib/supabase/server')).createClient())
       .from('users')
       .select('role')
       .eq('id', user.id)
@@ -51,15 +51,26 @@ export async function GET(request: NextRequest) {
     
     switch (action) {
       case 'get_events': {
-        const filters = {
+        const typeParam = searchParams.get('type');
+        const validTypes = ["login_success", "login_attempt", "suspicious_activity", "login_failure", "password_change", "account_lockout", "data_access", "admin_action", "api_abuse", "security_violation"];
+        const severityParam = searchParams.get('severity');
+        const validSeverities = ["low", "medium", "high", "critical"];
+        
+        const filters: {
+          userId?: string
+          type?: (typeof validTypes)[number]
+          severity?: (typeof validSeverities)[number]
+          resolved?: boolean
+          limit: number
+        } = {
           userId: searchParams.get('userId') || undefined,
-          type: searchParams.get('type') || undefined,
-          severity: searchParams.get('severity') || undefined,
+          type: typeParam && validTypes.includes(typeParam) ? (typeParam as (typeof validTypes)[number]) : undefined,
+          severity: severityParam && validSeverities.includes(severityParam) ? (severityParam as (typeof validSeverities)[number]) : undefined,
           resolved: searchParams.get('resolved') ? searchParams.get('resolved') === 'true' : undefined,
           limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 50
         };
         
-        const events = await audit.getSecurityEvents(filters);
+        const events = await audit.getSecurityEvents(filters as Parameters<typeof audit.getSecurityEvents>[0]);
         
         apiLogger.info('Security events retrieved', {
           requestId,
@@ -121,7 +132,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Check if user has admin privileges
-    const { data: userData } = await (await import('@/lib/supabase/server')).createClient()
+    const { data: userData } = await (await (await import('@/lib/supabase/server')).createClient())
       .from('users')
       .select('role')
       .eq('id', user.id)
@@ -210,7 +221,7 @@ export async function PUT(request: NextRequest) {
     }
     
     // Check if user has admin privileges
-    const { data: userData } = await (await import('@/lib/supabase/server')).createClient()
+    const { data: userData } = await (await (await import('@/lib/supabase/server')).createClient())
       .from('users')
       .select('role')
       .eq('id', user.id)

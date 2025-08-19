@@ -32,11 +32,11 @@ export class PerformanceMonitor {
   private metrics: PerformanceMetrics[] = [];
   private readonly MAX_METRICS = 10000;
   private readonly ALERT_THRESHOLDS: AlertThresholds = {
-    responseTime: 5000, // 5 seconds
-    errorRate: 5, // 5%
-    memoryUsage: 80, // 80%
-    cpuUsage: 80, // 80%
-    throughput: 100 // 100 requests per second
+    responseTime: Number(process.env.MONITOR_P95_MS || 5000),
+    errorRate: Number(process.env.MONITOR_ERR_RATE_PCT || process.env.MONITOR_ERROR_RATE || 5),
+    memoryUsage: Number(process.env.MONITOR_MEM_PCT || 80),
+    cpuUsage: Number(process.env.MONITOR_CPU_PCT || 80),
+    throughput: Number(process.env.MONITOR_TP_REQS || process.env.MONITOR_QPS_MIN || 100),
   };
 
   private constructor() {}
@@ -46,6 +46,30 @@ export class PerformanceMonitor {
       PerformanceMonitor.instance = new PerformanceMonitor();
     }
     return PerformanceMonitor.instance;
+  }
+
+  public recordApiCall(endpoint: string, responseTime: number, success: boolean): void {
+    const metrics: PerformanceMetrics = {
+      requestId: crypto.randomUUID(),
+      endpoint,
+      method: 'GET',
+      responseTime,
+      statusCode: success ? 200 : 500,
+      timestamp: new Date()
+    };
+    this.addMetrics(metrics);
+  }
+
+  public addMetrics(metrics: PerformanceMetrics): void {
+    this.metrics.push(metrics);
+    
+    // Keep only the most recent metrics
+    if (this.metrics.length > this.MAX_METRICS) {
+      this.metrics = this.metrics.slice(-this.MAX_METRICS);
+    }
+
+    // Check for performance issues
+    this.checkPerformanceAlerts(metrics);
   }
 
   async recordMetrics(metrics: Omit<PerformanceMetrics, 'timestamp'>): Promise<void> {
@@ -111,7 +135,7 @@ export class PerformanceMonitor {
       alerts.push(`High throughput: ${throughput.toFixed(2)} req/s (threshold: ${this.ALERT_THRESHOLDS.throughput} req/s)`);
     }
 
-    // Send alerts if any thresholds are exceeded
+    // Send alerts if thresholds are exceeded
     if (alerts.length > 0) {
       await this.sendPerformanceAlert(metrics, alerts);
     }
@@ -131,6 +155,35 @@ export class PerformanceMonitor {
       },
       action: 'performance_alert'
     });
+
+    // Optional: forward alerts to external webhook if configured
+    const webhook = process.env.ALERT_WEBHOOK_URL
+    if (typeof webhook === 'string' && webhook.startsWith('http')) {
+      try {
+        // fire-and-forget
+        void fetch(webhook, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            type: 'performance_alert',
+            requestId: metrics.requestId,
+            endpoint: metrics.endpoint,
+            method: metrics.method,
+            alerts,
+            metrics: {
+              responseTime: metrics.responseTime,
+              statusCode: metrics.statusCode,
+              memoryUsage: metrics.memoryUsage,
+              cpuUsage: metrics.cpuUsage,
+            },
+            timestamp: new Date().toISOString(),
+            env: process.env.NODE_ENV || 'development',
+          })
+        }).catch(() => {})
+      } catch {
+        // noop
+      }
+    }
   }
 
   private getRecentMetrics(timeWindowMs: number): PerformanceMetrics[] {
@@ -315,6 +368,33 @@ export class PerformanceMonitor {
       action: 'performance_metrics_cleanup'
     });
   }
+
+  // Track performance metrics (alias for recordMetrics for backward compatibility)
+  async track(metricName: string, data: Record<string, unknown>): Promise<void> {
+    const startTime = Date.now();
+    
+    try {
+      // Convert generic tracking data to performance metrics format
+      const sys = this.getCurrentSystemMetrics();
+      await this.recordMetrics({
+        requestId: (data.requestId as string) || crypto.randomUUID(),
+        endpoint: (data.endpoint as string) || metricName,
+        method: (data.method as string) || 'TRACK',
+        responseTime: (typeof data.responseTime === 'number' ? data.responseTime : (Date.now() - startTime)),
+        statusCode: (typeof data.statusCode === 'number' ? data.statusCode : 200),
+        userId: typeof data.userId === 'string' ? data.userId : undefined,
+        userPlan: typeof data.userPlan === 'string' ? data.userPlan : undefined,
+        memoryUsage: (data.memoryUsage as { used: number; total: number; percentage: number }) || sys.memoryUsage,
+        cpuUsage: (typeof data.cpuUsage === 'number' ? data.cpuUsage : sys.cpuUsage)
+      });
+    } catch (error) {
+      apiLogger.error('Failed to track performance metric', {
+        metricName,
+        data,
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  }
 }
 
 // Middleware helper for automatic performance monitoring
@@ -344,3 +424,6 @@ export function createPerformanceMiddleware() {
     });
   };
 }
+
+// Export singleton instance for compatibility
+export const performanceMonitor = PerformanceMonitor.getInstance();

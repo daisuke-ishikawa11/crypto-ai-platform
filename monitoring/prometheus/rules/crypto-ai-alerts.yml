@@ -1,0 +1,238 @@
+groups:
+  - name: crypto-ai-platform.rules
+    interval: 30s
+    rules:
+      # Application Health Alerts
+      - alert: CryptoAIAppDown
+        expr: up{job="crypto-ai-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Crypto AI application is down"
+          description: "The Crypto AI application {{ $labels.instance }} has been down for more than 1 minute."
+
+      - alert: CryptoAIHighErrorRate
+        expr: |
+          (
+            rate(http_requests_total{job="crypto-ai-app", status=~"5.."}[5m]) /
+            rate(http_requests_total{job="crypto-ai-app"}[5m])
+          ) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate in Crypto AI application"
+          description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.instance }}"
+
+      - alert: CryptoAIHighLatency
+        expr: |
+          histogram_quantile(0.95, 
+            rate(http_request_duration_seconds_bucket{job="crypto-ai-app"}[5m])
+          ) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency in Crypto AI application"
+          description: "95th percentile latency is {{ $value }}s for {{ $labels.instance }}"
+
+      # Database Alerts
+      - alert: DatabaseConnectionsHigh
+        expr: |
+          pg_stat_database_numbackends / pg_settings_max_connections > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connections are high"
+          description: "Database connections are at {{ $value | humanizePercentage }} of maximum"
+
+      - alert: DatabaseReplicationLag
+        expr: |
+          pg_stat_replication_replay_lag > 300
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database replication lag is high"
+          description: "Replication lag is {{ $value }} seconds"
+
+      # Redis Alerts
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis instance {{ $labels.instance }} is down"
+
+      - alert: RedisHighMemoryUsage
+        expr: |
+          redis_memory_used_bytes / redis_config_maxmemory > 0.9
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage is high"
+          description: "Redis memory usage is {{ $value | humanizePercentage }} of maximum"
+
+      - alert: RedisHighConnections
+        expr: |
+          redis_connected_clients / redis_config_maxclients > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis connections are high"
+          description: "Redis connections are at {{ $value | humanizePercentage }} of maximum"
+
+      # Kubernetes Alerts
+      - alert: PodCrashLooping
+        expr: |
+          rate(kube_pod_container_status_restarts_total[15m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pod is crash looping"
+          description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} is crash looping"
+
+      - alert: PodNotReady
+        expr: |
+          kube_pod_status_ready{condition="false"} == 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pod is not ready"
+          description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been not ready for more than 5 minutes"
+
+      - alert: DeploymentReplicasMismatch
+        expr: |
+          kube_deployment_spec_replicas != kube_deployment_status_available_replicas
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Deployment replicas mismatch"
+          description: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has {{ $labels.spec_replicas }} desired replicas but {{ $labels.available_replicas }} available"
+
+      # Node Alerts
+      - alert: NodeHighCPU
+        expr: |
+          100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Node CPU usage is high"
+          description: "Node {{ $labels.instance }} CPU usage is {{ $value }}%"
+
+      - alert: NodeHighMemory
+        expr: |
+          (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node memory usage is high"
+          description: "Node {{ $labels.instance }} memory usage is {{ $value | humanizePercentage }}"
+
+      - alert: NodeDiskSpaceLow
+        expr: |
+          (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes > 0.85
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Node disk space is low"
+          description: "Node {{ $labels.instance }} disk usage is {{ $value | humanizePercentage }} on {{ $labels.mountpoint }}"
+
+      # AI Service Alerts
+      - alert: AIServiceTimeout
+        expr: |
+          rate(http_requests_total{job="crypto-ai-app", handler=~"/api/ai/.*", status="408"}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI service timeouts detected"
+          description: "AI service timeout rate is {{ $value }} requests/second"
+
+      - alert: AIServiceQuotaExceeded
+        expr: |
+          rate(http_requests_total{job="crypto-ai-app", handler=~"/api/ai/.*", status="429"}[5m]) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "AI service quota exceeded"
+          description: "AI service quota exceeded rate is {{ $value }} requests/second"
+
+      # DeFi Monitoring Alerts
+      - alert: DeFiProtocolConnectionFailed
+        expr: |
+          defi_protocol_connection_status == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DeFi protocol connection failed"
+          description: "Connection to {{ $labels.protocol }} has been down for more than 2 minutes"
+
+      - alert: DeFiHighSlippage
+        expr: |
+          defi_trade_slippage_percent > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High slippage detected in DeFi trades"
+          description: "Slippage of {{ $value }}% detected for {{ $labels.protocol }}/{{ $labels.pair }}"
+
+      # Security Alerts
+      - alert: SuspiciousTrafficPattern
+        expr: |
+          increase(nginx_ingress_controller_requests[1m]) > 1000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Suspicious traffic pattern detected"
+          description: "Unusual traffic spike detected: {{ $value }} requests in the last minute"
+
+      - alert: FailedAuthenticationAttempts
+        expr: |
+          increase(http_requests_total{job="crypto-ai-app", handler=~"/api/auth/.*", status="401"}[5m]) > 50
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of failed authentication attempts"
+          description: "{{ $value }} failed authentication attempts in the last 5 minutes"
+
+      # Business Logic Alerts
+      - alert: LowPortfolioOptimizationSuccess
+        expr: |
+          (
+            rate(portfolio_optimization_success_total[10m]) /
+            rate(portfolio_optimization_attempts_total[10m])
+          ) < 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Portfolio optimization success rate is low"
+          description: "Portfolio optimization success rate is {{ $value | humanizePercentage }}"
+
+      - alert: MarketDataStaleness
+        expr: |
+          time() - market_data_last_update_timestamp > 300
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Market data is stale"
+          description: "Market data hasn't been updated for {{ $value }} seconds"

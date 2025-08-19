@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -7,7 +8,7 @@ import { getUserProfile } from './user-creation'
 import { hasAccessToFeature } from './permissions'
 import type { Database } from '@/lib/supabase/types'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+type SubscriptionStatus = Database['public']['Tables']['user_profiles']['Row']['subscription_status']
 
 interface ProtectedRouteProps {
   children: React.ReactNode
@@ -22,14 +23,14 @@ export default function ProtectedRoute({
   fallbackPath = '/auth/login',
   loadingComponent: LoadingComponent
 }: ProtectedRouteProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [hasFeatureAccess, setHasFeatureAccess] = useState(false)
-  const [userPlan, setUserPlan] = useState<UserPlan>('free')
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+  const [hasFeatureAccess, setHasFeatureAccess] = React.useState(false)
+  const [userPlan, setUserPlan] = React.useState<SubscriptionStatus>('inactive')
   const router = useRouter()
   const supabase = createClient()
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkAuth = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession()
@@ -47,8 +48,8 @@ export default function ProtectedRoute({
         if (requiredFeature) {
           const userProfile = await getUserProfile(session.user.id)
           if (userProfile) {
-            setUserPlan(userProfile.plan)
-            const hasAccess = hasAccessToFeature(userProfile.plan, requiredFeature)
+            setUserPlan(userProfile.subscription_status as SubscriptionStatus)
+            const hasAccess = hasAccessToFeature(userProfile.subscription_status as SubscriptionStatus, requiredFeature)
             setHasFeatureAccess(hasAccess)
             
             if (!hasAccess) {
@@ -112,7 +113,7 @@ export default function ProtectedRoute({
             この機能をご利用いただくには、プランのアップグレードが必要です。
           </p>
           <p className="text-sm text-muted-foreground">
-            現在のプラン: {userPlan}
+            現在の状態: {userPlan}
           </p>
         </div>
       </div>

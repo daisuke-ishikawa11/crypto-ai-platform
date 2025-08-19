@@ -1,14 +1,47 @@
 // API Route: DeFi Portfolio Analysis
 import { NextRequest, NextResponse } from 'next/server';
-import { defiAIAdvisor } from '@/lib/ai/defi-ai-advisor';
+import type { 
+  DeFiPortfolioData, 
+  DeFiProtocolData
+} from '@/types/common';
+// Temporarily unused - will be used for specialized DeFi analysis
+// import { defiAIAdvisor } from '@/lib/ai/defi-ai-advisor';
 import { investmentAlgorithms } from '@/lib/ai/investment-algorithms';
 import { aiCacheService } from '@/lib/ai/ai-cache';
 import { logger } from '@/lib/monitoring/logger';
 import { headers } from 'next/headers';
 
+// Type guard function for DeFiProtocolData
+function isDeFiProtocolData(obj: unknown): obj is DeFiProtocolData {
+  return (
+    typeof obj === 'object' && 
+    obj !== null &&
+    'id' in obj &&
+    'name' in obj &&
+    'category' in obj &&
+    'chain' in obj &&
+    'tvl' in obj &&
+    'apr' in obj &&
+    'riskScore' in obj &&
+    'risk' in obj &&
+    'tokens' in obj &&
+    'features' in obj &&
+    typeof (obj as DeFiProtocolData).id === 'string' &&
+    typeof (obj as DeFiProtocolData).name === 'string' &&
+    typeof (obj as DeFiProtocolData).category === 'string' &&
+    typeof (obj as DeFiProtocolData).chain === 'string' &&
+    typeof (obj as DeFiProtocolData).tvl === 'number' &&
+    typeof (obj as DeFiProtocolData).apr === 'number' &&
+    typeof (obj as DeFiProtocolData).riskScore === 'number' &&
+    typeof (obj as DeFiProtocolData).risk === 'number' &&
+    Array.isArray((obj as DeFiProtocolData).tokens) &&
+    Array.isArray((obj as DeFiProtocolData).features)
+  );
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const body = await request.json();
@@ -42,7 +75,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(cached);
     }
 
-    let analysisResults: any = {};
+    let analysisResults: unknown = {};
 
     // Perform different types of analysis based on request
     switch (analysis_type) {
@@ -121,7 +154,7 @@ export async function POST(request: NextRequest) {
         const [optimization, risk, sentiment] = await Promise.all([
           investmentAlgorithms.optimizePortfolio(portfolio, protocols || [], preferences),
           investmentAlgorithms.calculateRiskMetrics(portfolio),
-          investmentAlgorithms.analyzeMarketSentiment(portfolio.assets.map(a => a.symbol))
+          investmentAlgorithms.analyzeMarketSentiment(portfolio.assets.map((a: { symbol: string }) => a.symbol))
         ]);
 
         analysisResults = {
@@ -171,8 +204,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(analysisResults);
 
-  } catch (error) {
-    logger.error('DeFi analysis API error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi analysis API error', { 
+      error: error instanceof Error ? error.message : String(error) 
+    });
     
     return NextResponse.json(
       { 
@@ -185,14 +220,14 @@ export async function POST(request: NextRequest) {
 }
 
 // Helper functions
-async function generateHealthRecommendations(optimization: any, riskMetrics: any) {
+async function generateHealthRecommendations(optimization: Record<string, unknown>, riskMetrics: Record<string, unknown>) {
   return {
     high_priority: [
-      optimization.sharpe_ratio < 1 ? '分散化の改善が必要です' : null,
-      riskMetrics.max_drawdown > 0.3 ? 'リスク管理の強化が必要です' : null
+      (optimization.sharpe_ratio as number) < 1 ? '分散化の改善が必要です' : null,
+      (riskMetrics.max_drawdown as number) > 0.3 ? 'リスク管理の強化が必要です' : null
     ].filter(Boolean),
     medium_priority: [
-      optimization.rebalance_cost > 1000 ? 'リバランスコストの最適化を検討してください' : null
+      (optimization.rebalance_cost as number) > 1000 ? 'リバランスコストの最適化を検討してください' : null
     ].filter(Boolean),
     low_priority: [
       'ガス効率の改善を検討してください',
@@ -201,28 +236,30 @@ async function generateHealthRecommendations(optimization: any, riskMetrics: any
   };
 }
 
-function calculateExpectedReturns(optimization: any) {
+function calculateExpectedReturns(optimization: Record<string, unknown>) {
+  const totalApy = optimization.total_expected_apy as number;
   return {
-    conservative: optimization.total_expected_apy * 0.7,
-    expected: optimization.total_expected_apy,
-    optimistic: optimization.total_expected_apy * 1.3,
+    conservative: totalApy * 0.7,
+    expected: totalApy,
+    optimistic: totalApy * 1.3,
     confidence_interval: [
-      optimization.total_expected_apy * 0.6,
-      optimization.total_expected_apy * 1.4
+      totalApy * 0.6,
+      totalApy * 1.4
     ]
   };
 }
 
-async function analyzeYieldRisks(optimization: any) {
+async function analyzeYieldRisks(optimization: Record<string, unknown>) {
+  const protocols = optimization.protocols as Array<{ name: string }>;
   return {
-    protocol_concentration: optimization.protocols.length < 3 ? 'high' : 'medium',
+    protocol_concentration: protocols.length < 3 ? 'high' : 'medium',
     smart_contract_risk: 'medium',
-    impermanent_loss_risk: optimization.protocols.some(p => p.name.includes('Uniswap')) ? 'high' : 'low',
+    impermanent_loss_risk: protocols.some((p: { name: string }) => p.name.includes('Uniswap')) ? 'high' : 'low',
     liquidity_risk: 'low'
   };
 }
 
-function generateImplementationPlan(optimization: any) {
+function generateImplementationPlan(optimization: Record<string, unknown>) {
   return {
     steps: [
       {
@@ -242,24 +279,24 @@ function generateImplementationPlan(optimization: any) {
       }
     ],
     estimated_time: '1-2週間',
-    estimated_cost: `$${optimization.suggested_duration * 10}`,
+    estimated_cost: `$${(optimization.suggested_duration as number) * 10}`,
     prerequisites: ['ガス代の準備', 'プロトコル利用規約確認']
   };
 }
 
-async function analyzeRiskComponents(portfolio: any, protocols: any[]) {
+async function analyzeRiskComponents(portfolio: { assets: { allocation: number }[] }, protocols: { riskScore: number }[]) {
   return {
-    smart_contract: protocols.reduce((acc, p) => acc + (100 - p.riskScore), 0) / protocols.length,
-    market: portfolio.assets.reduce((acc, a) => acc + (a.allocation * 0.8), 0),
+    smart_contract: protocols.reduce((acc: number, p: { riskScore: number }) => acc + (100 - p.riskScore), 0) / protocols.length,
+    market: portfolio.assets.reduce((acc: number, a: { allocation: number }) => acc + (a.allocation * 0.8), 0),
     liquidity: 75, // Placeholder calculation
     operational: 65 // Placeholder calculation
   };
 }
 
-function generateRiskMitigationStrategies(riskMetrics: any) {
+function generateRiskMitigationStrategies(riskMetrics: Record<string, unknown>) {
   const strategies = [];
   
-  if (riskMetrics.max_drawdown > 0.3) {
+  if ((riskMetrics.max_drawdown as number) > 0.3) {
     strategies.push({
       risk: 'Maximum Drawdown',
       strategy: 'ストップロス設定とポジションサイズの調整',
@@ -267,7 +304,7 @@ function generateRiskMitigationStrategies(riskMetrics: any) {
     });
   }
   
-  if (riskMetrics.sharpe_ratio < 0.5) {
+  if ((riskMetrics.sharpe_ratio as number) < 0.5) {
     strategies.push({
       risk: 'Poor Risk-Adjusted Returns',
       strategy: 'より高いシャープレシオを持つ資産への配分見直し',
@@ -278,7 +315,7 @@ function generateRiskMitigationStrategies(riskMetrics: any) {
   return strategies;
 }
 
-async function performStressTest(portfolio: any) {
+async function performStressTest(_portfolio: Record<string, unknown>) {
   return {
     scenarios: [
       {
@@ -300,31 +337,36 @@ async function performStressTest(portfolio: any) {
   };
 }
 
-async function analyzeImpermanentLossRisk(portfolio: any, protocols: any[]) {
+async function analyzeImpermanentLossRisk(_portfolio: Record<string, unknown>, protocols: Record<string, unknown>[]) {
   const ilAnalysis = [];
   
   for (const protocol of protocols) {
-    if (protocol.category === 'dex') {
-      const il = await investmentAlgorithms.predictImpermanentLoss(
-        protocol,
-        ['ETH', 'USDT'], // Example pair
-        0.8 // Historical volatility
-      );
-      ilAnalysis.push(il);
+    // Type guard for DeFi protocol data
+    if (isDeFiProtocolData(protocol) && protocol.category === 'dex') {
+      try {
+        const il = await investmentAlgorithms.predictImpermanentLoss(
+          protocol,
+          ['ETH', 'USDT'], // Example pair
+          0.8 // Historical volatility
+        );
+        ilAnalysis.push(il);
+      } catch (error) {
+        console.warn('Failed to predict IL for protocol:', protocol, error);
+      }
     }
   }
   
   return ilAnalysis;
 }
 
-function calculateBreakEvenTimes(ilAnalysis: any[]) {
-  return ilAnalysis.map(analysis => ({
+function calculateBreakEvenTimes(ilAnalysis: { protocol: string; il_scenarios: { price_change_percentage: number; break_even_days?: number }[] }[]) {
+  return ilAnalysis.map((analysis: { protocol: string; il_scenarios: { price_change_percentage: number; break_even_days?: number }[] }) => ({
     protocol: analysis.protocol,
     break_even_days: analysis.il_scenarios.find(s => s.price_change_percentage === 0)?.break_even_days || 0
   }));
 }
 
-function generateILRecommendations(ilAnalysis: any[]) {
+function generateILRecommendations(_ilAnalysis: Record<string, unknown>[]) {
   return [
     '相関性の高い資産ペアの選択を推奨',
     '手数料収入がILを上回るプールの優先',
@@ -332,25 +374,25 @@ function generateILRecommendations(ilAnalysis: any[]) {
   ];
 }
 
-function calculateOverallScore(optimization: any, risk: any, sentiment: any) {
+function calculateOverallScore(optimization: Record<string, unknown>, risk: Record<string, unknown>, sentiment: Record<string, unknown>) {
   return Math.round(
-    optimization.sharpe_ratio * 30 +
-    (1 - risk.max_drawdown) * 20 +
-    risk.sharpe_ratio * 25 +
-    sentiment.sentiment_score * 0.25
+    (optimization.sharpe_ratio as number) * 30 +
+    (1 - (risk.max_drawdown as number)) * 20 +
+    (risk.sharpe_ratio as number) * 25 +
+    (sentiment.sentiment_score as number) * 0.25
   );
 }
 
 async function generateComprehensiveRecommendations(
-  optimization: any,
-  risk: any,
-  sentiment: any,
-  preferences: any
+  _optimization: Record<string, unknown>,
+  risk: Record<string, unknown>,
+  sentiment: Record<string, unknown>,
+  _preferences: Record<string, unknown>
 ) {
   const recommendations = [];
   
   // Risk-based recommendations
-  if (risk.max_drawdown > 0.25) {
+  if ((risk.max_drawdown as number) > 0.25) {
     recommendations.push({
       type: 'risk_management',
       priority: 'high',
@@ -360,7 +402,7 @@ async function generateComprehensiveRecommendations(
   }
   
   // Sentiment-based recommendations
-  if (sentiment.overall_sentiment === 'extreme_fear') {
+  if ((sentiment.overall_sentiment as string) === 'extreme_fear') {
     recommendations.push({
       type: 'market_timing',
       priority: 'medium',

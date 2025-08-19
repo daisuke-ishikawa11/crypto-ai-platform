@@ -1,0 +1,59 @@
+groups:
+  - name: defi-anomalies
+    rules:
+      - alert: DeFi_TVL_Drop_24h
+        expr: |
+          (defi_pools_ingest_written_total offset 24h) < bool (defi_pools_ingest_written_total)
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "TVL snapshots decreased compared to 24h ago"
+          description: "Possible ingestion/TVL anomaly. Check /api/defi/pools/history and Redis keys."
+
+      - alert: DeFi_API_Errors_Spike
+        expr: |
+          increase(defi_api_errors_total[5m]) > 20
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "DeFi API errors spiking"
+          description: "Errors exceeded threshold in last 5m. Investigate logs and upstream providers."
+
+  - name: defi-ai
+    rules:
+      - alert: DeFiAIEvaluateHighFailureRate
+        expr: |
+          sum(rate(defi_ai_evaluate_requests_total{outcome="failure"}[5m]))
+          /
+          clamp_min(sum(rate(defi_ai_evaluate_requests_total[5m])), 1)
+          > 0.2
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DeFi AI Evaluate failure rate > 20%"
+          description: "AI evaluate failure rate exceeded 20% for 15 minutes. Investigate model or upstream data sources."
+
+      - alert: DeFiAIEvaluateRateLimited
+        expr: sum(rate(defi_ai_evaluate_requests_total{reason="rate_limited"}[5m])) > 0
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "DeFi AI Evaluate rate limited events detected"
+          description: "Users are being rate limited by AI evaluate API. Consider increasing limits or investigating abuse."
+
+      - alert: DeFiAIEvaluateLowSuccessRate
+        expr: |
+          sum(rate(defi_ai_evaluate_requests_total{outcome="success"}[15m]))
+          /
+          clamp_min(sum(rate(defi_ai_evaluate_requests_total[15m])), 1)
+          < 0.75
+        for: 20m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DeFi AI Evaluate success rate < 75%"
+          description: "Success rate stayed below 75% (15m window). Investigate model availability or input quality."

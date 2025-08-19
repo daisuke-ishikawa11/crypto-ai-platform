@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { User } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

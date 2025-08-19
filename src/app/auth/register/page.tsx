@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import * as React from "react"
+import { useState } from 'react'
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
@@ -15,7 +16,6 @@ import { HomeButton } from "@/components/ui/home-button"
 import { 
   Sparkles, 
   Shield, 
-  Users, 
   Star, 
   TrendingUp, 
   Brain,
@@ -25,8 +25,7 @@ import {
   ArrowRight,
   Zap,
   Award,
-  Lock,
-  Home
+  Lock
 } from "lucide-react"
 
 export default function RegisterPage() {
@@ -271,7 +270,7 @@ export default function RegisterPage() {
                           <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
                         ))}
                       </div>
-                      <p className="text-sm text-white/80 mb-2">"{testimonial.comment}"</p>
+                      <p className="text-sm text-white/80 mb-2">&quot;{testimonial.comment}&quot;</p>
                       <p className="text-xs text-white/60">{testimonial.name} - {testimonial.role}</p>
                     </motion.div>
                   ))}
@@ -448,8 +447,6 @@ export default function RegisterPage() {
                       type="submit"
                       disabled={loading || !agreedToTerms}
                       className="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
                     >
                       {loading ? (
                         <span className="flex items-center gap-2">

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crypto-ai-production
+  labels:
+    name: crypto-ai-production
+    environment: production
+    app: crypto-ai-platform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crypto-ai-staging
+  labels:
+    name: crypto-ai-staging
+    environment: staging
+    app: crypto-ai-platform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crypto-ai-monitoring
+  labels:
+    name: crypto-ai-monitoring
+    environment: shared
+    app: crypto-ai-platform

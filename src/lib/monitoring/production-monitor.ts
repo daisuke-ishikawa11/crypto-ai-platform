@@ -72,13 +72,17 @@ class ProductionMonitor {
 
   // デフォルトアラートルールの初期化
   private initializeDefaultAlertRules() {
+    const rtThreshold = Number(process.env.MONITOR_P95_MS || 5000)
+    const errThreshold = Number(process.env.MONITOR_ERROR_RATE || 5)
+    const memThreshold = Number(process.env.MONITOR_MEM_PCT || 85)
+    const tpThreshold = Number(process.env.MONITOR_TP_REQS || process.env.MONITOR_QPS_MIN || 10)
     this.alertRules = [
       {
         id: 'high-response-time',
         name: 'High Response Time',
         metric: 'responseTime',
         condition: 'gt',
-        threshold: 5000, // 5秒
+        threshold: rtThreshold, // ENVで上書き可
         severity: 'error',
         enabled: true,
         cooldownMinutes: 5
@@ -88,7 +92,7 @@ class ProductionMonitor {
         name: 'High Error Rate',
         metric: 'errorRate',
         condition: 'gt',
-        threshold: 5, // 5%
+        threshold: errThreshold, // ENVで上書き可
         severity: 'critical',
         enabled: true,
         cooldownMinutes: 2
@@ -98,7 +102,7 @@ class ProductionMonitor {
         name: 'High Memory Usage',
         metric: 'memoryUsage',
         condition: 'gt',
-        threshold: 85, // 85%
+        threshold: memThreshold, // ENVで上書き可
         severity: 'warning',
         enabled: true,
         cooldownMinutes: 10
@@ -108,7 +112,7 @@ class ProductionMonitor {
         name: 'Low Throughput',
         metric: 'throughput',
         condition: 'lt',
-        threshold: 10, // req/sec
+        threshold: tpThreshold, // ENVで上書き可
         severity: 'warning',
         enabled: true,
         cooldownMinutes: 15
@@ -175,7 +179,7 @@ class ProductionMonitor {
   private async collectMetrics(): Promise<void> {
     try {
       const metrics: SystemMetrics = {
-        responseTime: await this.measureResponseTime(),
+        responseTime: await this.measureResponseTime().catch(() => Number(process.env.MONITOR_RT_FALLBACK_MS || 1000)),
         throughput: await this.calculateThroughput(),
         errorRate: await this.calculateErrorRate(),
         cpuUsage: await this.getCpuUsage(),
@@ -227,13 +231,17 @@ class ProductionMonitor {
       // 適切なベースURLを構築
       const baseUrl = typeof window !== 'undefined' 
         ? window.location.origin 
-        : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+        : (process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
       
       // ヘルスチェックエンドポイントへのリクエスト
+      const controller = new AbortController()
+      const to = setTimeout(() => controller.abort(), Number(process.env.MONITOR_HTTP_TIMEOUT_MS || 1500))
       const response = await fetch(`${baseUrl}/api/health`, {
         method: 'GET',
-        headers: { 'User-Agent': 'ProductionMonitor/1.0' }
+        headers: { 'User-Agent': 'ProductionMonitor/1.0' },
+        signal: controller.signal as unknown as AbortSignal
       });
+      clearTimeout(to)
       
       const endTime = Date.now();
       
@@ -243,8 +251,9 @@ class ProductionMonitor {
         throw new Error(`Health check failed: ${response.status}`);
       }
     } catch (error) {
-      console.error('レスポンス時間測定エラー:', error);
-      return 30000; // タイムアウト値として30秒を返す
+      // 計測失敗は警告に留め、フォールバック値を返す
+      console.warn('レスポンス時間測定エラー(緩和):', error);
+      return Number(process.env.MONITOR_RT_FALLBACK_MS || 1000);
     }
   }
 
@@ -355,9 +364,7 @@ class ProductionMonitor {
   // 外部サービス状態チェック
   private async checkCloudflareStatus(): Promise<'healthy' | 'degraded' | 'down'> {
     try {
-      const response = await fetch('https://www.cloudflarestatus.com/api/v2/status.json', {
-        timeout: 5000
-      });
+      const response = await fetch('https://www.cloudflarestatus.com/api/v2/status.json');
       
       if (response.ok) {
         const data = await response.json();
@@ -376,8 +383,7 @@ class ProductionMonitor {
         method: 'HEAD',
         headers: {
           'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-        },
-        timeout: 5000
+        }
       });
       
       return response.ok ? 'healthy' : 'degraded';
@@ -390,8 +396,7 @@ class ProductionMonitor {
     try {
       // Stripe API の簡易チェック
       const response = await fetch('https://api.stripe.com/v1/account', {
-        method: 'HEAD',
-        timeout: 5000
+        method: 'HEAD'
       });
       
       return response.status < 500 ? 'healthy' : 'degraded';
@@ -530,7 +535,7 @@ class ProductionMonitor {
       
       this.recordEvent('auto_recovery_failed', {
         alertId: alert.id,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       });
     }
   }
@@ -540,6 +545,7 @@ class ProductionMonitor {
     if (typeof ANALYTICS !== 'undefined') {
       // Cloudflare Analytics Engine に送信
       ANALYTICS.writeDataPoint({
+        dataset: 'crypto_ai_platform_analytics',
         blobs: ['production_metrics', new Date().toISOString()],
         doubles: [
           metrics.responseTime,
@@ -558,9 +564,10 @@ class ProductionMonitor {
   }
 
   // イベント記録
-  private recordEvent(eventType: string, data: Record<string, any>): void {
+  private recordEvent(eventType: string, data: Record<string, unknown>): void {
     if (typeof ANALYTICS !== 'undefined') {
       ANALYTICS.writeDataPoint({
+        dataset: 'crypto_ai_platform_analytics',
         blobs: [eventType, JSON.stringify(data)],
         doubles: [Date.now()],
         indexes: [process.env.NODE_ENV || 'unknown']

@@ -2,10 +2,10 @@
 // ユーザーの最新トリガーアラート一覧を提供
 
 import { NextRequest, NextResponse } from 'next/server';
-import { withApiHandler, ApiContext, parsePaginationParams, parseSortParams } from '@/lib/auth/middleware';
-import { AlertType, AlertSeverity } from '@/lib/alerts/types';
+import { withApiHandler, ApiContext } from '@/lib/auth/middleware';
 import { logger } from '@/lib/monitoring/logger';
 import { z } from 'zod';
+import { getSupaQuery, type MinimalSupaQuery, safeOrderAndRange } from '@/lib/supabase/helpers'
 
 // クエリパラメータ検証スキーマ
 const querySchema = z.object({
@@ -30,7 +30,7 @@ interface RecentAlert {
   currentValue?: number;
   previousValue?: number;
   changePercent?: number;
-  details?: any;
+  details?: unknown;
 }
 
 interface RecentAlertsResponse {
@@ -79,8 +79,8 @@ async function getRecentAlerts(
     // 時間範囲の計算
     const timeFilter = getTimeFilter(timeframe);
     
-    // ベースクエリの構築
-    let query = supabase
+    // ベースクエリの構築（型安全）
+    const baseQuery = supabase
       .from('triggered_alerts')
       .select(`
         id,
@@ -103,7 +103,11 @@ async function getRecentAlerts(
       `)
       .eq('user_id', user.id)
       .gte('triggered_at', timeFilter)
-      .order('triggered_at', { ascending: false });
+    const q0 = getSupaQuery(baseQuery)
+    if (!q0) {
+      return NextResponse.json({ alerts: [], pagination: { total: 0, page: Math.floor(offset / limit) + 1, limit, hasMore: false }, summary: { total: 0, critical: 0, warning: 0, info: 0, acknowledged: 0, unacknowledged: 0 } })
+    }
+    let query: MinimalSupaQuery = q0
 
     // フィルター条件の適用
     if (severity) {
@@ -128,28 +132,34 @@ async function getRecentAlerts(
       .select('*', { count: 'exact', head: true })
       .eq('user_id', user.id);
 
-    // ページネーション適用してデータ取得
-    const { data: alertsData, error } = await query
-      .range(offset, offset + limit - 1);
+    // ページネーション適用してデータ取得（安全）
+    const { data: alertsData, error } = await safeOrderAndRange(query, 'triggered_at', false, offset, offset + limit - 1)
 
     if (error) {
       throw new Error(`Failed to fetch alerts: ${error.message}`);
     }
 
     // データの変換
-    const alerts: RecentAlert[] = alertsData?.map((alert: any) => ({
-      id: alert.id,
-      type: alert.type,
-      symbol: alert.alert_conditions.symbol,
-      message: alert.message,
-      severity: alert.severity,
-      triggeredAt: new Date(alert.triggered_at),
-      acknowledged: alert.acknowledged,
-      currentValue: alert.current_value,
-      previousValue: alert.previous_value,
-      changePercent: alert.change_percent,
-      details: alert.details
-    })) || [];
+    const alerts: RecentAlert[] = alertsData?.map((alert: unknown) => {
+      const alertObj = alert as Record<string, unknown>;
+      const alertConditions = typeof alertObj.alert_conditions === 'object' && alertObj.alert_conditions !== null ? 
+        alertObj.alert_conditions as Record<string, unknown> : {};
+      
+      return {
+        id: typeof alertObj.id === 'string' ? alertObj.id : '',
+        type: typeof alertObj.type === 'string' ? alertObj.type : '',
+        symbol: typeof alertConditions.symbol === 'string' ? alertConditions.symbol : '',
+        message: typeof alertObj.message === 'string' ? alertObj.message : '',
+        severity: typeof alertObj.severity === 'string' && ['critical', 'warning', 'info'].includes(alertObj.severity) ? 
+          alertObj.severity as 'critical' | 'warning' | 'info' : 'info',
+        triggeredAt: typeof alertObj.triggered_at === 'string' ? new Date(alertObj.triggered_at) : new Date(),
+        acknowledged: typeof alertObj.acknowledged === 'boolean' ? alertObj.acknowledged : false,
+        currentValue: typeof alertObj.current_value === 'number' ? alertObj.current_value : 0,
+        previousValue: typeof alertObj.previous_value === 'number' ? alertObj.previous_value : 0,
+        changePercent: typeof alertObj.change_percent === 'number' ? alertObj.change_percent : 0,
+        details: alertObj.details || {}
+      };
+    }) || [];
 
     // 統計情報の取得
     const summary = await getAlertsSummary(user.id, supabase, timeFilter);
@@ -189,11 +199,23 @@ async function getRecentAlerts(
 /**
  * アラート統計情報を取得
  */
-async function getAlertsSummary(userId: string, supabase: any, timeFilter: string) {
+async function getAlertsSummary(userId: string, supabase: unknown, timeFilter: string) {
   try {
+    // Type guard for supabase client
+    if (!supabase || typeof supabase !== 'object' || !('from' in supabase)) {
+      throw new Error('Invalid Supabase client');
+    }
+    
+    const supabaseClient = supabase as Record<string, unknown> & { from: (table: string) => unknown };
+    
     // 基本統計
-    const { data: summaryData } = await supabase
-      .from('triggered_alerts')
+    const { data: summaryData } = await (supabaseClient.from('triggered_alerts') as Record<string, unknown> & {
+      select: (fields: string) => Record<string, unknown> & {
+        eq: (field: string, value: string) => Record<string, unknown> & {
+          gte: (field: string, value: string) => Promise<{ data?: unknown[] }>
+        }
+      }
+    })
       .select('severity, acknowledged')
       .eq('user_id', userId)
       .gte('triggered_at', timeFilter);
@@ -207,14 +229,12 @@ async function getAlertsSummary(userId: string, supabase: any, timeFilter: strin
       unacknowledged: 0
     };
 
-    summaryData?.forEach((alert: any) => {
-      // 重要度別集計
-      if (alert.severity === 'critical') summary.critical++;
-      else if (alert.severity === 'warning') summary.warning++;
-      else if (alert.severity === 'info') summary.info++;
-
-      // 確認状態別集計
-      if (alert.acknowledged) summary.acknowledged++;
+    summaryData?.forEach((a) => {
+      const alertObj = a as { severity?: string; acknowledged?: boolean };
+      if (alertObj.severity === 'critical') summary.critical++;
+      else if (alertObj.severity === 'warning') summary.warning++;
+      else if (alertObj.severity === 'info') summary.info++;
+      if (alertObj.acknowledged === true) summary.acknowledged++;
       else summary.unacknowledged++;
     });
 
@@ -345,16 +365,21 @@ export const POST = withApiHandler(acknowledgeAlert, {
     acknowledgeAll: z.boolean().optional()
   }).refine(data => data.alertId || data.acknowledgeAll, {
     message: "Either alertId or acknowledgeAll must be provided"
-  })
+  }),
+  requireCSRF: true
 });
 
 export const OPTIONS = async () => {
+  const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+  const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
   return new NextResponse(null, { 
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowOrigin,
+      'Vary': 'Origin',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
     }
   });
 };

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./global.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
 // import { PerformanceMonitor } from "@/lib/performance/web-vitals";
 // import { AccessibilityButton } from "@/components/accessibility/accessibility-button";
 // import { AutoSkipLinks, ensureLandmarkIds } from "@/components/accessibility/skip-links";
@@ -72,7 +72,7 @@ export default function RootLayout({
         {children}
         
         {/* Vercel Speed Insights */}
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

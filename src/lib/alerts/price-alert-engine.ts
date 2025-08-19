@@ -27,7 +27,7 @@ export interface TriggerResult {
   triggered: boolean;
   alert?: TriggeredAlert;
   reason?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export class PriceAlertEngine {

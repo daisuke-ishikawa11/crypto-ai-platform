@@ -39,10 +39,78 @@ export interface RealtimeOrderBookData {
 
 export type RealtimeDataType = 'price' | 'ticker' | 'trade' | 'orderbook'
 
+// Raw data interfaces for different providers
+interface BinanceStreamData {
+  c?: string  // close price
+  o?: string  // open price
+  h?: string  // high price
+  l?: string  // low price
+  v?: string  // volume
+  n?: string  // count
+  p?: string  // price (trade)
+  q?: string  // quantity
+  m?: boolean // is buyer maker
+  b?: [string, string][] // bids
+  a?: [string, string][] // asks
+  [key: string]: unknown
+}
+
+interface CoinbaseMessage {
+  type?: string
+  product_id?: string
+  price?: string
+  open_24h?: string
+  high_24h?: string
+  low_24h?: string
+  volume_24h?: string
+  trade_count?: string
+  size?: string
+  side?: string
+  bids?: [string, string][]
+  asks?: [string, string][]
+  [key: string]: unknown
+}
+
+interface TickerRawData {
+  c?: string  // close/current price
+  price?: string
+  o?: string  // open price
+  open_24h?: string
+  h?: string  // high price
+  high_24h?: string
+  l?: string  // low price
+  low_24h?: string
+  v?: string  // volume
+  volume_24h?: string
+  n?: string  // trade count
+  trade_count?: string
+  [key: string]: unknown
+}
+
+interface TradeRawData {
+  p?: string  // price
+  price?: string
+  q?: string  // quantity
+  size?: string
+  m?: boolean // is buyer maker
+  side?: string
+  [key: string]: unknown
+}
+
+interface OrderBookRawData {
+  b?: [string, string][] // bids
+  bids?: [string, string][]
+  a?: [string, string][] // asks
+  asks?: [string, string][]
+  [key: string]: unknown
+}
+
+export type RealtimeCallbackData = RealtimePrice | RealtimeTickerData | RealtimeTradeData | RealtimeOrderBookData
+
 export interface RealtimeDataSubscription {
   type: RealtimeDataType
   symbol: string
-  callback: (data: any) => void
+  callback: (data: RealtimeCallbackData) => void
 }
 
 export class RealtimeMarketData {
@@ -92,12 +160,13 @@ export class RealtimeMarketData {
       }
 
       this.ws.onerror = (error) => {
-        logger.error('WebSocket error', { error })
+        const errMsg = (error && typeof (error as Event).type === 'string') ? `WebSocketEvent:${(error as Event).type}` : String(error)
+        logger.error('WebSocket error', { error: errMsg })
         this.isConnecting = false
       }
 
     } catch (error) {
-      logger.error('Failed to create WebSocket connection', { error })
+      logger.error('Failed to create WebSocket connection', { error: error instanceof Error ? error.message : String(error) })
       this.isConnecting = false
       this.scheduleReconnect()
     }
@@ -117,11 +186,11 @@ export class RealtimeMarketData {
       
       this.lastHeartbeat = Date.now()
     } catch (error) {
-      logger.error('Failed to parse WebSocket message', { error, data })
+      logger.error('Failed to parse WebSocket message', { error: error instanceof Error ? error.message : String(error), data })
     }
   }
 
-  private processBinanceMessage(stream: string, data: any): void {
+  private processBinanceMessage(stream: string, data: BinanceStreamData): void {
     const streamParts = stream.split('@')
     if (streamParts.length < 2) return
 
@@ -137,30 +206,36 @@ export class RealtimeMarketData {
     }
   }
 
-  private processCoinbaseMessage(message: any): void {
-    const symbol = message.product_id?.replace('-', '')
+  private processCoinbaseMessage(message: CoinbaseMessage): void {
+    const symbol = (message.product_id || '').replace('-', '')
     
     switch (message.type) {
       case 'ticker':
-        this.handleTickerData(symbol, message)
+        if (symbol) this.handleTickerData(symbol, message as TickerRawData)
         break
       case 'match':
-        this.handleTradeData(symbol, message)
+        if (symbol) this.handleTradeData(symbol, message as TradeRawData)
         break
       case 'l2update':
-        this.handleOrderBookData(symbol, message)
+        if (symbol) {
+          const ob: OrderBookRawData = {
+            b: Array.isArray(message.bids) ? message.bids : undefined,
+            a: Array.isArray(message.asks) ? message.asks : undefined,
+          }
+          this.handleOrderBookData(symbol, ob)
+        }
         break
     }
   }
 
-  private handleTickerData(symbol: string, data: any): void {
+  private handleTickerData(symbol: string, data: TickerRawData): void {
     const tickerData: RealtimeTickerData = {
       symbol,
-      price: parseFloat(data.c || data.price),
-      open: parseFloat(data.o || data.open_24h),
-      high: parseFloat(data.h || data.high_24h),
-      low: parseFloat(data.l || data.low_24h),
-      volume: parseFloat(data.v || data.volume_24h),
+      price: parseFloat((data.c ?? data.price ?? '0') as string),
+      open: parseFloat((data.o ?? data.open_24h ?? '0') as string),
+      high: parseFloat((data.h ?? data.high_24h ?? '0') as string),
+      low: parseFloat((data.l ?? data.low_24h ?? '0') as string),
+      volume: parseFloat((data.v ?? data.volume_24h ?? '0') as string),
       count: parseInt(data.n || data.trade_count || '0'),
       timestamp: Date.now()
     }
@@ -168,11 +243,11 @@ export class RealtimeMarketData {
     this.notifySubscribers('ticker', symbol, tickerData)
   }
 
-  private handleTradeData(symbol: string, data: any): void {
+  private handleTradeData(symbol: string, data: TradeRawData): void {
     const tradeData: RealtimeTradeData = {
       symbol,
-      price: parseFloat(data.p || data.price),
-      quantity: parseFloat(data.q || data.size),
+      price: parseFloat((data.p ?? data.price ?? '0') as string),
+      quantity: parseFloat((data.q ?? data.size ?? '0') as string),
       timestamp: Date.now(),
       isBuyerMaker: data.m || data.side === 'sell'
     }
@@ -180,18 +255,24 @@ export class RealtimeMarketData {
     this.notifySubscribers('trade', symbol, tradeData)
   }
 
-  private handleOrderBookData(symbol: string, data: any): void {
+  private handleOrderBookData(symbol: string, data: OrderBookRawData): void {
     const orderBookData: RealtimeOrderBookData = {
       symbol,
-      bids: (data.b || data.bids || []).map((bid: any) => [parseFloat(bid[0]), parseFloat(bid[1])]),
-      asks: (data.a || data.asks || []).map((ask: any) => [parseFloat(ask[0]), parseFloat(ask[1])]),
+      bids: (data.b || data.bids || []).map((bid: [string, string] | number[]) => [
+        parseFloat(typeof bid[0] === 'string' ? bid[0] : String(bid[0])), 
+        parseFloat(typeof bid[1] === 'string' ? bid[1] : String(bid[1]))
+      ]),
+      asks: (data.a || data.asks || []).map((ask: [string, string] | number[]) => [
+        parseFloat(typeof ask[0] === 'string' ? ask[0] : String(ask[0])), 
+        parseFloat(typeof ask[1] === 'string' ? ask[1] : String(ask[1]))
+      ]),
       timestamp: Date.now()
     }
 
     this.notifySubscribers('orderbook', symbol, orderBookData)
   }
 
-  private notifySubscribers(type: RealtimeDataType, symbol: string, data: any): void {
+  private notifySubscribers(type: RealtimeDataType, symbol: string, data: RealtimeCallbackData): void {
     const subscriptionKey = `${type}:${symbol}`
     const subscription = this.subscriptions.get(subscriptionKey)
     
@@ -199,12 +280,12 @@ export class RealtimeMarketData {
       try {
         subscription.callback(data)
       } catch (error) {
-        logger.error('Error in subscription callback', { error, type, symbol })
+        logger.error('Error in subscription callback', { error: error instanceof Error ? error.message : String(error), type, symbol })
       }
     }
   }
 
-  subscribe(type: RealtimeDataType, symbol: string, callback: (data: any) => void): string {
+  subscribe(type: RealtimeDataType, symbol: string, callback: (data: RealtimeCallbackData) => void): string {
     const subscriptionKey = `${type}:${symbol}`
     
     this.subscriptions.set(subscriptionKey, {
@@ -284,6 +365,7 @@ export class RealtimeMarketData {
   }
 
   private startHeartbeat(): void {
+    if (process.env.NODE_ENV === 'test') return
     this.heartbeatInterval = setInterval(() => {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ method: 'ping' }))
@@ -296,6 +378,7 @@ export class RealtimeMarketData {
         this.connect()
       }
     }, 30000) // 30秒ごと
+    ;(this.heartbeatInterval as { unref?: () => void }).unref?.()
   }
 
   private stopHeartbeat(): void {
@@ -319,7 +402,13 @@ export class RealtimeMarketData {
       delay: delay
     })
 
-    setTimeout(() => {
+      const schedule = (cb: () => void, ms: number): void => {
+        if (process.env.NODE_ENV === 'test') return
+        const timeout = setTimeout(cb, ms)
+        ;(timeout as { unref?: () => void }).unref?.()
+      }
+
+    schedule(() => {
       this.connect()
     }, delay)
   }

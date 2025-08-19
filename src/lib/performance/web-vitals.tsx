@@ -1,9 +1,8 @@
-// 🚀 Web Vitals パフォーマンス監視
-// Core Web Vitals とユーザーエクスペリエンス指標を監視
-
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import * as React from "react"
+import { useCallback, useEffect } from 'react'
+import { apiFetch } from '@/lib/api/fetcher';
 
 // Web Vitals 型定義
 interface WebVitalsMetric {
@@ -60,7 +59,7 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
 
     // 独自の分析エンドポイントに送信
     if (typeof fetch !== 'undefined') {
-      fetch('/api/analytics/web-vitals', {
+      apiFetch('/api/analytics/web-vitals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,29 +82,48 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
 
 // Web Vitals フック
 export function useWebVitals() {
-  const onPerfEntry = useCallback((metric: WebVitalsMetric) => {
-    // 評価を追加
+  const onPerfEntry = React.useCallback((metric: WebVitalsMetric) => {
     const rating = getRating(metric.name, metric.value);
     const enhancedMetric = { ...metric, rating };
-    
     sendToAnalytics(enhancedMetric);
   }, []);
 
-  useEffect(() => {
-    // 動的インポートで Web Vitals を読み込み
-    import('web-vitals').then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
-      onCLS(onPerfEntry);
-      onFID(onPerfEntry);
-      onFCP(onPerfEntry);
-      onLCP(onPerfEntry);
-      onTTFB(onPerfEntry);
+  function convertMetric(m: unknown): WebVitalsMetric | null {
+    if (!m || typeof m !== 'object') return null;
+    const obj = m as Record<string, unknown>;
+    const name = typeof obj.name === 'string' ? obj.name : 'metric';
+    const value = typeof obj.value === 'number' ? obj.value : 0;
+    const delta = typeof obj.delta === 'number' ? obj.delta : 0;
+    const id = typeof obj.id === 'string' ? obj.id : 'unknown';
+    const nt = typeof obj.navigationType === 'string' ? obj.navigationType : 'navigate';
+    const navigationType = (nt === 'reload' || nt === 'navigate' || nt === 'back_forward' || nt === 'prerender') ? nt : 'navigate';
+    return { name, value, delta, id, navigationType, rating: 'good' };
+  }
+
+  React.useEffect(() => {
+    import('web-vitals').then((mod: unknown) => {
+      const api = mod as Record<string, unknown>;
+      const onCLS = api.onCLS as (cb: (m: unknown) => void) => void;
+      const onFID = api.onFID as (cb: (m: unknown) => void) => void;
+      const onFCP = api.onFCP as (cb: (m: unknown) => void) => void;
+      const onLCP = api.onLCP as (cb: (m: unknown) => void) => void;
+      const onTTFB = api.onTTFB as (cb: (m: unknown) => void) => void;
+      const handler = (m: unknown) => {
+        const converted = convertMetric(m);
+        if (converted) onPerfEntry(converted);
+      };
+      onCLS(handler);
+      onFID(handler);
+      onFCP(handler);
+      onLCP(handler);
+      onTTFB(handler);
     });
   }, [onPerfEntry]);
 }
 
 // カスタムパフォーマンス監視
 export function useCustomPerformanceMonitor() {
-  useEffect(() => {
+  React.useEffect(() => {
     // ページロード時間を測定
     const measurePageLoad = () => {
       if (typeof window !== 'undefined' && 'performance' in window) {
@@ -128,7 +146,7 @@ export function useCustomPerformanceMonitor() {
             // Load event time
             loadTime: navigation.loadEventEnd - navigation.loadEventStart,
             // Total page load time
-            totalTime: navigation.loadEventEnd - navigation.navigationStart,
+            totalTime: navigation.loadEventEnd - getNavStart(navigation),
           };
 
           // 開発環境でログ出力
@@ -138,12 +156,12 @@ export function useCustomPerformanceMonitor() {
 
           // 分析サービスに送信
           if (process.env.NODE_ENV === 'production') {
-            fetch('/api/analytics/page-performance', {
+            apiFetch('/api/analytics/page-performance', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
+             body: JSON.stringify({
                 ...metrics,
                 url: window.location.href,
                 userAgent: navigator.userAgent,
@@ -165,20 +183,20 @@ export function useCustomPerformanceMonitor() {
   }, []);
 
   // リソース監視
-  useEffect(() => {
+  React.useEffect(() => {
     const observeResources = () => {
       if ('PerformanceObserver' in window) {
         const observer = new PerformanceObserver((list) => {
           const entries = list.getEntries();
-          
           entries.forEach((entry) => {
-            // 大きなリソースを警告
-            if (entry.transferSize && entry.transferSize > 1000000) { // 1MB以上
-              console.warn(`🚨 大きなリソース検出: ${entry.name} (${Math.round(entry.transferSize / 1024)}KB)`);
+            const res = entry as PerformanceResourceTiming;
+            if (typeof (res as { transferSize?: number }).transferSize === 'number') {
+              const size = (res as { transferSize: number }).transferSize;
+              if (size > 1_000_000) {
+                console.warn(`🚨 大きなリソース検出: ${entry.name} (${Math.round(size / 1024)}KB)`);
+              }
             }
-            
-            // 遅いリソースを警告
-            if (entry.duration > 3000) { // 3秒以上
+            if (entry.duration > 3000) {
               console.warn(`🐌 遅いリソース検出: ${entry.name} (${Math.round(entry.duration)}ms)`);
             }
           });
@@ -200,11 +218,11 @@ export function PerformanceMonitor({ children }: { children: React.ReactNode }) 
   useCustomPerformanceMonitor();
 
   // メモリ使用量監視
-  useEffect(() => {
+  React.useEffect(() => {
     const checkMemoryUsage = () => {
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        const usedPercent = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
+        const memory = (performance as { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+        const usedPercent = memory ? (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 : 0;
         
         if (usedPercent > 80) {
           console.warn(`🚨 メモリ使用量が高い: ${Math.round(usedPercent)}%`);
@@ -223,7 +241,7 @@ export function PerformanceMonitor({ children }: { children: React.ReactNode }) 
   }, []);
 
   // FPS監視
-  useEffect(() => {
+  React.useEffect(() => {
     let frameCount = 0;
     let lastTime = performance.now();
     
@@ -262,16 +280,16 @@ export function generatePerformanceReport() {
 
   const report = {
     // 基本メトリック
-    pageLoadTime: navigation ? navigation.loadEventEnd - navigation.navigationStart : 0,
-    domContentLoaded: navigation ? navigation.domContentLoadedEventEnd - navigation.navigationStart : 0,
+    pageLoadTime: navigation ? navigation.loadEventEnd - getNavStart(navigation) : 0,
+    domContentLoaded: navigation ? navigation.domContentLoadedEventEnd - getNavStart(navigation) : 0,
     firstPaint: paint.find(p => p.name === 'first-paint')?.startTime || 0,
     firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0,
     
     // リソース統計
     resourceCount: resources.length,
-    totalResourceSize: resources.reduce((sum, resource) => sum + (resource.transferSize || 0), 0),
+    totalResourceSize: resources.reduce((sum, resource) => sum + ((resource as PerformanceResourceTiming).transferSize || 0), 0),
     largestResource: resources.reduce((max, resource) => 
-      (resource.transferSize || 0) > (max.transferSize || 0) ? resource : max, resources[0]
+      (((resource as PerformanceResourceTiming).transferSize || 0) > ((max as PerformanceResourceTiming).transferSize || 0) ? resource : max), resources[0]
     ),
     
     // 接続統計
@@ -291,6 +309,11 @@ export function generatePerformanceReport() {
   };
 
   return report;
+}
+
+function getNavStart(navigation: PerformanceNavigationTiming): number {
+  const withStart = navigation as { navigationStart?: number }
+  return typeof withStart.navigationStart === 'number' ? withStart.navigationStart : (navigation.activationStart ?? 0)
 }
 
 // パフォーマンスダッシュボード用データエクスポート

@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -10,7 +11,7 @@ import { getAllPlans, calculateYearlySavings, formatPrice } from '@/lib/pricing/
 import type { Database } from '@/lib/supabase/types'
 import { cn } from '@/lib/utils'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+type UserPlan = Database['public']['Tables']['user_profiles']['Row']['role']
 
 interface PricingSectionProps {
   currentPlan?: UserPlan
@@ -29,7 +30,7 @@ export default function PricingSection({
   showTitle = true,
   showToggle = true
 }: PricingSectionProps) {
-  const [isYearly, setIsYearly] = useState(false)
+  const [isYearly, setIsYearly] = React.useState(false)
   const plans = getAllPlans()
   
   const handleToggle = (checked: boolean) => {

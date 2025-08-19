@@ -1,17 +1,15 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import * as React from "react"
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { useAnalytics } from "@/lib/analytics/use-analytics"
+import { apiFetch } from '@/lib/api/fetcher';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 // import { ScrollArea } from "@/components/ui/scroll-area" // 存在しないため一時的にコメントアウト
-import { Badge } from "@/components/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Loader2, Send, MessageSquare, AlertCircle, Sparkles, Clock, Hash } from "lucide-react"
 
 interface Message {
   id: string
@@ -116,16 +114,16 @@ export default function AIChatPage() {
     const startTime = Date.now()
     
     try {
-      const response = await fetch("/api/ai/chat", {
+      const response = await apiFetch("/api/ai/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
+        body: {
           message: messageContent,
           model: "gpt-3.5-turbo",
           chatId: currentChatId,
-        }),
+        },
       })
       
       const data = await response.json()

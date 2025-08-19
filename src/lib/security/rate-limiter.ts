@@ -162,7 +162,7 @@ export async function checkUserRateLimit(
       userPlan,
       count: entry.count,
       limit: config.limit,
-      action: 'user_rate_limit_block'
+      type: 'user_rate_limit_block'
     });
   }
   
@@ -227,4 +227,66 @@ export function detectSuspiciousActivity(
   }
   
   return { suspicious: false };
+}
+
+// Export rateLimit function for compatibility
+export async function rateLimit(
+  identifier: string, 
+  limit: number = 60, 
+  windowMs: number = 60000
+): Promise<{ blocked: boolean; remaining: number; resetTime: number }> {
+  const key = `rate_limit:${identifier}`;
+  const now = Date.now();
+  
+  let entry = rateLimitStore.get(key);
+  if (!entry || now > entry.resetTime) {
+    entry = { count: 0, resetTime: now + windowMs, windowStart: now };
+    rateLimitStore.set(key, entry);
+  }
+  
+  entry.count++;
+  
+  const blocked = entry.count > limit;
+  const remaining = Math.max(0, limit - entry.count);
+  
+  return {
+    blocked,
+    remaining,
+    resetTime: entry.resetTime
+  };
+}
+
+// RateLimiter class for compatibility
+export class RateLimiter {
+  private static instance: RateLimiter;
+  
+  public static getInstance(): RateLimiter {
+    if (!RateLimiter.instance) {
+      RateLimiter.instance = new RateLimiter();
+    }
+    return RateLimiter.instance;
+  }
+  
+  async isAllowed(identifier: string, limit: number = 60, windowMs: number = 60000): Promise<boolean> {
+    const key = `rate_limit:${identifier}`;
+    const now = Date.now();
+    
+    let entry = rateLimitStore.get(key);
+    if (!entry || now > entry.resetTime) {
+      entry = { count: 0, resetTime: now + windowMs, windowStart: now };
+      rateLimitStore.set(key, entry);
+    }
+    
+    entry.count++;
+    
+    return entry.count <= limit;
+  }
+  
+  async checkUserRateLimit(userId: string, action: string, userPlan: string = 'free'): Promise<RateLimitResult> {
+    return checkUserRateLimit(userId, action, userPlan);
+  }
+  
+  detectSuspiciousActivity(ip: string, userAgent: string, pathname: string): { suspicious: boolean; reason?: string } {
+    return detectSuspiciousActivity(ip, userAgent, pathname);
+  }
 }

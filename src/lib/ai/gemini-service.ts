@@ -35,7 +35,7 @@ interface MarketAnalysisResponse {
         confidence: number;
         reasoning: string;
       }>;
-      indicators: Record<string, any>;
+      indicators: Record<string, unknown>;
     };
     fundamentalAnalysis: {
       outlook: string;
@@ -124,7 +124,7 @@ interface PortfolioOptimizationResponse {
 
 export class GeminiService {
   private genAI: GoogleGenerativeAI;
-  private model: any;
+  private model: { generateContent: (prompt: string) => Promise<{ response: { text(): string } }> };
 
   constructor() {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -235,7 +235,7 @@ export class GeminiService {
    */
   async analyzeRisk(
     portfolio: Array<{ symbol: string; amount: number; value: number }>,
-    marketConditions: Record<string, any>
+    marketConditions: Record<string, unknown>
   ): Promise<{
     riskScore: number;
     riskFactors: string[];
@@ -267,7 +267,12 @@ export class GeminiService {
       const response = await result.response;
       const text = response.text();
 
-      return this.parseJsonResponse(text);
+      return this.parseJsonResponse<{
+        riskScore: number;
+        riskFactors: string[];
+        recommendations: string[];
+        diversificationAnalysis: string;
+      }>(text);
 
     } catch (error) {
       logger.error('Risk analysis failed', {
@@ -323,7 +328,12 @@ export class GeminiService {
       const response = await result.response;
       const text = response.text();
 
-      return this.parseJsonResponse(text);
+      return this.parseJsonResponse<{
+        overallSentiment: 'positive' | 'negative' | 'neutral';
+        sentimentScore: number;
+        keyEvents: string[];
+        impactAnalysis: Record<string, { sentiment: string; impact: number; reasoning: string }>
+      }>(text);
 
     } catch (error) {
       logger.error('News sentiment analysis failed', {
@@ -507,7 +517,7 @@ export class GeminiService {
   /**
    * 汎用JSONレスポンスパース
    */
-  private parseJsonResponse(text: string): any {
+  private parseJsonResponse<T>(text: string): T {
     try {
       const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/) || text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {

@@ -84,10 +84,12 @@ export async function POST(request: Request) {
         const { symbol, weight } = asset
         
         // 現在価格を取得
-        const priceData = await coinGecko.getCoinPrice(symbol)
+        const simple = await coinGecko.getSimplePrice([symbol], ['usd'])
+        const priceData = { usd: simple?.[symbol]?.usd ?? 0 }
         
         // 履歴データを取得
-        const historicalData = await coinGecko.getCoinHistory(symbol, defaultRiskParams.lookbackPeriod)
+        const marketChart = await coinGecko.getMarketChart(symbol, 'usd', String(defaultRiskParams.lookbackPeriod))
+        const historicalData = (marketChart.prices || []).map(([_, price]) => ({ price }))
         
         if (historicalData.length < 30) {
           logger.warn(`Insufficient historical data for ${symbol}`, {
@@ -97,7 +99,7 @@ export async function POST(request: Request) {
         }
 
         // 価格データとリターンを計算
-        const prices = historicalData.map(d => d.price)
+        const prices = historicalData.map((d: { price: number }) => d.price)
         const returns = []
         for (let i = 1; i < prices.length; i++) {
           returns.push((prices[i] - prices[i-1]) / prices[i-1])
@@ -120,7 +122,8 @@ export async function POST(request: Request) {
         }
 
         // 流動性スコアを計算（出来高と時価総額から）
-        const marketData = await coinGecko.getCoinData(symbol)
+        const coinDetails = await coinGecko.getCoinDetails(symbol)
+        const marketData = { market_data: { total_volume: { usd: coinDetails?.market_data?.total_volume?.usd || 0 } } }
         const liquidityScore = Math.min(1, 
           Math.log(marketData.market_data.total_volume.usd || 1) / Math.log(1000000000) // 10億USDで正規化
         )
@@ -142,7 +145,7 @@ export async function POST(request: Request) {
         assetProfiles.push(assetProfile)
         
         // ポートフォリオ価格の重み付け平均を計算
-        const weightedPrices = prices.map(p => p * weight)
+        const weightedPrices = prices.map((p: number) => p * (weight as number))
         if (portfolioPrices.length === 0) {
           portfolioPrices.push(...weightedPrices)
         } else {
@@ -165,7 +168,7 @@ export async function POST(request: Request) {
     }
 
     // 重みを抽出
-    const weights = portfolio.assets.map((asset: any) => asset.weight)
+    const weights = portfolio.assets.map((asset: { weight: number }) => asset.weight)
 
     // リスク分析を実行
     const riskManager = new RiskManager(defaultRiskParams)

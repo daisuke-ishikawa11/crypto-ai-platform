@@ -176,7 +176,7 @@ class DeFiAIAdvisor {
         temperature: 0.2
       });
 
-      const analysisData = JSON.parse(response.content);
+      const analysisData = JSON.parse(response.content) as Omit<ProtocolAnalysis, 'protocol'>;
 
       return {
         protocol,
@@ -184,8 +184,8 @@ class DeFiAIAdvisor {
       };
 
     } catch (error) {
-      logger.error('Protocol analysis error', { error, protocol: protocol.name });
-      throw new Error(`プロトコル分析に失敗しました: ${error.message}`);
+      logger.error('Protocol analysis error', { error: error instanceof Error ? error.message : String(error), protocol: protocol.name });
+      throw new Error(`プロトコル分析に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -219,8 +219,8 @@ class DeFiAIAdvisor {
       return JSON.parse(response.content);
 
     } catch (error) {
-      logger.error('Yield optimization error', { error });
-      throw new Error(`収益最適化に失敗しました: ${error.message}`);
+      logger.error('Yield optimization error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`収益最適化に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -291,7 +291,7 @@ ${query.context.protocols.map(p =>
     return prompt;
   }
 
-  private buildProtocolAnalysisPrompt(protocol: DeFiProtocol, userContext?: any): string {
+  private buildProtocolAnalysisPrompt(protocol: DeFiProtocol, userContext?: { portfolio?: Portfolio; preferences?: UserPreferences } | undefined): string {
     return `以下のDeFiプロトコルの詳細分析を行ってください：
 
 プロトコル情報:
@@ -308,7 +308,7 @@ ${query.context.protocols.map(p =>
 3. 収益構造の詳細分析
 4. 投資推奨事項
 
-${userContext?.portfolio ? `
+    ${userContext && userContext.portfolio ? `
 ユーザーのポートフォリオ状況も考慮してパーソナライズした分析を含めてください。
 ` : ''}`;
   }

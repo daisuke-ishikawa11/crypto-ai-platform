@@ -46,7 +46,7 @@ export interface PortfolioOptimization {
 export interface ChatResponse {
   message: string;
   type: 'text' | 'analysis' | 'recommendation';
-  data?: any;
+  data?: unknown;
   timestamp: string;
 }
 
@@ -239,7 +239,7 @@ export class MockAIService {
   /**
    * Chat with AI assistant
    */
-  static async chat(message: string, context?: any): Promise<ChatResponse> {
+  static async chat(message: string, context?: unknown): Promise<ChatResponse> {
     await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 1500));
     
     const lowerMessage = message.toLowerCase();

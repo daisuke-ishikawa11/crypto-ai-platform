@@ -3,7 +3,7 @@ import { getUserProfile } from './user-creation'
 import { apiLogger } from '@/lib/monitoring/logger'
 import type { Database } from '@/lib/supabase/types'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+type SubscriptionStatus = Database['public']['Tables']['user_profiles']['Row']['subscription_status']
 
 export interface PlanLimits {
   ai_chats: { daily: number | null; monthly: number | null }
@@ -11,38 +11,19 @@ export interface PlanLimits {
   market_insights: { daily: number | null; monthly: number | null }
 }
 
-export const PLAN_LIMITS: Record<UserPlan, PlanLimits> = {
-  free: {
-    ai_chats: { daily: 5, monthly: 50 },
-    portfolio_analysis: { daily: 1, monthly: 10 },
-    market_insights: { daily: 3, monthly: 30 }
-  },
-  mini: {
-    ai_chats: { daily: 20, monthly: 300 },
-    portfolio_analysis: { daily: 5, monthly: 50 },
-    market_insights: { daily: 10, monthly: 150 }
-  },
-  basic: {
-    ai_chats: { daily: 50, monthly: 1000 },
-    portfolio_analysis: { daily: 10, monthly: 200 },
-    market_insights: { daily: 30, monthly: 500 }
-  },
-  standard: {
-    ai_chats: { daily: 200, monthly: 5000 },
-    portfolio_analysis: { daily: 50, monthly: 1000 },
-    market_insights: { daily: 100, monthly: 2000 }
-  },
-  pro: {
-    ai_chats: { daily: null, monthly: null },
-    portfolio_analysis: { daily: null, monthly: null },
-    market_insights: { daily: null, monthly: null }
-  }
+// subscription_status ベースの利用制限
+export const PLAN_LIMITS: Record<SubscriptionStatus, PlanLimits> = {
+  inactive: { ai_chats: { daily: 5, monthly: 50 }, portfolio_analysis: { daily: 1, monthly: 10 }, market_insights: { daily: 3, monthly: 30 } },
+  trial:    { ai_chats: { daily: 20, monthly: 300 }, portfolio_analysis: { daily: 5, monthly: 50 }, market_insights: { daily: 10, monthly: 150 } },
+  past_due: { ai_chats: { daily: 5, monthly: 50 }, portfolio_analysis: { daily: 1, monthly: 10 }, market_insights: { daily: 3, monthly: 30 } },
+  cancelled:{ ai_chats: { daily: 0, monthly: 0 }, portfolio_analysis: { daily: 0, monthly: 0 }, market_insights: { daily: 0, monthly: 0 } },
+  active:   { ai_chats: { daily: null, monthly: null }, portfolio_analysis: { daily: null, monthly: null }, market_insights: { daily: null, monthly: null } },
 }
 
 export async function checkFeatureAccess(
   userId: string,
   feature: keyof PlanLimits
-): Promise<{ hasAccess: boolean; remainingToday: number | null; remainingMonth: number | null; plan: UserPlan }> {
+): Promise<{ hasAccess: boolean; remainingToday: number | null; remainingMonth: number | null; plan: SubscriptionStatus }> {
   try {
     const supabase = createClientClient()
     
@@ -54,15 +35,15 @@ export async function checkFeatureAccess(
         feature,
         action: 'check_feature_access'
       })
-      return { hasAccess: false, remainingToday: 0, remainingMonth: 0, plan: 'free' }
+      return { hasAccess: false, remainingToday: 0, remainingMonth: 0, plan: 'inactive' }
     }
 
-    const planLimits = PLAN_LIMITS[userProfile.plan as UserPlan]
+    const planLimits = PLAN_LIMITS[userProfile.subscription_status as SubscriptionStatus]
     const featureLimits = planLimits[feature]
 
     // Unlimited access for pro plan
     if (featureLimits.daily === null && featureLimits.monthly === null) {
-      return { hasAccess: true, remainingToday: null, remainingMonth: null, plan: userProfile.plan }
+      return { hasAccess: true, remainingToday: null, remainingMonth: null, plan: userProfile.subscription_status as SubscriptionStatus }
     }
 
     // Get usage data
@@ -101,7 +82,7 @@ export async function checkFeatureAccess(
       hasAccess,
       remainingToday: dailyRemaining,
       remainingMonth: monthlyRemaining,
-      plan: userProfile.plan
+      plan: userProfile.subscription_status as SubscriptionStatus
     }
   } catch (error) {
     apiLogger.error('Error checking feature access', {
@@ -110,7 +91,7 @@ export async function checkFeatureAccess(
       error: error instanceof Error ? error.message : 'Unknown error',
       action: 'check_feature_access'
     })
-    return { hasAccess: false, remainingToday: 0, remainingMonth: 0, plan: 'free' }
+    return { hasAccess: false, remainingToday: 0, remainingMonth: 0, plan: 'inactive' }
   }
 }
 
@@ -192,7 +173,7 @@ export async function getUserUsageSummary(userId: string) {
       .eq('user_id', userId)
       .eq('usage_date', today)
 
-    const planLimits = PLAN_LIMITS[userProfile.plan as UserPlan]
+    const planLimits = PLAN_LIMITS[userProfile.subscription_status as SubscriptionStatus]
     const summary: Record<string, {
       today: { used: number; limit: number | null; remaining: number | null };
       month: { used: number; limit: number | null; remaining: number | null };
@@ -219,10 +200,7 @@ export async function getUserUsageSummary(userId: string) {
       }
     }
 
-    return {
-      plan: userProfile.plan,
-      usage: summary
-    }
+    return { plan: userProfile.subscription_status as SubscriptionStatus, usage: summary }
   } catch (error) {
     apiLogger.error('Error getting usage summary', {
       userId,
@@ -233,13 +211,14 @@ export async function getUserUsageSummary(userId: string) {
   }
 }
 
-export function hasAccessToFeature(userPlan: UserPlan, feature: string): boolean {
-  const planHierarchy: Record<UserPlan, number> = {
-    free: 0,
-    mini: 1,
-    basic: 2,
-    standard: 3,
-    pro: 4
+export function hasAccessToFeature(userPlan: SubscriptionStatus, feature: string): boolean {
+  // inactive < trial < active (cancelled/past_dueは最低)
+  const planHierarchy: Record<SubscriptionStatus, number> = {
+    cancelled: 0,
+    inactive: 0,
+    past_due: 0,
+    trial: 1,
+    active: 2,
   }
 
   const featureRequirements: Record<string, number> = {

@@ -46,6 +46,12 @@ export async function POST(request: Request) {
     // 価格予測を生成
     const prediction = await getPricePrediction(symbol, timeframe, user.id)
     
+    // Type guard for prediction object
+    const predictionObj = typeof prediction === 'object' && prediction !== null ? 
+      prediction as Record<string, unknown> : {};
+    const supportingData = typeof predictionObj.supportingData === 'object' && predictionObj.supportingData !== null ?
+      predictionObj.supportingData as Record<string, unknown> : {};
+
     // 予測結果をデータベースに保存
     const { error: saveError } = await supabase
       .from("ai_predictions")
@@ -53,12 +59,12 @@ export async function POST(request: Request) {
         user_id: user.id,
         symbol,
         timeframe,
-        predicted_price: prediction.prediction,
-        confidence: prediction.confidence,
-        reasoning: prediction.reasoning,
-        supporting_data: prediction.supportingData,
-        model: prediction.supportingData.model,
-        tokens_used: prediction.supportingData.tokensUsed,
+        predicted_price: predictionObj.prediction || 0,
+        confidence: predictionObj.confidence || 0,
+        reasoning: predictionObj.reasoning || '',
+        supporting_data: supportingData,
+        model: typeof supportingData.model === 'string' ? supportingData.model : 'unknown',
+        tokens_used: typeof supportingData.tokensUsed === 'number' ? supportingData.tokensUsed : 0,
       })
       
     if (saveError) {
@@ -69,23 +75,32 @@ export async function POST(request: Request) {
     // コスト計算
     const { calculateCost, estimateTokens } = await import("@/lib/ai/cost-calculator")
     const estimatedInputTokens = estimateTokens(`${symbol} ${timeframe} price prediction`)
+    
+    // Type guard for supportingData access
+    const supportingDataTokens = typeof supportingData.tokensUsed === 'number' ? supportingData.tokensUsed : 100;
+    
     const cost = calculateCost(
       "gpt-3.5-turbo",
       estimatedInputTokens,
-      prediction.supportingData.tokensUsed
+      supportingDataTokens
     )
     
     // 使用量を記録（コスト情報を含む）
-    await recordUsage(user.id, "ai_predictions", prediction.supportingData.tokensUsed, cost, "gpt-3.5-turbo")
+    await recordUsage(user.id, "ai_predictions", supportingDataTokens, cost, "gpt-3.5-turbo")
     
     // 残り使用可能回数を取得
     const updatedUsage = await checkUsageLimit(user.id, "ai_predictions")
     
+    // Type-safe access to prediction properties
+    const predictionResult = typeof predictionObj.prediction === 'number' ? predictionObj.prediction : 0;
+    const confidence = typeof predictionObj.confidence === 'number' ? predictionObj.confidence : 0;
+    const reasoning = typeof predictionObj.reasoning === 'string' ? predictionObj.reasoning : '';
+    
     return NextResponse.json({
-      prediction: prediction.prediction,
-      confidence: prediction.confidence,
-      reasoning: prediction.reasoning,
-      supportingData: prediction.supportingData,
+      prediction: predictionResult,
+      confidence: confidence,
+      reasoning: reasoning,
+      supportingData: supportingData,
       usage: {
         dailyUsed: updatedUsage.dailyUsed,
         dailyLimit: updatedUsage.dailyLimit,

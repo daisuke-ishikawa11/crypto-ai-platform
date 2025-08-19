@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -34,7 +35,7 @@ export default function PlanCard({
   isLoading = false,
   className
 }: PlanCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = React.useState(false)
   
   const IconComponent = iconMap[plan.icon as keyof typeof iconMap] || Sparkles
   const isCurrentPlan = currentPlan === plan.id

@@ -3,14 +3,25 @@
 
 'use client';
 
-import React, { ReactNode, useEffect } from 'react';
-import { useABTest, useUIVariation } from '@/lib/ab-testing/hooks';
+import * as React from "react"
+import { useEffect } from 'react'
+import { useABTest } from '@/lib/ab-testing/hooks';
 import { ABTestVariant } from '@/lib/ab-testing/types';
+
+type VariantConfig = {
+  className?: string
+  style?: React.CSSProperties
+  text?: string
+  props?: Record<string, unknown>
+  layout?: 'grid' | 'list' | 'cards' | 'horizontal' | 'vertical' | 'tabs'
+  showIcons?: boolean
+  [key: string]: unknown
+}
 
 interface ABTestWrapperProps {
   testId: string;
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
   onVariantAssigned?: (variant: ABTestVariant) => void;
   onConversion?: () => void;
   trackImpressions?: boolean;
@@ -52,15 +63,18 @@ export function ABTestWrapper({
   }
 
   // バリアント設定を適用
-  const wrapperProps: any = {};
-  if (variant.config?.className) {
-    wrapperProps.className = `${className || ''} ${variant.config.className}`.trim();
+  const wrapperProps: Record<string, unknown> = {};
+  const cfg = (variant.config ?? {}) as VariantConfig;
+  const classNameFromVariant = cfg.className;
+  if (typeof classNameFromVariant === 'string' && classNameFromVariant.length > 0) {
+    wrapperProps.className = `${className || ''} ${classNameFromVariant}`.trim();
   } else if (className) {
     wrapperProps.className = className;
   }
 
-  if (variant.config?.style) {
-    wrapperProps.style = variant.config.style;
+  const styleFromVariant = cfg.style;
+  if (styleFromVariant && typeof styleFromVariant === 'object') {
+    wrapperProps.style = styleFromVariant as React.CSSProperties;
   }
 
   // コンバージョンハンドラー
@@ -72,9 +86,15 @@ export function ABTestWrapper({
   // 子要素にテスト情報を注入
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
+      interface ABTestProps {
+        abTestVariant?: string
+        abTestConvert?: () => void
+        abTestTrack?: (event: string, properties?: Record<string, unknown>) => void
+      }
+      
+      return React.cloneElement(child as React.ReactElement<ABTestProps>, {
         ...child.props,
-        abTestVariant: variant,
+        abTestVariant: variant.id,
         abTestConvert: handleConversion,
         abTestTrack: track
       });
@@ -88,8 +108,8 @@ export function ABTestWrapper({
 // コンテンツバリエーションラッパー
 interface ContentVariationProps {
   testId: string;
-  variants: Record<string, ReactNode>;
-  defaultContent: ReactNode;
+  variants: Record<string, React.ReactNode>;
+  defaultContent: React.ReactNode;
   trackImpressions?: boolean;
 }
 
@@ -118,8 +138,8 @@ export function ContentVariation({
 interface ButtonVariationProps {
   testId: string;
   onClick: () => void;
-  children: ReactNode;
-  defaultProps?: Record<string, any>;
+  children: React.ReactNode;
+  defaultProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   className?: string;
 }
 
@@ -148,7 +168,7 @@ export function ButtonVariation({
   if (isLoading || !isParticipating || !variant) {
     return (
       <button 
-        {...defaultProps} 
+        {...(defaultProps || {})}
         className={className}
         onClick={handleClick}
       >
@@ -157,15 +177,16 @@ export function ButtonVariation({
     );
   }
 
-  const buttonProps = {
-    ...defaultProps,
-    ...variant.config?.props,
-    className: `${className || ''} ${variant.config?.className || ''}`.trim(),
-    style: { ...defaultProps.style, ...variant.config?.style },
+  const cfg = (variant.config ?? {}) as VariantConfig;
+  const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+    ...(defaultProps || {}),
+    ...((cfg.props as Record<string, unknown>) || {}),
+    className: `${className || ''} ${(cfg.className || '')}`.trim(),
+    style: { ...((defaultProps?.style as React.CSSProperties) || {}), ...((cfg.style as React.CSSProperties) || {}) },
     onClick: handleClick
   };
 
-  const buttonText = variant.config?.text || children;
+  const buttonText = (cfg.text ?? children) as React.ReactNode;
 
   return (
     <button {...buttonProps}>
@@ -177,8 +198,8 @@ export function ButtonVariation({
 // フォームバリエーション
 interface FormVariationProps {
   testId: string;
-  onSubmit: (data: any) => void;
-  children: ReactNode;
+  onSubmit: (data: Record<string, FormDataEntryValue>) => void;
+  children: React.ReactNode;
   className?: string;
 }
 
@@ -222,9 +243,10 @@ export function FormVariation({
     );
   }
 
-  const formProps = {
-    className: `${className || ''} ${variant.config?.className || ''}`.trim(),
-    style: variant.config?.style,
+  const cfg = (variant.config ?? {}) as VariantConfig;
+  const formProps: React.FormHTMLAttributes<HTMLFormElement> = {
+    className: `${className || ''} ${(cfg.className || '')}`.trim(),
+    style: (cfg.style as React.CSSProperties | undefined),
     onSubmit: handleSubmit
   };
 
@@ -249,10 +271,13 @@ export function PriceVariation({
 }: PriceVariationProps) {
   const { variant, isLoading, isParticipating, track, convert } = useABTest(testId);
 
-  const price = variant?.config?.price ?? defaultPrice;
-  const displayCurrency = variant?.config?.currency ?? currency;
-  const discount = variant?.config?.discount;
-  const originalPrice = discount ? price / (1 - discount / 100) : null;
+  const cfg = (variant?.config ?? {}) as { price?: number | string; currency?: string; discount?: number | string };
+  const parsedPrice = Number(cfg.price);
+  const price = Number.isFinite(parsedPrice) ? parsedPrice : defaultPrice;
+  const displayCurrency = typeof cfg.currency === 'string' ? cfg.currency : currency;
+  const parsedDiscount = Number(cfg.discount);
+  const discount: number | undefined = Number.isFinite(parsedDiscount) ? parsedDiscount : undefined;
+  const originalPrice = typeof discount === 'number' ? price / (1 - discount / 100) : null;
 
   const handlePriceClick = () => {
     if (isParticipating) {
@@ -276,7 +301,7 @@ export function PriceVariation({
 
   const priceElement = (
     <div className={`price-variation ${className || ''}`} onClick={handlePriceClick}>
-      {originalPrice && discount && (
+      {typeof originalPrice === 'number' && typeof discount === 'number' && (
         <span className="original-price line-through text-gray-500 mr-2">
           {formatPrice(originalPrice)}
         </span>
@@ -284,7 +309,7 @@ export function PriceVariation({
       <span className="current-price font-bold">
         {formatPrice(price)}
       </span>
-      {discount && (
+      {typeof discount === 'number' && (
         <span className="discount-badge ml-2 bg-red-500 text-white px-2 py-1 rounded text-sm">
           {discount}% OFF
         </span>
@@ -298,7 +323,7 @@ export function PriceVariation({
 // レイアウトバリエーション
 interface LayoutVariationProps {
   testId: string;
-  children: ReactNode;
+  children: React.ReactNode;
   defaultLayout: 'grid' | 'list' | 'cards';
   className?: string;
 }
@@ -311,7 +336,7 @@ export function LayoutVariation({
 }: LayoutVariationProps) {
   const { variant, isLoading, isParticipating, track } = useABTest(testId);
 
-  const layout = variant?.config?.layout ?? defaultLayout;
+  const layout = ((variant?.config as VariantConfig)?.layout) ?? defaultLayout;
 
   useEffect(() => {
     if (isParticipating && variant) {
@@ -402,8 +427,8 @@ export function NavigationVariation({
 interface ConditionalRenderProps {
   testId: string;
   condition: string;
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
 }
 
 export function ConditionalRender({
@@ -418,7 +443,8 @@ export function ConditionalRender({
     return <>{fallback}</>;
   }
 
-  const shouldRender = variant.config?.[condition] ?? false;
+  const flag = (variant.config as Record<string, unknown>)[condition];
+  const shouldRender = typeof flag === 'boolean' ? flag : Boolean(flag);
 
   return shouldRender ? <>{children}</> : <>{fallback}</>;
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -53,12 +54,12 @@ interface Alert {
 }
 
 export function ProductionMonitorDashboard() {
-  const [currentMetrics, setCurrentMetrics] = useState<SystemMetrics | null>(null);
-  const [metricsHistory, setMetricsHistory] = useState<SystemMetrics[]>([]);
-  const [activeAlerts, setActiveAlerts] = useState<Alert[]>([]);
-  const [healthScore, setHealthScore] = useState<number>(100);
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [currentMetrics, setCurrentMetrics] = React.useState<SystemMetrics | null>(null);
+  const [metricsHistory, setMetricsHistory] = React.useState<SystemMetrics[]>([]);
+  const [activeAlerts, setActiveAlerts] = React.useState<Alert[]>([]);
+  const [healthScore, setHealthScore] = React.useState<number>(100);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [lastUpdate, setLastUpdate] = React.useState<Date>(new Date());
 
   // モックデータを生成（実際の実装では API から取得）
   const generateMockMetrics = (): SystemMetrics => ({
@@ -106,7 +107,7 @@ export function ProductionMonitorDashboard() {
     return alerts;
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       
@@ -118,7 +119,7 @@ export function ProductionMonitorDashboard() {
       setActiveAlerts(alerts);
       
       // 履歴データを更新
-      setMetricsHistory(prev => {
+      setMetricsHistory((prev) => {
         const newHistory = [...prev, metrics];
         return newHistory.slice(-60); // 最新60ポイントを保持
       });

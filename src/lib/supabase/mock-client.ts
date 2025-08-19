@@ -1,4 +1,35 @@
 // Mock Supabase client for development
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { PostgrestQueryBuilder } from '@supabase/postgrest-js';
+
+// Define types compatible with real Supabase client
+type SupabaseTable = Record<string, unknown>;
+type SupabaseRelation = Record<string, unknown>;
+
+// Mock QueryBuilder that mimics PostgrestQueryBuilder
+type MockPostgrestQueryBuilder<T = unknown> = {
+  select: (columns?: string) => MockQuery<T>;
+  insert: (data: Partial<T> | Partial<T>[]) => MockQuery<T>;
+  update: (data: Partial<T>) => MockQuery<T>;
+  delete: () => MockQuery<T>;
+  upsert: (data: Partial<T> | Partial<T>[], options?: { onConflict?: string }) => MockQuery<T>;
+  eq: (column: keyof T | string, value: unknown) => MockQuery<T>;
+  gt: (column: keyof T | string, value: unknown) => MockQuery<T>;
+  gte: (column: keyof T | string, value: unknown) => MockQuery<T>;
+  lt: (column: keyof T | string, value: unknown) => MockQuery<T>;
+  lte: (column: keyof T | string, value: unknown) => MockQuery<T>;
+  in: (column: keyof T | string, values: unknown[]) => MockQuery<T>;
+  ilike: (column: keyof T | string, pattern: string) => MockQuery<T>;
+  or: (expr: string) => MockQuery<T>;
+  order: (column: keyof T | string, options?: { ascending?: boolean }) => MockQuery<T>;
+  limit: (count: number) => MockQuery<T>;
+  range: (from: number, to: number) => MockQuery<T>;
+  single: () => Promise<MockQueryResult<T>>;
+  then: <TResult1 = MockQueryResult<T[]>, TResult2 = never>(
+    onfulfilled?: ((value: MockQueryResult<T[]>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | undefined | null
+  ) => Promise<TResult1 | TResult2>;
+};
 export interface MockUser {
   id: string;
   email: string;
@@ -33,7 +64,7 @@ const mockUsers: MockUser[] = [
 
 let currentSession: MockSession | null = null;
 
-export class MockSupabaseClient {
+class MockSupabaseClientClass {
   auth = {
     getUser: async (): Promise<MockAuthResult> => {
       if (currentSession) {
@@ -49,7 +80,7 @@ export class MockSupabaseClient {
     },
 
     signInWithPassword: async (credentials: { email: string; password: string }): Promise<MockAuthResult> => {
-      // Mock authentication - accept any credentials
+      // Mock authentication - accept all credentials for testing
       const user = mockUsers.find(u => u.email === credentials.email) || mockUsers[0];
       
       currentSession = {
@@ -57,13 +88,15 @@ export class MockSupabaseClient {
         refresh_token: 'mock_refresh_token',
         expires_in: 3600,
         user: {
-          ...user,
+          id: user?.id || 'mock_user_id',
+          email: user?.email || 'mock@example.com',
+          created_at: user?.created_at || new Date().toISOString(),
           last_sign_in_at: new Date().toISOString()
         }
       };
 
       return {
-        data: { user: currentSession.user, session: currentSession },
+        data: { user: currentSession?.user || null, session: currentSession },
         error: null
       };
     },
@@ -98,6 +131,7 @@ export class MockSupabaseClient {
 
     onAuthStateChange: (callback: (event: string, session: MockSession | null) => void) => {
       // Mock auth state change listener
+      callback('SIGNED_IN', currentSession);
       return {
         data: { subscription: {} },
         unsubscribe: () => {}
@@ -105,72 +139,123 @@ export class MockSupabaseClient {
     }
   };
 
-  from(table: string) {
-    return new MockTable(table);
+  // Make from method compatible with real Supabase client
+  from<T extends SupabaseTable = SupabaseTable>(
+    relation: string
+  ): MockPostgrestQueryBuilder<T> {
+    // MockQuery は MockPostgrestQueryBuilder と互換のAPIを実装しているため、
+    // 直接インスタンスを返して型キャストを不要化
+    return new MockQuery<T>(relation, 'select');
   }
 }
 
-class MockTable {
-  constructor(private tableName: string) {}
+// 旧 MockTable は未使用になったため削除
 
-  select(columns?: string) {
-    return new MockQuery(this.tableName, 'select', columns);
-  }
-
-  insert(data: any) {
-    return new MockQuery(this.tableName, 'insert', undefined, data);
-  }
-
-  update(data: any) {
-    return new MockQuery(this.tableName, 'update', undefined, data);
-  }
-
-  delete() {
-    return new MockQuery(this.tableName, 'delete');
-  }
+interface MockQueryResult<T = unknown> {
+  data: T | null;
+  error: Error | null;
+  count?: number | null;
+  status: number;
+  statusText: string;
 }
 
-class MockQuery {
+class MockQuery<T = SupabaseTable> {
   constructor(
     private tableName: string,
-    private operation: string,
-    private columns?: string,
-    private data?: any
+    _operation: string,
+    _columns?: string,
+    _data?: Record<string, unknown>
   ) {}
 
-  eq(column: string, value: any) {
+  eq(_column: keyof T | string, _value: unknown): MockQuery<T> {
     return this;
   }
 
-  gt(column: string, value: any) {
+  gt(_column: keyof T | string, _value: unknown): MockQuery<T> {
     return this;
   }
 
-  lt(column: string, value: any) {
+  gte(_column: keyof T | string, _value: unknown): MockQuery<T> {
     return this;
   }
 
-  order(column: string, options?: { ascending?: boolean }) {
+  lt(_column: keyof T | string, _value: unknown): MockQuery<T> {
     return this;
   }
 
-  limit(count: number) {
+  lte(_column: keyof T | string, _value: unknown): MockQuery<T> {
     return this;
   }
 
-  async single() {
-    return this.getMockData();
+  in(_column: keyof T | string, _values: unknown[]): MockQuery<T> {
+    return this;
   }
 
-  async then(callback?: (result: any) => void) {
+  ilike(_column: keyof T | string, _pattern: string): MockQuery<T> {
+    return this;
+  }
+
+  or(_expr: string): MockQuery<T> {
+    return this;
+  }
+
+  order(_column: keyof T | string, _options?: { ascending?: boolean }): MockQuery<T> {
+    return this;
+  }
+
+  limit(_count: number): MockQuery<T> {
+    return this;
+  }
+
+  range(_from: number, _to: number): MockQuery<T> {
+    return this;
+  }
+
+  select(columns?: string): MockQuery<T> {
+    return new MockQuery<T>(this.tableName, 'select', columns);
+  }
+
+  insert(data: Partial<T> | Partial<T>[]): MockQuery<T> {
+    return new MockQuery<T>(this.tableName, 'insert', undefined, data as Record<string, unknown>);
+  }
+
+  update(data: Partial<T>): MockQuery<T> {
+    return new MockQuery<T>(this.tableName, 'update', undefined, data as Record<string, unknown>);
+  }
+
+  delete(): MockQuery<T> {
+    return new MockQuery<T>(this.tableName, 'delete');
+  }
+
+  upsert(data: Partial<T> | Partial<T>[], _options?: { onConflict?: string }): MockQuery<T> {
+    return new MockQuery<T>(this.tableName, 'upsert', undefined, data as Record<string, unknown>);
+  }
+
+  async single(): Promise<MockQueryResult<T>> {
     const result = await this.getMockData();
-    if (callback) {
-      return callback(result);
-    }
-    return result;
+    return {
+      ...result,
+      data: Array.isArray(result.data) && result.data.length > 0 ? result.data[0] as T : null
+    };
   }
 
-  private async getMockData() {
+  async then<TResult1 = MockQueryResult<T[]>, TResult2 = never>(
+    onfulfilled?: ((value: MockQueryResult<T[]>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | undefined | null
+  ): Promise<TResult1 | TResult2> {
+    try {
+      const result = await this.getMockData();
+      const mockResult: MockQueryResult<T[]> = {
+        ...result,
+        data: result.data as T[]
+      };
+      return onfulfilled ? onfulfilled(mockResult) : (mockResult as TResult1);
+    } catch (error) {
+      return onrejected ? onrejected(error) : Promise.reject(error);
+    }
+  }
+
+  private async getMockData(): Promise<{ data: unknown[]; error: null; status: number; statusText: string; }> {
     // Return mock data based on table name
     switch (this.tableName) {
       case 'lessons':
@@ -193,7 +278,9 @@ class MockQuery {
               category_id: 'crypto-basics'
             }
           ],
-          error: null
+          error: null,
+          status: 200,
+          statusText: 'OK'
         };
 
       case 'lesson_categories':
@@ -204,7 +291,9 @@ class MockQuery {
             { id: 'defi', name: 'DeFi', description: '分散型金融' },
             { id: 'advanced', name: '上級投資', description: '高度な投資戦略' }
           ],
-          error: null
+          error: null,
+          status: 200,
+          statusText: 'OK'
         };
 
       case 'user_lesson_progress':
@@ -219,7 +308,9 @@ class MockQuery {
               completed_at: new Date().toISOString()
             }
           ],
-          error: null
+          error: null,
+          status: 200,
+          statusText: 'OK'
         };
 
       case 'market_data':
@@ -244,18 +335,26 @@ class MockQuery {
               updated_at: new Date().toISOString()
             }
           ],
-          error: null
+          error: null,
+          status: 200,
+          statusText: 'OK'
         };
 
       default:
         return {
           data: [],
-          error: null
+          error: null,
+          status: 200,
+          statusText: 'OK'
         };
     }
   }
 }
 
-// Export mock client instance
-export const createClient = () => new MockSupabaseClient();
-export const createServerClient = () => new MockSupabaseClient();
+// Export mock client instance with proper typing
+export const createClient = (): MockSupabaseClientClass => new MockSupabaseClientClass();
+export const createServerClient = (): MockSupabaseClientClass => new MockSupabaseClientClass();
+
+// Export type for compatibility
+export type MockSupabaseClient = MockSupabaseClientClass;
+export type { MockPostgrestQueryBuilder, SupabaseTable, SupabaseRelation };

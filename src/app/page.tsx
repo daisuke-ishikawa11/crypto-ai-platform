@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Cpu, Sparkles, ArrowRight, Menu, BookOpen, Play, Brain, Activity, Bell, BarChart3, Shield, TrendingUp, Volume2, Zap, Bot, Coins } from 'lucide-react';
 
@@ -31,7 +32,7 @@ export default function Home() {
       const scrollTop = window.pageYOffset;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollTop / docHeight;
-      const progressBar = document.querySelector('.fixed.top-0.h-1');
+      const progressBar = document.querySelector('.fixed.top-0.h-1') as HTMLElement | null;
       if (progressBar) {
         progressBar.style.transform = `scaleX(${scrollPercent})`;
       }
@@ -242,7 +243,7 @@ export default function Home() {
                 </Link>
                 <Link href="/demo" className="px-8 py-4 glass rounded-full text-white font-bold text-lg hover:bg-white/20 transition-all inline-flex items-center justify-center gap-3 border border-white/20">
                   <Play className="w-6 h-6" />
-                  3分で見るデモ
+                  インタラクティブデモ
                 </Link>
               </div>
             </div>
@@ -592,3 +593,5 @@ export default function Home() {
     </div>
   );
 }
+
+

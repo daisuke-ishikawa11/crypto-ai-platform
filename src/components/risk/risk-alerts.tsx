@@ -1,16 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RiskAlert } from '@/lib/risk/types';
 import { AlertTriangle, Info, AlertCircle, CheckCircle, X } from 'lucide-react';
 
 export function RiskAlerts() {
-  const [alerts, setAlerts] = useState<RiskAlert[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [alerts, setAlerts] = React.useState<RiskAlert[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchAlerts();
   }, []);
 
@@ -32,7 +33,7 @@ export function RiskAlerts() {
   };
 
   const acknowledgeAlert = (alertId: string) => {
-    setAlerts(alerts.map(alert => 
+    setAlerts(alerts.map((alert: RiskAlert) => 
       alert.id === alertId ? { ...alert, acknowledged: true } : alert
     ));
   };
@@ -76,7 +77,7 @@ export function RiskAlerts() {
     );
   }
 
-  const activeAlerts = alerts.filter(alert => !alert.acknowledged);
+  const activeAlerts = alerts.filter((alert: RiskAlert) => !alert.acknowledged);
 
   return (
     <div className="space-y-6">
@@ -113,7 +114,7 @@ export function RiskAlerts() {
             </div>
           ) : (
             <div className="space-y-3">
-              {activeAlerts.map((alert) => (
+              {activeAlerts.map((alert: RiskAlert) => (
                 <div
                   key={alert.id}
                   className={`p-4 rounded-lg border ${getSeverityColor(alert.severity)}`}
@@ -154,11 +155,11 @@ export function RiskAlerts() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {alerts.filter(a => a.acknowledged).length === 0 ? (
+          {alerts.filter((a: RiskAlert) => a.acknowledged).length === 0 ? (
             <p className="text-sm text-muted-foreground">No acknowledged alerts</p>
           ) : (
             <div className="space-y-2">
-              {alerts.filter(a => a.acknowledged).map((alert) => (
+              {alerts.filter((a: RiskAlert) => a.acknowledged).map((alert: RiskAlert) => (
                 <div key={alert.id} className="flex items-center justify-between py-2 border-b last:border-0">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-4 w-4 text-green-600" />

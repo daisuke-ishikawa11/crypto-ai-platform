@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { CoinGeckoClient } from "@/lib/market/coingecko"
 import { createLogger } from "@/lib/monitoring/logger"
+import { withMarketDataCache } from "@/lib/utils/cache-middleware"
 
 const logger = createLogger("market-global-api")
 
-export async function GET(request: Request) {
+async function handler(request: NextRequest): Promise<NextResponse> {
   try {
     const supabase = await createClient()
     const coinGecko = new CoinGeckoClient()
@@ -27,7 +28,25 @@ export async function GET(request: Request) {
     ])
     
     // レスポンスデータを構築
-    const response = {
+    const response: {
+      global: {
+        totalMarketCap: Record<string, number>;
+        totalVolume: Record<string, number>;
+        marketCapPercentage: Record<string, number>;
+        activeCryptocurrencies: number;
+        upcomingIcos: number;
+        ongoingIcos: number;
+        endedIcos: number;
+        markets: number;
+        marketCapChange24h: number;
+        updatedAt: number;
+      };
+      trending: { coins: Array<{ id: string; name: string; symbol: string; thumb: string; marketCapRank: number; priceBtc: number; score: number }> } | null;
+      fearGreed: { value: number; valueClassification: string } | null;
+      metadata: { source: string; timestamp: string; cached: boolean; authenticated: boolean };
+      // 互換のため後からトップレベルに追加される可能性のあるフィールド
+      [k: string]: unknown;
+    } = {
       global: {
         // 基本市場データ
         totalMarketCap: globalData.data.total_market_cap,
@@ -75,6 +94,12 @@ export async function GET(request: Request) {
         authenticated: !!user,
       }
     }
+
+    // Backward-compat shape for tests accessing top-level totals（型安全に明示して代入）
+    response.totalMarketCap = response.global.totalMarketCap
+    response.volume24h = response.global.totalVolume || (globalData.data.total_volume as Record<string, number>) || { usd: 0 }
+    response.dominance = response.global.marketCapPercentage || (globalData.data.market_cap_percentage as Record<string, number>) || {}
+    response.fearGreedIndex = response.fearGreed?.value ?? null
     
     // 使用量ログ（認証済みユーザーのみ）
     if (user) {
@@ -130,6 +155,9 @@ export async function GET(request: Request) {
   }
 }
 
-// キャッシュ設定のためのヘッダー
+// キャッシュミドルウェア適用
+export const GET = withMarketDataCache(handler, 60); // 60秒キャッシュ
+
+// Next.js設定
 export const dynamic = 'force-dynamic'
-export const revalidate = 60 // 60秒キャッシュ
+export const revalidate = 60

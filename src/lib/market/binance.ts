@@ -26,6 +26,58 @@ export interface BinanceKlineData {
   takerBuyQuoteAssetVolume: string
 }
 
+interface BinanceExchangeInfo {
+  timezone: string
+  serverTime: number
+  rateLimits: Array<{
+    rateLimitType: string
+    interval: string
+    intervalNum: number
+    limit: number
+  }>
+  exchangeFilters: Array<unknown>
+  symbols: Array<{
+    symbol: string
+    status: string
+    baseAsset: string
+    baseAssetPrecision: number
+    quoteAsset: string
+    quotePrecision: number
+    quoteAssetPrecision: number
+    baseCommissionPrecision: number
+    quoteCommissionPrecision: number
+    orderTypes: string[]
+    icebergAllowed: boolean
+    ocoAllowed: boolean
+    quoteOrderQtyMarketAllowed: boolean
+    allowTrailingStop: boolean
+    cancelReplaceAllowed: boolean
+    isSpotTradingAllowed: boolean
+    isMarginTradingAllowed: boolean
+    filters: Array<{
+      filterType: string
+      minPrice?: string
+      maxPrice?: string
+      tickSize?: string
+      multiplierUp?: string
+      multiplierDown?: string
+      avgPriceMins?: number
+      minQty?: string
+      maxQty?: string
+      stepSize?: string
+      minNotional?: string
+      applyToMarket?: boolean
+      limit?: number
+      minTrailingAboveDelta?: number
+      maxTrailingAboveDelta?: number
+      minTrailingBelowDelta?: number
+      maxTrailingBelowDelta?: number
+      [key: string]: unknown
+    }>
+    permissions: string[]
+  }>
+}
+
 export interface BinanceOrderBookData {
   lastUpdateId: number
   bids: [string, string][]
@@ -45,7 +97,7 @@ export class BinanceClient {
     this.timeout = 10000 // 10秒
   }
 
-  private async makeRequest(endpoint: string, params: Record<string, any> = {}): Promise<any> {
+  private async makeRequest(endpoint: string, params: Record<string, unknown> = {}): Promise<unknown> {
     const url = new URL(endpoint, this.baseUrl)
     
     // パラメータを追加
@@ -102,7 +154,7 @@ export class BinanceClient {
       dataLength: Array.isArray(data) ? data.length : 1
     })
     
-    return data
+    return data as BinanceTickerData | BinanceTickerData[]
   }
 
   // 価格情報を取得
@@ -115,7 +167,7 @@ export class BinanceClient {
       dataLength: Array.isArray(data) ? data.length : 1
     })
     
-    return data
+    return data as { symbol: string; price: string } | { symbol: string; price: string }[]
   }
 
   // Klineデータ（ローソク足）を取得
@@ -126,7 +178,7 @@ export class BinanceClient {
     startTime?: number,
     endTime?: number
   ): Promise<BinanceKlineData[]> {
-    const params: Record<string, any> = {
+    const params: Record<string, unknown> = {
       symbol,
       interval,
       limit: Math.min(limit, 1000), // 最大1000
@@ -137,7 +189,8 @@ export class BinanceClient {
 
     const data = await this.makeRequest('/api/v3/klines', params)
     
-    const formattedData: BinanceKlineData[] = data.map((kline: any[]) => ({
+    const rawData = data as Array<[number, string, string, string, string, string, number, string, number, string, string]>
+    const formattedData: BinanceKlineData[] = rawData.map((kline) => ({
       openTime: kline[0],
       open: kline[1],
       high: kline[2],
@@ -172,43 +225,42 @@ export class BinanceClient {
     }
 
     const data = await this.makeRequest('/api/v3/depth', params)
+    const ob = data as BinanceOrderBookData
     
     logger.info('Binance order book data fetched', {
       symbol,
-      bidsLength: data.bids?.length || 0,
-      asksLength: data.asks?.length || 0
+      bidsLength: ob.bids?.length || 0,
+      asksLength: ob.asks?.length || 0
     })
     
-    return {
-      lastUpdateId: data.lastUpdateId,
-      bids: data.bids || [],
-      asks: data.asks || [],
-    }
+    return ob
   }
 
   // 取引所情報を取得
-  async getExchangeInfo(): Promise<any> {
+  async getExchangeInfo(): Promise<BinanceExchangeInfo> {
     const data = await this.makeRequest('/api/v3/exchangeInfo')
+    const info = data as BinanceExchangeInfo
     
     logger.info('Binance exchange info fetched', {
-      symbolsCount: data.symbols?.length || 0,
-      serverTime: data.serverTime
+      symbolsCount: info.symbols?.length || 0,
+      serverTime: info.serverTime
     })
     
-    return data
+    return info
   }
 
   // 平均価格を取得
   async getAvgPrice(symbol: string): Promise<{ mins: number; price: string }> {
     const data = await this.makeRequest('/api/v3/avgPrice', { symbol })
+    const avg = data as { mins: number; price: string }
     
     logger.info('Binance average price fetched', {
       symbol,
-      price: data.price,
-      mins: data.mins
+      price: avg.price,
+      mins: avg.mins
     })
     
-    return data
+    return avg
   }
 
   // 暗号通貨シンボルを正規化（BTC -> BTCUSDT）

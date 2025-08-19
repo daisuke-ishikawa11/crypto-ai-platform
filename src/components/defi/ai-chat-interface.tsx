@@ -3,7 +3,8 @@
 // 🤖 AI Chat Interface - Advanced DeFi Assistant UI
 // Real-time DeFi assistant with voice input and conversation history
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import * as React from "react"
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,14 +18,12 @@ import {
   MicOff,
   Download,
   Search,
-  Bookmark,
   RefreshCw,
   AlertTriangle,
   TrendingUp,
   Shield,
   Zap,
   MessageSquare,
-  History,
   Settings
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -56,9 +55,9 @@ interface SuggestedQuestion {
 }
 
 interface AIChatInterfaceProps {
-  initialPortfolio?: any;
-  userPreferences?: any;
-  onAdviceReceived?: (advice: any) => void;
+  initialPortfolio?: unknown;
+  userPreferences?: unknown;
+  onAdviceReceived?: (advice: unknown) => void;
   className?: string;
 }
 
@@ -104,34 +103,47 @@ export function AIChatInterface({
   const [activeTab, setActiveTab] = useState('chat');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const recognition = useRef<SpeechRecognition | null>(null);
+  type WebkitSpeechRecognition = {
+    continuous: boolean
+    interimResults: boolean
+    lang: string
+    onresult: ((event: { results?: { [index: number]: { [index: number]: { transcript?: string } } } }) => void) | null
+    onerror: (() => void) | null
+    onend: (() => void) | null
+    start: () => void
+    stop: () => void
+  }
+  const recognition = useRef<WebkitSpeechRecognition | null>(null);
 
   // Initialize speech recognition
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
-      recognition.current = new (window as any).webkitSpeechRecognition();
-      recognition.current.continuous = false;
-      recognition.current.interimResults = false;
-      recognition.current.lang = 'ja-JP';
+    if (typeof window !== 'undefined') {
+      const windowWithSpeech = window as Window & { webkitSpeechRecognition?: new () => WebkitSpeechRecognition };
+      if (typeof windowWithSpeech.webkitSpeechRecognition === 'function') {
+        recognition.current = new windowWithSpeech.webkitSpeechRecognition();
+        recognition.current.continuous = false;
+        recognition.current.interimResults = false;
+        recognition.current.lang = 'ja-JP';
 
-      recognition.current.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setInput(transcript);
-        setIsListening(false);
-      };
+        recognition.current.onresult = (event) => {
+          const transcript = event?.results?.[0]?.[0]?.transcript ?? '';
+          setInput(transcript);
+          setIsListening(false);
+        };
 
-      recognition.current.onerror = () => {
-        setIsListening(false);
-        toast({
-          title: "音声認識エラー",
-          description: "音声入力に失敗しました。再度お試しください。",
-          variant: "destructive"
-        });
-      };
+        recognition.current.onerror = () => {
+          setIsListening(false);
+          toast({
+            title: "音声認識エラー",
+            description: "音声入力に失敗しました。再度お試しください。",
+            variant: "destructive"
+          });
+        };
 
-      recognition.current.onend = () => {
-        setIsListening(false);
-      };
+        recognition.current.onend = () => {
+          setIsListening(false);
+        };
+      }
     }
   }, [toast]);
 
@@ -253,15 +265,7 @@ export function AIChatInterface({
     msg.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'yield': return 'bg-green-100 text-green-800';
-      case 'risk': return 'bg-red-100 text-red-800';
-      case 'protocol': return 'bg-blue-100 text-blue-800';
-      case 'strategy': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
+ 
 
   const getRiskLevelColor = (risk: 'low' | 'medium' | 'high') => {
     switch (risk) {
@@ -408,7 +412,7 @@ export function AIChatInterface({
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleSubmit() }}
                 placeholder="DeFiについて質問してください..."
                 disabled={isLoading}
                 className="pr-12"

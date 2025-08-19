@@ -44,3 +44,71 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Backup files
+*.backup
+*.bak
+*.bak*
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test reports
+test-results/
+playwright-report/
+.nyc_output/
+coverage/
+
+# Development utilities
+.serena/
+.wslconfig
+
+# Development containers
+Dockerfile.dev
+docker-compose.dev.yml
+docker-compose.simple.yml
+docker-compose.staging.yml
+
+# Development scripts
+scripts/edits/
+*.py
+quick-fix.sh
+
+# Documentation (except core docs)
+*README*.md
+!README.md
+*.md
+!CLAUDE.md
+!LICENSE.md
+!CONTRIBUTING.md
+
+# Config backups
+*.config.js.bak*
+*.json.bak*
+package.dev.json
+package.full.json
+package.minimal.json
+
+# Auto-generated files
+auto_file_safe_edit.py
+fix*.py
+recreate*.py
+simple*.py

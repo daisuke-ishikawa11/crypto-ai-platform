@@ -3,7 +3,8 @@
 // Explainable AIは認証とクエリクライアントが必要なため動的レンダリング
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 // クライアントサイドレンダリング用コンポーネント
@@ -24,6 +25,7 @@ function ExplainableAIClient() {
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { apiFetch } from '@/lib/api/fetcher';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -60,7 +62,7 @@ function ExplainableAIContent() {
   // Create new analysis
   const { mutate: runAnalysis, isPending: analyzing } = useMutation({
     mutationFn: async () => {
-      const response = await fetch('/api/explainable-ai/analyze', {
+      const response = await apiFetch('/api/explainable-ai/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

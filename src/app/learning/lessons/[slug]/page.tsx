@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import * as React from "react"
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -54,31 +55,7 @@ export default function LessonPage() {
   const timeSpentRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
-    loadLesson();
-    
-    // 学習時間の記録開始
-    const startTime = Date.now();
-    timerRef.current = setInterval(() => {
-      timeSpentRef.current = Math.floor((Date.now() - startTime) / 1000);
-    }, 1000);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      // 学習時間を記録
-      if (userId && lesson) {
-        learningService.recordTimeSpent(userId, lesson.id, timeSpentRef.current);
-      }
-    };
-  }, [slug]);
-
-  useEffect(() => {
-    if (lesson && userId) {
-      updateProgress();
-    }
-  }, [currentSectionIndex, lesson, userId]);
-
-  const loadLesson = async () => {
+  const loadLesson = React.useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -103,7 +80,8 @@ export default function LessonPage() {
         try {
           const progressData = await learningService.getUserProgress(user.id, lessonData.id);
           if (progressData) {
-            setProgress(progressData.progressPercentage || 0);
+            const pg = progressData as Record<string, unknown> | null
+            setProgress(typeof pg?.progressPercentage === 'number' ? (pg.progressPercentage as number) : 0);
           }
         } catch (progressError) {
           console.error('Failed to load progress:', progressError);
@@ -116,9 +94,31 @@ export default function LessonPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug, router]);
 
-  const updateProgress = async () => {
+  // レッスン読み込み
+  useEffect(() => {
+    loadLesson();
+  }, [loadLesson]);
+
+  // 学習時間の記録
+  useEffect(() => {
+    // 学習時間の記録開始
+    const startTime = Date.now();
+    timerRef.current = setInterval(() => {
+      timeSpentRef.current = Math.floor((Date.now() - startTime) / 1000);
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      // 学習時間を記録
+      if (userId && lesson) {
+        learningService.recordTimeSpent(userId, lesson.id, timeSpentRef.current);
+      }
+    };
+  }, [lesson, userId]);
+
+  const updateProgress = React.useCallback(async () => {
     if (!lesson || !userId) return;
 
     const progressPercentage = Math.round(((currentSectionIndex + 1) / lesson.content.sections.length) * 100);
@@ -133,7 +133,14 @@ export default function LessonPage() {
     } catch (error) {
       console.error('Failed to update progress:', error);
     }
-  };
+  }, [lesson, userId, currentSectionIndex]);
+
+  useEffect(() => {
+    if (lesson && userId) {
+      updateProgress();
+    }
+  }, [updateProgress, lesson, userId]);
+
 
   const handleNext = () => {
     if (!lesson) return;
@@ -145,6 +152,15 @@ export default function LessonPage() {
     } else if (progress < 100) {
       // 最後のセクションで完了処理
       updateProgress();
+      // 完了時にチケット付与（非同期、副作用はサイレント）
+      try {
+        const uid = userId || 'guest';
+        fetch('/api/learning/rewards/lesson-completed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: uid, lessonId: lesson.id, tickets: 1 })
+        }).catch(() => {})
+      } catch {}
     }
   };
 

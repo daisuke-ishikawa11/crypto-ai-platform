@@ -1,6 +1,7 @@
 import type { Database } from '@/lib/supabase/types'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+// 旧プラン表現を UI 側の表示用に保持するが、DB は subscription_status を使用
+type UserPlan = 'free' | 'mini' | 'basic' | 'standard' | 'pro'
 
 export interface PlanFeatures {
   ai_chats: {

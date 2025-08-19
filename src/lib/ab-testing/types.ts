@@ -6,7 +6,7 @@ export interface ABTestVariant {
   name: string;
   description: string;
   weight: number; // 0-100 の重み（100で均等分割）
-  config: Record<string, any>; // バリアント固有の設定
+  config: Record<string, unknown>; // バリアント固有の設定
   isControl?: boolean; // コントロール群（元のバージョン）かどうか
   isActive: boolean;
   createdAt: string;
@@ -29,7 +29,7 @@ export interface ABTest {
       location?: string[];
       device?: ('mobile' | 'tablet' | 'desktop')[];
       browser?: string[];
-      customAttributes?: Record<string, any>;
+      customAttributes?: Record<string, unknown>;
     };
   };
   
@@ -144,7 +144,7 @@ export interface ABTestParticipant {
     location?: string;
     device: 'mobile' | 'tablet' | 'desktop';
     browser: string;
-    customAttributes?: Record<string, any>;
+    customAttributes?: Record<string, unknown>;
   };
   
   // タイムスタンプ
@@ -160,7 +160,7 @@ export interface ABTestEvent {
   id: string;
   type: 'exposure' | 'interaction' | 'conversion' | 'custom';
   eventName: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   value?: number; // 収益など数値データ
   timestamp: string;
 }
@@ -192,7 +192,7 @@ export interface UseABTestResult {
   variant: ABTestVariant | null;
   isLoading: boolean;
   isParticipating: boolean;
-  track: (eventName: string, properties?: Record<string, any>) => void;
+  track: (eventName: string, properties?: Record<string, unknown>) => void;
   convert: (value?: number) => void;
 }
 
@@ -250,7 +250,7 @@ export interface ABTestReport {
 
 export interface ChartData {
   type: 'line' | 'bar' | 'pie' | 'funnel';
-  data: any[];
+  data: unknown[];
   labels: string[];
   title: string;
   description?: string;

@@ -50,8 +50,8 @@ describe('Full User Journey Integration Tests', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (createClient as jest.Mock).mockReturnValue(mockSupabase);
-    (stripe as any) = mockStripe;
+    (createClient as jest.MockedFunction<typeof createClient>).mockReturnValue(mockSupabase as any);
+    jest.mocked(stripe).mockReturnValue(mockStripe as any);
     (UnifiedAIService.getInstance as jest.Mock).mockReturnValue(mockAIService);
     (AlertManager as jest.Mock).mockImplementation(() => mockAlertManager);
   });
@@ -112,7 +112,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const response = await signUp(req as unknown as NextRequest);
+      const response = await signUp(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(201);
@@ -143,7 +143,7 @@ describe('Full User Journey Integration Tests', () => {
               data: {
                 user_id: testUser.id,
                 learning_pace: 'moderate',
-                interested_topics: ['crypto-basics', 'trading-basics'],
+                interested_topics: ['financial-literacy', 'trading-basics'],
                 risk_tolerance: 'conservative'
               },
               error: null
@@ -173,13 +173,13 @@ describe('Full User Journey Integration Tests', () => {
         body: {
           preferences: {
             learningPace: 'moderate',
-            interestedTopics: ['crypto-basics', 'trading-basics'],
+            interestedTopics: ['financial-literacy', 'trading-basics'],
             riskTolerance: 'conservative'
           }
         }
       });
 
-      const onboardingResponse = await completeOnboarding(onboardingReq as unknown as NextRequest);
+      const onboardingResponse = await completeOnboarding(onboardingReq as NextRequest);
       expect(onboardingResponse.status).toBe(200);
 
       // 最初のレッスン開始
@@ -197,7 +197,7 @@ describe('Full User Journey Integration Tests', () => {
       });
 
       const lessonResponse = await startLesson(
-        lessonReq as unknown as NextRequest,
+        lessonReq as NextRequest,
         { params: { slug: 'what-is-cryptocurrency' } }
       );
       expect(lessonResponse.status).toBe(200);
@@ -270,7 +270,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const response = await createSubscription(req as unknown as NextRequest);
+      const response = await createSubscription(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(201);
@@ -331,7 +331,7 @@ describe('Full User Journey Integration Tests', () => {
         body: alertConfig
       });
 
-      const alertResponse = await createAlert(alertReq as unknown as NextRequest);
+      const alertResponse = await createAlert(alertReq as NextRequest);
       expect(alertResponse.status).toBe(201);
 
       // アラート処理（トリガー）
@@ -371,7 +371,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const notifResponse = await getNotifications(notifReq as unknown as NextRequest);
+      const notifResponse = await getNotifications(notifReq as NextRequest);
       const notifData = await notifResponse.json();
 
       expect(notifResponse.status).toBe(200);
@@ -445,7 +445,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const response = await getDefiStatus(req as unknown as NextRequest);
+      const response = await getDefiStatus(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -486,7 +486,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const response = await getDashboard(req as unknown as NextRequest);
+      const response = await getDashboard(req as NextRequest);
       const data = await response.json();
 
       // 部分的なエラーでも200を返し、利用可能なデータを提供
@@ -509,8 +509,8 @@ describe('Full User Journey Integration Tests', () => {
       });
 
       // 100個の同時リクエストをシミュレート
+      const { GET } = await import('@/app/api/market/prices/route');
       const requests = Array.from({ length: 100 }, (_, i) => {
-        const { GET } = require('@/app/api/market/prices/route');
         const { req } = createMocks({
           method: 'GET',
           headers: {
@@ -522,7 +522,7 @@ describe('Full User Journey Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       const startTime = Date.now();
@@ -551,7 +551,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const invalidResponse = await GET(invalidReq as unknown as NextRequest);
+      const invalidResponse = await GET(invalidReq as NextRequest);
       expect(invalidResponse.status).toBe(401);
 
       // SQLインジェクション試行
@@ -569,7 +569,7 @@ describe('Full User Journey Integration Tests', () => {
         }
       });
 
-      const sqlResponse = await POST(sqlReq as unknown as NextRequest);
+      const sqlResponse = await POST(sqlReq as NextRequest);
       expect(sqlResponse.status).toBe(400); // バリデーションエラー
 
       // レート制限チェック
@@ -580,7 +580,7 @@ describe('Full User Journey Integration Tests', () => {
             authorization: 'Bearer test-token'
           }
         });
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       // 最初の100リクエストは成功、その後はレート制限

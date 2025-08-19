@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Cpu, Sparkles, ArrowRight, Menu, BookOpen, Search, HelpCircle, MessageCircle, Mail, Phone, FileText, Video, Users, Zap, Shield, Clock, CheckCircle, Star, AlertCircle, ExternalLink, ChevronDown, ChevronUp, Settings, CreditCard, Monitor, Book } from 'lucide-react';
 import { HomeButton } from '@/components/ui/home-button';
@@ -316,7 +317,7 @@ export default function HelpPage() {
               {searchQuery && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 p-4">
                   <p className="text-sm text-white/70">
-                    "{searchQuery}" の検索結果: {filteredFaqs.length} 件
+                    &quot;{searchQuery}&quot; の検索結果: {filteredFaqs.length} 件
                   </p>
                 </div>
               )}

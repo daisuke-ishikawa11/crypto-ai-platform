@@ -1,10 +1,13 @@
+"use client"
+
+import * as React from "react"
+// using React.use* hooks; named imports removed to avoid unused warnings
 // ✨ Ultra-Modern Hero Section Effects
 // 2025年最新トレンド: 3D効果、パーティクル、フローティング要素
 
-"use client";
+// duplicate directive removed; already declared at top
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 // 浮遊パーティクル背景
@@ -14,7 +17,7 @@ interface ParticleBackgroundProps {
 }
 
 export function ParticleBackground({ particleCount = 50, className }: ParticleBackgroundProps) {
-  const [particles, setParticles] = useState<Array<{
+  const [particles, setParticles] = React.useState<Array<{
     id: number;
     x: number;
     y: number;
@@ -23,7 +26,7 @@ export function ParticleBackground({ particleCount = 50, className }: ParticleBa
     delay: number;
   }>>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const generateParticles = () => {
       return Array.from({ length: particleCount }, (_, i) => ({
         id: i,
@@ -212,14 +215,14 @@ export function HologramEffect({ children, className }: HologramEffectProps) {
 
 // デジタル雨効果（Matrix風）
 export function DigitalRain() {
-  const [drops, setDrops] = useState<Array<{
+  const [drops, setDrops] = React.useState<Array<{
     id: number;
     x: number;
     delay: number;
     duration: number;
   }>>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const generateDrops = () => {
       return Array.from({ length: 30 }, (_, i) => ({
         id: i,

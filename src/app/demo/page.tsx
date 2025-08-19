@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Cpu, Sparkles, ArrowRight, Menu, BookOpen, Play, Brain, Activity, Bell, BarChart3, Shield, TrendingUp, Users, Star, CheckCircle, Eye, Zap, Target, Award, Send, Pause, MessageCircle, Clock, PieChart } from 'lucide-react';
 import { HomeButton } from '@/components/ui/home-button';
@@ -154,8 +155,10 @@ export default function DemoPage() {
             <button 
               className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors" 
               onClick={toggleMobileMenu}
+              aria-label={mobileMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+              title={mobileMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -346,6 +349,8 @@ export default function DemoPage() {
                     onClick={handleChatSend}
                     disabled={!chatMessage.trim() || isLoading}
                     className="px-4 py-3 bg-blue-500 rounded-xl text-white hover:bg-blue-600 transition-colors disabled:opacity-50"
+                    aria-label="送信"
+                    title="送信"
                   >
                     <Send className="w-5 h-5" />
                   </button>

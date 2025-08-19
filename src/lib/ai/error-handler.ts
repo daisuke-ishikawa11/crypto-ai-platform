@@ -26,32 +26,74 @@ export class AIError extends Error {
   }
 }
 
-export function handleOpenAIError(error: any): AIError {
-  // OpenAI API エラーハンドリング
-  if (error?.response?.status) {
+// Proper typing for HTTP error responses
+interface HttpErrorResponse {
+  status: number;
+  data?: {
+    error?: {
+      message?: string;
+    };
+  };
+}
+
+interface HttpError {
+  response: HttpErrorResponse;
+}
+
+interface CodeError {
+  code: string;
+}
+
+interface MessageError {
+  message: string;
+}
+
+function isHttpError(e: unknown): e is HttpError {
+  if (typeof e !== 'object' || e === null) return false
+  const resp = (e as Record<string, unknown>).response as Record<string, unknown> | undefined
+  return typeof (resp as { status?: unknown })?.status === 'number'
+}
+
+function isCodeError(e: unknown): e is CodeError {
+  return typeof e === "object" && e !== null && "code" in e && typeof (e as Record<string, unknown>).code === "string"
+}
+
+function getErrorMessage(e: unknown): string {
+  if (e instanceof Error) return e.message
+  if (typeof e === "string") return e
+  const m = (e as Record<string, unknown>)?.message
+  return typeof m === "string" ? m : String(e)
+}
+
+function asOriginalError(e: unknown): Error | undefined {
+  return e instanceof Error ? e : undefined
+}
+
+export function handleOpenAIError(error: unknown): AIError {
+  if (isHttpError(error)) {
     const status = error.response.status
-    const errorData = error.response.data?.error || {}
-    
+    const errorData = error.response.data?.error ?? {}
+
     switch (status) {
       case 401:
         return new AIError(
           AIErrorType.API_KEY_INVALID,
           "OpenAI API key is invalid or expired",
-          error,
+          asOriginalError(error),
           false
         )
       case 429:
         return new AIError(
           AIErrorType.RATE_LIMIT_EXCEEDED,
           "OpenAI API rate limit exceeded",
-          error,
+          asOriginalError(error),
           true
         )
       case 400:
         return new AIError(
           AIErrorType.INVALID_REQUEST,
           errorData.message || "Invalid request to OpenAI API",
-          error,
+          asOriginalError(error),
           false
         )
       case 503:
@@ -59,83 +101,82 @@ export function handleOpenAIError(error: any): AIError {
         return new AIError(
           AIErrorType.SERVICE_UNAVAILABLE,
           "OpenAI API is temporarily unavailable",
-          error,
+          asOriginalError(error),
           true
         )
       default:
         return new AIError(
           AIErrorType.UNKNOWN_ERROR,
           `OpenAI API error: ${errorData.message || "Unknown error"}`,
-          error,
+          asOriginalError(error),
           false
         )
     }
   }
 
-  // ネットワークエラー
-  if (error?.code === "ECONNREFUSED" || error?.code === "ENOTFOUND") {
-    return new AIError(
-      AIErrorType.NETWORK_ERROR,
-      "Network error connecting to OpenAI API",
-      error,
-      true
-    )
+  if (isCodeError(error)) {
+    const code = error.code
+    if (code === "ECONNREFUSED" || code === "ENOTFOUND") {
+      return new AIError(
+        AIErrorType.NETWORK_ERROR,
+        "Network error connecting to OpenAI API",
+        asOriginalError(error),
+        true
+      )
+    }
+
+    if (code === "ETIMEDOUT") {
+      return new AIError(
+        AIErrorType.TIMEOUT,
+        "Request to OpenAI API timed out",
+        asOriginalError(error),
+        true
+      )
+    }
   }
 
-  // タイムアウト
-  if (error?.code === "ETIMEDOUT") {
-    return new AIError(
-      AIErrorType.TIMEOUT,
-      "Request to OpenAI API timed out",
-      error,
-      true
-    )
-  }
-
-  // APIキーが見つからない
-  if (error?.message?.includes("API key")) {
+  if (getErrorMessage(error).includes("API key")) {
     return new AIError(
       AIErrorType.API_KEY_MISSING,
       "OpenAI API key is not configured",
-      error,
+      asOriginalError(error),
       false
     )
   }
 
   return new AIError(
     AIErrorType.UNKNOWN_ERROR,
-    error?.message || "Unknown OpenAI error",
-    error,
+    getErrorMessage(error) || "Unknown OpenAI error",
+    asOriginalError(error),
     false
   )
 }
 
-export function handleAnthropicError(error: any): AIError {
-  // Anthropic API エラーハンドリング
-  if (error?.response?.status) {
+export function handleAnthropicError(error: unknown): AIError {
+  if (isHttpError(error)) {
     const status = error.response.status
-    const errorData = error.response.data?.error || {}
-    
+    const errorData = error.response.data?.error ?? {}
+
     switch (status) {
       case 401:
         return new AIError(
           AIErrorType.API_KEY_INVALID,
           "Anthropic API key is invalid or expired",
-          error,
+          asOriginalError(error),
           false
         )
       case 429:
         return new AIError(
           AIErrorType.RATE_LIMIT_EXCEEDED,
           "Anthropic API rate limit exceeded",
-          error,
+          asOriginalError(error),
           true
         )
       case 400:
         return new AIError(
           AIErrorType.INVALID_REQUEST,
           errorData.message || "Invalid request to Anthropic API",
-          error,
+          asOriginalError(error),
           false
         )
       case 503:
@@ -143,33 +184,32 @@ export function handleAnthropicError(error: any): AIError {
         return new AIError(
           AIErrorType.SERVICE_UNAVAILABLE,
           "Anthropic API is temporarily unavailable",
-          error,
+          asOriginalError(error),
           true
         )
       default:
         return new AIError(
           AIErrorType.UNKNOWN_ERROR,
           `Anthropic API error: ${errorData.message || "Unknown error"}`,
-          error,
+          asOriginalError(error),
           false
         )
     }
   }
 
-  // APIキーが見つからない
-  if (error?.message?.includes("API key")) {
+  if (getErrorMessage(error).includes("API key")) {
     return new AIError(
       AIErrorType.API_KEY_MISSING,
       "Anthropic API key is not configured",
-      error,
+      asOriginalError(error),
       false
     )
   }
 
   return new AIError(
     AIErrorType.UNKNOWN_ERROR,
-    error?.message || "Unknown Anthropic error",
-    error,
+    getErrorMessage(error) || "Unknown Anthropic error",
+    asOriginalError(error),
     false
   )
 }
@@ -179,30 +219,27 @@ export async function withRetry<T>(
   maxRetries: number = 3,
   baseDelay: number = 1000
 ): Promise<T> {
-  let lastError: Error
+  let lastError: Error = new Error("Unknown error")
 
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       return await fn()
     } catch (error) {
-      lastError = error as Error
-      
-      // AIErrorの場合、リトライ可能かチェック
+      lastError = (error instanceof Error) ? error : new Error(getErrorMessage(error))
+
       if (error instanceof AIError && !error.retryable) {
         throw error
       }
-      
-      // 最後の試行の場合は例外を投げる
+
       if (attempt === maxRetries) {
         break
       }
-      
-      // 指数バックオフで待機
+
       const delay = baseDelay * Math.pow(2, attempt)
       await new Promise(resolve => setTimeout(resolve, delay))
-      
+
       logger.warn(`Retry attempt ${attempt + 1}/${maxRetries} after ${delay}ms`, {
-        error: error instanceof Error ? error.message : String(error),
+        error: getErrorMessage(error),
         attempt: attempt + 1,
         maxRetries,
         delay
@@ -219,10 +256,10 @@ export function createFallbackResponse(
 ): {
   success: false
   error: string
-  fallback?: any
+  fallback?: unknown
 } {
   let fallbackMessage = ""
-  let fallback: any = null
+  let fallback: unknown = null
 
   switch (feature) {
     case "chat":
@@ -245,7 +282,6 @@ export function createFallbackResponse(
       fallbackMessage = "AI service is temporarily unavailable."
   }
 
-  // エラーログ
   logger.error(`AI service error in ${feature}`, {
     errorType: error.type,
     message: error.message,

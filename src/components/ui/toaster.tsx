@@ -17,10 +17,16 @@ import {
   AlertCircle
 } from "lucide-react"
 
+type ToastVariant = 'default' | 'success' | 'destructive' | 'warning' | 'info'
+
+function isToastVariant(v: unknown): v is ToastVariant {
+  return v === 'default' || v === 'success' || v === 'destructive' || v === 'warning' || v === 'info'
+}
+
 export function Toaster() {
   const { toasts } = useToast()
 
-  const getIcon = (variant: string) => {
+  const getIcon = (variant: ToastVariant) => {
     switch (variant) {
       case "success":
         return <CheckCircle className="h-4 w-4" />
@@ -39,10 +45,10 @@ export function Toaster() {
     <ToastProvider swipeDirection="right">
       {toasts.map(function ({ id, title, description, action, variant, ...props }) {
         return (
-          <Toast key={id} variant={variant} {...props}>
+          <Toast key={id} variant={isToastVariant(variant) ? variant : 'default'} {...props}>
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
-                {getIcon(variant || "default")}
+                {getIcon(isToastVariant(variant) ? variant : 'default')}
               </div>
               <div className="grid gap-1 flex-1">
                 {title && <ToastTitle>{title}</ToastTitle>}

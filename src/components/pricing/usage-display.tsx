@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
@@ -10,7 +11,10 @@ import { cn } from '@/lib/utils'
 import { getPlanDefinition } from '@/lib/pricing/plan-definitions'
 import type { Database } from '@/lib/supabase/types'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+// DB上は user_profiles を利用
+type UserPlan = Database['public']['Tables']['user_profiles']['Row']['role'] extends infer R
+  ? R extends 'user' | 'admin' | 'premium' ? 'free' | 'mini' | 'basic' | 'standard' | 'pro' : 'free'
+  : 'free'
 
 interface UsageData {
   feature: string
@@ -45,13 +49,13 @@ export default function UsageDisplay({
   onUpgradeClick,
   className
 }: UsageDisplayProps) {
-  const [usageData, setUsageData] = useState<UsageData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [usageData, setUsageData] = React.useState<UsageData[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [error, setError] = React.useState<string | null>(null)
   
   const planDefinition = getPlanDefinition(currentPlan)
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchUsageData()
   }, [userId, currentPlan])
 
@@ -68,7 +72,9 @@ export default function UsageDisplay({
       const data = await response.json()
       
       // Transform data for display
-      const transformedData: UsageData[] = Object.entries(data.usage).map(([feature, usage]: [string, any]) => {
+      interface Usage { today: { used: number; limit: number | null; remaining?: number | null } }
+      
+      const transformedData: UsageData[] = Object.entries((data.usage as Record<string, Usage>) || {}).map(([feature, usage]: [string, Usage]) => {
         const todayUsed = usage.today.used
         const todayLimit = usage.today.limit
         const percentage = todayLimit ? (todayUsed / todayLimit) * 100 : 0
@@ -77,7 +83,7 @@ export default function UsageDisplay({
           feature,
           used: todayUsed,
           limit: todayLimit,
-          remaining: usage.today.remaining,
+          remaining: usage.today.remaining ?? (todayLimit !== null ? Math.max(0, todayLimit - todayUsed) : null),
           percentage
         }
       })

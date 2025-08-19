@@ -4,36 +4,31 @@
 import Stripe from 'stripe';
 
 // Stripe設定
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY!;
-const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
-const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || '';
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
 
-if (!stripeSecretKey) {
-  throw new Error('Missing STRIPE_SECRET_KEY environment variable');
-}
-
-if (!stripePublishableKey) {
-  throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
-}
-
-if (!stripeWebhookSecret) {
-  throw new Error('Missing STRIPE_WEBHOOK_SECRET environment variable');
+// 環境変数が未設定でもビルドを阻害しないよう、遅延初期化に変更
+let _stripeInstance: Stripe | null = null
+export function getStripe(): Stripe {
+  if (_stripeInstance) return _stripeInstance
+  if (!stripeSecretKey) {
+    throw new Error('Stripe is not configured: STRIPE_SECRET_KEY is missing')
+  }
+  _stripeInstance = new Stripe(stripeSecretKey, {
+    apiVersion: '2025-07-30.basil',
+    appInfo: { name: 'Crypto AI Platform', version: '1.0.0', url: 'https://your-domain.com' }
+  })
+  return _stripeInstance
 }
 
 // Stripeクライアントインスタンス
-export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2024-06-20',
-  appInfo: {
-    name: 'Crypto AI Platform',
-    version: '1.0.0',
-    url: 'https://your-domain.com'
-  }
-});
+// stripeインスタンスは getStripe() で取得
 
 // 設定定数
 export const STRIPE_CONFIG = {
-  publishableKey: stripePublishableKey,
-  webhookSecret: stripeWebhookSecret,
+  publishableKey: stripePublishableKey || '',
+  webhookSecret: stripeWebhookSecret || '',
   currency: 'usd' as const,
   
   // サブスクリプションプランID
@@ -48,7 +43,7 @@ export const STRIPE_CONFIG = {
         'DeFi基本監視',
         'AI分析（月10回）',
         'メールサポート'
-      ]
+      ] as string[]
     },
     pro: {
       monthly: process.env.STRIPE_PRO_MONTHLY_PRICE_ID!,
@@ -61,7 +56,7 @@ export const STRIPE_CONFIG = {
         'AI分析（月100回）',
         'リアルタイム通知',
         'チャットサポート'
-      ]
+      ] as string[]
     },
     enterprise: {
       monthly: process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
@@ -75,7 +70,7 @@ export const STRIPE_CONFIG = {
         'ホワイトラベル',
         '専任サポート',
         'SLA保証'
-      ]
+      ] as string[]
     }
   },
   

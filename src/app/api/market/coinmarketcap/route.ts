@@ -41,7 +41,7 @@ export async function GET(request: Request) {
       )
     }
     
-    let responseData: any
+    let responseData: unknown
     
     switch (action) {
       case "quotes":
@@ -88,14 +88,14 @@ export async function GET(request: Request) {
         const timeStart = searchParams.get("time_start")
         const timeEnd = searchParams.get("time_end")
         const count = searchParams.get("count") ? parseInt(searchParams.get("count")!) : undefined
-        const interval = searchParams.get("interval") as any
+        const interval = searchParams.get("interval") || undefined
         
         responseData = await cmcClient.getHistoricalQuotes(
           symbol,
           timeStart || undefined,
           timeEnd || undefined,
           count,
-          interval,
+          (interval as '1h' | '1d' | '7d' | '30d' | '5m' | '15m' | '30m' | '2h' | '6h' | '12h' | '3d' | '10m' | '45m' | '3h' | '2d' | '14d' | '15d' | '60d' | '90d' | '365d' | undefined),
           convert
         )
         break

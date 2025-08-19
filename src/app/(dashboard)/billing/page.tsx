@@ -6,11 +6,13 @@
 // 請求・決済管理は認証が必要なため動的レンダリング
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect, useCallback } from 'react';
+import * as React from "react"
+import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/lib/auth/hooks';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { apiFetch } from '@/lib/api/fetcher';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -74,7 +76,19 @@ export default function BillingPage() {
   const [testCards, setTestCards] = useState<TestCard[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [invoiceStats, setInvoiceStats] = useState<any>(null);
+  const [invoiceStats, setInvoiceStats] = useState<{
+    total: number;
+    paid: number;
+    pending: number;
+    failed: number;
+    amounts: {
+      paid: number;
+      outstanding: number;
+    };
+    overdue: {
+      count: number;
+    };
+  } | null>(null);
 
   // 請求書フィルター
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -85,16 +99,23 @@ export default function BillingPage() {
     success: boolean;
     message: string;
     paymentIntentId?: string;
+    cardUsed?: {
+      description: string;
+    };
+    paymentIntent?: {
+      id: string;
+      amount: number;
+      status: string;
+      client_secret?: string;
+    };
+    error?: {
+      message: string;
+      code?: string;
+    };
+    logs?: {
+      stripeUrl?: string;
+    };
   } | null>(null);
-
-  useEffect(() => {
-    if (user) {
-      loadInvoices();
-      if (process.env.NODE_ENV === 'development') {
-        loadTestCards();
-      }
-    }
-  }, [user, statusFilter, loadInvoices]);
 
   const loadInvoices = useCallback(async () => {
     try {
@@ -119,7 +140,7 @@ export default function BillingPage() {
     }
   }, [statusFilter]);
 
-  const loadTestCards = async () => {
+  const loadTestCards = useCallback(async () => {
     try {
       const response = await fetch('/api/stripe/test-cards');
       const data = await response.json();
@@ -130,14 +151,14 @@ export default function BillingPage() {
     } catch (error) {
       console.error('Failed to load test cards:', error);
     }
-  };
+  }, []);
 
   const executeTestPayment = async (cardType: string, amount: number = 2900) => {
     try {
       setLoading(true);
       setTestPaymentResult(null);
       
-      const response = await fetch('/api/stripe/test-cards', {
+      const response = await apiFetch('/api/stripe/test-cards', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -200,7 +221,7 @@ export default function BillingPage() {
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: React.ComponentType<any> }> = {
+    const variants: Record<string, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }> = {
       draft: { variant: 'secondary', icon: Clock },
       open: { variant: 'outline', icon: AlertCircle },
       paid: { variant: 'default', icon: CheckCircle },
@@ -209,15 +230,23 @@ export default function BillingPage() {
     };
     
     const config = variants[status] || variants.draft;
-    const Icon = config.icon;
+    const Icon = config?.icon || Clock;
     
     return (
-      <Badge variant={config.variant} className="flex items-center gap-1">
+      <Badge variant={config?.variant || 'secondary'} className="flex items-center gap-1">
         <Icon className="h-3 w-3" />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
     );
   };
+
+  // useEffect to load data when component mounts or statusFilter changes
+  useEffect(() => {
+    if (user) {
+      loadInvoices();
+      loadTestCards();
+    }
+  }, [user, loadInvoices, loadTestCards]);
 
   const filteredInvoices = invoices.filter(invoice => {
     const matchesSearch = !searchTerm || 
@@ -322,14 +351,13 @@ export default function BillingPage() {
                 <div className="flex-1">
                   <Label htmlFor="search">検索</Label>
                   <Input
-                    id="search"
                     placeholder="請求書番号、説明、顧客メールで検索..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="status">ステータス</Label>
+                  <Label>ステータス</Label>
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="w-32">
                       <SelectValue />
@@ -579,7 +607,7 @@ export default function BillingPage() {
                         <div>
                           <Button
                             variant="outline"
-                            onClick={() => window.open(testPaymentResult.logs.stripeUrl, '_blank')}
+                            onClick={() => window.open(testPaymentResult.logs?.stripeUrl, '_blank')}
                           >
                             Stripeダッシュボードで確認
                           </Button>

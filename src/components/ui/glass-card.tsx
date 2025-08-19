@@ -1,3 +1,5 @@
+"use client"
+
 // 🎨 Ultra-Modern Glassmorphism Card Component
 // 2025年最新トレンド: フロスト・グラス効果でCoinbase/Binanceスタイル
 
@@ -5,10 +7,10 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import * as React from "react"
 
 interface GlassCardProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   variant?: "default" | "dark" | "colored" | "minimal";
   hover?: boolean;

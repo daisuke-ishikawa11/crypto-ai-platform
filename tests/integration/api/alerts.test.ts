@@ -39,9 +39,10 @@ describe('Alerts API Integration Tests', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (createClient as jest.Mock).mockReturnValue(mockSupabase);
-    (AlertManager as jest.Mock).mockImplementation(() => mockAlertManager);
-    (NotificationManager.getInstance as jest.Mock).mockReturnValue(mockNotificationManager);
+    (createClient as jest.MockedFunction<typeof createClient>).mockReturnValue(mockSupabase as any);
+    (AlertManager as jest.MockedClass<typeof AlertManager>).mockImplementation(() => mockAlertManager);
+    const mockNotificationManagerClass = NotificationManager as jest.Mocked<typeof NotificationManager>;
+    mockNotificationManagerClass.getInstance.mockReturnValue(mockNotificationManager);
   });
 
   describe('POST /api/alerts', () => {
@@ -60,10 +61,23 @@ describe('Alerts API Integration Tests', () => {
 
       mockAlertManager.createAlert.mockResolvedValue({
         id: 'alert-123',
-        ...newAlert,
-        user_id: mockUser.id,
+        name: undefined,
+        description: undefined,
+        type: 'price_above',
+        severity: undefined,
         status: 'active',
-        created_at: new Date().toISOString()
+        symbol: 'BTC',
+        exchange: undefined,
+        conditions: { threshold: 50000 },
+        notificationMethods: ['email', 'push'],
+        cooldownPeriod: 15,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        lastTriggered: undefined,
+        triggerCount: 0,
+        expiresAt: undefined,
+        timeframe: undefined,
+        markets: undefined
       });
 
       const { POST } = await import('@/app/api/alerts/route');
@@ -71,22 +85,32 @@ describe('Alerts API Integration Tests', () => {
         method: 'POST',
         headers: {
           authorization: 'Bearer test-token',
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'x-csrf-token': 't',
+          cookie: 'csrf_token=t'
         },
         body: newAlert
       });
 
-      const response = await POST(req as unknown as NextRequest);
+      // Mock the json() method for NextRequest compatibility
+      (req as any).json = jest.fn().mockResolvedValue(newAlert);
+
+      const response = await POST(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(201);
-      expect(data.alert).toHaveProperty('id');
-      expect(data.alert.type).toBe('price_above');
-      expect(data.alert.symbol).toBe('BTC');
+      expect(data).toHaveProperty('id');
+      expect(data.type).toBe('price_above');
+      expect(data.symbol).toBe('BTC');
       expect(mockAlertManager.createAlert).toHaveBeenCalledWith(
         expect.objectContaining({
-          ...newAlert,
-          userId: mockUser.id
+          userId: mockUser.id,
+          type: 'price_above',
+          symbol: 'BTC',
+          conditions: { threshold: 50000 },
+          notificationMethods: ['email', 'push'],
+          cooldownPeriod: 15,
+          status: 'active'
         })
       );
     });
@@ -111,9 +135,24 @@ describe('Alerts API Integration Tests', () => {
 
       mockAlertManager.createAlert.mockResolvedValue({
         id: 'alert-456',
-        ...complexAlert,
-        user_id: mockUser.id,
-        status: 'active'
+        name: 'BTC複合条件アラート',
+        description: undefined,
+        type: 'custom',
+        severity: undefined,
+        status: 'active',
+        symbol: undefined,
+        exchange: undefined,
+        conditions: complexAlert.conditions,
+        notificationMethods: ['email', 'push', 'sms'],
+        cooldownPeriod: 15,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        lastTriggered: undefined,
+        triggerCount: 0,
+        expiresAt: undefined,
+        timeframe: undefined,
+        markets: undefined,
+        logic: 'AND'
       });
 
       const { POST } = await import('@/app/api/alerts/route');
@@ -121,17 +160,22 @@ describe('Alerts API Integration Tests', () => {
         method: 'POST',
         headers: {
           authorization: 'Bearer test-token',
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'x-csrf-token': 't',
+          cookie: 'csrf_token=t'
         },
         body: complexAlert
       });
 
-      const response = await POST(req as unknown as NextRequest);
+      // Mock the json() method for NextRequest compatibility
+      (req as any).json = jest.fn().mockResolvedValue(complexAlert);
+
+      const response = await POST(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(201);
-      expect(data.alert.conditions).toHaveLength(3);
-      expect(data.alert.logic).toBe('AND');
+      expect(data.conditions).toHaveLength(3);
+      expect(data.logic).toBe('AND');
     });
 
     it('無効なアラートパラメータの検証', async () => {
@@ -152,12 +196,17 @@ describe('Alerts API Integration Tests', () => {
         method: 'POST',
         headers: {
           authorization: 'Bearer test-token',
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'x-csrf-token': 't',
+          cookie: 'csrf_token=t'
         },
         body: invalidAlert
       });
 
-      const response = await POST(req as unknown as NextRequest);
+      // Mock the json() method for NextRequest compatibility
+      (req as any).json = jest.fn().mockResolvedValue(invalidAlert);
+
+      const response = await POST(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -211,7 +260,7 @@ describe('Alerts API Integration Tests', () => {
         }
       });
 
-      const response = await GET(req as unknown as NextRequest);
+      const response = await GET(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -227,22 +276,53 @@ describe('Alerts API Integration Tests', () => {
         error: null
       });
 
+      const now = new Date().toISOString();
       const totalAlerts = Array.from({ length: 25 }, (_, i) => ({
-        id: `alert-${i}`,
+        id: `alert-${i + 1}`,
+        name: `Alert ${i + 1}`,
+        description: `Description ${i + 1}`,
         type: 'price_above',
+        severity: 'medium',
+        status: 'active',
         symbol: 'BTC',
-        status: 'active'
+        exchange: null,
+        conditions: null,
+        notification_methods: ['email'],
+        cooldown_period: 15,
+        expires_at: null,
+        user_id: mockUser.id,
+        created_at: now,
+        updated_at: now,
+        trigger_count: 0,
+        last_triggered: null
       }));
 
-      mockSupabase.from.mockImplementation(() => ({
-        select: jest.fn().mockReturnThis(),
-        eq: jest.fn().mockReturnThis(),
-        order: jest.fn().mockReturnThis(),
-        range: jest.fn().mockResolvedValue({
-          data: totalAlerts.slice(10, 20),
-          error: null
-        })
-      }));
+      // 一時的にモックを上書き
+      const originalFrom = mockSupabase.from;
+      mockSupabase.from = jest.fn().mockImplementation((table: string) => {
+        if (table === 'user_alerts') {
+          return {
+            select: jest.fn().mockReturnThis(),
+            eq: jest.fn().mockResolvedValue({
+              data: null,
+              error: null,
+              count: 25
+            })
+          };
+        }
+        
+        const chainMock = {
+          select: jest.fn().mockReturnThis(),
+          eq: jest.fn().mockReturnThis(),
+          order: jest.fn().mockReturnValue({
+            range: jest.fn().mockResolvedValue({
+              data: totalAlerts.slice(10, 20), // 2ページ目の10件
+              error: null
+            })
+          })
+        };
+        return chainMock;
+      });
 
       const { GET } = await import('@/app/api/alerts/route');
       const { req } = createMocks({
@@ -256,13 +336,19 @@ describe('Alerts API Integration Tests', () => {
         }
       });
 
-      const response = await GET(req as unknown as NextRequest);
+      // Ensure URL is available for query parsing
+      (req as any).url = 'http://localhost:3000/api/alerts?page=2&limit=10';
+
+      const response = await GET(req as NextRequest);
       const data = await response.json();
 
       expect(response.status).toBe(200);
       expect(data.alerts).toHaveLength(10);
       expect(data.pagination.page).toBe(2);
       expect(data.pagination.limit).toBe(10);
+
+      // モックを復元
+      mockSupabase.from = originalFrom;
     });
   });
 
@@ -279,6 +365,18 @@ describe('Alerts API Integration Tests', () => {
         notification_methods: ['email', 'push', 'webhook']
       };
 
+      // 所有者チェック用のモックを設定
+      mockSupabase.from.mockImplementation(() => ({
+        select: jest.fn().mockReturnThis(),
+        eq: jest.fn().mockReturnThis(),
+        single: jest.fn().mockResolvedValue({
+          data: {
+            user_id: mockUser.id
+          },
+          error: null
+        })
+      }));
+
       mockAlertManager.updateAlert.mockResolvedValue({
         id: alertId,
         type: 'price_above',
@@ -293,13 +391,15 @@ describe('Alerts API Integration Tests', () => {
         method: 'PUT',
         headers: {
           authorization: 'Bearer test-token',
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'x-csrf-token': 't',
+          cookie: 'csrf_token=t'
         },
         body: updateData
       });
 
       const response = await PUT(
-        req as unknown as NextRequest,
+        req as NextRequest,
         { params: { id: alertId } }
       );
       const data = await response.json();
@@ -338,7 +438,7 @@ describe('Alerts API Integration Tests', () => {
       });
 
       const response = await PUT(
-        req as unknown as NextRequest,
+        req as NextRequest,
         { params: { id: 'alert-123' } }
       );
 
@@ -374,12 +474,14 @@ describe('Alerts API Integration Tests', () => {
       const { req } = createMocks({
         method: 'DELETE',
         headers: {
-          authorization: 'Bearer test-token'
+          authorization: 'Bearer test-token',
+          'x-csrf-token': 't',
+          cookie: 'csrf_token=t'
         }
       });
 
       const response = await DELETE(
-        req as unknown as NextRequest,
+        req as NextRequest,
         { params: { id: alertId } }
       );
       const data = await response.json();

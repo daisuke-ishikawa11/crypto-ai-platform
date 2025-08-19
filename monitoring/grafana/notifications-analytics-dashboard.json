@@ -1,0 +1,244 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Export Requests (rps)",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        { "expr": "sum(rate(export_requests_total[5m]))", "refId": "A" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Export Errors (rps)",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        { "expr": "sum(rate(export_requests_errors_total[5m]))", "refId": "A" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Export Duration p95 (s)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(export_request_duration_seconds_bucket[5m])) by (le))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Webhook Requests (rps)",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 4 },
+      "targets": [ { "expr": "sum(rate(webhook_requests_total[5m]))", "refId": "A" } ]
+    },
+    {
+      "type": "stat",
+      "title": "Webhook Errors (rps)",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 4 },
+      "targets": [ { "expr": "sum(rate(webhook_requests_errors_total[5m]))", "refId": "A" } ]
+    },
+    {
+      "type": "bargauge",
+      "title": "Invalid Signatures by Provider (rps)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(webhook_invalid_signature_total[5m])) by (provider)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "gauge",
+      "title": "Overall Invalid Signature Rate (pp)",
+      "gridPos": { "h": 8, "w": 6, "x": 0, "y": 12 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum(rate(analytics_invalid_signature_rate_pp_bucket{scope=\"overall\"}[5m])) by (le))",
+          "refId": "A"
+        }
+      ],
+      "options": { "reduceOptions": { "calcs": ["last"] }, "showThresholdLabels": true }
+    },
+    {
+      "type": "timeseries",
+      "title": "Provider Invalid Rate (pp)",
+      "gridPos": { "h": 8, "w": 18, "x": 6, "y": 12 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum(rate(analytics_invalid_signature_rate_pp_bucket{scope=\"provider\"}[5m])) by (provider, le))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Threshold Breaches (overall)",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 20 },
+      "targets": [ { "expr": "sum(increase(analytics_invalid_signature_threshold_breaches_total{scope=\"overall\"}[1h]))", "refId": "A" } ]
+    },
+    {
+      "type": "bargauge",
+      "title": "Threshold Breaches by Provider (last 1h)",
+      "gridPos": { "h": 8, "w": 18, "x": 6, "y": 20 },
+      "targets": [
+        {
+          "expr": "sum(increase(analytics_invalid_signature_threshold_breaches_total{scope=\"provider\"}[1h])) by (provider)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Analytics Requests (rps)",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 24 },
+      "targets": [ { "expr": "sum(rate(analytics_requests_total[5m]))", "refId": "A" } ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Analytics Duration p95 (s)",
+      "gridPos": { "h": 8, "w": 18, "x": 6, "y": 28 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(analytics_request_duration_seconds_bucket[5m])) by (le))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Send Retry Attempts (rps)",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 36 },
+      "targets": [
+        {
+          "expr": "sum(rate(alerts_send_retry_attempts_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (reason, status)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Send Duration p95 (s)",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 44 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(alerts_send_duration_seconds_bucket{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (le))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alerts Dropped (by reason)",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 52 },
+      "options": { "legend": { "displayMode": "table" } },
+      "targets": [
+        {
+          "expr": "sum(rate(alerts_dropped_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (reason)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Send Success Rate (%) by channel",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 60 },
+      "targets": [
+        {
+          "expr": "(sum(rate(alerts_send_total{outcome=\"success\",channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel) / sum(rate(alerts_send_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel)) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Send Error Rate (%) by channel",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 68 },
+      "targets": [
+        {
+          "expr": "(sum(rate(alerts_send_errors_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel) / sum(rate(alerts_send_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel)) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Send Success Rate (%) by severity",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 76 },
+      "targets": [
+        {
+          "expr": "(sum(rate(alerts_send_total{outcome=\"success\",channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (severity) / sum(rate(alerts_send_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (severity)) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alert Dropped Rate (%) by channel",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 84 },
+      "targets": [
+        {
+          "expr": "(sum(rate(alerts_dropped_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel) / sum(rate(alerts_send_total{channel=~\"$channel\",severity=~\"$severity\"}[5m])) by (channel)) * 100",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Alerts Message Truncated (rps)",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 92 },
+      "targets": [
+        {
+          "expr": "sum(rate(alerts_message_truncated_total{channel=~\"$channel\"}[5m])) by (channel)",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["notifications", "analytics", "webhooks"],
+  "templating": { "list": [
+    {
+      "name": "channel",
+      "type": "query",
+      "label": "Channel",
+      "hide": 0,
+      "datasource": null,
+      "definition": "label_values(alerts_send_total, channel)",
+      "query": "label_values(alerts_send_total, channel)",
+      "multi": true,
+      "includeAll": true,
+      "refresh": 2,
+      "current": { "text": "All", "value": ["$__all"] }
+    },
+    {
+      "name": "severity",
+      "type": "query",
+      "label": "Severity",
+      "hide": 0,
+      "datasource": null,
+      "definition": "label_values(alerts_send_total, severity)",
+      "query": "label_values(alerts_send_total, severity)",
+      "multi": true,
+      "includeAll": true,
+      "refresh": 2,
+      "current": { "text": "All", "value": ["$__all"] }
+    }
+  ] },
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "Notifications Analytics & Webhooks",
+  "version": 1
+}

@@ -12,7 +12,7 @@ export interface AssetCorrelation {
   confidence: number;
 }
 
-export interface RiskMetrics {
+export interface RiskMetrics extends Record<string, unknown> {
   value_at_risk: number; // VaR at 95% confidence
   expected_shortfall: number; // CVaR
   max_drawdown: number;
@@ -31,7 +31,7 @@ export interface OptimalAllocation {
   allocation_change: number;
 }
 
-export interface PortfolioOptimizationResult {
+export interface PortfolioOptimizationResult extends Record<string, unknown> {
   allocations: OptimalAllocation[];
   expected_return: number;
   expected_risk: number;
@@ -42,7 +42,7 @@ export interface PortfolioOptimizationResult {
   rebalance_cost: number;
 }
 
-export interface ImpermanentLossModel {
+export interface ImpermanentLossModel extends Record<string, unknown> {
   protocol: string;
   asset_pair: [string, string];
   current_price_ratio: number;
@@ -54,7 +54,7 @@ export interface ImpermanentLossModel {
   risk_score: number; // 0-100
 }
 
-export interface YieldOptimizationResult {
+export interface YieldOptimizationResult extends Record<string, unknown> {
   strategy: string;
   protocols: Array<{
     name: string;
@@ -69,7 +69,7 @@ export interface YieldOptimizationResult {
   suggested_duration: number; // days
 }
 
-export interface MarketSentimentAnalysis {
+export interface MarketSentimentAnalysis extends Record<string, unknown> {
   overall_sentiment: 'extreme_fear' | 'fear' | 'neutral' | 'greed' | 'extreme_greed';
   sentiment_score: number; // 0-100
   fear_greed_index: number;
@@ -161,8 +161,8 @@ class InvestmentAlgorithms {
       };
 
     } catch (error) {
-      logger.error('Portfolio optimization error', { error });
-      throw new Error(`ポートフォリオ最適化に失敗しました: ${error.message}`);
+      logger.error('Portfolio optimization error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`ポートフォリオ最適化に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -213,8 +213,8 @@ class InvestmentAlgorithms {
       };
 
     } catch (error) {
-      logger.error('Risk metrics calculation error', { error });
-      throw new Error(`リスク指標の計算に失敗しました: ${error.message}`);
+      logger.error('Risk metrics calculation error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`リスク指標の計算に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -261,8 +261,8 @@ class InvestmentAlgorithms {
       };
 
     } catch (error) {
-      logger.error('IL prediction error', { error });
-      throw new Error(`IL予測に失敗しました: ${error.message}`);
+      logger.error('IL prediction error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`IL予測に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -331,8 +331,8 @@ class InvestmentAlgorithms {
       };
 
     } catch (error) {
-      logger.error('Yield optimization error', { error });
-      throw new Error(`収益最適化に失敗しました: ${error.message}`);
+      logger.error('Yield optimization error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`収益最適化に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -388,8 +388,8 @@ class InvestmentAlgorithms {
       };
 
     } catch (error) {
-      logger.error('Market sentiment analysis error', { error });
-      throw new Error(`市場センチメント分析に失敗しました: ${error.message}`);
+      logger.error('Market sentiment analysis error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`市場センチメント分析に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -431,7 +431,7 @@ class InvestmentAlgorithms {
     assets: Array<{symbol: string; expectedReturn: number; risk: number}>,
     correlationMatrix: {[key: string]: {[key: string]: number}},
     method: string,
-    constraints?: any
+    constraints?: unknown
   ): Promise<{
     weights: {[symbol: string]: number};
     expectedReturn: number;
@@ -475,8 +475,9 @@ class InvestmentAlgorithms {
     }
 
     // Apply constraints
-    if (constraints?.maxWeight) {
-      constraintsApplied.push(`最大配分: ${constraints.maxWeight * 100}%`);
+    const typedConstraints = constraints as { maxWeight?: number } | undefined
+    if (typedConstraints?.maxWeight) {
+      constraintsApplied.push(`最大配分: ${typedConstraints.maxWeight * 100}%`)
     }
 
     const expectedReturn = assets.reduce((sum, asset) => 

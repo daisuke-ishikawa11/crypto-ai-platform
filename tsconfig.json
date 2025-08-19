@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,30 +12,47 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+      "@/*": ["./src/*"],
+      "@crypto/defi": ["./packages/defi/src/index.ts"],
+      "@crypto/defi/*": ["./packages/defi/src/*"]
+    },
+    "target": "ES2020",
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "types": ["react", "react-dom", "node", "jest"]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
     "next-env.d.ts",
-    "out/types/**/*.ts",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "out/types/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "scripts/**/*",
+    "mcp-serena/**/*", 
+    "serena/**/*",
+    "saas-starter/**/*",
+    "my-project/**/*",
+    "agents/**/*",
+    "tests/**/*",
+    "playwright.config.ts",
+    "playwright-simple.config.ts",
+    "**/*backup*",
+    "**/*bak*",
+    "**/*broken*",
+    "**/*quote-fix*",
+    "**/*type-fix*",
+    "**/*.backup",
+    "**/*.bak*",
+    "**/.*"
   ]
 }
+
+

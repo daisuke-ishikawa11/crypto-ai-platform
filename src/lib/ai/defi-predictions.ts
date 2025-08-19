@@ -9,7 +9,7 @@ import type { DeFiProtocol } from './defi-ai-advisor';
 export interface TimeSeries {
   timestamp: Date;
   value: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface PredictionModel {
@@ -101,12 +101,12 @@ export interface GasOptimizationForecast {
 class DeFiPredictiveAnalytics {
   private openai = createOpenAIClient();
   private anthropic = createAnthropicClient();
-  private predictionCache = new Map<string, { data: any; timestamp: Date; ttl: number }>();
+  private predictionCache = new Map<string, { data: unknown; timestamp: Date; ttl: number }>();
 
   async predictAPYTrends(
     protocol: DeFiProtocol,
     historicalData: TimeSeries[],
-    marketContext?: Record<string, any>
+    marketContext?: Record<string, unknown>
   ): Promise<APYPrediction> {
     const cacheKey = `apy_${protocol.id}_${Date.now()}`;
     
@@ -115,7 +115,7 @@ class DeFiPredictiveAnalytics {
       if (this.predictionCache.has(cacheKey)) {
         const cached = this.predictionCache.get(cacheKey);
         if (cached && Date.now() - cached.timestamp.getTime() < cached.ttl) {
-          return cached.data;
+          return cached.data as APYPrediction;
         }
       }
 
@@ -163,8 +163,8 @@ class DeFiPredictiveAnalytics {
       return prediction;
 
     } catch (error) {
-      logger.error('APY prediction error', { error, protocol: protocol.name });
-      throw new Error(`APY予測の生成に失敗しました: ${error.message}`);
+      logger.error('APY prediction error', { error: error instanceof Error ? error.message : String(error), protocol: protocol.name });
+      throw new Error(`APY予測の生成に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -195,14 +195,14 @@ class DeFiPredictiveAnalytics {
       return forecast;
 
     } catch (error) {
-      logger.error('TVL forecast error', { error, protocol: protocol.name });
-      throw new Error(`TVL予測の生成に失敗しました: ${error.message}`);
+      logger.error('TVL forecast error', { error: error instanceof Error ? error.message : String(error), protocol: protocol.name });
+      throw new Error(`TVL予測の生成に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
   async detectRiskEvents(
     protocols: DeFiProtocol[],
-    onChainMetrics: Record<string, any>
+    onChainMetrics: Record<string, unknown>
   ): Promise<RiskEvent[]> {
     try {
       const riskEvents: RiskEvent[] = [];
@@ -237,8 +237,8 @@ class DeFiPredictiveAnalytics {
       return riskEvents;
 
     } catch (error) {
-      logger.error('Risk detection error', { error });
-      throw new Error(`リスクイベント検出に失敗しました: ${error.message}`);
+      logger.error('Risk detection error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`リスクイベント検出に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -276,8 +276,8 @@ class DeFiPredictiveAnalytics {
       return prediction;
 
     } catch (error) {
-      logger.error('Market cycle prediction error', { error });
-      throw new Error(`市場サイクル予測の生成に失敗しました: ${error.message}`);
+      logger.error('Market cycle prediction error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`市場サイクル予測の生成に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -331,8 +331,8 @@ class DeFiPredictiveAnalytics {
       return forecast;
 
     } catch (error) {
-      logger.error('Gas optimization forecast error', { error });
-      throw new Error(`ガス最適化予測の生成に失敗しました: ${error.message}`);
+      logger.error('Gas optimization forecast error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`ガス最適化予測の生成に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -341,7 +341,7 @@ class DeFiPredictiveAnalytics {
   private buildAPYPredictionPrompt(
     protocol: DeFiProtocol,
     historicalData: TimeSeries[],
-    marketContext?: Record<string, any>
+    marketContext?: Record<string, unknown>
   ): string {
     return `以下のDeFiプロトコルのAPY予測を行ってください：
 
@@ -403,7 +403,7 @@ ${competitorData.map(c => `- ${c.protocol}: $${(c.tvl / 1000000).toFixed(1)}M (�
 }`;
   }
 
-  private buildMarketCyclePredictionPrompt(marketData: any): string {
+  private buildMarketCyclePredictionPrompt(marketData: { prices: TimeSeries[]; volume: TimeSeries[]; sentiment: TimeSeries[]; macro_indicators?: Record<string, number> }): string {
     const recentPrices = marketData.prices.slice(-30);
     const recentVolume = marketData.volume.slice(-30);
     
@@ -426,15 +426,19 @@ ${recentVolume.map((v: TimeSeries) => `${v.timestamp.toISOString().split('T')[0]
 }`;
   }
 
-  private calculateRiskIndicators(protocol: DeFiProtocol, metrics: Record<string, any>): Record<string, number> {
+  private calculateRiskIndicators(protocol: DeFiProtocol, metrics: Record<string, unknown>): Record<string, number> {
+    const num = (v: unknown, fallback: number): number => {
+      const n = typeof v === 'number' ? v : Number(v)
+      return Number.isFinite(n) ? n : fallback
+    }
     return {
-      tvl_change_24h: metrics[`${protocol.id}_tvl_change_24h`] || 0,
-      active_users_change: metrics[`${protocol.id}_users_change`] || 0,
-      transaction_volume_change: metrics[`${protocol.id}_volume_change`] || 0,
-      token_price_volatility: metrics[`${protocol.id}_token_volatility`] || 0,
-      liquidity_depth: metrics[`${protocol.id}_liquidity_depth`] || 100,
-      governance_activity: metrics[`${protocol.id}_governance_activity`] || 50,
-      audit_score: metrics[`${protocol.id}_audit_score`] || protocol.riskScore
+      tvl_change_24h: num(metrics[`${protocol.id}_tvl_change_24h`], 0),
+      active_users_change: num(metrics[`${protocol.id}_users_change`], 0),
+      transaction_volume_change: num(metrics[`${protocol.id}_volume_change`], 0),
+      token_price_volatility: num(metrics[`${protocol.id}_token_volatility`], 0),
+      liquidity_depth: num(metrics[`${protocol.id}_liquidity_depth`], 100),
+      governance_activity: num(metrics[`${protocol.id}_governance_activity`], 50),
+      audit_score: num(metrics[`${protocol.id}_audit_score`], protocol.riskScore)
     };
   }
 
@@ -621,7 +625,7 @@ ${recentVolume.map((v: TimeSeries) => `${v.timestamp.toISOString().split('T')[0]
     };
   }
 
-  private predictGasPrice(networkData: any, hoursAhead: number): number {
+  private predictGasPrice(networkData: { historical_gas: TimeSeries[]; network_utilization: number }, hoursAhead: number): number {
     const currentGas = networkData.historical_gas[networkData.historical_gas.length - 1]?.value || 20;
     const congestionMultiplier = networkData.network_utilization > 0.8 ? 1.5 : 
                                  networkData.network_utilization > 0.6 ? 1.2 : 1.0;
@@ -637,7 +641,7 @@ ${recentVolume.map((v: TimeSeries) => `${v.timestamp.toISOString().split('T')[0]
     return 'low';
   }
 
-  private findOptimalTransactionWindows(gasPatterns: any, predictions: any[]): Array<{
+  private findOptimalTransactionWindows(gasPatterns: { hourlyAverage: number[] }, predictions: Array<{ timeframe: '1h'|'6h'|'24h'; predicted_gas_price: number; confidence: number; network_congestion: 'low'|'medium'|'high' }>): Array<{
     start_time: Date;
     end_time: Date;
     estimated_gas_price: number;
@@ -646,9 +650,9 @@ ${recentVolume.map((v: TimeSeries) => `${v.timestamp.toISOString().split('T')[0]
     // Find hours with historically low gas prices
     const lowGasHours = gasPatterns.hourlyAverage
       .map((avg: number, hour: number) => ({ hour, avg }))
-      .sort((a: any, b: any) => a.avg - b.avg)
-      .slice(0, 6) // Top 6 cheapest hours
-      .map((item: any) => item.hour);
+      .sort((a, b) => a.avg - b.avg)
+      .slice(0, 6)
+      .map((item) => item.hour);
 
     const now = new Date();
     const windows = [];

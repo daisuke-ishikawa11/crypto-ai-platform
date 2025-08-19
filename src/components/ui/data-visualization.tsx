@@ -1,12 +1,13 @@
+"use client"
+
 // 📊 Ultra-Modern Data Visualization Components
 // 2025年最新トレンド: リアルタイムデータ、アニメーション、3D効果
 
-"use client";
-
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, ReactNode } from "react";
-import { TrendingUp, TrendingDown, BarChart3, LineChart, PieChart, Activity } from "lucide-react";
+import * as React from "react"
+import { useEffect, useState } from 'react'
+import { TrendingUp, TrendingDown, Activity } from "lucide-react";
 
 // アニメーション数字カウンター
 interface AnimatedCounterProps {
@@ -26,9 +27,9 @@ export function AnimatedCounter({
   className,
   decimals = 0
 }: AnimatedCounterProps) {
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = React.useState(0);
   
-  useEffect(() => {
+  React.useEffect(() => {
     let startTime: number;
     let animationFrame: number;
     
@@ -170,7 +171,7 @@ interface ProgressRingProps {
   size?: number;
   strokeWidth?: number;
   className?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   color?: string;
   animated?: boolean;
 }
@@ -233,7 +234,7 @@ interface MetricCardProps {
   value: string | number;
   change?: number;
   changePercentage?: number;
-  icon?: ReactNode;
+  icon?: React.ReactNode;
   className?: string;
   trend?: "up" | "down" | "neutral";
   sparklineData?: number[];
@@ -314,7 +315,7 @@ export function MetricCard({
 }
 
 // ライブデータストリーム効果
-export function LiveDataStream({ children }: { children: ReactNode }) {
+export function LiveDataStream({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative">
       {children}

@@ -1,7 +1,7 @@
 'use client'
 
 import { usePostHog } from 'posthog-js/react'
-import { useCallback } from 'react'
+import * as React from "react"
 
 // イベントのタイプ定義
 export interface AnalyticsEvent {
@@ -65,7 +65,7 @@ export function useAnalytics() {
   const posthog = usePostHog()
 
   // イベントを送信
-  const track = useCallback(<T extends keyof AnalyticsEvent>(
+  const track = React.useCallback(<T extends keyof AnalyticsEvent>(
     event: T,
     properties?: AnalyticsEvent[T]
   ) => {
@@ -84,7 +84,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // ユーザーを識別
-  const identify = useCallback((userId: string, properties?: Partial<UserProperties>) => {
+  const identify = React.useCallback((userId: string, properties?: Partial<UserProperties>) => {
     if (!posthog) return
     
     try {
@@ -99,7 +99,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // ユーザープロパティを更新
-  const setUserProperties = useCallback((properties: Partial<UserProperties>) => {
+  const setUserProperties = React.useCallback((properties: Partial<UserProperties>) => {
     if (!posthog) return
     
     try {
@@ -114,7 +114,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // ユーザーをリセット（ログアウト時）
-  const reset = useCallback(() => {
+  const reset = React.useCallback(() => {
     if (!posthog) return
     
     try {
@@ -129,7 +129,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // 機能フラグを取得
-  const getFeatureFlag = useCallback((flagName: string): boolean | string | undefined => {
+  const getFeatureFlag = React.useCallback((flagName: string): boolean | string | undefined => {
     if (!posthog) return undefined
     
     try {
@@ -141,7 +141,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // ページビューを手動で送信
-  const trackPageView = useCallback((path?: string, properties?: Record<string, unknown>) => {
+  const trackPageView = React.useCallback((path?: string, properties?: Record<string, unknown>) => {
     if (!posthog) return
     
     try {
@@ -155,7 +155,7 @@ export function useAnalytics() {
   }, [posthog])
 
   // A/Bテストのバリアントを取得
-  const getExperiment = useCallback((experimentName: string): string | undefined => {
+  const getExperiment = React.useCallback((experimentName: string): string | undefined => {
     if (!posthog) return undefined
     
     try {

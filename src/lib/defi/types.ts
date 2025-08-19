@@ -1,10 +1,125 @@
+export interface ExplorerInfo {
+  name: string
+  url: string
+}
+
+export interface RpcEndpoint {
+  url: string
+  public: boolean
+}
+
+export interface ChainInfo {
+  id: string
+  chainId: number
+  name: string
+  shortName: string
+  nativeSymbol: string
+  explorers: ExplorerInfo[]
+  rpcs: RpcEndpoint[]
+  logo?: string
+  tier: 1 | 2
+}
+
+export interface ChainGasInfo {
+  chainId: number
+  baseFeeGwei?: number
+  priorityFeeGwei?: number
+  gasPriceGwei?: number
+  blockTimeMs?: number
+  fetchedAt: string
+  source: string
+}
+
+export interface ProtocolNormalized {
+  id: string
+  name: string
+  slug: string
+  chains: string[]
+  categories: string[]
+  tvlUsd: number
+  url?: string
+}
+
+export interface JsonRpcRequest {
+  jsonrpc: '2.0'
+  id: number
+  method: string
+  params?: unknown[]
+}
+
+export interface JsonRpcResponse<T> {
+  jsonrpc: '2.0'
+  id: number
+  result?: T
+  error?: { code: number; message: string }
+}
+
 // 🏦 DeFiダッシュボードシステム - 包括的型定義
 // プロトコルダッシュボード、TVL、流動性、ガバナンス、リスク評価の統合システム
 
-export enum DeFiProtocol {
+// DeFi Protocol identifier as union type for maximum compatibility
+export type DeFiProtocol = 
+  // DEX protocols
+  | 'uniswap_v2' | 'uniswap_v3' | 'uniswap' 
+  | 'sushiswap' | 'pancakeswap' | 'curve' | 'balancer'
+  
+  // Lending protocols  
+  | 'compound' | 'aave' | 'maker' | 'cream'
+  
+  // Yield Farming protocols
+  | 'yearn' | 'harvest' | 'convex'
+  
+  // Derivatives protocols
+  | 'synthetix' | 'perpetual'
+  
+  // Insurance protocols
+  | 'nexus_mutual' | 'cover'
+  
+  // Cross-chain protocols
+  | 'polygon' | 'arbitrum' | 'optimism' | 'avalanche'
+
+// DeFi Protocol category type
+export type DeFiProtocolCategory = 
+  | 'lending' 
+  | 'dex' 
+  | 'yield_farming' 
+  | 'derivatives' 
+  | 'insurance' 
+  | 'bridge'
+
+// DeFi Protocol object type for API usage
+export interface DeFiProtocolData {
+  id: string
+  name: string
+  category: DeFiProtocolCategory
+  chain: string
+  tvl: number
+  apy: number
+  riskScore: number
+  governance_token?: string
+  [key: string]: unknown
+}
+
+// DeFi Portfolio data type for API usage
+export interface DeFiPortfolioData {
+  id?: string
+  userId?: string
+  totalValue: number
+  assets: Array<{
+    symbol: string
+    amount: number
+    currentValue: number
+    allocation: number
+  }>
+  [key: string]: unknown
+}
+
+// Legacy enum for backward compatibility
+export enum DeFiProtocolEnum {
   // DEX
   UNISWAP_V2 = 'uniswap_v2',
   UNISWAP_V3 = 'uniswap_v3',
+  UNISWAP = 'uniswap',
   SUSHISWAP = 'sushiswap',
   PANCAKESWAP = 'pancakeswap',
   CURVE = 'curve',
@@ -574,6 +689,74 @@ export interface RiskHistoryPoint {
   events?: string[]; // その時点での重要なイベント
 }
 
+// ユーザーレベル定義
+export enum UserExperienceLevel {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced'
+}
+
+// フリーミアムプラン定義
+export enum SubscriptionTier {
+  FREE = 'free',
+  PREMIUM = 'premium',
+  PROFESSIONAL = 'professional'
+}
+
+// ユーザープロファイル
+export interface DeFiUserProfile {
+  userId: string
+  experienceLevel: UserExperienceLevel
+  subscriptionTier: SubscriptionTier
+  riskTolerance: 'conservative' | 'moderate' | 'aggressive'
+  investmentGoals: string[]
+  preferredNetworks: BlockchainNetwork[]
+  maxInvestmentAmount: number
+  completedTutorials: string[]
+  achievedBadges: string[]
+  preferences: {
+    showEducationalContent: boolean
+    enableRiskWarnings: boolean
+    preferSimplifiedUI: boolean
+    notificationSettings: NotificationPreferences
+  }
+  onboardingProgress: {
+    step: number
+    completed: boolean
+    completedAt?: Date
+  }
+  createdAt: Date
+  updatedAt: Date
+}
+
+// 通知設定
+export interface NotificationPreferences {
+  tvlChanges: boolean
+  riskAlerts: boolean
+  yieldOpportunities: boolean
+  educationalContent: boolean
+  weeklyReports: boolean
+  email: boolean
+  push: boolean
+  frequency: 'immediate' | 'daily' | 'weekly'
+}
+
+// 機能制限定義
+export interface FeatureLimitations {
+  tier: SubscriptionTier
+  limitations: {
+    protocolAccess: string[] // フリーユーザーは制限あり
+    advancedAnalytics: boolean
+    customAlerts: number // フリー：3個、プレミアム：無制限
+    portfolioSize: number // フリー：5プロトコル、プレミアム：無制限
+    historicalData: number // フリー：7日、プレミアム：無制限
+    riskAnalysis: 'basic' | 'detailed' | 'comprehensive'
+    yieldPredictions: boolean
+    aiRecommendations: boolean
+    prioritySupport: boolean
+  }
+}
+
 // DeFi監視アラート設定
 export interface DeFiAlertCondition {
   id: string;
@@ -611,6 +794,110 @@ export interface DeFiAlertCondition {
   
   createdAt: Date;
   updatedAt: Date;
+}
+
+// 教育コンテンツ定義
+export interface EducationalContent {
+  id: string
+  title: string
+  description: string
+  targetLevel: UserExperienceLevel
+  category: 'basics' | 'risk_management' | 'yield_strategies' | 'advanced_topics'
+  format: 'article' | 'video' | 'interactive' | 'quiz'
+  estimatedMinutes: number
+  prerequisites: string[]
+  learningObjectives: string[]
+  content: {
+    sections: ContentSection[]
+    examples: PracticalExample[]
+    warnings: RiskWarning[]
+    quizzes: QuizQuestion[]
+  }
+  metrics: {
+    completionRate: number
+    averageRating: number
+    timeSpent: number
+  }
+  isFreemium: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface ContentSection {
+  id: string
+  title: string
+  content: string
+  visualAids: string[] // 図表、チャート等のURL
+  keyTerms: TermDefinition[]
+}
+
+export interface PracticalExample {
+  scenario: string
+  setup: string
+  execution: string[]
+  outcome: string
+  riskFactors: string[]
+  alternatives: string[]
+}
+
+export interface RiskWarning {
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  message: string
+  mitigation: string[]
+  relevantTo: UserExperienceLevel[]
+}
+
+export interface TermDefinition {
+  term: string
+  definition: string
+  examples: string[]
+  relatedTerms: string[]
+}
+
+export interface QuizQuestion {
+  id: string
+  question: string
+  type: 'multiple_choice' | 'true_false' | 'drag_drop' | 'scenario'
+  options?: string[]
+  correctAnswer: string | string[]
+  explanation: string
+  difficulty: 'easy' | 'medium' | 'hard'
+}
+
+// プロトコル簡易説明（初心者向け）
+export interface BeginnerProtocolInfo {
+  protocolId: string
+  simpleName: string
+  description: string
+  category: 'savings' | 'trading' | 'lending' | 'staking'
+  riskLevel: 'very_low' | 'low' | 'medium' | 'high'
+  minimumInvestment: number
+  expectedReturn: string // "5-8% annually"
+  timeCommitment: string // "No lock-up", "30 days lock"
+  easeOfUse: 1 | 2 | 3 | 4 | 5 // 1=very easy, 5=complex
+  pros: string[]
+  cons: string[]
+  whoItsFor: string
+  howItWorks: string[]
+  risks: RiskExplanation[]
+  gettingStarted: OnboardingStep[]
+}
+
+export interface RiskExplanation {
+  type: string
+  explanation: string
+  likelihood: 'very_low' | 'low' | 'medium' | 'high'
+  impact: string
+  mitigation: string
+}
+
+export interface OnboardingStep {
+  stepNumber: number
+  title: string
+  description: string
+  actionRequired: string
+  timeEstimate: string
+  tips: string[]
 }
 
 // DeFi分析レポート

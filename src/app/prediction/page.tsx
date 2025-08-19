@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { createClient } from "@/lib/supabase/client"

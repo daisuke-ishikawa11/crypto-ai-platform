@@ -9,12 +9,13 @@ import {
   AlertStatistics,
   AlertEngineConfig,
   NotificationMethod,
-  NotificationStatus
+  NotificationStatus,
+  AlertSeverity
 } from './types';
 import { PriceAlertEngine, PriceData } from './price-alert-engine';
 import { TechnicalAlertEngine, TechnicalIndicatorData } from './technical-alert-engine';
 import { VolumeAlertEngine, VolumeData } from './volume-alert-engine';
-import { RiskAlertEngine, RiskData } from './risk-alert-engine';
+import { RiskAlertEngine } from './risk-alert-engine';
 import { NotificationManager } from '@/lib/notifications/notification-manager';
 import { logger } from '@/lib/monitoring/logger';
 import { createClient } from '@/lib/supabase/server';
@@ -85,13 +86,7 @@ export class AlertManager {
       updateInterval: config.dataRefreshInterval
     });
 
-    this.riskEngine = new RiskAlertEngine({
-      confidenceLevels: [0.95, 0.99],
-      lookbackPeriods: [30, 90, 252],
-      rebalanceFrequency: 30,
-      riskFreeRate: 0.02,
-      updateInterval: config.dataRefreshInterval
-    });
+    this.riskEngine = new RiskAlertEngine();
 
     this.initializeBatchProcessing();
   }
@@ -159,7 +154,7 @@ export class AlertManager {
       };
 
       // データベースに保存
-      const supabase = createClient();
+      const supabase = await createClient();
       const { error: dbError } = await supabase
         .from('alert_conditions')
         .insert([{
@@ -228,7 +223,7 @@ export class AlertManager {
     }
 
     // データベースを更新
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error: dbError } = await supabase
       .from('alert_conditions')
       .update({
@@ -274,7 +269,7 @@ export class AlertManager {
     }
 
     // データベースから削除
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error: dbError } = await supabase
       .from('alert_conditions')
       .delete()
@@ -451,7 +446,7 @@ export class AlertManager {
   /**
    * リスクデータを処理してアラートをチェック
    */
-  async processRiskData(riskData: RiskData[], benchmarkData?: Map<string, number>): Promise<TriggeredAlert[]> {
+  async processRiskData(riskData: Array<{ symbol: string; price: number; volume: number }>, benchmarkData?: Map<string, number>): Promise<TriggeredAlert[]> {
     if (!this.config.enableRiskAlerts) {
       return [];
     }
@@ -459,8 +454,14 @@ export class AlertManager {
     const triggeredAlerts: TriggeredAlert[] = [];
 
     try {
-      // リスクエンジンを更新
-      await this.riskEngine.updateRiskData(riskData, benchmarkData);
+      // ベンチマークデータを設定（任意）
+      if (benchmarkData) {
+        for (const [bench, series] of benchmarkData.entries()) {
+          // seriesがnumber[]でない場合の安全化
+          const arr = Array.isArray(series) ? series : [];
+          this.riskEngine.setBenchmarkData(bench, arr as number[]);
+        }
+      }
 
       // 各リスクデータに対してアラートをチェック
       for (const data of riskData) {
@@ -477,7 +478,9 @@ export class AlertManager {
             continue;
           }
 
-          const result = await this.riskEngine.checkRiskAlert(alert, data);
+          // リスクメトリクスを算出し、アラート条件判定（簡易）
+          const metrics = await this.riskEngine.analyzeRisk(data.symbol, data.price, data.volume);
+          const result = this.evaluateRiskAlert(alert, metrics);
           
           if (result && result.triggered && result.alert) {
             // 重複検出
@@ -517,6 +520,64 @@ export class AlertManager {
     }
   }
 
+  private evaluateRiskAlert(alert: AlertCondition, metrics: import('./risk-alert-engine').RiskMetrics): { triggered: boolean; alert?: TriggeredAlert } {
+    // 簡易な評価: 種類に応じて閾値を読み分け（本実装はプレースホルダー）
+    let triggered = false;
+    let currentValue = 0;
+    const title = `${alert.symbol} Risk Alert`;
+    let message = '';
+
+    switch (alert.type) {
+      case AlertType.VAR_EXCEEDED:
+        currentValue = Math.abs(metrics.var95);
+        triggered = currentValue > 0.1; // 仮閾値
+        message = `VaR exceeded threshold: ${currentValue.toFixed(4)}`;
+        break;
+      case AlertType.SHARPE_DECLINE:
+        currentValue = metrics.sharpeRatio;
+        triggered = currentValue < 0.2; // 仮閾値
+        message = `Sharpe ratio dropped: ${currentValue.toFixed(2)}`;
+        break;
+      case AlertType.DRAWDOWN_ALERT:
+        currentValue = Math.abs(metrics.currentDrawdown);
+        triggered = currentValue > 0.2; // 仮閾値
+        message = `Drawdown alert: ${currentValue.toFixed(2)}`;
+        break;
+      case AlertType.BETA_SHIFT:
+        currentValue = Math.abs(metrics.beta - 1);
+        triggered = currentValue > 0.3; // 仮閾値
+        message = `Beta shift: ${metrics.beta.toFixed(2)}`;
+        break;
+      case AlertType.CORRELATION_BREAKDOWN:
+        currentValue = Math.abs(metrics.correlation);
+        triggered = currentValue < 0.2; // 仮閾値（低相関）
+        message = `Correlation breakdown: ${metrics.correlation.toFixed(2)}`;
+        break;
+      default:
+        triggered = false;
+    }
+
+    if (!triggered) return { triggered: false };
+
+    const triggeredAlert: TriggeredAlert = {
+      id: crypto.randomUUID(),
+      alertConditionId: alert.id,
+      userId: alert.userId,
+      type: alert.type,
+      severity: alert.severity,
+      triggeredAt: new Date(),
+      triggeredPrice: metrics.price,
+      currentValue,
+      title,
+      message,
+      details: { riskScore: metrics.riskScore, volatility: metrics.volatility },
+      acknowledged: false,
+      notificationsSent: []
+    };
+
+    return { triggered: true, alert: triggeredAlert };
+  }
+
   /**
    * トリガーされたアラートを処理
    */
@@ -545,7 +606,7 @@ export class AlertManager {
    * トリガーされたアラートをデータベースに保存
    */
   private async saveTriggeredAlerts(alerts: TriggeredAlert[]): Promise<void> {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     const records = alerts.map(alert => ({
       id: alert.id,
@@ -638,10 +699,14 @@ export class AlertManager {
    */
   private initializeBatchProcessing(): void {
     if (!this.config.enableBatching) return;
+    // テスト環境ではバックグラウンドの定期処理を起動しない（ハンドルリーク防止）
+    if (process.env.NODE_ENV === 'test') return;
 
     this.batchTimer = setInterval(() => {
       this.processBatch();
     }, this.config.batchInterval);
+    // テスト以外でもプロセス終了を妨げないよう unref を試みる
+    (this.batchTimer as { unref?: () => void }).unref?.();
   }
 
   /**
@@ -670,10 +735,12 @@ export class AlertManager {
    */
   private startBatchProcessing(): void {
     if (this.batchTimer) return;
+    if (process.env.NODE_ENV === 'test') return;
     
     this.batchTimer = setInterval(() => {
       this.processBatch();
     }, this.config.batchInterval);
+    (this.batchTimer as { unref?: () => void }).unref?.();
 
     logger.info('Batch processing started', {
       interval: this.config.batchInterval,
@@ -695,7 +762,7 @@ export class AlertManager {
    * アクティブなアラートをデータベースから読み込み
    */
   private async loadActiveAlerts(): Promise<void> {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     const { data: alerts, error } = await supabase
       .from('alert_conditions')
@@ -870,7 +937,7 @@ export class AlertManager {
    * システムの統計情報を取得
    */
   async getStatistics(): Promise<AlertStatistics> {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     // 統計データの集計
     const { data: totalAlerts } = await supabase
@@ -887,14 +954,14 @@ export class AlertManager {
       .select('*', { count: 'exact' })
       .gte('triggered_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
-    return {
+      return {
       totalAlerts: totalAlerts?.length || 0,
       activeAlerts: activeAlerts?.length || 0,
       triggeredToday: triggeredToday?.length || 0,
       triggeredThisWeek: 0, // TODO: 実装
       triggeredThisMonth: 0, // TODO: 実装
-      byType: {} as any, // TODO: 実装
-      bySeverity: {} as any, // TODO: 実装
+        byType: {} as Record<AlertType, number>, // TODO: 実装
+        bySeverity: {} as Record<AlertSeverity, number>, // TODO: 実装
       averageResponseTime: 0, // TODO: 実装
       falsePositiveRate: 0, // TODO: 実装
       acknowledgeRate: 0 // TODO: 実装

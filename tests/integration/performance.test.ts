@@ -54,7 +54,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -75,7 +75,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -93,7 +93,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -119,7 +119,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return POST(req as unknown as NextRequest);
+        return POST(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -143,7 +143,7 @@ describe('Performance Integration Tests', () => {
             }
           });
 
-          return GET(req as unknown as NextRequest);
+          return GET(req as NextRequest);
         });
 
         return Promise.all(requests);
@@ -160,7 +160,7 @@ describe('Performance Integration Tests', () => {
             method: 'GET',
             headers: { authorization: 'Bearer test-token' }
           });
-          return GET(req as unknown as NextRequest);
+          return GET(req as NextRequest);
         });
 
         const writeRequests = Array.from({ length: 25 }, async () => {
@@ -177,7 +177,7 @@ describe('Performance Integration Tests', () => {
               threshold: 50000
             }
           });
-          return POST(req as unknown as NextRequest);
+          return POST(req as NextRequest);
         });
 
         const aiRequests = Array.from({ length: 10 }, async () => {
@@ -192,7 +192,7 @@ describe('Performance Integration Tests', () => {
               message: 'ビットコインの基本を教えて'
             }
           });
-          return POST(req as unknown as NextRequest);
+          return POST(req as NextRequest);
         });
 
         return Promise.all([...readRequests, ...writeRequests, ...aiRequests]);
@@ -217,7 +217,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -239,7 +239,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -261,7 +261,7 @@ describe('Performance Integration Tests', () => {
           symbols: 'BTC,ETH'
         }
       });
-      await GET(firstReq as unknown as NextRequest);
+      await GET(firstReq as NextRequest);
 
       // 2回目リクエスト（キャッシュヒット）
       const { result, duration } = await measurePerformance('Cache Hit', async () => {
@@ -275,7 +275,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -295,7 +295,7 @@ describe('Performance Integration Tests', () => {
             headers: { authorization: 'Bearer test-token' },
             query: { symbols: symbol }
           });
-          return GET(req as unknown as NextRequest);
+          return GET(req as NextRequest);
         });
         coldStartDurations.push(duration);
       }
@@ -310,7 +310,7 @@ describe('Performance Integration Tests', () => {
             headers: { authorization: 'Bearer test-token' },
             query: { symbols: symbol }
           });
-          return GET(req as unknown as NextRequest);
+          return GET(req as NextRequest);
         });
         warmStartDurations.push(duration);
       }
@@ -340,7 +340,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -367,7 +367,7 @@ describe('Performance Integration Tests', () => {
           body: { alerts }
         });
 
-        return POST(req as unknown as NextRequest);
+        return POST(req as NextRequest);
       });
 
       expect(result.status).toBe(201);
@@ -392,7 +392,7 @@ describe('Performance Integration Tests', () => {
         }
       });
 
-      await GET(req as unknown as NextRequest);
+      await GET(req as NextRequest);
 
       const finalMemory = process.memoryUsage().heapUsed;
       const memoryIncrease = (finalMemory - initialMemory) / 1024 / 1024; // MB
@@ -424,7 +424,7 @@ describe('Performance Integration Tests', () => {
           }
         });
 
-        return GET(req as unknown as NextRequest);
+        return GET(req as NextRequest);
       });
 
       expect(result.status).toBe(200);
@@ -442,7 +442,7 @@ describe('Performance Integration Tests', () => {
         }
       });
 
-      const response = await GET(req as unknown as NextRequest);
+      const response = await GET(req as NextRequest);
       const firstByteTime = performance.now() - startTime;
 
       // 最初のバイトまでが50ms以内

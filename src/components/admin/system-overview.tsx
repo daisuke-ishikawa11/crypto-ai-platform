@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useCallback, useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { 
@@ -24,9 +25,7 @@ export function SystemOverview() {
   const [systemStatus, setSystemStatus] = useState<SystemStatus[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // 実際のシステム状態を取得
-    const fetchSystemStatus = async () => {
+  const fetchSystemStatus = useCallback(async () => {
       try {
         // 実際の API エンドポイントを使用
         const response = await fetch('/api/monitoring/performance?action=system');
@@ -115,10 +114,11 @@ export function SystemOverview() {
       } finally {
         setLoading(false);
       }
-    };
+    }, []);
 
-    fetchSystemStatus();
-  }, []);
+    useEffect(() => {
+      fetchSystemStatus();
+    }, [fetchSystemStatus]);
 
   if (loading) {
     return (
@@ -211,7 +211,7 @@ export function SystemOverview() {
                 <p className="text-sm font-medium truncate">
                   {service.service}
                 </p>
-                <Badge variant={getStatusVariant(service.status) as any} className="text-xs">
+                <Badge variant={getStatusVariant(service.status) as 'default' | 'warning' | 'secondary' | 'destructive' | 'outline'} className="text-xs">
                   {service.status === 'healthy' ? '正常' : 
                    service.status === 'warning' ? '警告' : 'エラー'}
                 </Badge>

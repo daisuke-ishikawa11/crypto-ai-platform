@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';

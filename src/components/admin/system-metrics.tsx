@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 

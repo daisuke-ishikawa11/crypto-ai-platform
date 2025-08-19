@@ -1,0 +1,43 @@
+name: ai-health
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install jq and bc
+        run: sudo apt-get update && sudo apt-get install -y jq bc
+      - name: Run AI health check
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          AI_SUCCESS_RATE_THRESHOLD_PCT: ${{ vars.AI_SUCCESS_RATE_THRESHOLD_PCT || 80 }}
+        run: bash scripts/ops/health-ai.sh
+      - name: Notify Discord on failure
+        if: failure() && env.DISCORD_WEBHOOK != ''
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: |
+          stats=$(curl -fsSL "${BASE_URL}/api/defi/risk/ai-stats" || echo '{}')
+          sr=$(echo "$stats" | jq -r '.data.successRate * 100 | floor' 2>/dev/null || echo "-")
+          rl=$(echo "$stats" | jq -r '.data.failuresByReason.rate_limited // 0' 2>/dev/null || echo "-")
+          tot=$(echo "$stats" | jq -r '.data.total // 0' 2>/dev/null || echo "-")
+          msg="❗ DeFi AI health check failed. successRate=${sr}%, rateLimited=${rl}, total=${tot}. See ${BASE_URL}/alerts and Grafana dashboard."
+          curl -fsSL -H 'Content-Type: application/json' -d "{\"content\": \"${msg}\"}" "$DISCORD_WEBHOOK" || true
+      - name: Notify Slack on failure
+        if: failure() && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: |
+          stats=$(curl -fsSL "${BASE_URL}/api/defi/risk/ai-stats" || echo '{}')
+          sr=$(echo "$stats" | jq -r '.data.successRate * 100 | floor' 2>/dev/null || echo "-")
+          rl=$(echo "$stats" | jq -r '.data.failuresByReason.rate_limited // 0' 2>/dev/null || echo "-")
+          tot=$(echo "$stats" | jq -r '.data.total // 0' 2>/dev/null || echo "-")
+          msg="❗ DeFi AI health check failed. successRate=${sr}%, rateLimited=${rl}, total=${tot}. See ${BASE_URL}/alerts and Grafana dashboard."
+          curl -fsSL -H 'Content-Type: application/json' -d "{\"text\": \"${msg}\"}" "$SLACK_WEBHOOK_URL" || true

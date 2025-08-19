@@ -1,0 +1,84 @@
+{
+  "title": "DeFi Overview",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "DeFi API Requests",
+      "targets": [
+        { "expr": "sum by (endpoint)(rate(defi_api_requests_total[5m]))" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "DeFi API Errors",
+      "targets": [
+        { "expr": "sum by (endpoint,reason)(rate(defi_api_errors_total[5m]))" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Pools Ingest Written",
+      "targets": [
+        { "expr": "sum(rate(defi_pools_ingest_written_total[5m]))" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Evaluate Requests (Success/Failure)",
+      "targets": [
+        { "expr": "sum by (outcome)(rate(defi_ai_evaluate_requests_total[5m]))", "legendFormat": "{{outcome}}" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Failures by Reason",
+      "targets": [
+        { "expr": "sum by (reason)(rate(defi_ai_evaluate_requests_total{outcome=\"failure\"}[5m]))", "legendFormat": "{{reason}}" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Final Severity",
+      "targets": [
+        { "expr": "sum by (level)(rate(defi_ai_evaluate_final_severity_total[5m]))", "legendFormat": "{{level}}" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Suggested Severity",
+      "targets": [
+        { "expr": "sum by (level)(rate(defi_ai_evaluate_suggested_severity_total[5m]))", "legendFormat": "{{level}}" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Adjustments Direction",
+      "targets": [
+        { "expr": "sum by (sign)(rate(defi_ai_evaluate_adjustments_total[5m]))", "legendFormat": "{{sign}}" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "AI Success Rate",
+      "targets": [
+        { "expr": "sum(rate(defi_ai_evaluate_requests_total{outcome=\"success\"}[5m])) / clamp_min(sum(rate(defi_ai_evaluate_requests_total[5m])), 1)", "legendFormat": "success_rate" }
+      ],
+      "yaxes": [{ "format": "percent" }, { "format": "short" }]
+    },
+    {
+      "type": "graph",
+      "title": "AI Rate Limited (5m)",
+      "targets": [
+        { "expr": "sum(rate(defi_ai_evaluate_requests_total{reason=\"rate_limited\"}[5m]))", "legendFormat": "rate_limited" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Anomalies Detected by Type/Level",
+      "targets": [
+        { "expr": "sum by (type,level)(rate(defi_anomalies_detected_total[5m]))", "legendFormat": "{{type}}/{{level}}" }
+      ]
+    }
+  ],
+  "time": { "from": "now-24h", "to": "now" }
+}

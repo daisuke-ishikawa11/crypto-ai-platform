@@ -4,9 +4,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withApiHandler, ApiContext } from '@/lib/auth/middleware';
 import { SubscriptionService } from '@/lib/stripe/subscription-service';
-import { stripe, getPlans, formatPrice, TEST_CARDS } from '@/lib/stripe/config';
+import { getStripe, getPlans, formatPrice, TEST_CARDS } from '@/lib/stripe/config';
 import { logger } from '@/lib/monitoring/logger';
 import { z } from 'zod';
+import { toRecord } from '@/lib/types/guards';
 
 // バリデーションスキーマ
 const createSubscriptionSchema = z.object({
@@ -60,7 +61,10 @@ async function getSubscriptions(
   
   try {
     // ユーザーのサブスクリプション情報を取得
-    if (!user.profile?.stripe_customer_id) {
+    const userObj = toRecord(user);
+    const profileObj = toRecord(userObj.profile);
+    
+    if (!profileObj.stripe_customer_id) {
       return NextResponse.json({
         subscription: null,
         plans: getPlans(),
@@ -70,15 +74,15 @@ async function getSubscriptions(
 
     let subscriptionDetails = null;
     
-    if (user.profile.stripe_subscription_id) {
+    if (profileObj.stripe_subscription_id) {
       try {
         subscriptionDetails = await subscriptionService.getSubscriptionDetails(
-          user.profile.stripe_subscription_id
+          profileObj.stripe_subscription_id as string
         );
       } catch (error) {
         logger.warn('Failed to get subscription details', {
           userId: user.id,
-          subscriptionId: user.profile.stripe_subscription_id,
+      subscriptionId: (profileObj.stripe_subscription_id as string | undefined) ?? '',
           error: error instanceof Error ? error.message : 'Unknown error'
         });
       }
@@ -125,7 +129,9 @@ async function createSubscription(
     const validatedData = createSubscriptionSchema.parse(body);
 
     // 既存のアクティブなサブスクリプションをチェック
-    if (user.profile?.stripe_subscription_id && user.subscription_status === 'active') {
+    const userObj2 = toRecord(user);
+    const profileObj2 = toRecord(userObj2.profile);
+    if (profileObj2.stripe_subscription_id && ((userObj2 as { subscription_status?: string }).subscription_status === 'active')) {
       return NextResponse.json(
         { error: 'User already has an active subscription' },
         { status: 400 }
@@ -159,6 +165,7 @@ async function createSubscription(
 
     // 請求先住所を更新（提供されている場合）
     if (validatedData.billingAddress && result.subscription.customer) {
+      const stripe = getStripe();
       await stripe.customers.update(result.subscription.customer as string, {
         address: validatedData.billingAddress,
         tax_exempt: validatedData.taxExempt
@@ -198,7 +205,9 @@ async function updateSubscription(
   const { user } = context;
   
   try {
-    if (!user.profile?.stripe_subscription_id) {
+    const userObj6 = toRecord(user);
+    const profileObj6 = toRecord(userObj6.profile);
+    if (!profileObj6.stripe_subscription_id) {
       return NextResponse.json(
         { error: 'No active subscription found' },
         { status: 404 }
@@ -209,7 +218,7 @@ async function updateSubscription(
     const validatedData = updateSubscriptionSchema.parse(body);
 
     const updatedSubscription = await subscriptionService.updateSubscription({
-      subscriptionId: user.profile.stripe_subscription_id,
+      subscriptionId: profileObj6.stripe_subscription_id as string,
       priceId: validatedData.priceId,
       quantity: validatedData.seats,
       couponId: validatedData.couponId,
@@ -244,7 +253,9 @@ async function cancelSubscription(
   const { user } = context;
   
   try {
-    if (!user.profile?.stripe_subscription_id) {
+    const userObj5 = toRecord(user);
+    const profileObj5 = toRecord(userObj5.profile);
+    if (!profileObj5.stripe_subscription_id) {
       return NextResponse.json(
         { error: 'No active subscription found' },
         { status: 404 }
@@ -255,7 +266,7 @@ async function cancelSubscription(
     const validatedData = cancelSubscriptionSchema.parse(body);
 
     const cancelledSubscription = await subscriptionService.cancelSubscription(
-      user.profile.stripe_subscription_id,
+      profileObj5.stripe_subscription_id as string,
       validatedData.cancelAtPeriodEnd,
       validatedData.reason
     );
@@ -307,30 +318,35 @@ export const POST = withApiHandler(createSubscription, {
   requireAuth: true,
   requireSubscription: false,
   rateLimitKey: 'subscriptions-create',
-  validateSchema: createSubscriptionSchema
+  validateSchema: createSubscriptionSchema,
+  requireCSRF: true
 });
 
 export const PUT = withApiHandler(updateSubscription, {
   requireAuth: true,
   requireSubscription: false,
   rateLimitKey: 'subscriptions-update',
-  validateSchema: updateSubscriptionSchema
+  validateSchema: updateSubscriptionSchema,
+  requireCSRF: true
 });
-
 export const DELETE = withApiHandler(cancelSubscription, {
   requireAuth: true,
   requireSubscription: false,
   rateLimitKey: 'subscriptions-cancel',
-  validateSchema: cancelSubscriptionSchema
+  validateSchema: cancelSubscriptionSchema,
+  requireCSRF: true
 });
-
 export const OPTIONS = async () => {
+  const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+  const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
   return new NextResponse(null, { 
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowOrigin,
+      'Vary': 'Origin',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
     }
   });
 };

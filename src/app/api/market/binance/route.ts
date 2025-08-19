@@ -18,10 +18,10 @@ export async function GET(request: Request) {
     const action = searchParams.get("action") || "prices"
     const symbol = searchParams.get("symbol")
     const symbols = searchParams.get("symbols")?.split(",").filter(Boolean)
-    const interval = searchParams.get("interval") as any || "1d"
+    const interval = (searchParams.get("interval") as ReturnType<typeof searchParams.get>) || "1d"
     const limit = parseInt(searchParams.get("limit") || "100")
     
-    let responseData: any
+    let responseData: unknown
     
     // 接続テスト
     const isConnected = await binanceClient.testConnection()
@@ -59,7 +59,7 @@ export async function GET(request: Request) {
           )
         }
         // Klineデータ（ローソク足）
-        responseData = await binanceClient.getKlines(symbol, interval, limit)
+        responseData = await binanceClient.getKlines(symbol, (interval as '1m'|'5m'|'15m'|'30m'|'1h'|'2h'|'4h'|'6h'|'8h'|'12h'|'1d'|'3d'|'1w'|'1M'|'3m'), limit)
         break
         
       case "orderbook":

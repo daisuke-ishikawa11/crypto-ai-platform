@@ -59,7 +59,7 @@ export class CloudflareAnalyticsManager {
     action: string,
     category: string,
     userId: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): void {
     const blobs = [
       'user_action',
@@ -309,7 +309,7 @@ export class CloudflareAnalyticsManager {
    */
   trackCustomEvent(
     eventName: string,
-    properties: Record<string, any>,
+    properties: Record<string, unknown>,
     userId?: string
   ): void {
     const blobs = [
@@ -408,11 +408,11 @@ export const Analytics = {
  */
 export function useAnalytics() {
   return {
-    track: (eventName: string, properties?: Record<string, any>, userId?: string) => {
+    track: (eventName: string, properties?: Record<string, unknown>, userId?: string) => {
       analytics.trackCustomEvent(eventName, properties || {}, userId);
     },
     
-    trackUserAction: (action: string, category: string, userId?: string, metadata?: Record<string, any>) => {
+    trackUserAction: (action: string, category: string, userId?: string, metadata?: Record<string, unknown>) => {
       analytics.trackUserAction(action, category, userId || 'anonymous', metadata);
     },
     

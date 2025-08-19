@@ -64,7 +64,7 @@ function generateVariant(width: number, quality?: number): string {
 export async function uploadImageToCloudflare(
   file: File,
   imageId?: string
-): Promise<{ success: boolean; result?: any; errors?: any[] }> {
+): Promise<{ success: boolean; result?: unknown; errors?: unknown[] }> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const apiToken = process.env.CLOUDFLARE_API_TOKEN;
   
@@ -143,7 +143,7 @@ export async function deleteImageFromCloudflare(
  */
 export async function getImageFromCloudflare(
   imageId: string
-): Promise<any> {
+): Promise<unknown> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const apiToken = process.env.CLOUDFLARE_API_TOKEN;
   

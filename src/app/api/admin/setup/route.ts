@@ -1,10 +1,10 @@
 // 🔑 管理者アカウント自動作成API
 // 開発環境でのみ動作し、環境変数から管理者情報を取得
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     // 開発環境でのみ実行
     if (process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_DEVELOPMENT_MODE !== 'true') {

@@ -9,7 +9,7 @@ export async function getPricePrediction(
   prediction: number
   confidence: number
   reasoning: string
-  supportingData: any
+  supportingData: unknown
 }> {
   try {
     // 実際の市場データを取得（簡易実装）

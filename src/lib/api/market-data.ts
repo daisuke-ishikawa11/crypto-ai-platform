@@ -109,9 +109,11 @@ function updateMockPrices() {
   });
 }
 
-// Update prices every 30 seconds
-if (typeof window !== 'undefined') {
-  setInterval(updateMockPrices, 30000);
+// Update prices every 30 seconds (browser only, and skip in test)
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'test') {
+  const t = setInterval(updateMockPrices, 30000);
+  // best-effort unref for environments that support it
+  (t as { unref?: () => void }).unref?.();
 }
 
 export class MarketDataAPI {

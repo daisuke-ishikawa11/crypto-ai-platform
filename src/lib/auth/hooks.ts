@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useContext, createContext, ReactNode } from 'react';
+import * as React from "react"
 import { createClient } from '@/lib/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { logger } from '@/lib/monitoring/logger';
@@ -34,19 +34,19 @@ interface AuthContextType {
   refreshUser: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 /**
  * 認証プロバイダーコンポーネント
  */
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthenticatedUser | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = React.useState<AuthenticatedUser | null>(null);
+  const [session, setSession] = React.useState<Session | null>(null);
+  const [loading, setLoading] = React.useState(true);
   
   const supabase = createClient();
 
-  useEffect(() => {
+  React.useEffect(() => {
     // 初期セッション取得
     getInitialSession();
 
@@ -401,7 +401,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
  * 認証コンテキストを使用するフック
  */
 export function useAuth(): AuthContextType {
-  const context = useContext(AuthContext);
+  const context = React.useContext(AuthContext);
   
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
@@ -424,7 +424,7 @@ export function useUser() {
 export function useRequireAuth() {
   const { user, loading } = useAuth();
   
-  useEffect(() => {
+  React.useEffect(() => {
     if (!loading && !user) {
       // リダイレクト処理は使用側で実装
       logger.warn('Unauthorized access attempt blocked');

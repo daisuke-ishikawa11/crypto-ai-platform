@@ -2,10 +2,11 @@
 // Advanced caching for AI responses, embeddings, and performance optimization
 
 import { logger } from '@/lib/monitoring/logger';
-import { createClient } from '@/lib/supabase/server';
+import { createClient as createBrowserClient } from '@/lib/supabase/client';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 import { createHash } from 'crypto';
 
-export interface CacheEntry<T = any> {
+export interface CacheEntry<T = unknown> {
   key: string;
   data: T;
   timestamp: Date;
@@ -20,6 +21,15 @@ export interface CacheEntry<T = any> {
   };
 }
 
+// Type guard for objects with confidence property
+interface HasConfidence {
+  confidence: number;
+}
+
+function hasConfidence(obj: unknown): obj is HasConfidence {
+  return typeof obj === 'object' && obj !== null && 'confidence' in obj && typeof (obj as Record<string, unknown>).confidence === 'number';
+}
+
 export interface EmbeddingCache {
   text_hash: string;
   embedding: number[];
@@ -29,7 +39,7 @@ export interface EmbeddingCache {
 
 export interface QueryCache {
   query_hash: string;
-  response: any;
+  response: unknown;
   model: string;
   confidence: number;
   created_at: Date;
@@ -51,7 +61,7 @@ export interface CacheStats {
 export interface FallbackResponse {
   id: string;
   query_type: string;
-  response: any;
+  response: unknown;
   confidence: number;
   is_fallback: boolean;
   created_at: Date;
@@ -61,7 +71,7 @@ class AICacheService {
   private memoryCache = new Map<string, CacheEntry>();
   private embeddingCache = new Map<string, EmbeddingCache>();
   private fallbackResponses = new Map<string, FallbackResponse>();
-  private supabase = createClient();
+  private supabaseClient: ReturnType<typeof createBrowserClient> | null = null;
   private stats = {
     hits: 0,
     misses: 0,
@@ -191,7 +201,8 @@ class AICacheService {
       this.embeddingCache.set(textHash, embeddingEntry);
 
       // Persist to database
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('embedding_cache')
         .upsert([embeddingEntry]);
 
@@ -219,7 +230,8 @@ class AICacheService {
       }
 
       // Check database
-      const { data, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase
         .from('embedding_cache')
         .select('*')
         .eq('text_hash', textHash)
@@ -252,7 +264,7 @@ class AICacheService {
   ): Promise<T | null> {
     try {
       // Get embedding for the query
-      let queryEmbedding = await this.getEmbedding(query, model);
+      const queryEmbedding = await this.getEmbedding(query, model);
       
       if (!queryEmbedding) {
         // Would generate embedding here in production
@@ -261,7 +273,8 @@ class AICacheService {
       }
 
       // Find similar cached responses using vector similarity
-      const { data, error } = await this.supabase.rpc('find_similar_queries', {
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase.rpc('find_similar_queries', {
         query_embedding: queryEmbedding,
         similarity_threshold: threshold,
         match_count: 1
@@ -301,7 +314,8 @@ class AICacheService {
       const windowStart = new Date(now.getTime() - 3600000); // 1 hour window
 
       // Get usage count for this window
-      const { data, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase
         .from('api_usage_log')
         .select('*')
         .eq('user_id', userId)
@@ -348,7 +362,8 @@ class AICacheService {
         created_at: new Date()
       };
 
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('api_usage_log')
         .insert([usage]);
 
@@ -386,7 +401,7 @@ class AICacheService {
    */
   async storeFallbackResponse(
     queryType: string,
-    response: any,
+    response: unknown,
     confidence: number = 0.5
   ): Promise<void> {
     try {
@@ -402,7 +417,8 @@ class AICacheService {
       this.fallbackResponses.set(queryType, fallback);
 
       // Persist important fallbacks
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('fallback_responses')
         .upsert([fallback]);
 
@@ -435,7 +451,8 @@ class AICacheService {
 
       // Clear expired database entries
       const expiredTime = new Date(now - 24 * 60 * 60 * 1000); // 24 hours
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('query_cache')
         .delete()
         .lt('expires_at', expiredTime.toISOString());
@@ -481,7 +498,7 @@ class AICacheService {
     return createHash('sha256').update(text).digest('hex');
   }
 
-  private calculateIntelligentTTL(data: any, metadata?: CacheEntry['metadata']): number {
+  private calculateIntelligentTTL(data: unknown, metadata?: CacheEntry['metadata']): number {
     const baseTTL = {
       'market_analysis': 5 * 60 * 1000,      // 5 minutes
       'price_prediction': 15 * 60 * 1000,    // 15 minutes
@@ -495,23 +512,23 @@ class AICacheService {
       return baseTTL.general_query; // Longer cache for expensive models
     }
 
-    if (typeof data === 'object' && data.confidence && data.confidence > 0.8) {
+    if (hasConfidence(data) && data.confidence > 0.8) {
       return baseTTL.portfolio_analysis; // Cache high-confidence responses longer
     }
 
     return baseTTL.general_query; // Default TTL
   }
 
-  private shouldPersist(data: any, metadata?: CacheEntry['metadata']): boolean {
+  private shouldPersist(data: unknown, metadata?: CacheEntry['metadata']): boolean {
     // Persist expensive queries or high-confidence results
     return (
       metadata?.tokens_used && metadata.tokens_used > 1000
     ) || (
-      typeof data === 'object' && data.confidence && data.confidence > 0.9
+      hasConfidence(data) && data.confidence > 0.9
     );
   }
 
-  private isEntryValid(entry: CacheEntry, fallbackOptions?: any): boolean {
+  private isEntryValid(entry: CacheEntry, fallbackOptions?: { allowStale?: boolean; staleTTL?: number } | undefined): boolean {
     const now = Date.now();
     const age = now - entry.timestamp.getTime();
 
@@ -522,7 +539,7 @@ class AICacheService {
 
     // Check if stale entries are allowed
     if (fallbackOptions?.allowStale) {
-      const staleTTL = fallbackOptions.staleTTL || entry.ttl * 2;
+      const staleTTL = (fallbackOptions.staleTTL ?? (entry.ttl * 2));
       return age <= staleTTL;
     }
 
@@ -546,13 +563,14 @@ class AICacheService {
 
   private async persistToDatabase<T>(entry: CacheEntry<T>): Promise<void> {
     try {
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('query_cache')
         .upsert([{
           query_hash: entry.key,
           response: entry.data,
           model: entry.metadata?.model || 'unknown',
-          confidence: typeof entry.data === 'object' && entry.data.confidence ? entry.data.confidence : 0.7,
+          confidence: hasConfidence(entry.data) ? entry.data.confidence : 0.7,
           created_at: entry.timestamp,
           expires_at: new Date(entry.timestamp.getTime() + entry.ttl),
           usage_count: 1
@@ -567,7 +585,8 @@ class AICacheService {
 
   private async getFromDatabase<T>(key: string): Promise<CacheEntry<T> | null> {
     try {
-      const { data, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase
         .from('query_cache')
         .select('*')
         .eq('query_hash', key)
@@ -607,7 +626,8 @@ class AICacheService {
 
     // Check database
     try {
-      const { data, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase
         .from('fallback_responses')
         .select('*')
         .eq('query_type', queryType)
@@ -671,14 +691,29 @@ class AICacheService {
       '/api/ai/defi/predict': 20,     // 20 requests per hour
       '/api/ai/defi/optimize': 30,    // 30 requests per hour
       default: 60
-    };
+    } as const;
 
-    return limits[endpoint] || limits.default;
+    return (endpoint in limits ? (limits as Record<string, number>)[endpoint] : limits.default);
+  }
+
+  private async getSupabaseClient() {
+    if (!this.supabaseClient) {
+      // サーバーサイドかブラウザかを判定
+      if (typeof window === 'undefined') {
+        // サーバーサイド
+        this.supabaseClient = await createServerClient();
+      } else {
+        // ブラウザサイド
+        this.supabaseClient = createBrowserClient();
+      }
+    }
+    return this.supabaseClient;
   }
 
   private async updateUserUsageStats(userId: string, tokens: number, cost: number): Promise<void> {
     try {
-      const { error } = await this.supabase.rpc('increment_user_usage', {
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase.rpc('increment_user_usage', {
         user_id: userId,
         tokens_increment: tokens,
         cost_increment: cost

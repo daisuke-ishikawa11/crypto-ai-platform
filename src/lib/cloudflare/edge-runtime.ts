@@ -7,7 +7,7 @@ import { analytics } from './analytics';
  * Edge Runtime環境検出
  */
 export function isEdgeRuntime(): boolean {
-  return typeof EdgeRuntime !== 'undefined';
+  return typeof (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== 'undefined';
 }
 
 /**
@@ -30,20 +30,20 @@ export class EdgePerformanceMonitor {
     this.startTime = Date.now();
     
     // メモリ使用量（可能な場合）
-    if (typeof performance !== 'undefined' && performance.memory) {
-      this.memoryStart = (performance.memory as any).usedJSHeapSize;
+    if (typeof performance !== 'undefined' && 'memory' in performance) {
+      this.memoryStart = (performance as { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize;
     }
   }
 
   /**
    * 測定終了・記録
    */
-  end(success = true, metadata?: Record<string, any>): void {
+  end(success = true, metadata?: Record<string, unknown>): void {
     const duration = Date.now() - this.startTime;
     
     let memoryUsed: number | undefined;
-    if (this.memoryStart && typeof performance !== 'undefined' && performance.memory) {
-      memoryUsed = (performance.memory as any).usedJSHeapSize - this.memoryStart;
+    if (this.memoryStart && typeof performance !== 'undefined' && 'memory' in performance) {
+      memoryUsed = ((performance as { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize ?? 0) - this.memoryStart;
     }
 
     // Analytics記録
@@ -73,11 +73,11 @@ export class EdgePerformanceMonitor {
 /**
  * Edge Function実行デコレーター
  */
-export function withEdgeMonitoring<T extends (...args: any[]) => any>(
+export function withEdgeMonitoring<T extends (...args: unknown[]) => unknown>(
   fn: T,
   context: string
 ): T {
-  return (async (...args: any[]) => {
+  return (async (...args: unknown[]) => {
     const monitor = new EdgePerformanceMonitor(context);
     
     try {
@@ -148,14 +148,14 @@ export class EdgeResourceManager {
     maxTasks: number;
     memoryUsage?: number;
   } {
-    const usage: any = {
+    const usage: { activeTasks: number; maxTasks: number; memoryUsage?: number } = {
       activeTasks: this.activeTasks.size,
       maxTasks: this.maxConcurrentTasks
     };
 
     // メモリ使用量（可能な場合）
-    if (typeof performance !== 'undefined' && performance.memory) {
-      usage.memoryUsage = (performance.memory as any).usedJSHeapSize;
+    if (typeof performance !== 'undefined' && 'memory' in performance) {
+      usage.memoryUsage = (performance as { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize;
     }
 
     return usage;
@@ -224,7 +224,7 @@ export class EdgeResponseOptimizer {
    * 圧縮応答作成
    */
   static createCompressedResponse(
-    data: any,
+    data: unknown,
     options: {
       compress?: boolean;
       cacheMaxAge?: number;
@@ -294,13 +294,13 @@ export class EdgeResponseOptimizer {
    * SSE応答作成
    */
   static createSSEResponse(
-    eventGenerator: AsyncGenerator<{ event?: string; data: any; id?: string }>
+    eventGenerator: AsyncGenerator<{ event?: string; data: unknown; id?: string }>
   ): Response {
     const stream = new ReadableStream({
       async start(controller) {
         try {
           for await (const event of eventGenerator) {
-            const sseData = this.formatSSEData(event);
+            const sseData = EdgeResponseOptimizer.formatSSEData(event);
             controller.enqueue(new TextEncoder().encode(sseData));
           }
           controller.close();
@@ -319,7 +319,7 @@ export class EdgeResponseOptimizer {
     });
   }
 
-  private static formatSSEData(event: { event?: string; data: any; id?: string }): string {
+  private static formatSSEData(event: { event?: string; data: unknown; id?: string }): string {
     let formatted = '';
     
     if (event.id) {

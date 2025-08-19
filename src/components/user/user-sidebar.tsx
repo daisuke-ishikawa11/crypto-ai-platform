@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -32,7 +33,7 @@ interface UserSidebarProps {
 
 export function UserSidebar({ className }: UserSidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
 
   const navigationItems = [
     {

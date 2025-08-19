@@ -21,6 +21,26 @@ export { lesson17 } from './lesson-17';
 export { lesson18 } from './lesson-18';
 export { lesson19 } from './lesson-19';
 export { lesson20 } from './lesson-20';
+export { lesson21 } from './lesson-21';
+export { lesson22 } from './lesson-22';
+export { lesson23 } from './lesson-23';
+export { lesson24 } from './lesson-24';
+export { lesson25 } from './lesson-25';
+export { lesson26 } from './lesson-26';
+export { lesson27 } from './lesson-27';
+export { lesson28 } from './lesson-28';
+export { lesson29 } from './lesson-29';
+export { lesson30 } from './lesson-30';
+export { lesson31 } from './lesson-31';
+export { lesson32 } from './lesson-32';
+export { lesson33 } from './lesson-33';
+export { lesson34 } from './lesson-34';
+export { lesson35 } from './lesson-35';
+export { lesson36 } from './lesson-36';
+export { lesson37 } from './lesson-37';
+export { lesson38 } from './lesson-38';
+export { lesson39 } from './lesson-39';
+export { lesson40 } from './lesson-40';
 
 // Collection of all implemented lessons
 import { lesson1 } from './lesson-1';
@@ -43,6 +63,26 @@ import { lesson17 } from './lesson-17';
 import { lesson18 } from './lesson-18';
 import { lesson19 } from './lesson-19';
 import { lesson20 } from './lesson-20';
+import { lesson21 } from './lesson-21';
+import { lesson22 } from './lesson-22';
+import { lesson23 } from './lesson-23';
+import { lesson24 } from './lesson-24';
+import { lesson25 } from './lesson-25';
+import { lesson26 } from './lesson-26';
+import { lesson27 } from './lesson-27';
+import { lesson28 } from './lesson-28';
+import { lesson29 } from './lesson-29';
+import { lesson30 } from './lesson-30';
+import { lesson31 } from './lesson-31';
+import { lesson32 } from './lesson-32';
+import { lesson33 } from './lesson-33';
+import { lesson34 } from './lesson-34';
+import { lesson35 } from './lesson-35';
+import { lesson36 } from './lesson-36';
+import { lesson37 } from './lesson-37';
+import { lesson38 } from './lesson-38';
+import { lesson39 } from './lesson-39';
+import { lesson40 } from './lesson-40';
 
 export const tradingBasicsLessons = [
   lesson1,
@@ -64,5 +104,25 @@ export const tradingBasicsLessons = [
   lesson17,
   lesson18,
   lesson19,
-  lesson20
+  lesson20,
+  lesson21,
+  lesson22,
+  lesson23,
+  lesson24,
+  lesson25,
+  lesson26,
+  lesson27,
+  lesson28,
+  lesson29,
+  lesson30,
+  lesson31,
+  lesson32,
+  lesson33,
+  lesson34,
+  lesson35,
+  lesson36,
+  lesson37,
+  lesson38,
+  lesson39,
+  lesson40
 ]; 

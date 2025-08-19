@@ -1,0 +1,141 @@
+openapi: 3.1.0
+info:
+  title: DeFi Suite API
+  version: 0.1.0
+servers:
+  - url: https://defi.example.com
+components:
+  securitySchemes:
+    internalKey:
+      type: apiKey
+      in: header
+      name: x-internal-key
+  schemas:
+    Timeframe:
+      type: string
+      enum: ['1h','6h','24h','7d','30d']
+    SuccessEnvelope:
+      type: object
+      properties:
+        success: { type: boolean }
+        timestamp: { type: string, format: date-time }
+paths:
+  /api/health:
+    get:
+      summary: Health check (DB connectivity)
+      security:
+        - internalKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          status: { type: string, example: ok }
+                          db: { type: string, enum: [up, down] }
+  /api/defi/engine:
+    get:
+      summary: Get engine status
+      security:
+        - internalKey: []
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Start engine
+      security:
+        - internalKey: []
+      responses:
+        '200': { description: Started }
+  /api/defi/engine/stop:
+    post:
+      summary: Stop engine
+      security:
+        - internalKey: []
+      responses:
+        '200': { description: Stopped }
+  /api/defi/monitoring/status:
+    get:
+      summary: Monitoring overview
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: timeframe
+          schema: { $ref: '#/components/schemas/Timeframe' }
+      responses:
+        '200': { description: OK }
+  /api/defi/protocols:
+    get:
+      summary: Protocols list
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: active
+          schema: { type: string, enum: ['true','false'] }
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 500, default: 100 }
+      responses:
+        '200': { description: OK }
+  /api/defi/pools:
+    get:
+      summary: Liquidity pools
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: protocolId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: minTvl
+          schema: { type: number, minimum: 0, default: 0 }
+        - in: query
+          name: minApy
+          schema: { type: number, minimum: 0, default: 0 }
+        - in: query
+          name: maxRisk
+          schema: { type: string, enum: ['very_low','low','medium','high','very_high'], default: high }
+        - in: query
+          name: sortBy
+          schema: { type: string, enum: ['tvl','apy','volume','fees'], default: tvl }
+        - in: query
+          name: sortOrder
+          schema: { type: string, enum: ['asc','desc'], default: desc }
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 50 }
+        - in: query
+          name: offset
+          schema: { type: integer, minimum: 0, default: 0 }
+      responses:
+        '200': { description: OK }
+  /api/defi/statistics:
+    get:
+      summary: Business metrics
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: timeframe
+          schema: { $ref: '#/components/schemas/Timeframe' }
+      responses:
+        '200': { description: OK }
+  /api/defi/tvl/overview:
+    get:
+      summary: TVL overview
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: timeframe
+          schema: { $ref: '#/components/schemas/Timeframe' }
+      responses:
+        '200': { description: OK }

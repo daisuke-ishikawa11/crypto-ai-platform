@@ -3,10 +3,14 @@ import { createClient } from '@supabase/supabase-js'
 import { lessonCategories } from '@/data/lessons/categories'
 import { allLessons } from '@/data/lessons'
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-)
+function getSupabaseAdmin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_KEY
+  if (!url || !key) {
+    throw new Error('Supabase admin env missing')
+  }
+  return createClient(url, key)
+}
 
 export async function POST(request: Request) {
   try {
@@ -25,6 +29,7 @@ export async function POST(request: Request) {
       is_published: true
     }))
 
+    const supabaseAdmin = getSupabaseAdmin()
     const { error: categoryError } = await supabaseAdmin
       .from('lesson_categories')
       .upsert(categoriesToInsert, { onConflict: 'id' })
@@ -83,7 +88,7 @@ export async function POST(request: Request) {
     }[] = [];
 
     allLessons.forEach(lesson => {
-      // sectionの型をanyではなく、型ガードを用いて安全にQuizSectionかどうかを判定する
+      // section型に型ガードを用いて安全にQuizSectionかどうかを判定する
       const quizSection = lesson.content.sections.find(
         (section: unknown): section is QuizSection =>
           typeof section === 'object' &&

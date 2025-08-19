@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useCallback, useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -45,8 +46,7 @@ export function PortfolioSummary() {
   const [portfolio, setPortfolio] = useState<PortfolioSummaryData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPortfolio = async () => {
+  const fetchPortfolio = useCallback(async () => {
       try {
         // 実際のAPI呼び出しに置き換える
         const response = await fetch('/api/portfolio/summary');
@@ -110,12 +110,13 @@ export function PortfolioSummary() {
       } finally {
         setLoading(false);
       }
-    };
+    }, []);
 
-    fetchPortfolio();
-    const interval = setInterval(fetchPortfolio, 60000); // 1分ごとに更新
-    return () => clearInterval(interval);
-  }, []);
+    useEffect(() => {
+      fetchPortfolio();
+      const interval = setInterval(fetchPortfolio, 60000); // 1分ごとに更新
+      return () => clearInterval(interval);
+    }, [fetchPortfolio]);
 
   if (loading) {
     return (

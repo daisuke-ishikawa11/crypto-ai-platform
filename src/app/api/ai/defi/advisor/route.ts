@@ -7,7 +7,7 @@ import { headers } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const body = await request.json();
@@ -82,8 +82,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(advice);
 
-  } catch (error) {
-    logger.error('DeFi advisor API error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi advisor API error', { 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
     
     // Try to return a fallback response
     const fallback = await aiCacheService.get('fallback:defi_advisor');
@@ -132,8 +134,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
 
-  } catch (error) {
-    logger.error('DeFi advisor GET error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi advisor GET error', { 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

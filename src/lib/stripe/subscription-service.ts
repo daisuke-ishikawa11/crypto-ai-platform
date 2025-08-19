@@ -2,9 +2,28 @@
 // リカーリング収益・B2B対応・チーム管理の包括的実装
 
 import Stripe from 'stripe';
-import { stripe, STRIPE_CONFIG, getPlanByStripePriceId, getTaxRateId, B2B_CONFIG } from './config';
+import { getStripe, getPlanByStripePriceId, B2B_CONFIG } from './config';
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/monitoring/logger';
+import { safeAwait } from '@/lib/supabase/helpers';
+import { getRedis } from '@/lib/redis/client';
+// 型安全な補助関数
+function extractEpochSeconds(source: unknown, key: 'current_period_start' | 'current_period_end'): number | null {
+  if (!source || typeof source !== 'object') return null
+  const rec = source as Record<string, unknown>
+  const val = rec[key]
+  return typeof val === 'number' ? val : null
+}
+
+function extractInvoiceSubscriptionId(invoice: Stripe.Invoice): string {
+  const inv = invoice as { subscription?: string | { id?: unknown } } | null
+  const sub = inv?.subscription
+  if (!sub) return ''
+  if (typeof sub === 'string') return sub
+  const id = (sub as { id?: unknown }).id
+  return typeof id === 'string' ? id : ''
+}
 
 export interface CreateSubscriptionParams {
   userId: string;
@@ -56,6 +75,20 @@ export interface SubscriptionDetails {
   purchaseOrderNumber?: string;
 }
 
+// Helper function to get Supabase client for different environments
+async function getSupabaseClient() {
+  if (process.env.NODE_ENV === 'test') {
+    // In test environment, use direct client to avoid Next.js context issues
+    return createSupabaseClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://test.supabase.co',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'test-anon-key'
+    );
+  } else {
+    // In production/development, use server client
+    return await createClient();
+  }
+}
+
 export class SubscriptionService {
   /**
    * 新しいサブスクリプションを作成
@@ -92,16 +125,29 @@ export class SubscriptionService {
       }
 
       // 顧客を作成または取得
-      const customer = await this.createOrGetCustomer({
+      const customerParams: {
+        userId: string;
+        email: string;
+        teamName?: string;
+        billingEmail?: string;
+        metadata?: Record<string, string>;
+      } = {
         userId,
         email,
-        teamName,
-        billingEmail,
         metadata: {
           user_id: userId,
           ...metadata
         }
-      });
+      };
+      
+      if (teamName !== undefined) {
+        customerParams.teamName = teamName;
+      }
+      if (billingEmail !== undefined) {
+        customerParams.billingEmail = billingEmail;
+      }
+      
+      const customer = await this.createOrGetCustomer(customerParams);
 
       // B2B向けディスカウント適用
       let discount = 0;
@@ -131,10 +177,10 @@ export class SubscriptionService {
           team_name: teamName || '',
           billing_email: billingEmail || email,
           purchase_order_number: purchaseOrderNumber || '',
-          ...metadata
+          ...(metadata || {})
         },
         expand: ['latest_invoice.payment_intent'],
-        trial_period_days: plan.trialPeriodDays,
+        ...(plan.trialPeriodDays && { trial_period_days: plan.trialPeriodDays }),
         collection_method: 'charge_automatically',
         payment_behavior: 'default_incomplete'
       };
@@ -146,11 +192,13 @@ export class SubscriptionService {
 
       // クーポンの適用
       if (couponId) {
-        subscriptionParams.coupon = couponId;
+        (subscriptionParams as Stripe.SubscriptionCreateParams & { coupon?: string }).coupon = couponId;
       } else if (discount > 0) {
         // B2Bディスカウントクーポンを作成
         const discountCoupon = await this.createDiscountCoupon(discount, `B2B ${seats} seats discount`);
-        subscriptionParams.coupon = discountCoupon.id;
+        if (discountCoupon?.id) {
+          (subscriptionParams as Stripe.SubscriptionCreateParams & { coupon?: string }).coupon = discountCoupon.id;
+        }
       }
 
       // 税率の適用
@@ -173,6 +221,7 @@ export class SubscriptionService {
       }
 
       // サブスクリプションを作成
+      const stripe = getStripe();
       const subscription = await stripe.subscriptions.create(subscriptionParams);
 
       // データベースに記録
@@ -186,14 +235,17 @@ export class SubscriptionService {
       } = { subscription };
 
       // 支払いが必要な場合
-      const latestInvoice = subscription.latest_invoice as Stripe.Invoice;
-      if (latestInvoice?.payment_intent) {
-        const paymentIntent = latestInvoice.payment_intent as Stripe.PaymentIntent;
-        response.clientSecret = paymentIntent.client_secret || undefined;
+      const latestInvoice = subscription.latest_invoice as Stripe.Invoice | string | null;
+      if (latestInvoice && typeof latestInvoice !== 'string') {
+        const pi = (latestInvoice as Stripe.Invoice & { payment_intent?: Stripe.PaymentIntent | string | null }).payment_intent;
+        if (pi && typeof pi !== 'string' && pi.client_secret) {
+          response.clientSecret = pi.client_secret;
+        }
       }
 
       // 支払い方法が設定されていない場合はSetupIntentを作成
       if (!paymentMethodId && !subscription.trial_end) {
+        const stripe = getStripe();
         const setupIntent = await stripe.setupIntents.create({
           customer: customer.id,
           usage: 'off_session',
@@ -241,29 +293,31 @@ export class SubscriptionService {
 
       const updateParams: Stripe.SubscriptionUpdateParams = {
         proration_behavior: prorationBehavior,
-        metadata
+        ...(metadata !== undefined && { metadata })
       };
 
       // プランの変更
       if (priceId) {
+        const stripe = getStripe();
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
         const currentItem = subscription.items.data[0];
         
         updateParams.items = [
           {
-            id: currentItem.id,
+            id: currentItem?.id || '',
             price: priceId,
-            quantity: quantity || currentItem.quantity
+            quantity: quantity || currentItem?.quantity || 1
           }
         ];
       } else if (quantity) {
         // 数量のみの変更
+        const stripe = getStripe();
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
         const currentItem = subscription.items.data[0];
         
         updateParams.items = [
           {
-            id: currentItem.id,
+            id: currentItem?.id || '',
             quantity
           }
         ];
@@ -271,9 +325,10 @@ export class SubscriptionService {
 
       // クーポンの適用
       if (couponId) {
-        updateParams.coupon = couponId;
+        (updateParams as Stripe.SubscriptionUpdateParams & { coupon?: string }).coupon = couponId;
       }
 
+      const stripe = getStripe();
       const updatedSubscription = await stripe.subscriptions.update(subscriptionId, updateParams);
 
       // データベースを更新
@@ -281,8 +336,8 @@ export class SubscriptionService {
 
       logger.info('Subscription updated successfully', {
         subscriptionId,
-        priceId,
-        quantity
+        ...(priceId && { priceId }),
+        ...(quantity && { quantity })
       });
 
       return updatedSubscription;
@@ -312,6 +367,7 @@ export class SubscriptionService {
         }
       };
 
+      const stripe = getStripe();
       const subscription = await stripe.subscriptions.update(subscriptionId, updateParams);
 
       // データベースを更新
@@ -320,7 +376,7 @@ export class SubscriptionService {
       logger.info('Subscription cancelled', {
         subscriptionId,
         cancelAtPeriodEnd,
-        reason
+        ...(reason && { reason })
       });
 
       return subscription;
@@ -339,6 +395,7 @@ export class SubscriptionService {
    */
   async resumeSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
     try {
+      const stripe = getStripe();
       const subscription = await stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false
       });
@@ -362,11 +419,15 @@ export class SubscriptionService {
    */
   async getSubscriptionDetails(subscriptionId: string): Promise<SubscriptionDetails> {
     try {
+      const stripe = getStripe();
       const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
         expand: ['default_payment_method', 'items.data.price']
       });
 
       const item = subscription.items.data[0];
+      if (!item) {
+        throw new Error('Subscription has no items');
+      }
       const price = item.price;
       const plan = getPlanByStripePriceId(price.id);
 
@@ -375,24 +436,24 @@ export class SubscriptionService {
         customerId: subscription.customer as string,
         status: subscription.status,
         priceId: price.id,
-        planName: plan?.name || 'Unknown Plan',
-        planTier: plan?.tier || 'unknown',
-        interval: price.recurring?.interval || 'month',
-        currentPeriodStart: new Date(subscription.current_period_start * 1000),
-        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-        trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
-        quantity: item.quantity || 1,
-        unitAmount: price.unit_amount || 0,
-        totalAmount: (price.unit_amount || 0) * (item.quantity || 1),
+        planName: plan?.name ?? 'Unknown Plan',
+        planTier: plan?.tier ?? 'unknown',
+         interval: price.recurring?.interval ?? 'month',
+         currentPeriodStart: new Date(((extractEpochSeconds(subscription, 'current_period_start') ?? 0) * 1000)),
+         currentPeriodEnd: new Date(((extractEpochSeconds(subscription, 'current_period_end') ?? 0) * 1000)),
+        ...(subscription.trial_end && { trialEnd: new Date(subscription.trial_end * 1000) }),
+        quantity: item?.quantity ?? 1,
+        unitAmount: price.unit_amount ?? 0,
+        totalAmount: (price.unit_amount ?? 0) * (item?.quantity ?? 1),
         currency: price.currency,
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         metadata: subscription.metadata,
         
         // B2B情報
-        seats: parseInt(subscription.metadata.seats || '1'),
-        teamName: subscription.metadata.team_name || undefined,
-        billingEmail: subscription.metadata.billing_email || undefined,
-        purchaseOrderNumber: subscription.metadata.purchase_order_number || undefined
+        seats: parseInt(subscription.metadata?.seats ?? '1'),
+        ...(subscription.metadata?.team_name && { teamName: subscription.metadata.team_name }),
+        ...(subscription.metadata?.billing_email && { billingEmail: subscription.metadata.billing_email }),
+        ...(subscription.metadata?.purchase_order_number && { purchaseOrderNumber: subscription.metadata.purchase_order_number })
       };
 
     } catch (error) {
@@ -417,13 +478,14 @@ export class SubscriptionService {
     const { userId, email, teamName, billingEmail, metadata = {} } = params;
 
     // 既存の顧客を検索
+    const stripe = getStripe();
     const existingCustomers = await stripe.customers.list({
       email,
       limit: 1
     });
 
     if (existingCustomers.data.length > 0) {
-      return existingCustomers.data[0];
+      return existingCustomers.data[0] as Stripe.Customer;
     }
 
     // 新しい顧客を作成
@@ -441,8 +503,8 @@ export class SubscriptionService {
       customerParams.description = `Team: ${teamName}`;
     }
 
-    if (billingEmail && billingEmail !== email) {
-      customerParams.metadata.billing_email = billingEmail;
+    if (billingEmail && billingEmail !== email && customerParams.metadata) {
+      (customerParams.metadata as Record<string, string>).billing_email = billingEmail;
     }
 
     return await stripe.customers.create(customerParams);
@@ -454,7 +516,8 @@ export class SubscriptionService {
   private async createDiscountCoupon(discount: number, name: string): Promise<Stripe.Coupon> {
     const couponId = `b2b-discount-${Math.round(discount * 100)}-${Date.now()}`;
     
-    return await stripe.coupons.create({
+    const stripe3 = getStripe();
+    return await stripe3.coupons.create({
       id: couponId,
       name,
       percent_off: Math.round(discount * 100),
@@ -472,36 +535,40 @@ export class SubscriptionService {
    */
   private async saveSubscriptionToDatabase(subscription: Stripe.Subscription, userId: string): Promise<void> {
     try {
-      const supabase = createClient();
+      const supabase = await getSupabaseClient();
       
       const item = subscription.items.data[0];
-      const plan = getPlanByStripePriceId(item.price.id);
+      const plan = getPlanByStripePriceId(item?.price.id || '');
 
       // ユーザープロファイルを更新
-      await supabase
-        .from('user_profiles')
-        .update({
-          stripe_customer_id: subscription.customer as string,
-          stripe_subscription_id: subscription.id,
-          subscription_status: subscription.status === 'active' ? 'active' : 
-                              subscription.status === 'trialing' ? 'trial' : 'inactive',
-          subscription_tier: plan?.tier || 'basic',
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', userId);
+      await safeAwait(
+        supabase
+          .from('user_profiles')
+          .update({
+            stripe_customer_id: subscription.customer as string,
+            stripe_subscription_id: subscription.id,
+            subscription_status: subscription.status === 'active' ? 'active' : 
+                                subscription.status === 'trialing' ? 'trial' : 'inactive',
+            subscription_tier: plan?.tier || 'basic',
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', userId)
+      );
 
       // サブスクリプション履歴に記録
-      await supabase
-        .from('subscription_history')
-        .insert({
-          user_id: userId,
-          stripe_subscription_id: subscription.id,
-          tier: plan?.tier || 'basic',
-          status: subscription.status === 'active' ? 'active' : 
-                 subscription.status === 'trialing' ? 'active' : 'inactive',
-          billing_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-          billing_period_end: new Date(subscription.current_period_end * 1000).toISOString()
-        });
+      await safeAwait(
+        supabase
+          .from('subscription_history')
+          .insert({
+            user_id: userId,
+            stripe_subscription_id: subscription.id,
+            tier: plan?.tier || 'basic',
+            status: subscription.status === 'active' ? 'active' : 
+                   subscription.status === 'trialing' ? 'active' : 'inactive',
+            billing_period_start: new Date(((extractEpochSeconds(subscription, 'current_period_start') ?? 0) * 1000)).toISOString(),
+            billing_period_end: new Date(((extractEpochSeconds(subscription, 'current_period_end') ?? 0) * 1000)).toISOString()
+          })
+      );
 
     } catch (error) {
       logger.error('Failed to save subscription to database', {
@@ -517,13 +584,14 @@ export class SubscriptionService {
    */
   private async updateSubscriptionInDatabase(subscription: Stripe.Subscription): Promise<void> {
     try {
-      const supabase = createClient();
+      const supabase = await getSupabaseClient();
       const customerId = subscription.customer as string;
       
       const item = subscription.items.data[0];
-      const plan = getPlanByStripePriceId(item.price.id);
+      const plan = getPlanByStripePriceId(item?.price.id || '');
 
       // 顧客からユーザーIDを取得
+      const stripe = getStripe();
       const customer = await stripe.customers.retrieve(customerId);
       if (!customer || customer.deleted) {
         throw new Error('Customer not found');
@@ -535,22 +603,334 @@ export class SubscriptionService {
       }
 
       // ユーザープロファイルを更新
-      await supabase
-        .from('user_profiles')
-        .update({
-          subscription_status: subscription.status === 'active' ? 'active' : 
-                              subscription.status === 'trialing' ? 'trial' :
-                              subscription.cancel_at_period_end ? 'cancelled' : 'inactive',
-          subscription_tier: plan?.tier || 'basic',
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', userId);
+      await safeAwait(
+        supabase
+          .from('user_profiles')
+          .update({
+            subscription_status: subscription.status === 'active' ? 'active' : 
+                                subscription.status === 'trialing' ? 'trial' :
+                                subscription.cancel_at_period_end ? 'cancelled' : 'inactive',
+            subscription_tier: plan?.tier || 'basic',
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', userId)
+      );
 
     } catch (error) {
       logger.error('Failed to update subscription in database', {
         subscriptionId: subscription.id,
         error: error instanceof Error ? error.message : 'Unknown error'
       });
+    }
+  }
+
+  /**
+   * Webhook: サブスクリプション作成ハンドラー
+   */
+  async handleSubscriptionCreated(subscription: Stripe.Subscription): Promise<void> {
+    try {
+      const customerId = subscription.customer as string;
+      
+      // 顧客情報を取得してユーザーIDを特定
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      await this.saveSubscriptionToDatabase(subscription, userId);
+      
+      logger.info('Subscription created webhook processed', {
+        subscriptionId: subscription.id,
+        userId,
+        status: subscription.status
+      });
+    } catch (error) {
+      logger.error('Failed to handle subscription created webhook', {
+        subscriptionId: subscription.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: サブスクリプション更新ハンドラー
+   */
+  async handleSubscriptionUpdated(subscription: Stripe.Subscription): Promise<void> {
+    try {
+      const customerId = subscription.customer as string;
+      
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      await this.updateSubscriptionInDatabase(subscription);
+      
+      logger.info('Subscription updated webhook processed', {
+        subscriptionId: subscription.id,
+        userId,
+        status: subscription.status
+      });
+    } catch (error) {
+      logger.error('Failed to handle subscription updated webhook', {
+        subscriptionId: subscription.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: サブスクリプション削除ハンドラー
+   */
+  async handleSubscriptionDeleted(subscription: Stripe.Subscription): Promise<void> {
+    try {
+      const customerId = subscription.customer as string;
+      
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      // サブスクリプションを非アクティブに更新
+      const supabase = await getSupabaseClient();
+      await safeAwait(
+        supabase
+          .from('user_profiles')
+          .update({
+            subscription_status: 'inactive',
+            subscription_tier: 'basic',
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', userId)
+      );
+      
+      logger.info('Subscription deleted webhook processed', {
+        subscriptionId: subscription.id,
+        userId
+      });
+    } catch (error) {
+      logger.error('Failed to handle subscription deleted webhook', {
+        subscriptionId: subscription.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: 支払い成功ハンドラー
+   */
+  async handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent): Promise<void> {
+    try {
+      const customerId = paymentIntent.customer as string;
+      if (!customerId) return;
+
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      // 支払い履歴を記録
+      const supabase = await getSupabaseClient();
+      await safeAwait(
+        supabase
+          .from('payment_history')
+          .insert({
+            user_id: userId,
+            stripe_payment_intent_id: paymentIntent.id,
+            amount: paymentIntent.amount,
+            currency: paymentIntent.currency,
+            status: 'succeeded',
+            created_at: new Date().toISOString()
+          })
+      );
+      
+      // チケット購入の場合は Redis のチケット残高を加算
+      try {
+        const meta = paymentIntent.metadata || {} as Record<string, string>
+        if (meta.purchase_type === 'ticket_pack') {
+          const tickets = Number(meta.tickets || '0')
+          if (Number.isFinite(tickets) && tickets > 0) {
+            const redis = await getRedis()
+            if (redis) {
+              await redis.incrby(`risk:tickets:${userId}`, Math.floor(tickets))
+            }
+          }
+        }
+      } catch {}
+
+      logger.info('Payment succeeded webhook processed', {
+        paymentIntentId: paymentIntent.id,
+        userId,
+        amount: paymentIntent.amount
+      });
+    } catch (error) {
+      logger.error('Failed to handle payment succeeded webhook', {
+        paymentIntentId: paymentIntent.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: 支払い失敗ハンドラー
+   */
+  async handlePaymentFailed(paymentIntent: Stripe.PaymentIntent): Promise<void> {
+    try {
+      const customerId = paymentIntent.customer as string;
+      if (!customerId) return;
+
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      // 支払い失敗を記録
+      const supabase = await getSupabaseClient();
+      await safeAwait(
+        supabase
+          .from('payment_history')
+          .insert({
+            user_id: userId,
+            stripe_payment_intent_id: paymentIntent.id,
+            amount: paymentIntent.amount,
+            currency: paymentIntent.currency,
+            status: 'failed',
+            failure_reason: paymentIntent.last_payment_error?.message || 'Unknown error',
+            created_at: new Date().toISOString()
+          })
+      );
+      
+      logger.info('Payment failed webhook processed', {
+        paymentIntentId: paymentIntent.id,
+        userId,
+        amount: paymentIntent.amount
+      });
+    } catch (error) {
+      logger.error('Failed to handle payment failed webhook', {
+        paymentIntentId: paymentIntent.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: 請求書支払い成功ハンドラー
+   */
+  async handleInvoicePaymentSucceeded(invoice: Stripe.Invoice): Promise<void> {
+    try {
+      const customerId = invoice.customer as string;
+      if (!customerId) return;
+
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      // 請求書支払い履歴を記録
+      const supabase = await getSupabaseClient();
+      await safeAwait(
+        supabase
+          .from('invoice_history')
+          .insert({
+            user_id: userId,
+            stripe_invoice_id: invoice.id,
+            stripe_subscription_id: extractInvoiceSubscriptionId(invoice),
+            amount_paid: invoice.amount_paid,
+            currency: invoice.currency,
+            status: 'paid',
+            billing_reason: invoice.billing_reason,
+            created_at: new Date().toISOString()
+          })
+      );
+      
+      logger.info('Invoice payment succeeded webhook processed', {
+        invoiceId: invoice.id,
+        userId,
+        amountPaid: invoice.amount_paid
+      });
+    } catch (error) {
+      logger.error('Failed to handle invoice payment succeeded webhook', {
+        invoiceId: invoice.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Webhook: 請求書支払い失敗ハンドラー
+   */
+  async handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void> {
+    try {
+      const customerId = invoice.customer as string;
+      if (!customerId) return;
+
+      const stripe = getStripe();
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      const userId = customer.metadata?.user_id;
+      
+      if (!userId) {
+        logger.error('User ID not found in customer metadata', { customerId });
+        return;
+      }
+
+      // 請求書支払い失敗を記録
+      const supabase = await getSupabaseClient();
+      await safeAwait(
+        supabase
+          .from('invoice_history')
+          .insert({
+            user_id: userId,
+            stripe_invoice_id: invoice.id,
+            stripe_subscription_id: extractInvoiceSubscriptionId(invoice),
+            amount_due: invoice.amount_due,
+            currency: invoice.currency,
+            status: 'payment_failed',
+            billing_reason: invoice.billing_reason,
+            created_at: new Date().toISOString()
+          })
+      );
+      
+      logger.info('Invoice payment failed webhook processed', {
+        invoiceId: invoice.id,
+        userId,
+        amountDue: invoice.amount_due
+      });
+    } catch (error) {
+      logger.error('Failed to handle invoice payment failed webhook', {
+        invoiceId: invoice.id,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
     }
   }
 }

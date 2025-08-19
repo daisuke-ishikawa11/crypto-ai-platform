@@ -1,18 +1,22 @@
-import { lesson1 } from './financial-literacy/lesson-1'
-import { lesson2 } from './financial-literacy/lesson-2'
+import { financialLiteracyLessons } from './financial-literacy'
 import { cryptoBasicsLessons } from './crypto-basics'
 import { tradingBasicsLessons } from './trading-basics'
 import { defiNftLessons } from './defi-nft'
 import { advancedInvestmentLessons } from './advanced-investment'
+import { riskManagementLessons } from './risk-management'
+import { regulationComplianceLessons } from './regulation-compliance'
+import { blockchainTechLessons } from './blockchain-tech'
 import { Lesson } from '@/lib/types/learning'
 
 export const allLessons: Lesson[] = [
-  lesson1,
-  lesson2,
+  ...financialLiteracyLessons,
   ...cryptoBasicsLessons,
   ...tradingBasicsLessons,
   ...defiNftLessons,
-  ...advancedInvestmentLessons
+  ...advancedInvestmentLessons,
+  ...riskManagementLessons,
+  ...regulationComplianceLessons,
+  ...blockchainTechLessons
 ]
 
 export const getLessonBySlug = (slug: string): Lesson | undefined => {

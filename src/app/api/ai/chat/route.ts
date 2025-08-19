@@ -1,8 +1,7 @@
 // 💬 AI チャットAPI
 // リアルタイム投資相談・Gemini/VoltAgent統合・コンテキスト連携
 
-import { NextRequest, NextResponse } from 'next/server';
-import { withApiHandler, ApiContext } from '@/lib/auth/middleware';
+import { NextResponse } from 'next/server';
 import { UnifiedAIService } from '@/lib/ai/unified-ai-service';
 import { generateChatResponse } from "@/lib/ai/openai"
 import { generateClaudeResponse } from "@/lib/ai/anthropic"
@@ -10,6 +9,7 @@ import { checkUsageLimit, recordUsage } from "@/lib/ai/usage-limiter"
 import { logger } from '@/lib/monitoring/logger';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import type { Portfolio } from '@/lib/ai/types/ai-service-types';
 
 // バリデーションスキーマ
 const chatRequestSchema = z.object({
@@ -120,12 +120,24 @@ export async function POST(request: Request) {
       // 統合AIサービス（Gemini + VoltAgent）
       
       // コンテキストデータを準備
-      const contextData: any = {
-        previousMessages: previousMessages || []
+      const contextData: {
+        previousMessages: Array<{ role: 'user' | 'assistant'; content: string; timestamp: string }>;
+        portfolio?: Portfolio | null;
+        marketData?: Record<string, unknown>;
+        activeAlerts?: Array<Record<string, unknown>>;
+      } = {
+        previousMessages: (previousMessages || []).map(msg => ({
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content,
+          timestamp: new Date().toISOString()
+        }))
       };
       
       if (context?.includePortfolio) {
-        contextData.portfolio = await getUserPortfolio(user.id, supabase);
+        const userPortfolio = await getUserPortfolio(user.id, supabase);
+        if (userPortfolio) {
+          contextData.portfolio = userPortfolio;
+        }
       }
       
       if (context?.includeMarketData) {
@@ -181,7 +193,7 @@ export async function POST(request: Request) {
       aiResponse = await generateClaudeResponse({
         model,
         messages,
-        system: systemPrompt,
+        ...(systemPrompt && { system: systemPrompt }),
         temperature: temperature,
         max_tokens: maxTokens,
       })
@@ -347,7 +359,7 @@ export async function GET(request: Request) {
 /**
  * ユーザーポートフォリオ取得
  */
-async function getUserPortfolio(userId: string, supabase: any) {
+async function getUserPortfolio(userId: string, supabase: Awaited<ReturnType<typeof createClient>>): Promise<Portfolio | null> {
   try {
     const { data: portfolio } = await supabase
       .from('user_portfolios')
@@ -368,7 +380,12 @@ async function getUserPortfolio(userId: string, supabase: any) {
 
     return {
       totalValue: portfolio.total_value,
-      assets: portfolio.portfolio_assets.map((asset: any) => ({
+      assets: portfolio.portfolio_assets.map((asset: {
+        symbol: string;
+        amount: number;
+        current_price: number;
+        current_value: number;
+      }) => ({
         symbol: asset.symbol,
         amount: asset.amount,
         currentPrice: asset.current_price,
@@ -389,7 +406,7 @@ async function getUserPortfolio(userId: string, supabase: any) {
 /**
  * 最新市場データ取得
  */
-async function getLatestMarketData(supabase: any) {
+async function getLatestMarketData(supabase: Awaited<ReturnType<typeof createClient>>) {
   try {
     const { data: marketData } = await supabase
       .from('market_data')
@@ -400,15 +417,30 @@ async function getLatestMarketData(supabase: any) {
     if (!marketData) return {};
 
     return {
-      prices: marketData.reduce((acc: any, item: any) => ({
+      prices: marketData.reduce((acc: Record<string, number>, item: {
+        symbol: string;
+        price_usd: number;
+        volume_24h: number;
+        price_change_percent_24h: number;
+      }) => ({
         ...acc,
         [item.symbol]: item.price_usd
       }), {}),
-      volumes: marketData.reduce((acc: any, item: any) => ({
+      volumes: marketData.reduce((acc: Record<string, number>, item: {
+        symbol: string;
+        price_usd: number;
+        volume_24h: number;
+        price_change_percent_24h: number;
+      }) => ({
         ...acc,
         [item.symbol]: item.volume_24h
       }), {}),
-      priceChanges: marketData.reduce((acc: any, item: any) => ({
+      priceChanges: marketData.reduce((acc: Record<string, number>, item: {
+        symbol: string;
+        price_usd: number;
+        volume_24h: number;
+        price_change_percent_24h: number;
+      }) => ({
         ...acc,
         [item.symbol]: item.price_change_percent_24h
       }), {}),
@@ -426,7 +458,7 @@ async function getLatestMarketData(supabase: any) {
 /**
  * ユーザーアクティブアラート取得
  */
-async function getUserActiveAlerts(userId: string, supabase: any) {
+async function getUserActiveAlerts(userId: string, supabase: Awaited<ReturnType<typeof createClient>>) {
   try {
     const { data: alerts } = await supabase
       .from('alert_conditions')

@@ -568,8 +568,8 @@ export class TechnicalAlertEngine {
   /**
    * RSI計算
    */
-  private calculateRSI(prices: number[], period: number = 14) {
-    if (prices.length < period + 1) return null;
+  private calculateRSI(prices: number[], period: number = 14): TechnicalIndicatorData['rsi'] | undefined {
+    if (prices.length < period + 1) return undefined;
 
     const gains: number[] = [];
     const losses: number[] = [];
@@ -580,7 +580,7 @@ export class TechnicalAlertEngine {
       losses.push(change < 0 ? Math.abs(change) : 0);
     }
 
-    if (gains.length < period) return null;
+    if (gains.length < period) return undefined;
 
     // 最初のRS計算（SMA使用）
     let avgGain = gains.slice(0, period).reduce((sum, gain) => sum + gain, 0) / period;
@@ -606,8 +606,8 @@ export class TechnicalAlertEngine {
   /**
    * MACD計算
    */
-  private calculateMACD(prices: number[], fastPeriod: number = 12, slowPeriod: number = 26, signalPeriod: number = 9) {
-    if (prices.length < slowPeriod + signalPeriod) return null;
+  private calculateMACD(prices: number[], fastPeriod: number = 12, slowPeriod: number = 26, signalPeriod: number = 9): TechnicalIndicatorData['macd'] | undefined {
+    if (prices.length < slowPeriod + signalPeriod) return undefined;
 
     // EMA計算ヘルパー
     const calculateEMA = (data: number[], period: number): number[] => {
@@ -626,7 +626,7 @@ export class TechnicalAlertEngine {
     const fastEMA = calculateEMA(prices, fastPeriod);
     const slowEMA = calculateEMA(prices, slowPeriod);
     
-    if (fastEMA.length < slowPeriod || slowEMA.length < slowPeriod) return null;
+    if (fastEMA.length < slowPeriod || slowEMA.length < slowPeriod) return undefined;
 
     // MACD線計算
     const macdLine: number[] = [];
@@ -637,7 +637,7 @@ export class TechnicalAlertEngine {
     // Signal線計算
     const signalLine = calculateEMA(macdLine, signalPeriod);
     
-    if (macdLine.length < signalPeriod || signalLine.length === 0) return null;
+    if (macdLine.length < signalPeriod || signalLine.length === 0) return undefined;
 
     const latestIndex = macdLine.length - 1;
     const signalIndex = signalLine.length - 1;
@@ -667,8 +667,8 @@ export class TechnicalAlertEngine {
   /**
    * ボリンジャーバンド計算
    */
-  private calculateBollingerBands(prices: number[], period: number = 20, stdDev: number = 2) {
-    if (prices.length < period) return null;
+  private calculateBollingerBands(prices: number[], period: number = 20, stdDev: number = 2): TechnicalIndicatorData['bollinger'] | undefined {
+    if (prices.length < period) return undefined;
 
     const recentPrices = prices.slice(-period);
     const sma = recentPrices.reduce((sum, price) => sum + price, 0) / period;
@@ -703,7 +703,7 @@ export class TechnicalAlertEngine {
   /**
    * 移動平均線計算
    */
-  private calculateMovingAverages(prices: number[]) {
+  private calculateMovingAverages(prices: number[]): NonNullable<TechnicalIndicatorData['movingAverages']> {
     const calculateSMA = (data: number[], period: number): number => {
       if (data.length < period) return 0;
       const recentData = data.slice(-period);
@@ -747,8 +747,8 @@ export class TechnicalAlertEngine {
   /**
    * ボリューム分析
    */
-  private calculateVolumeAnalysis(volumes: number[]) {
-    if (volumes.length < 20) return null;
+  private calculateVolumeAnalysis(volumes: number[]): TechnicalIndicatorData['volume'] | undefined {
+    if (volumes.length < 20) return undefined;
 
     const currentVolume = volumes[volumes.length - 1];
     const recentVolumes = volumes.slice(-20);

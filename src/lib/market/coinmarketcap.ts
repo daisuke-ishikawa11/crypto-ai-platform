@@ -19,6 +19,93 @@ export interface CoinMarketCapQuote {
   last_updated: string
 }
 
+interface CryptocurrencyInfoResponse {
+  [key: string]: {
+    id: number
+    name: string
+    symbol: string
+    category: string
+    description: string
+    slug: string
+    logo: string
+    subreddit: string
+    notice: string
+    tags: string[]
+    tag_names: string[]
+    tag_groups: string[]
+    urls: {
+      website: string[]
+      twitter: string[]
+      message_board: string[]
+      chat: string[]
+      facebook: string[]
+      explorer: string[]
+      reddit: string[]
+      technical_doc: string[]
+      source_code: string[]
+      announcement: string[]
+    }
+    platform: {
+      id: number
+      name: string
+      symbol: string
+      slug: string
+      token_address: string
+    } | null
+    date_added: string
+    twitter_username: string
+    is_hidden: number
+    date_launched: string | null
+    contract_address: Array<{
+      contract_address: string
+      platform: {
+        name: string
+        coin: {
+          id: string
+          name: string
+          symbol: string
+          slug: string
+        }
+      }
+    }>
+    self_reported_circulating_supply: number | null
+    self_reported_market_cap: number | null
+    self_reported_tags: string[] | null
+  }
+}
+
+interface HistoricalQuotesResponse {
+  id: number
+  name: string
+  symbol: string
+  quotes: Array<{
+    timestamp: string
+    quote: {
+      [currency: string]: CoinMarketCapQuote
+    }
+  }>
+}
+
+interface ExchangeListing {
+  id: number
+  name: string
+  slug: string
+  is_active: number
+  is_fiat: number
+  fiats: string[]
+  quote: {
+    [currency: string]: {
+      volume_24h: number
+      volume_7d: number
+      volume_30d: number
+      percent_change_volume_24h: number
+      percent_change_volume_7d: number
+      percent_change_volume_30d: number
+      last_updated: string
+    }
+  }
+}
+
 export interface CoinMarketCapCryptocurrency {
   id: number
   name: string
@@ -102,7 +189,7 @@ export class CoinMarketCapClient {
     this.timeout = 10000 // 10秒
   }
 
-  private async makeRequest(endpoint: string, params: Record<string, any> = {}): Promise<any> {
+  private async makeRequest(endpoint: string, params: Record<string, unknown> = {}): Promise<unknown> {
     if (!this.apiKey) {
       throw new Error("CoinMarketCap API key is not configured")
     }
@@ -165,7 +252,7 @@ export class CoinMarketCapClient {
     convert: string = 'USD',
     aux?: string
   ): Promise<{ [key: string]: CoinMarketCapCryptocurrency }> {
-    const params: Record<string, any> = {
+    const params: Record<string, unknown> = {
       convert,
     }
 
@@ -185,10 +272,10 @@ export class CoinMarketCapClient {
       symbols: symbols?.length || 0,
       ids: ids?.length || 0,
       convert,
-      resultCount: Object.keys(data).length
+      resultCount: Object.keys(data as Record<string, unknown>).length
     })
 
-    return data
+    return data as { [key: string]: CoinMarketCapCryptocurrency }
   }
 
   // 暗号通貨リストを取得
@@ -218,10 +305,10 @@ export class CoinMarketCapClient {
       limit,
       convert,
       sort,
-      resultCount: data.length
+      resultCount: Array.isArray(data) ? data.length : 0
     })
 
-    return data
+    return data as CoinMarketCapCryptocurrency[]
   }
 
   // グローバル市場メトリクスを取得
@@ -231,11 +318,11 @@ export class CoinMarketCapClient {
     
     logger.info('CoinMarketCap global metrics fetched', {
       convert,
-      totalMarketCap: data.quote?.[convert]?.total_market_cap,
-      btcDominance: data.btc_dominance
+      totalMarketCap: (data as CoinMarketCapGlobalMetrics).quote?.[convert]?.total_market_cap,
+      btcDominance: (data as CoinMarketCapGlobalMetrics).btc_dominance
     })
 
-    return data
+    return data as CoinMarketCapGlobalMetrics
   }
 
   // 暗号通貨の詳細情報を取得
@@ -243,8 +330,8 @@ export class CoinMarketCapClient {
     symbols?: string[],
     ids?: number[],
     aux?: string
-  ): Promise<{ [key: string]: any }> {
-    const params: Record<string, any> = {}
+  ): Promise<CryptocurrencyInfoResponse> {
+    const params: Record<string, unknown> = {}
 
     if (symbols && symbols.length > 0) {
       params.symbol = symbols.join(',')
@@ -261,10 +348,10 @@ export class CoinMarketCapClient {
     logger.info('CoinMarketCap cryptocurrency info fetched', {
       symbols: symbols?.length || 0,
       ids: ids?.length || 0,
-      resultCount: Object.keys(data).length
+      resultCount: Object.keys(data as Record<string, unknown>).length
     })
 
-    return data
+    return data as CryptocurrencyInfoResponse
   }
 
   // 価格履歴を取得
@@ -275,8 +362,8 @@ export class CoinMarketCapClient {
     count?: number,
     interval?: '5m' | '10m' | '15m' | '30m' | '45m' | '1h' | '2h' | '3h' | '6h' | '12h' | '1d' | '2d' | '3d' | '7d' | '14d' | '15d' | '30d' | '60d' | '90d' | '365d',
     convert: string = 'USD'
-  ): Promise<any> {
-    const params: Record<string, any> = {
+  ): Promise<HistoricalQuotesResponse> {
+    const params: Record<string, unknown> = {
       symbol,
       convert,
     }
@@ -294,10 +381,10 @@ export class CoinMarketCapClient {
       timeEnd,
       count,
       interval,
-      resultCount: data.quotes?.length || 0
+      resultCount: (data as HistoricalQuotesResponse).quotes?.length || 0
     })
 
-    return data
+    return data as HistoricalQuotesResponse
   }
 
   // 取引所リストを取得
@@ -307,7 +394,7 @@ export class CoinMarketCapClient {
     sort: string = 'volume_24h',
     sortDir: 'asc' | 'desc' = 'desc',
     convert: string = 'USD'
-  ): Promise<any[]> {
+  ): Promise<ExchangeListing[]> {
     const params = {
       start,
       limit: Math.min(limit, 5000),
@@ -322,10 +409,10 @@ export class CoinMarketCapClient {
       start,
       limit,
       sort,
-      resultCount: data.length
+      resultCount: Array.isArray(data) ? data.length : 0
     })
 
-    return data
+    return data as ExchangeListing[]
   }
 
   // 簡単な価格取得（シンボル指定）

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { productionMonitor } from '@/lib/monitoring/production-monitor';
 import { apiLogger } from '@/lib/monitoring/logger';
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import * as React from "react"
+import { useState } from 'react'
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
@@ -14,7 +15,6 @@ import { HomeButton } from "@/components/ui/home-button"
 import { 
   Sparkles, 
   Shield, 
-  Star, 
   TrendingUp, 
   Brain,
   CheckCircle,
@@ -24,9 +24,7 @@ import {
   Award,
   Lock,
   AlertCircle,
-  Zap,
-  Users,
-  Home
+  Zap
 } from "lucide-react"
 
 export default function LoginPage() {
@@ -363,8 +361,6 @@ export default function LoginPage() {
                       type="submit"
                       disabled={loading}
                       className="w-full bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
                     >
                       {loading ? (
                         <span className="flex items-center gap-2">

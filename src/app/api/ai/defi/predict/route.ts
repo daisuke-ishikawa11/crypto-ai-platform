@@ -7,7 +7,7 @@ import { headers } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const body = await request.json();
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(cached);
     }
 
-    let predictionResult: any;
+    let predictionResult: unknown;
 
     switch (prediction_type) {
       case 'apy_trends':
@@ -78,10 +78,24 @@ export async function POST(request: NextRequest) {
         const historicalTVLData = await generateMockHistoricalData('tvl', protocol.id);
         const competitorData = await getCompetitorData(protocol.category);
         
+        // Type guard for competitor data
+        const validCompetitorData = Array.isArray(competitorData) 
+          ? competitorData.filter((item: unknown) => 
+              typeof item === 'object' && item !== null && 'protocol' in (item as Record<string, unknown>)
+            ).map((item: unknown) => {
+              const itemObj = item as Record<string, unknown>;
+              return {
+                protocol: typeof itemObj.protocol === 'string' ? itemObj.protocol : '',
+                tvl: typeof itemObj.tvl === 'number' ? itemObj.tvl : 0,
+                growth_rate: typeof itemObj.growth_rate === 'number' ? itemObj.growth_rate : 0
+              };
+            })
+          : [];
+        
         predictionResult = await defiPredictiveAnalytics.forecastTVL(
           protocol,
           historicalTVLData,
-          competitorData
+          validCompetitorData
         );
         break;
 
@@ -125,7 +139,7 @@ export async function POST(request: NextRequest) {
 
     // Enhance result with metadata
     const enhancedResult = {
-      ...predictionResult,
+      ...(typeof predictionResult === 'object' && predictionResult !== null ? predictionResult : {}),
       prediction_metadata: {
         type: prediction_type,
         generated_at: new Date(),
@@ -171,11 +185,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(enhancedResult);
 
-  } catch (error) {
-    logger.error('DeFi prediction API error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi prediction API error', { 
+      error: error instanceof Error ? error.message : String(error) 
+    });
     
     // Return fallback prediction if available
-    const fallbackKey = `fallback_prediction:${body.prediction_type}`;
+    const body = await request.json().catch(() => ({}));
+    const fallbackKey = `fallback_prediction:${body.prediction_type || 'general'}`;
     const fallback = await aiCacheService.get(fallbackKey);
     
     if (fallback) {
@@ -271,8 +288,10 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
 
-  } catch (error) {
-    logger.error('DeFi prediction GET error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi prediction GET error', { 
+      error: error instanceof Error ? error.message : String(error) 
+    });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -331,12 +350,12 @@ async function getCompetitorData(category: string) {
     ]
   };
   
-  return competitors[category] || [];
+  return (competitors as Record<string, unknown[]>)[category] || [];
 }
 
-async function getOnChainMetrics(protocols: any[]) {
+async function getOnChainMetrics(protocols: { id: string; riskScore?: number }[]) {
   // Mock on-chain metrics - in production would fetch from blockchain
-  const metrics = {};
+  const metrics: Record<string, number> = {};
   
   for (const protocol of protocols) {
     metrics[`${protocol.id}_tvl_change_24h`] = -5 + Math.random() * 10;
@@ -351,15 +370,26 @@ async function getOnChainMetrics(protocols: any[]) {
   return metrics;
 }
 
-function calculateConfidenceLevel(prediction: any): number {
+function calculateConfidenceLevel(prediction: unknown): number {
   // Calculate confidence based on prediction type and data quality
   let confidence = 0.7; // Base confidence
   
-  if (prediction.predictions && prediction.predictions.length > 0) {
-    const avgConfidence = prediction.predictions.reduce(
-      (sum: number, p: any) => sum + (p.confidence || 0.7), 0
-    ) / prediction.predictions.length;
-    confidence = avgConfidence;
+  // Type guard for prediction data
+  if (typeof prediction === 'object' && prediction !== null) {
+    const predictionObj = prediction as Record<string, unknown>;
+    
+    if (Array.isArray(predictionObj.predictions) && predictionObj.predictions.length > 0) {
+      const predictions = predictionObj.predictions;
+      const avgConfidence = predictions.reduce((sum: number, p: unknown) => {
+        if (typeof p === 'object' && p !== null) {
+          const pObj = p as Record<string, unknown>;
+          const conf = typeof pObj.confidence === 'number' ? pObj.confidence : 0.7;
+          return sum + conf;
+        }
+        return sum + 0.7;
+      }, 0) / predictions.length;
+      confidence = avgConfidence;
+    }
   }
   
   return Math.round(confidence * 100) / 100;
@@ -368,7 +398,7 @@ function calculateConfidenceLevel(prediction: any): number {
 function getDeFiPredictionDisclaimer(predictionType: string): string {
   const baseDisclaimer = 'この予測は情報提供のみを目的としており、投資助言ではありません。';
   
-  const specificDisclaimers = {
+  const specificDisclaimers: Record<string, string> = {
     'apy_trends': 'APY予測は過去の実績と市場状況に基づいており、実際の結果は大きく異なる可能性があります。',
     'tvl_forecast': 'TVL予測は多くの不確定要素を含み、市場の急変により大きく変動する可能性があります。',
     'risk_events': 'リスクイベントの検出は完全ではありません。予期しないリスクが発生する可能性があります。',
@@ -386,7 +416,7 @@ function getPredictionUsageGuidelines(predictionType: string): string[] {
     '定期的に最新の予測に更新してください'
   ];
   
-  const specificGuidelines = {
+  const specificGuidelines: Record<string, string[]> = {
     'apy_trends': ['短期予測（24h-7d）の方が精度が高いです', '報酬トークンの価格変動も考慮してください'],
     'risk_events': ['高リスクアラートは迅速に対応してください', '複数のリスク要因が重複する場合は特に注意'],
     'gas_optimization': ['推奨時間帯でも価格が急変する可能性があります', '緊急でない取引は最適化時間を活用してください']
@@ -402,7 +432,7 @@ function getPredictionLimitations(predictionType: string): string[] {
     '規制変更などの外部要因は考慮されていません'
   ];
   
-  const specificLimitations = {
+  const specificLimitations: Record<string, string[]> = {
     'apy_trends': ['新トークンの価格ボラティリティは考慮困難', 'インセンティブプログラム終了は予測困難'],
     'tvl_forecast': ['大口投資家の動向は予測困難', '競合プロトコルの影響は限定的に考慮'],
     'risk_events': ['完全に新しい攻撃手法は検出困難', 'ゼロデイ脆弱性は検出不可能']
@@ -412,7 +442,7 @@ function getPredictionLimitations(predictionType: string): string[] {
 }
 
 function getCacheTTL(predictionType: string): number {
-  const cacheTTLs = {
+  const cacheTTLs: Record<string, number> = {
     'apy_trends': 10 * 60 * 1000,      // 10 minutes
     'tvl_forecast': 30 * 60 * 1000,    // 30 minutes
     'risk_events': 5 * 60 * 1000,      // 5 minutes (most critical)

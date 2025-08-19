@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
+import * as React from "react"
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   ArrowRight, 
@@ -1008,7 +1009,7 @@ export default function HomePage() {
                   ))}
                   <span className="ml-2 text-sm font-bold text-slate-700">⭐⭐⭐⭐⭐ 5.0</span>
                 </div>
-                <p className="text-slate-700 font-medium text-lg leading-relaxed">"{testimonial.quote}"</p>
+                <p className="text-slate-700 font-medium text-lg leading-relaxed">&quot;{testimonial.quote}&quot;</p>
               </motion.div>
             ))}
           </div>

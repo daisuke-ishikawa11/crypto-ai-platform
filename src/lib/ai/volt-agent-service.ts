@@ -28,7 +28,7 @@ interface TradingSignalRequest {
       bids: Array<[number, number]>;
       asks: Array<[number, number]>;
     }>;
-    indicators: Record<string, any>;
+    indicators: Record<string, unknown>;
   };
   portfolioContext: {
     currentHoldings: Record<string, number>;
@@ -85,7 +85,7 @@ interface PredictionRequest {
   horizon: '1h' | '4h' | '24h' | '7d' | '30d';
   features: {
     technical: Record<string, number>;
-    fundamental: Record<string, any>;
+    fundamental: Record<string, unknown>;
     sentiment: Record<string, number>;
     macroeconomic: Record<string, number>;
     onchain: Record<string, number>;
@@ -175,7 +175,7 @@ interface ArbitrageResponse {
       step: number;
       action: string;
       exchange: string;
-      parameters: any;
+      parameters: unknown;
     }>;
   }>;
   marketEfficiency: {
@@ -216,7 +216,7 @@ export class VoltAgentService {
         return this.generateMockTradingSignals(request);
       }
 
-      const response = await this.makeRequest('/trading/signals', {
+      const response = await this.makeRequest<TradingSignalResponse>('/trading/signals', {
         method: 'POST',
         body: JSON.stringify({
           ...request,
@@ -253,7 +253,7 @@ export class VoltAgentService {
         return this.generateMockPrediction(request);
       }
 
-      const response = await this.makeRequest('/prediction/analyze', {
+      const response = await this.makeRequest<PredictionResponse>('/prediction/analyze', {
         method: 'POST',
         body: JSON.stringify({
           ...request,
@@ -289,7 +289,7 @@ export class VoltAgentService {
         return this.generateMockArbitrage(request);
       }
 
-      const response = await this.makeRequest('/arbitrage/scan', {
+      const response = await this.makeRequest<ArbitrageResponse>('/arbitrage/scan', {
         method: 'POST',
         body: JSON.stringify({
           ...request,
@@ -363,7 +363,11 @@ export class VoltAgentService {
         return this.generateMockRebalance(request);
       }
 
-      const response = await this.makeRequest('/portfolio/rebalance', {
+      const response = await this.makeRequest<{ 
+        recommendations: Array<{ symbol: string; currentAllocation: number; targetAllocation: number; action: 'buy' | 'sell' | 'hold'; amount: number; priority: number; estimatedCost: number; slippageImpact: number }>; 
+        executionPlan: { totalCost: number; estimatedSlippage: number; timeToComplete: number; riskScore: number }; 
+        alternativeStrategies: Array<{ name: string; description: string; cost: number; riskLevel: string }>
+      }>('/portfolio/rebalance', {
         method: 'POST',
         body: JSON.stringify(request)
       });
@@ -387,7 +391,7 @@ export class VoltAgentService {
   /**
    * APIリクエスト実行
    */
-  private async makeRequest(endpoint: string, options: RequestInit): Promise<any> {
+  private async makeRequest<T>(endpoint: string, options: RequestInit): Promise<T> {
     const url = `${this.config.baseUrl}${endpoint}`;
     
     const response = await fetch(url, {
@@ -405,7 +409,7 @@ export class VoltAgentService {
       throw new Error(`VoltAgent API error: ${response.status} ${response.statusText}`);
     }
 
-    return await response.json();
+    return await response.json() as T;
   }
 
   /**
@@ -589,7 +593,30 @@ export class VoltAgentService {
   /**
    * モックリバランス推奨生成
    */
-  private generateMockRebalance(request: any): any {
+  private generateMockRebalance(request: unknown): {
+    recommendations: Array<{
+      symbol: string;
+      currentAllocation: number;
+      targetAllocation: number;
+      action: 'buy' | 'sell' | 'hold';
+      amount: number;
+      priority: number;
+      estimatedCost: number;
+      slippageImpact: number;
+    }>;
+    executionPlan: {
+      totalCost: number;
+      estimatedSlippage: number;
+      timeToComplete: number;
+      riskScore: number;
+    };
+    alternativeStrategies: Array<{
+      name: string;
+      description: string;
+      cost: number;
+      riskLevel: string;
+    }>;
+  } {
     return {
       recommendations: [
         {

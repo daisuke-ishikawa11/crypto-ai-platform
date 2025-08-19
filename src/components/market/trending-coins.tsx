@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+// using React.use* hooks; named imports removed to avoid unused warnings
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Flame, Star } from 'lucide-react';
 
@@ -20,11 +22,11 @@ interface TrendingCoin {
 }
 
 export function TrendingCoins() {
-  const [trending, setTrending] = useState<TrendingCoin[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [trending, setTrending] = React.useState<TrendingCoin[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchTrendingCoins();
   }, []);
 
@@ -104,10 +106,13 @@ export function TrendingCoins() {
                     {index + 1}
                   </div>
                   <div className="flex items-center gap-2">
-                    <img 
+                    <Image 
                       src={coin.thumb} 
                       alt={coin.name}
-                      className="w-6 h-6 rounded-full"
+                      width={24}
+                      height={24}
+                      className="rounded-full"
+                      unoptimized
                     />
                     <div>
                       <p className="font-medium">{coin.name}</p>

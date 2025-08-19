@@ -5,10 +5,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { ABTest, ABTestVariant } from '@/lib/ab-testing/types';
 
+interface BatchUpdateRequest {
+  action: 'start' | 'pause' | 'stop' | 'archive';
+  testIds: string[];
+}
+
 // テスト一覧取得
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { searchParams } = new URL(request.url);
     
     // パラメーター取得
@@ -82,7 +87,7 @@ export async function GET(request: NextRequest) {
 // 新しいテスト作成
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     // 認証チェック
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -171,11 +176,11 @@ export async function POST(request: NextRequest) {
 }
 
 // A/Bテストデータのバリデーション
-function validateABTestData(data: any): string | null {
+function validateABTestData(data: Partial<ABTest>): string | null {
   // 必須フィールドチェック
   const requiredFields = ['name', 'description', 'type', 'targetAudience', 'variants', 'primaryGoal', 'schedule'];
   for (const field of requiredFields) {
-    if (!data[field]) {
+    if (!(data as Record<string, unknown>)[field]) {
       return `Missing required field: ${field}`;
     }
   }
@@ -186,19 +191,19 @@ function validateABTestData(data: any): string | null {
   }
 
   // バリアント重み合計チェック
-  const totalWeight = data.variants.reduce((sum: number, variant: any) => sum + (variant.weight || 0), 0);
+  const totalWeight = data.variants?.reduce((sum: number, variant: ABTestVariant) => sum + (variant.weight || 0), 0) || 0;
   if (Math.abs(totalWeight - 100) > 0.1) {
     return 'Variant weights must sum to 100';
   }
 
   // コントロール群チェック
-  const controlVariants = data.variants.filter((v: any) => v.isControl);
+  const controlVariants = data.variants?.filter((v: ABTestVariant) => v.isControl) || [];
   if (controlVariants.length !== 1) {
     return 'Exactly one control variant is required';
   }
 
   // ターゲットオーディエンスチェック
-  if (data.targetAudience.percentage < 1 || data.targetAudience.percentage > 100) {
+  if (!data.targetAudience || data.targetAudience.percentage < 1 || data.targetAudience.percentage > 100) {
     return 'Target audience percentage must be between 1 and 100';
   }
 
@@ -213,6 +218,9 @@ function validateABTestData(data: any): string | null {
   }
 
   // スケジュールチェック
+  if (!data.schedule) {
+    return 'Schedule is required';
+  }
   const startDate = new Date(data.schedule.startDate);
   const endDate = data.schedule.endDate ? new Date(data.schedule.endDate) : null;
   
@@ -230,7 +238,7 @@ function validateABTestData(data: any): string | null {
 // バッチ処理 - 複数テストの状態更新
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     // 認証チェック
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -238,13 +246,13 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { action, testIds } = await request.json();
+    const { action, testIds }: BatchUpdateRequest = await request.json();
 
     if (!action || !testIds || !Array.isArray(testIds)) {
       return NextResponse.json({ error: 'Invalid request data' }, { status: 400 });
     }
 
-    let updateData: any = { updated_at: new Date().toISOString() };
+    const updateData: Record<string, unknown> = { updated_at: new Date().toISOString() };
 
     switch (action) {
       case 'start':

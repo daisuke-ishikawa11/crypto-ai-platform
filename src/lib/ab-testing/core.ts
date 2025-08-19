@@ -3,6 +3,8 @@
 
 'use client';
 
+import { apiFetch } from '@/lib/api/fetcher';
+
 import { 
   ABTest, 
   ABTestVariant, 
@@ -121,9 +123,8 @@ export class ABTestEngine {
     this.participants.set(testId, participant);
     this.saveParticipants();
 
-    // 露出イベント記録
+    // 露出イベント記録（idは内部生成に委ねる）
     this.trackEvent(testId, {
-      id: `exposure_${Date.now()}`,
       type: 'exposure',
       eventName: 'variant_exposed',
       properties: {
@@ -148,9 +149,17 @@ export class ABTestEngine {
       return false;
     }
 
-    // ユーザータイプチェック
-    if (criteria.userType && !criteria.userType.includes(userAttrs.userType)) {
+    // ユーザータイプチェック（UIでの'new'/'returning'等にマッピング）
+    if (criteria.userType) {
+      const mappedUserType: 'premium' | 'new' | 'returning' =
+        userAttrs.userType === 'premium'
+          ? 'premium'
+          : userAttrs.isNewUser
+            ? 'new'
+            : 'returning';
+      if (!criteria.userType.includes(mappedUserType)) {
       return false;
+      }
     }
 
     // 地域チェック
@@ -251,7 +260,7 @@ export class ABTestEngine {
   }
 
   // カスタム属性取得
-  private getCustomAttributes(): Record<string, any> {
+  private getCustomAttributes(): Record<string, unknown> {
     if (typeof localStorage === 'undefined') return {};
     
     try {
@@ -292,7 +301,7 @@ export class ABTestEngine {
   }
 
   // インタラクション記録
-  interact(testId: string, interaction: string, properties?: Record<string, any>) {
+  interact(testId: string, interaction: string, properties?: Record<string, unknown>) {
     this.trackEvent(testId, {
       type: 'interaction',
       eventName: interaction,
@@ -304,7 +313,7 @@ export class ABTestEngine {
   // 分析サーバーへの送信
   private async sendEventToAnalytics(testId: string, event: ABTestEvent) {
     try {
-      await fetch('/api/ab-testing/events', {
+      await apiFetch('/api/ab-testing/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

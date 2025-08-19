@@ -1,0 +1,353 @@
+import type { Lesson } from '../../../lib/types/learning';
+
+export const lesson24: Lesson = {
+  id: 'crypto-basics-24',
+  categoryId: 'crypto-basics',
+  title: 'Smart Contract Fundamentals - スマートコントラクトの基礎',
+  slug: 'smart-contract-fundamentals',
+  description: 'スマートコントラクトの基本概念、動作原理、実用例、利点とリスク、プログラミング言語について学びます。',
+  difficultyLevel: 'intermediate',
+  estimatedMinutes: 22,
+  orderIndex: 24,
+  content: {
+    sections: [
+      {
+        type: 'text',
+        title: 'スマートコントラクトとは',
+        content: `
+          スマートコントラクトは、契約条件をプログラムコードとして記述し、条件が満たされると自動的に実行される自己実行型の契約です。
+
+          **定義と特徴：**
+          - **自動実行**: 条件達成時の自動的な実行
+          - **透明性**: コードは公開され、検証可能
+          - **不変性**: デプロイ後の変更不可（設計次第）
+          - **分散実行**: ネットワーク上で分散実行
+          - **信頼不要**: 第三者への信頼が不要
+
+          **従来の契約との比較：**
+
+          | 特徴 | 従来の契約 | スマートコントラクト |
+          |------|------------|----------------------|
+          | 実行 | 人間による手動実行 | 自動実行 |
+          | 仲介者 | 必要（弁護士、裁判所等） | 不要 |
+          | コスト | 高い（手数料、時間） | 低い（ガス料金のみ） |
+          | 速度 | 遅い（日〜月単位） | 高速（分〜時間単位） |
+          | 透明性 | 限定的 | 完全に透明 |
+          | 改ざん | 可能性あり | 不可能 |
+
+          **Nick Szaboの先見性：**
+          - 1990年代に概念を提唱
+          - 「自動販売機」の例で説明
+          - ブロックチェーン出現で実現可能に
+
+          **技術的基盤：**
+          - **決定論的実行**: 同じ入力で同じ結果
+          - **状態管理**: ブロックチェーンでの状態保存
+          - **イベント発行**: 実行結果の通知機能
+          - **外部データアクセス**: オラクル経由でのデータ取得
+
+          **スマートコントラクトの構成要素：**
+          1. **状態変数**: データの永続的保存
+          2. **関数**: 操作と計算のロジック
+          3. **イベント**: 外部への通知機能
+          4. **修飾子**: アクセス制御と条件チェック
+        `
+      },
+      {
+        type: 'text',
+        title: 'プラットフォームと言語',
+        content: `
+          **主要なスマートコントラクトプラットフォーム：**
+
+          **Ethereum**
+          - 最初の汎用スマートコントラクトプラットフォーム
+          - Ethereum Virtual Machine (EVM)
+          - 最大のエコシステム
+          - 豊富な開発ツール
+
+          **プログラミング言語：**
+          - **Solidity**: 最も人気（JavaScript風）
+          - **Vyper**: Python風のシンプルな言語
+          - **Yul**: 低レベルな中間言語
+
+          **その他のプラットフォーム：**
+
+          **Binance Smart Chain (BSC):**
+          - EVM互換
+          - 高速・低コスト
+          - SolidityやVyperが使用可能
+
+          **Cardano:**
+          - Plutus言語（Haskell基盤）
+          - 形式検証重視
+          - eUTXOモデル
+
+          **Solana:**
+          - Rust言語
+          - 高速処理（50,000+ TPS）
+          - 並列実行
+
+          **Polkadot:**
+          - Substrate framework
+          - Rust言語
+          - カスタマイズ可能性
+
+          **開発環境とツール：**
+
+          **IDE・エディタ:**
+          - Remix（ブラウザ版IDE）
+          - Visual Studio Code拡張
+          - Truffle Suite
+          - Hardhat
+
+          **テストとデバッグ:**
+          - Ganache（ローカルブロックチェーン）
+          - Foundry（Rust製フレームワーク）
+          - OpenZeppelin（標準ライブラリ）
+
+          **デプロイとモニタリング:**
+          - Infura（ノードアクセス）
+          - Etherscan（エクスプローラー）
+          - Defender（運用管理）
+        `
+      },
+      {
+        type: 'text',
+        title: '実用的な応用例',
+        content: `
+          **1. 分散型金融（DeFi）**
+
+          **自動マーケットメイカー（AMM）:**
+          \`\`\`solidity
+          // Uniswapスタイルのトークン交換
+          function swap(uint256 amountIn, address tokenIn, address tokenOut) {
+              uint256 amountOut = calculateAmountOut(amountIn);
+              require(amountOut > 0, "Invalid swap");
+              transferFrom(msg.sender, amountIn);
+              transfer(msg.sender, amountOut);
+              emit Swap(tokenIn, tokenOut, amountIn, amountOut);
+          }
+          \`\`\`
+
+          **レンディングプロトコル:**
+          - 過担保による自動貸付
+          - 金利の動的調整
+          - 清算メカニズム
+
+          **2. NFT（非代替性トークン）**
+
+          **ERC-721標準実装:**
+          \`\`\`solidity
+          contract MyNFT is ERC721 {
+              uint256 public tokenCounter;
+              
+              function mintNFT(address to, string memory tokenURI) public {
+                  _safeMint(to, tokenCounter);
+                  _setTokenURI(tokenCounter, tokenURI);
+                  tokenCounter++;
+              }
+          }
+          \`\`\`
+
+          **ロイヤリティ機能:**
+          - 二次販売での自動分配
+          - クリエイターへの継続的収益
+
+          **3. 分散型自律組織（DAO）**
+
+          **ガバナンス機能:**
+          \`\`\`solidity
+          function vote(uint256 proposalId, bool support) public {
+              require(hasVotingRights(msg.sender), "No voting rights");
+              require(!hasVoted[proposalId][msg.sender], "Already voted");
+              
+              if(support) {
+                  proposals[proposalId].yesVotes += getVotingPower(msg.sender);
+              } else {
+                  proposals[proposalId].noVotes += getVotingPower(msg.sender);
+              }
+              hasVoted[proposalId][msg.sender] = true;
+          }
+          \`\`\`
+
+          **4. サプライチェーン管理**
+
+          **トレーサビリティ:**
+          - 製品の原料から消費者まで追跡
+          - 品質保証の自動化
+          - 偽造品対策
+
+          **5. 保険・賭け**
+
+          **パラメトリック保険:**
+          - 気象データによる自動支払い
+          - 航空便遅延保険
+          - 作物被害補償
+
+          **6. 不動産・証券**
+
+          **トークン化:**
+          - 不動産の部分所有権
+          - 配当の自動分配
+          - 透明な所有権管理
+        `
+      },
+      {
+        type: 'text',
+        title: 'リスクと課題',
+        content: `
+          **技術的リスク：**
+
+          **1. コードのバグ**
+          - ロジックエラー
+          - オーバーフロー・アンダーフロー
+          - 再入攻撃（Reentrancy）
+          - 整数除算エラー
+
+          **有名な事例:**
+          - **The DAO事件（2016）**: $60M相当のEthereumが攻撃で流出
+          - **Parity Wallet（2017）**: $300M相当が永続的にロック
+
+          **2. オラクル問題**
+          - 外部データの信頼性
+          - オラクル攻撃
+          - データフィードの操作
+          - 中央化リスク
+
+          **3. スケーラビリティ**
+          - ガス料金の高騰
+          - トランザクション処理能力の限界
+          - ネットワーク混雑の影響
+
+          **設計上の課題：**
+
+          **1. 不変性の矛盾**
+          - バグ修正の困難さ
+          - アップグレード機能の実装
+          - ガバナンス権限との均衡
+
+          **2. プライバシー**
+          - 全取引の公開性
+          - ビジネスロジックの露呈
+          - 競合他社による分析
+
+          **3. 法的・規制リスク**
+          - 法的地位の不明確さ
+          - 規制変更への対応
+          - 国際的な法的枠組みの欠如
+
+          **セキュリティのベストプラクティス：**
+
+          **開発段階:**
+          - 外部監査の実施
+          - 形式検証の活用
+          - テストカバレッジ100%
+          - バグバウンティプログラム
+
+          **運用段階:**
+          - マルチシグによるガバナンス
+          - 段階的なリリース
+          - モニタリングシステム
+          - 緊急停止機能
+
+          **コード例 - セキュリティ対策:**
+          \`\`\`solidity
+          // ReentrancyGuardを使用した再入攻撃防止
+          contract SecureContract is ReentrancyGuard {
+              function withdraw(uint256 amount) public nonReentrant {
+                  require(balances[msg.sender] >= amount, "Insufficient balance");
+                  balances[msg.sender] -= amount;
+                  payable(msg.sender).transfer(amount);
+              }
+          }
+          \`\`\`
+        `
+      }
+    ],
+    keyPoints: [
+      'スマートコントラクトは契約条件をコード化し自動実行する技術',
+      'Ethereumが最大のエコシステムで、Solidityが主要言語',
+      'DeFi、NFT、DAO、保険など幅広い分野で実用化',
+      'コードのバグやオラクル問題など技術的リスクが存在',
+      'セキュリティ監査と継続的なモニタリングが重要'
+    ],
+    summary: 'スマートコントラクトは、契約条件をプログラムコードとして記述し、条件達成時に自動実行される革新的な技術です。Ethereumが最大のプラットフォームで、SolidityやVyperなどの専用言語で開発されます。DeFi、NFT、DAO、保険など様々な分野で実用化されており、中間者不要で透明性の高い取引を実現します。しかし、コードのバグ、オラクル問題、スケーラビリティなどの課題もあり、セキュリティ監査と適切な設計が重要です。',
+    practicalExamples: [
+      'Uniswap: AMM機能で$100B+の取引量を自動処理',
+      'CryptoPunks: 10,000個のNFTを自動発行・管理',
+      'MakerDAO: DAIステーブルコイン発行の自動システム',
+      'Compound: 過担保レンディングの自動金利調整'
+    ],
+    warningNotes: [
+      'スマートコントラクトのコードバグは資産損失に直結',
+      'デプロイ後の修正が困難なため事前テストが重要',
+      'オラクル依存により外部データ操作のリスク',
+      'ガス料金高騰時は実用性が大幅低下',
+      '規制変更によりプロジェクト継続が困難になる可能性'
+    ]
+  },
+  quiz: [
+    {
+      id: 'crypto-basics-24-q1',
+      question: 'スマートコントラクトの最も重要な特徴は？',
+      options: [
+        '高速な処理能力',
+        '条件達成時の自動実行',
+        '低い取引手数料',
+        '完全な匿名性'
+      ],
+      correctAnswer: 1,
+      explanation: 'スマートコントラクトの最も重要な特徴は、あらかじめ設定された条件が満たされると自動的に実行されることです。これにより中間者や手動処理が不要になります。'
+    },
+    {
+      id: 'crypto-basics-24-q2',
+      question: 'Ethereumで最も人気のスマートコントラクト言語は？',
+      options: [
+        'JavaScript',
+        'Python',
+        'Solidity',
+        'C++'
+      ],
+      correctAnswer: 2,
+      explanation: 'SolidityはEthereumで最も人気のスマートコントラクト専用プログラミング言語で、JavaScriptに似た文法を持ちます。'
+    },
+    {
+      id: 'crypto-basics-24-q3',
+      question: 'The DAO事件（2016）の原因は？',
+      options: [
+        'ハードウェアの故障',
+        '政府による規制',
+        'スマートコントラクトのバグ',
+        '取引所のハッキング'
+      ],
+      correctAnswer: 2,
+      explanation: 'The DAO事件は再入攻撃（Reentrancy Attack）と呼ばれるスマートコントラクトのバグにより、約$60M相当のEthereumが流出した事件です。'
+    },
+    {
+      id: 'crypto-basics-24-q4',
+      question: 'オラクル問題とは？',
+      options: [
+        'ガス料金が高すぎる問題',
+        '外部データの信頼性の問題',
+        '処理速度が遅い問題',
+        'コードが複雑すぎる問題'
+      ],
+      correctAnswer: 1,
+      explanation: 'オラクル問題とは、スマートコントラクトが外部データ（価格、天気等）を取得する際の信頼性や操作可能性に関する問題です。'
+    },
+    {
+      id: 'crypto-basics-24-q5',
+      question: 'スマートコントラクトのセキュリティ対策として適切でないものは？',
+      options: [
+        '外部監査の実施',
+        'テストカバレッジ100%',
+        'コードの秘匿化',
+        'バグバウンティプログラム'
+      ],
+      correctAnswer: 2,
+      explanation: 'スマートコントラクトは透明性が重要な特徴であり、コードの秘匿化はセキュリティ対策として適切ではありません。むしろ公開により多くの目でレビューされることが安全性向上につながります。'
+    }
+  ],
+  lastUpdated: '2024-12-09',
+  factChecked: true
+};

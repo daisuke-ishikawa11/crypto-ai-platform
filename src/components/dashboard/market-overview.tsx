@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useEffect, useRef, useState } from 'react'
+import { useMemoryOptimizer } from '@/lib/optimization/memory-optimizer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -38,6 +40,8 @@ interface MarketSentiment {
 export function MarketOverview() {
   const [marketData, setMarketData] = useState<MarketData[]>([]);
   const [sentiment, setSentiment] = useState<MarketSentiment | null>(null);
+  const memoryOptimizer = useMemoryOptimizer();
+  const fetchTimeoutRef = useRef<NodeJS.Timeout>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

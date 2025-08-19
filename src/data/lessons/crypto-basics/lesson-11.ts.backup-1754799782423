@@ -1,0 +1,146 @@
+import { Lesson } from '@/lib/types/learning';
+
+export const lesson11: Lesson = {
+  id: 'crypto-basics-11',
+  categoryId: 'crypto-basics',
+  title: 'Introduction to Ethereum - イーサリアムの基礎',
+  slug: 'introduction-to-ethereum',
+  description: 'イーサリアムの基本概念、スマートコントラクト、DAppsの仕組みを理解し、次世代ブロックチェーンプラットフォームを学びます。',
+  difficultyLevel: 'intermediate',
+  estimatedMinutes: 20,
+  orderIndex: 11,
+  content: {
+    sections: [
+      {
+        title: 'イーサリアムとは何か',
+        content: `
+          イーサリアム(Ethereum)は、2015年にローンチされた分散型ブロックチェーンプラットフォームです。
+          
+          **イーサリアムの特徴：**
+          - **スマートコントラクト**: 自動実行される契約プログラム
+          - **分散型アプリケーション(DApps)**: 中央管理者なしで動作するアプリ
+          - **プログラマブル**: 開発者が独自のアプリケーションを構築可能
+          - **イーサ(ETH)**: プラットフォーム内で使用される暗号通貨
+          - **仮想マシン(EVM)**: スマートコントラクトを実行する環境
+        `
+      },
+      {
+        title: 'ビットコインとの違い',
+        content: `
+          **ビットコイン vs イーサリアム**
+          
+          | 特徴 | ビットコイン | イーサリアム |
+          |------|--------------|--------------|
+          | 目的 | デジタル通貨 | プログラマブルプラットフォーム |
+          | 機能 | 送金・価値保存 | スマートコントラクト・DApps |
+          | ブロック時間 | 約10分 | 約12秒 |
+          | プログラミング | 限定的 | 完全にプログラマブル |
+          | コンセンサス | Proof of Work | Proof of Stake (2022年移行) |
+          | 用途 | デジタルゴールド | 分散型アプリプラットフォーム |
+        `
+      },
+      {
+        title: 'スマートコントラクトの基本',
+        content: `
+          **スマートコントラクトとは：**
+          
+          1. **自動実行**: 条件が満たされると自動的に実行される契約
+          2. **コード化**: 契約条件がプログラムコードで記述
+          3. **信頼性**: 第三者を必要とせず、透明で改ざん不可能
+          4. **効率性**: 手数料削減と処理時間短縮
+          
+          **実用例：**
+          - 保険の自動支払い
+          - デジタル身分証明
+          - 投票システム
+          - 分散型金融(DeFi)プロトコル
+        `
+      }
+    ],
+    keyPoints: [
+      'イーサリアムはスマートコントラクトを実行できるブロックチェーンプラットフォーム',
+      'ビットコインとは異なり、プログラマブルな機能を提供',
+      'DApps（分散型アプリケーション）の基盤として機能',
+      'ETH（イーサ）はガス料金の支払いに使用される',
+      '2022年にProof of Stakeに移行し、エネルギー効率が向上'
+    ],
+    summary: 'イーサリアムは、スマートコントラクトとDAppsを実行できる分散型プラットフォームです。ビットコインが「デジタル通貨」なら、イーサリアムは「世界のコンピュータ」として機能し、様々な分散型アプリケーションの基盤となっています。',
+    practicalExamples: [
+      'Uniswap: 分散型取引所(DEX)のスマートコントラクト',
+      'OpenSea: NFTマーケットプレイス',
+      'Compound: 分散型レンディングプロトコル',
+      'ENS: イーサリアムネームサービス(.ethドメイン)'
+    ],
+    warningNotes: [
+      'ガス料金（手数料）が高額になる場合がある',
+      'ネットワーク混雑時は処理が遅くなる',
+      'スマートコントラクトのバグリスクが存在',
+      '規制の変化が価格に大きな影響を与える',
+      '技術的理解が必要で初心者には複雑'
+    ]
+  },
+  quiz: [
+    {
+      id: 'crypto-basics-11-q1',
+      question: 'イーサリアムの最大の特徴は何ですか？',
+      options: [
+        '送金速度が最速',
+        'スマートコントラクトの実行',
+        '価格が最も安定している',
+        '政府による完全な規制'
+      ],
+      correctAnswer: 1,
+      explanation: 'イーサリアムの最大の特徴はスマートコントラクトの実行機能です。これにより、自動実行される契約やDAppsが可能になります。'
+    },
+    {
+      id: 'crypto-basics-11-q2',
+      question: 'イーサリアムで使用される暗号通貨の名前は？',
+      options: [
+        'Bitcoin (BTC)',
+        'Ether (ETH)',
+        'Litecoin (LTC)',
+        'Ripple (XRP)'
+      ],
+      correctAnswer: 1,
+      explanation: 'イーサリアムプラットフォームで使用される暗号通貨はEther（ETH、イーサ）です。'
+    },
+    {
+      id: 'crypto-basics-11-q3',
+      question: 'DAppsとは何の略ですか？',
+      options: [
+        'Digital Applications',
+        'Decentralized Applications',
+        'Direct Applications',
+        'Dynamic Applications'
+      ],
+      correctAnswer: 1,
+      explanation: 'DAppsは「Decentralized Applications（分散型アプリケーション）」の略です。中央管理者なしで動作するアプリケーションです。'
+    },
+    {
+      id: 'crypto-basics-11-q4',
+      question: 'イーサリアムが2022年に移行したコンセンサスアルゴリズムは？',
+      options: [
+        'Proof of Work',
+        'Proof of Stake',
+        'Proof of Authority',
+        'Proof of History'
+      ],
+      correctAnswer: 1,
+      explanation: 'イーサリアムは2022年9月にProof of Work（PoW）からProof of Stake（PoS）に移行し、エネルギー効率が大幅に改善されました。'
+    },
+    {
+      id: 'crypto-basics-11-q5',
+      question: 'イーサリアムでスマートコントラクトを実行する際に必要な手数料は？',
+      options: [
+        'マイニング料金',
+        'ガス料金',
+        'ステーキング料金',
+        '手数料は無料'
+      ],
+      correctAnswer: 1,
+      explanation: 'イーサリアムでスマートコントラクトを実行する際には、計算リソースの使用量に応じて「ガス料金」と呼ばれる手数料を支払う必要があります。'
+    }
+  ],
+  lastUpdated: '2024-12-09',
+  factChecked: true
+};

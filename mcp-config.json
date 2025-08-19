@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--transport", "stdio"],
+      "env": {
+        "NODE_ENV": "production",
+        "PROJECT_PATH": "/mnt/d/crypto-ai-platform",
+        "PYTHONUNBUFFERED": "1",
+        "FORCE_COLOR": "1"
+      },
+      "settings": {
+        "restart": {
+          "enabled": true,
+          "maxRetries": 5,
+          "retryDelay": 1000
+        },
+        "healthCheck": {
+          "enabled": true,
+          "interval": 30000,
+          "timeout": 5000
+        },
+        "persistent": true,
+        "autoReconnect": true
+      }
+    }
+  },
+  "global": {
+    "connectionTimeout": 30000,
+    "retryInterval": 5000,
+    "maxRetries": 10,
+    "keepAlive": true,
+    "persistentConnection": true
+  }
+}

@@ -1,0 +1,26 @@
+# =============================================================================
+# 🚨 ALERTMANAGER CONFIGURATION
+# =============================================================================
+
+global:
+  smtp_smarthost: 'localhost:587'
+  smtp_from: 'alerts@crypto-ai-platform.com'
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'web.hook'
+
+receivers:
+  - name: 'web.hook'
+    webhook_configs:
+      - url: 'http://app-staging:3000/api/webhooks/alerts'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']

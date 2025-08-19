@@ -3,7 +3,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Settings,
@@ -36,7 +37,7 @@ export function AccessibilityPanel({ isOpen, onClose }: AccessibilityPanelProps)
   const { settings, updateSettings, resetSettings } = useAccessibilitySettings();
   const [activeTab, setActiveTab] = useState<'visual' | 'motor' | 'cognitive'>('visual');
 
-  const handleSettingChange = (key: string, value: any) => {
+  const handleSettingChange = (key: string, value: unknown) => {
     updateSettings({ [key]: value });
     announceToScreenReader(`${key}を${value ? '有効' : '無効'}にしました`);
   };

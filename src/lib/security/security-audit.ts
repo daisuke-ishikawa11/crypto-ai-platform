@@ -8,10 +8,10 @@ export interface SecurityEvent {
   userId?: string;
   ip: string;
   userAgent: string;
-  details: Record<string, any>;
+  details: Record<string, unknown>;
   timestamp: Date;
   resolved: boolean;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export class SecurityAuditService {
@@ -195,7 +195,7 @@ export async function logLoginAttempt(
   ip: string,
   userAgent: string,
   success: boolean,
-  details: Record<string, any> = {}
+  details: Record<string, unknown> = {}
 ): Promise<void> {
   const audit = SecurityAuditService.getInstance();
   
@@ -216,7 +216,7 @@ export async function logSuspiciousActivity(
   ip: string,
   userAgent: string,
   activity: string,
-  details: Record<string, any> = {}
+  details: Record<string, unknown> = {}
 ): Promise<void> {
   const audit = SecurityAuditService.getInstance();
   
@@ -239,7 +239,7 @@ export async function logDataAccess(
   userAgent: string,
   resource: string,
   action: string,
-  details: Record<string, any> = {}
+  details: Record<string, unknown> = {}
 ): Promise<void> {
   const audit = SecurityAuditService.getInstance();
   
@@ -263,7 +263,7 @@ export async function logApiAbuse(
   ip: string,
   userAgent: string,
   endpoint: string,
-  details: Record<string, any> = {}
+  details: Record<string, unknown> = {}
 ): Promise<void> {
   const audit = SecurityAuditService.getInstance();
   
@@ -286,7 +286,7 @@ export async function logSecurityViolation(
   ip: string,
   userAgent: string,
   violation: string,
-  details: Record<string, any> = {}
+  details: Record<string, unknown> = {}
 ): Promise<void> {
   const audit = SecurityAuditService.getInstance();
   

@@ -1,8 +1,9 @@
-// 🔗 Supabase クライアント（ブラウザ用）
-// クライアントサイドでのSupabase接続設定
+// 🔗 Supabase クライアント（ブラウザ用）現代化版
+// 最新@supabase/ssr v0.6.1完全対応
 
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from './types'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -12,62 +13,70 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 /**
- * ブラウザ用Supabaseクライアントを作成
- * 自動でクッキーを管理し、リアルタイム機能を提供
+ * 現代化されたSupabaseクライアント作成
+ * @supabase/ssr v0.6.1の新型システム完全対応
  */
-export function createClient() {
-  // Use mock client in development if demo URLs are detected
-  if (supabaseUrl?.includes('demo') || process.env.NODE_ENV === 'development') {
-    const { createClient: createMockClient } = require('./mock-client');
-    return createMockClient();
-  }
-
+export function createClient(): SupabaseClient<Database> {
+  // モック機能は本番環境では無効化（セキュリティのため）
   return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
-      // 認証関連の設定
+      // 最新の認証設定
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: true,
       flowType: 'pkce',
       
-      // ストレージ設定
+      // 現代的なストレージハンドリング
       storage: {
         getItem: (key: string) => {
           if (typeof window === 'undefined') return null;
-          return window.localStorage.getItem(key);
+          try {
+            return window.localStorage.getItem(key);
+          } catch {
+            return null;
+          }
         },
         setItem: (key: string, value: string) => {
           if (typeof window === 'undefined') return;
-          window.localStorage.setItem(key, value);
+          try {
+            window.localStorage.setItem(key, value);
+          } catch {
+            // Storage full or blocked - silently fail
+          }
         },
         removeItem: (key: string) => {
           if (typeof window === 'undefined') return;
-          window.localStorage.removeItem(key);
+          try {
+            window.localStorage.removeItem(key);
+          } catch {
+            // Storage access blocked - silently fail
+          }
         }
       }
     },
     
-    // リアルタイム設定
+    // 最新のリアルタイム設定
     realtime: {
       params: {
         eventsPerSecond: 10
       }
     },
     
-    // グローバル設定
+    // 現代的なグローバル設定
     global: {
       headers: {
-        'X-Client-Info': 'crypto-ai-platform@1.0.0'
+        'X-Client-Info': 'crypto-ai-platform@2.0.0',
+        'X-Client-Type': 'browser'
       }
     }
   });
 }
 
 /**
- * 管理者権限用のクライアント作成
- * サービスキーを使用（ブラウザでは使用禁止）
+ * 管理者権限用のクライアント作成（現代化）
+ * サーバーサイド専用
  */
-export function createAdminClient() {
+export function createAdminClient(): SupabaseClient<Database> {
   if (typeof window !== 'undefined') {
     throw new Error('Admin client cannot be used in browser environment');
   }
@@ -81,9 +90,36 @@ export function createAdminClient() {
     auth: {
       autoRefreshToken: false,
       persistSession: false
+    },
+    global: {
+      headers: {
+        'X-Client-Info': 'crypto-ai-platform@2.0.0',
+        'X-Client-Type': 'admin'
+      }
     }
   });
 }
 
-// デフォルトクライアントをエクスポート
-export const supabase = createClient(); 
+// 現代化されたデフォルトクライアント
+let clientInstance: SupabaseClient<Database> | null = null;
+
+/**
+ * シングルトンパターンでクライアントを取得
+ * パフォーマンス最適化と型安全性を両立
+ */
+export function getClient(): SupabaseClient<Database> {
+  if (!clientInstance) {
+    clientInstance = createClient();
+  }
+  return clientInstance;
+}
+
+// レガシー互換性のためのエクスポート
+export const supabase = createClient();
+
+// 型安全性を保証するユーティリティ型
+export type TypedSupabaseClient = SupabaseClient<Database>;
+export type SupabaseTable = keyof Database['public']['Tables'];
+export type SupabaseTableRow<T extends SupabaseTable> = Database['public']['Tables'][T]['Row'];
+export type SupabaseTableInsert<T extends SupabaseTable> = Database['public']['Tables'][T]['Insert'];
+export type SupabaseTableUpdate<T extends SupabaseTable> = Database['public']['Tables'][T]['Update']; 

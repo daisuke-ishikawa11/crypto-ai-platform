@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { 
@@ -30,7 +31,7 @@ interface ActivityLog {
   userId?: string;
   userEmail?: string;
   ip?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export function RecentActivities() {

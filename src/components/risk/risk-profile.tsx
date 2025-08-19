@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -8,11 +9,11 @@ import { RiskProfile as RiskProfileType } from '@/lib/risk/types';
 import { Shield, Settings } from 'lucide-react';
 
 export function RiskProfile() {
-  const [profile, setProfile] = useState<RiskProfileType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
+  const [profile, setProfile] = React.useState<RiskProfileType | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [editing, setEditing] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchProfile();
   }, []);
 

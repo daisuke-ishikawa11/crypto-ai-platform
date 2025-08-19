@@ -1,0 +1,129 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "type": "dashboard",
+        "name": "Annotations & Alerts",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        }
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total TVL (USD)",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"], "values": false },
+        "orientation": "horizontal",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "defi_overview_total_tvl_usd"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "API Requests per Second",
+      "gridPos": { "x": 6, "y": 0, "w": 9, "h": 6 },
+      "fieldConfig": { "defaults": { "unit": "req/s" }, "overrides": [] },
+      "targets": [
+        { "refId": "A", "expr": "sum by (endpoint) (rate(defi_api_requests_total[5m]))" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Pool Ingest Written",
+      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 },
+      "fieldConfig": { "defaults": { "unit": "ops/s" }, "overrides": [] },
+      "targets": [
+        { "refId": "A", "expr": "sum by (project) (rate(defi_pools_ingest_written_total[5m]))" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "API Error Rate",
+      "gridPos": { "x": 15, "y": 0, "w": 9, "h": 6 },
+      "fieldConfig": { "defaults": { "unit": "err/s" }, "overrides": [] },
+      "targets": [
+        { "refId": "A", "expr": "sum by (endpoint) (rate(defi_api_errors_total[5m]))" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "API Latency p95 (s)",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by (le, endpoint) (rate(defi_api_request_duration_seconds_bucket[5m])))"
+        }
+      ]
+    },
+    {
+      "type": "bargauge",
+      "title": "TVL by Category (Top)",
+      "gridPos": { "x": 12, "y": 6, "w": 12, "h": 6 },
+      "options": { "displayMode": "gradient", "orientation": "horizontal" },
+      "targets": [
+        { "refId": "A", "expr": "topk(10, sum by (name) (defi_overview_tvl_usd{type=\"category\"}))" }
+      ]
+    },
+    {
+      "type": "bargauge",
+      "title": "TVL by Chain (Top)",
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+      "options": { "displayMode": "gradient", "orientation": "horizontal" },
+      "targets": [
+        { "refId": "A", "expr": "topk(10, sum by (name) (defi_overview_tvl_usd{type=\"chain\"}))" }
+      ]
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["defi", "monitoring"],
+  "templating": {
+    "list": [
+      {
+        "name": "endpoint",
+        "type": "query",
+        "hide": 0,
+        "refresh": 2,
+        "query": "label_values(defi_api_requests_total, endpoint)",
+        "datasource": null,
+        "current": { "selected": false, "text": "All", "value": "" },
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m"] },
+  "timezone": "browser",
+  "title": "DeFi Monitor",
+  "uid": null,
+  "version": 1,
+  "weekStart": ""
+}

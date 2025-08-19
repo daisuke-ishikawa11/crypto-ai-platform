@@ -1,0 +1,28 @@
+groups:
+  - name: ai-structured-service
+    rules:
+      - alert: AIStructuredHighErrorRate
+        expr: |
+          sum(rate(ai_structured_errors_total[5m]))
+          /
+          clamp_min(sum(rate(ai_structured_requests_total[5m])), 1)
+          > 0.1
+        for: 10m
+        labels:
+          severity: warning
+          service: ai-structured
+        annotations:
+          summary: "AI Structured API error rate > 10%"
+          description: "Errors over requests in the last 5m exceeded 10% for more than 10m."
+
+      - alert: AIStructuredLatencyHighP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(ai_structured_request_duration_seconds_bucket[5m])) by (le))
+          > 3
+        for: 10m
+        labels:
+          severity: warning
+          service: ai-structured
+        annotations:
+          summary: "AI Structured API p95 latency > 3s"
+          description: "95th percentile latency has exceeded 3s for 10 minutes."

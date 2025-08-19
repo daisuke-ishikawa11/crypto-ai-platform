@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Cpu, Sparkles, ArrowRight, Menu, BookOpen, Play, Brain, Activity, Bell, BarChart3, Shield, TrendingUp, Users, Clock, Star, CheckCircle, PlayCircle, Target, Settings, Rocket, Download, MessageCircle, Mail, Search, Filter } from 'lucide-react';
 import { HomeButton } from '@/components/ui/home-button';

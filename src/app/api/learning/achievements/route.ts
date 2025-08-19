@@ -17,6 +17,12 @@ const getAchievementsSchema = z.object({
 
 const learningService = new LearningService();
 
+// 軽量型
+type AchievementReq = { type: 'lessons_completed' | 'streak' | 'study_time_hours' | 'quiz_correct'; count: number }
+type AchievementBase = { id: string; category: string; title: string; description: string; icon: string; rarity: 'common'|'uncommon'|'rare'|'epic'|'legendary'; difficulty: 'easy'|'medium'|'hard'|'expert'; points: number; requirement: AchievementReq }
+type AchievementWithStatus = AchievementBase & { status: 'earned'|'available'|'locked'; earnedAt?: string; progress: { current: number; required: number; progressPercentage: number; canEarn: boolean; remaining: number }; metadata?: Record<string, unknown> }
+type UserStatsLite = { totalCompletedLessons: number; totalTimeSpent: number; totalCorrectAnswers?: number }
+
 /**
  * ユーザー実績取得
  */
@@ -42,28 +48,54 @@ async function getUserAchievements(
     const currentStreak = await learningService.getCurrentStreak(user.id);
     
     // 実績の詳細情報を構築
-    const achievementsWithStatus = allAchievements.map(achievement => {
-      const userAchievement = userAchievements.find(ua => ua.achievementType === achievement.id);
-      const progress = calculateAchievementProgress(achievement, userStats, currentStreak);
-      
+    const normalizeRarity = (v: unknown): AchievementBase['rarity'] => {
+      return v === 'common' || v === 'uncommon' || v === 'rare' || v === 'epic' || v === 'legendary' ? v : 'common'
+    }
+    const normalizeDifficulty = (v: unknown): AchievementBase['difficulty'] => {
+      return v === 'easy' || v === 'medium' || v === 'hard' || v === 'expert' ? v : 'easy'
+    }
+    const normalizeRequirement = (r: unknown): AchievementReq => {
+      const obj = (r as Record<string, unknown>) || {}
+      const type = obj.type
+      const count = obj.count
+      const nt = (type === 'lessons_completed' || type === 'streak' || type === 'study_time_hours' || type === 'quiz_correct') ? type : 'lessons_completed'
+      const nc = typeof count === 'number' ? count : 1
+      return { type: nt, count: nc }
+    }
+
+    const achievementsArray: Array<unknown> = Array.isArray(allAchievements) ? allAchievements : []
+    const achievementsWithStatus: AchievementWithStatus[] = achievementsArray.map((a) => {
+      const achievement: AchievementBase = {
+        id: String((a as Record<string, unknown>).id || ''),
+        category: String((a as Record<string, unknown>).category || ''),
+        title: String((a as Record<string, unknown>).title || ''),
+        description: String((a as Record<string, unknown>).description || ''),
+        icon: String((a as Record<string, unknown>).icon || ''),
+        rarity: normalizeRarity((a as Record<string, unknown>).rarity),
+        difficulty: normalizeDifficulty((a as Record<string, unknown>).difficulty),
+        points: Number((a as Record<string, unknown>).points || 0),
+        requirement: normalizeRequirement((a as Record<string, unknown>).requirement)
+      }
+      const userAchievement = userAchievements.find((ua: { achievementType: string; earnedAt?: string; metadata?: Record<string, unknown> }) => ua.achievementType === achievement.id);
+      const progress = calculateAchievementProgress(achievement, userStats as UserStatsLite, currentStreak);
       return {
         ...achievement,
         status: userAchievement ? 'earned' : (progress.canEarn ? 'available' : 'locked'),
         earnedAt: userAchievement?.earnedAt,
         progress,
         metadata: userAchievement?.metadata
-      };
+      }
     });
 
     // フィルタリング
     let filteredAchievements = achievementsWithStatus;
     
     if (validatedParams.category !== 'all') {
-      filteredAchievements = filteredAchievements.filter(a => a.category === validatedParams.category);
+      filteredAchievements = filteredAchievements.filter((a: AchievementWithStatus) => a.category === validatedParams.category);
     }
     
     if (validatedParams.status !== 'all') {
-      filteredAchievements = filteredAchievements.filter(a => a.status === validatedParams.status);
+      filteredAchievements = filteredAchievements.filter((a: AchievementWithStatus) => a.status === validatedParams.status);
     }
 
     // ソート
@@ -91,7 +123,7 @@ async function getUserAchievements(
     });
 
     // 統計情報
-    const stats = {
+  const stats = {
       total: allAchievements.length,
       earned: achievementsWithStatus.filter(a => a.status === 'earned').length,
       available: achievementsWithStatus.filter(a => a.status === 'available').length,
@@ -143,8 +175,8 @@ async function getLearningStreak(
   
   try {
     const currentStreak = await learningService.getCurrentStreak(user.id);
-    const longestStreak = await learningService.getLongestStreak(user.id);
-    const streakHistory = await learningService.getStreakHistory(user.id, 30); // 過去30日
+  const longestStreak = await learningService.getLongestStreak(user.id);
+  const streakHistory = await learningService.getStreakHistory(user.id);
     
     // ストリーク統計
     const streakStats = {
@@ -161,7 +193,7 @@ async function getLearningStreak(
     const streakAchievements = await getStreakAchievements(user.id, currentStreak, longestStreak);
 
     // ストリーク維持のヒント
-    const tips = generateStreakTips(currentStreak, streakStats);
+  const tips = generateStreakTips(currentStreak, streakStats);
 
     logger.info('Learning streak retrieved', {
       userId: user.id,
@@ -428,7 +460,7 @@ async function getAllAvailableAchievements() {
 /**
  * 実績進捗計算
  */
-function calculateAchievementProgress(achievement: any, userStats: any, currentStreak: number) {
+function calculateAchievementProgress(achievement: AchievementBase, userStats: UserStatsLite, currentStreak: number) {
   const requirement = achievement.requirement;
   let currentValue = 0;
   let canEarn = false;
@@ -481,8 +513,8 @@ function getDifficultyScore(difficulty: string): number {
 /**
  * カテゴリ別実績グループ化
  */
-function groupAchievementsByCategory(achievements: any[]) {
-  return achievements.reduce((groups, achievement) => {
+function groupAchievementsByCategory(achievements: AchievementWithStatus[]) {
+  return achievements.reduce<Record<string, { total: number; earned: number }>>((groups, achievement) => {
     const category = achievement.category;
     if (!groups[category]) {
       groups[category] = { total: 0, earned: 0 };
@@ -498,8 +530,8 @@ function groupAchievementsByCategory(achievements: any[]) {
 /**
  * レアリティ別実績グループ化
  */
-function groupAchievementsByRarity(achievements: any[]) {
-  return achievements.reduce((groups, achievement) => {
+function groupAchievementsByRarity(achievements: AchievementWithStatus[]) {
+  return achievements.reduce<Record<string, { total: number; earned: number }>>((groups, achievement) => {
     const rarity = achievement.rarity;
     if (!groups[rarity]) {
       groups[rarity] = { total: 0, earned: 0 };
@@ -515,8 +547,8 @@ function groupAchievementsByRarity(achievements: any[]) {
 /**
  * 実績ポイント合計計算
  */
-function calculateTotalAchievementPoints(userAchievements: any[]): number {
-  return userAchievements.reduce((total, achievement) => {
+function calculateTotalAchievementPoints(userAchievements: Array<{ points?: number }>): number {
+  return userAchievements.reduce<number>((total, achievement) => {
     return total + (achievement.points || 0);
   }, 0);
 }
@@ -532,20 +564,20 @@ async function calculateUserRank(userId: string): Promise<number> {
 /**
  * 次のマイルストーン検索
  */
-function findNextMilestone(userStats: any, achievements: any[]) {
-  const availableAchievements = achievements.filter(a => a.status === 'available');
+function findNextMilestone(_userStats: UserStatsLite, achievements: AchievementWithStatus[]) {
+  const availableAchievements = achievements.filter((a: AchievementWithStatus) => a.status === 'available');
   if (availableAchievements.length === 0) return null;
 
   // 進捗が最も高い実績を返す
-  return availableAchievements.reduce((best, current) => {
+  return availableAchievements.reduce<AchievementWithStatus>((best, current) => {
     return current.progress.progressPercentage > best.progress.progressPercentage ? current : best;
-  });
+  }, availableAchievements[0]);
 }
 
 /**
  * ユーザーレベル計算
  */
-function calculateUserLevel(userStats: any): number {
+function calculateUserLevel(userStats: UserStatsLite): number {
   const completedLessons = userStats.totalCompletedLessons;
   
   if (completedLessons < 5) return 1;
@@ -559,7 +591,7 @@ function calculateUserLevel(userStats: any): number {
 /**
  * 週平均計算
  */
-function calculateWeeklyAverage(streakHistory: any[]): number {
+function calculateWeeklyAverage(streakHistory: unknown[]): number {
   if (streakHistory.length === 0) return 0;
   
   const weeks = Math.ceil(streakHistory.length / 7);
@@ -583,7 +615,7 @@ async function getStreakAchievements(userId: string, currentStreak: number, long
 /**
  * ストリークティップス生成
  */
-function generateStreakTips(currentStreak: number, streakStats: any): string[] {
+function generateStreakTips(currentStreak: number, streakStats: unknown): string[] {
   const tips = [];
   
   if (currentStreak === 0) {
@@ -603,7 +635,7 @@ function generateStreakTips(currentStreak: number, streakStats: any): string[] {
 /**
  * ストリークカレンダー生成
  */
-function generateStreakCalendar(streakHistory: any[]) {
+function generateStreakCalendar(streakHistory: Array<{ date?: string } | unknown>) {
   const calendar = [];
   const today = new Date();
   
@@ -612,7 +644,7 @@ function generateStreakCalendar(streakHistory: any[]) {
     date.setDate(date.getDate() - i);
     
     const dateStr = date.toISOString().split('T')[0];
-    const hasActivity = streakHistory.some(h => h.date === dateStr);
+  const hasActivity = streakHistory.some((h) => typeof (h as Record<string, unknown>)?.date === 'string' && (h as Record<string, unknown>).date === dateStr);
     
     calendar.push({
       date: dateStr,
@@ -683,12 +715,16 @@ export const GET = withApiHandler(getUserAchievements, {
 });
 
 export const OPTIONS = async () => {
+  const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+  const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
   return new NextResponse(null, { 
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowOrigin,
+      'Vary': 'Origin',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
     }
   });
 };

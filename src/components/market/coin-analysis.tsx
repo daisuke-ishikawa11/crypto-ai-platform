@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { apiFetch } from '@/lib/api/fetcher';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Search, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
@@ -10,10 +12,10 @@ import { MarketAnalysis } from '@/lib/market/types';
 import { useAnalytics } from '@/lib/analytics/use-analytics';
 
 export function CoinAnalysis() {
-  const [coinId, setCoinId] = useState('');
-  const [analysis, setAnalysis] = useState<MarketAnalysis | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [coinId, setCoinId] = React.useState('');
+  const [analysis, setAnalysis] = React.useState<MarketAnalysis | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
   const { track } = useAnalytics();
 
   const analyzeCoin = async () => {
@@ -26,7 +28,7 @@ export function CoinAnalysis() {
     track('market_analysis_started', { coinId: coinId.toLowerCase() });
 
     try {
-      const response = await fetch('/api/market/analysis', {
+      const response = await apiFetch('/api/market/analysis', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +111,7 @@ export function CoinAnalysis() {
               placeholder="Enter coin ID (e.g., bitcoin, ethereum)"
               value={coinId}
               onChange={(e) => setCoinId(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && analyzeCoin()}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') analyzeCoin() }}
             />
             <Button onClick={analyzeCoin} disabled={loading || !coinId.trim()}>
               {loading ? (

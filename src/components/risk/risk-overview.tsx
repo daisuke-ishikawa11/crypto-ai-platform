@@ -1,20 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useCallback, useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PortfolioRiskMetrics } from '@/lib/risk/types';
 import { Progress } from '@/components/ui/progress';
 import { Info, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 export function RiskOverview() {
-  const [metrics, setMetrics] = useState<PortfolioRiskMetrics | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [metrics, setMetrics] = React.useState<PortfolioRiskMetrics | null>(null);
+  const [loading, setLoading] = React.useState(true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchRiskMetrics();
   }, []);
 
-  const fetchRiskMetrics = async () => {
+  const fetchRiskMetrics = React.useCallback(async () => {
     try {
       const response = await fetch('/api/risk/analysis?type=portfolio');
       
@@ -29,7 +30,7 @@ export function RiskOverview() {
       console.error('Failed to fetch risk metrics:', error);
       setLoading(false);
     }
-  };
+  }, []);
 
   if (loading) {
     return (

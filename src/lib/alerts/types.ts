@@ -103,7 +103,8 @@ export type AlertParameters =
   | TechnicalIndicatorParams
   | VolumeAlertParams
   | RiskAlertParams
-  | DeFiAlertParams;
+  | DeFiAlertParams
+  | Record<string, unknown>; // 柔軟な型サポートのため
 
 // 価格アラートパラメータ
 export interface PriceAlertParams {
@@ -219,7 +220,7 @@ export interface TriggeredAlert {
   // メッセージ
   title: string;
   message: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
   
   // アクション
   acknowledged: boolean;

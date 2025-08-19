@@ -1,11 +1,12 @@
-// ♿ アクセシビリティボタン
+﻿// ♿ アクセシビリティボタン
 // 浮遊するアクセシビリティ設定開閉ボタン
 
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
-import { Universal, Settings, Eye, Keyboard, Volume2 } from 'lucide-react';
+import { Globe, Eye, Keyboard, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AccessibilityPanel } from './accessibility-panel';
 import { useAccessibilitySettings, useKeyboardNavigation } from '@/lib/accessibility/a11y-utils';
@@ -100,7 +101,7 @@ export function AccessibilityButton() {
               animate={{ rotate: isOpen ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <Universal className="w-6 h-6" />
+              <Globe className="w-6 h-6" />
             </motion.div>
           </Button>
 

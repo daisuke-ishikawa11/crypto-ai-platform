@@ -1,0 +1,200 @@
+# =============================================================================
+# 🔍 PROMETHEUS MONITORING CONFIGURATION
+# =============================================================================
+# Comprehensive monitoring setup for Crypto AI Platform
+# Includes application metrics, system metrics, and custom business metrics
+# Optimized for containerized environments and high-availability setups
+# =============================================================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'crypto-ai-staging'
+    environment: 'staging'
+
+# Rule files for alerting
+rule_files:
+  - "rules/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # =============================================================================
+  # 🖥️ SYSTEM METRICS
+  # =============================================================================
+  
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+  # Node exporter for system metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # =============================================================================
+  # 🚀 APPLICATION METRICS
+  # =============================================================================
+  
+  # Next.js application metrics
+  - job_name: 'crypto-ai-app'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ['prometheus']
+
+  # Health check monitoring
+  - job_name: 'crypto-ai-health'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/health
+    scrape_interval: 30s
+    scrape_timeout: 5s
+    metric_relabeling_configs:
+      - source_labels: [__name__]
+        regex: 'up'
+        target_label: 'service'
+        replacement: 'crypto-ai-app'
+
+  # =============================================================================
+  # 💾 DATABASE METRICS
+  # =============================================================================
+  
+  # PostgreSQL metrics (if postgres_exporter is available)
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    metrics_path: /metrics
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    params:
+      collect[]:
+        - pg_stat_database
+        - pg_stat_bgwriter
+        - pg_stat_activity
+        - pg_stat_replication
+        - pg_stat_user_tables
+        - pg_stat_user_indexes
+
+  # =============================================================================
+  # 🔴 REDIS METRICS
+  # =============================================================================
+  
+  # Redis metrics (if redis_exporter is available)
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    metrics_path: /metrics
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # =============================================================================
+  # 🌐 NETWORK & LOAD BALANCER
+  # =============================================================================
+  
+  # Nginx metrics (if nginx-prometheus-exporter is available)
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+    metrics_path: /metrics
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # =============================================================================
+  # 🤖 AI SERVICE METRICS
+  # =============================================================================
+  
+  # Custom AI service monitoring
+  - job_name: 'ai-services'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/metrics/ai
+    scrape_interval: 60s
+    scrape_timeout: 15s
+    honor_labels: true
+
+  # =============================================================================
+  # 📊 BUSINESS METRICS
+  # =============================================================================
+  
+  # Learning platform metrics
+  - job_name: 'learning-metrics'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/metrics/learning
+    scrape_interval: 60s
+    scrape_timeout: 15s
+
+  # Trading and market data metrics
+  - job_name: 'trading-metrics'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/metrics/trading
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # User engagement metrics
+  - job_name: 'user-metrics'
+    static_configs:
+      - targets: ['app:3000']
+    metrics_path: /api/metrics/users
+    scrape_interval: 300s  # 5 minutes
+    scrape_timeout: 15s
+
+# =============================================================================
+# 📈 ALERTING CONFIGURATION
+# =============================================================================
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+      timeout: 10s
+
+# =============================================================================
+# 🔧 RECORDING RULES
+# =============================================================================
+
+# Recording rules for complex queries and dashboard optimization
+rule_files:
+  - "/etc/prometheus/rules/application.yml"
+  - "/etc/prometheus/rules/infrastructure.yml"
+  - "/etc/prometheus/rules/business.yml"
+
+# =============================================================================
+# ⚙️ CONFIGURATION NOTES:
+# 
+# Health Checks:
+# - Application health: /api/health (every 30s)
+# - Database connectivity: included in health endpoint
+# - Cache availability: included in health endpoint
+# - AI service status: included in health endpoint
+# 
+# Performance Metrics:
+# - Response times: tracked via custom metrics
+# - Error rates: calculated from status code labels
+# - Throughput: requests per second
+# - Resource utilization: CPU, memory, disk, network
+# 
+# Business Metrics:
+# - User registrations and activity
+# - Lesson completion rates
+# - AI query success rates
+# - Revenue and subscription metrics
+# 
+# Alerting:
+# - Critical: Service down, high error rate
+# - Warning: Performance degradation, resource limits
+# - Info: New deployments, configuration changes
+# =============================================================================

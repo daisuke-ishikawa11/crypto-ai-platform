@@ -8,7 +8,8 @@ import {
   NotificationStatus 
 } from '@/lib/alerts/types';
 import { logger } from '@/lib/monitoring/logger';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
+import { safeAwait } from '@/lib/supabase/helpers';
 
 export interface EmailConfig {
   provider: 'resend' | 'sendgrid' | 'nodemailer';
@@ -114,6 +115,41 @@ export interface UserNotificationPreferences {
   };
 }
 
+// Strict message types
+export interface EmailMessage {
+  to: string | string[];
+  from: { email: string; name?: string };
+  subject: string;
+  html: string;
+  text?: string;
+  attachments?: unknown[];
+}
+
+export interface PushMessage {
+  token?: string;
+  tokens?: string[];
+  title: string;
+  body: string;
+  imageUrl?: string;
+  data?: Record<string, string>;
+  priority?: 'high' | 'normal';
+}
+
+export interface SMSMessage {
+  to: string;
+  from?: string;
+  body: string;
+  mediaUrl?: string;
+}
+
+export interface RealtimeNotification {
+  id?: string;
+  type: string;
+  title: string;
+  message: string;
+  additionalData?: Record<string, unknown>;
+}
+
 export class NotificationService {
   private metrics: NotificationMetrics;
   private rateLimiters: Map<string, { count: number; resetTime: Date }> = new Map();
@@ -135,7 +171,7 @@ export class NotificationService {
       pending: 0,
       successRate: 0,
       averageDeliveryTime: 0,
-      byMethod: {} as any,
+      byMethod: {} as Record<NotificationMethod, { sent: number; failed: number }>,
       lastUpdate: new Date()
     };
 
@@ -237,7 +273,7 @@ export class NotificationService {
             alertId: alert.id,
             userId: condition.userId,
             method,
-            wsError: error
+            error: error instanceof Error ? error.message : String(error)
           });
 
           // リトライキューに追加
@@ -256,7 +292,7 @@ export class NotificationService {
       logger.error('Error sending alert notifications', {
         alertId: alert.id,
         userId: condition.userId,
-        wsError: error
+        error: error instanceof Error ? error.message : String(error)
       });
     }
 
@@ -275,7 +311,7 @@ export class NotificationService {
       throw new Error('Email notifications not enabled for user');
     }
 
-    const emailData = {
+    const emailData: EmailMessage = {
       to: preferences.email.address,
       from: {
         email: this.config.email.fromEmail,
@@ -313,7 +349,7 @@ export class NotificationService {
       throw new Error('Push notifications not enabled for user');
     }
 
-    const pushData = {
+    const pushData: PushMessage = {
       tokens: preferences.push.deviceTokens,
       title: this.generatePushTitle(alert),
       body: this.generatePushBody(alert, condition),
@@ -358,7 +394,7 @@ export class NotificationService {
       return;
     }
 
-    const smsData = {
+    const smsData: SMSMessage = {
       to: preferences.sms.phoneNumber,
       from: this.config.sms.fromNumber,
       body: this.generateSMSContent(alert, condition)
@@ -445,8 +481,9 @@ export class NotificationService {
     }
 
     // データベースにアプリ内通知を保存
-    const supabase = createClient();
-    await supabase.from('in_app_notifications').insert({
+    const supabase = await createClient();
+    await safeAwait(
+      supabase.from('in_app_notifications').insert({
       user_id: condition.userId,
       alert_id: alert.id,
       title: alert.title,
@@ -460,64 +497,324 @@ export class NotificationService {
       },
       read: false,
       created_at: new Date()
-    });
+      })
+    );
 
     // リアルタイム通知（WebSocket経由）
     await this.sendRealtimeNotification(condition.userId, {
       type: 'alert',
       title: alert.title,
       message: alert.message,
-      severity: alert.severity,
-      alertId: alert.id
+      additionalData: { severity: alert.severity, alertId: alert.id }
     });
   }
 
   /**
    * プロバイダー固有の実装（プレースホルダー）
    */
-  private async sendResendEmail(emailData: any): Promise<void> {
-    // TODO: Resend API integration
-    logger.debug('Resend email sent', { to: emailData.to });
+  private async sendResendEmail(emailData: EmailMessage): Promise<void> {
+    try {
+      const { Resend } = await import('resend');
+      const resend = new Resend(process.env.RESEND_API_KEY);
+
+      const { data, error } = await resend.emails.send({
+        from: `${emailData.from.name ? `${emailData.from.name} ` : ''}<${emailData.from.email}>`,
+        to: Array.isArray(emailData.to) ? emailData.to : [emailData.to],
+        subject: emailData.subject,
+        html: emailData.html,
+        text: emailData.text
+      });
+
+      if (error) {
+        throw new Error(`Resend API error: ${error.message}`);
+      }
+
+      logger.info('Resend email sent successfully', { 
+        to: Array.isArray(emailData.to) ? emailData.to.join(',') : emailData.to, 
+        messageId: data?.id 
+      });
+    } catch (error) {
+      logger.error('Failed to send Resend email', { 
+        to: Array.isArray(emailData.to) ? emailData.to.join(',') : emailData.to, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+      throw error;
+    }
   }
 
-  private async sendSendGridEmail(emailData: any): Promise<void> {
+  private async sendSendGridEmail(emailData: EmailMessage): Promise<void> {
     // TODO: SendGrid API integration
-    logger.debug('SendGrid email sent', { to: emailData.to });
+    const toCount = Array.isArray(emailData.to) ? emailData.to.length : 1;
+    logger.debug('SendGrid email sent', { to: toCount });
   }
 
-  private async sendNodemailerEmail(emailData: any): Promise<void> {
-    // TODO: Nodemailer integration
-    logger.debug('Nodemailer email sent', { to: emailData.to });
+  private async sendNodemailerEmail(emailData: EmailMessage): Promise<void> {
+    try {
+      const nodemailer = await import('nodemailer');
+
+      // SMTPトランスポート設定
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: parseInt(process.env.SMTP_PORT || '587'),
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD
+        },
+        tls: {
+          rejectUnauthorized: false
+        }
+      });
+
+      const mailOptions = {
+        from: `${emailData.from.name ? `${emailData.from.name} ` : ''}<${emailData.from.email}>`,
+        to: Array.isArray(emailData.to) ? emailData.to.join(',') : emailData.to,
+        subject: emailData.subject,
+        html: emailData.html,
+        text: emailData.text,
+        attachments: Array.isArray(emailData.attachments) ? (emailData.attachments as import('nodemailer/lib/mailer').Attachment[]) : undefined
+      } as import('nodemailer/lib/mailer').Options;
+
+      const info = await transporter.sendMail(mailOptions);
+      
+      logger.info('Nodemailer email sent successfully', { 
+        to: Array.isArray(emailData.to) ? emailData.to.join(',') : emailData.to, 
+        messageId: (info as { messageId?: string }).messageId
+      });
+    } catch (error) {
+      logger.error('Failed to send Nodemailer email', { 
+        to: Array.isArray(emailData.to) ? emailData.to.join(',') : emailData.to, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+      throw error;
+    }
   }
 
-  private async sendFirebasePush(pushData: any): Promise<void> {
-    // TODO: Firebase Cloud Messaging integration
-    logger.debug('Firebase push sent', { tokens: pushData.tokens.length });
+  private async sendFirebasePush(pushData: PushMessage): Promise<void> {
+    try {
+      const { getMessaging } = await import('firebase-admin/messaging');
+      const { initializeApp, getApps, cert } = await import('firebase-admin/app');
+
+      // Firebase Admin初期化（まだ初期化されていない場合）
+      if (getApps().length === 0) {
+        const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY 
+          ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
+          : {
+              projectId: process.env.FIREBASE_PROJECT_ID,
+              privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+              clientEmail: process.env.FIREBASE_CLIENT_EMAIL
+            };
+
+        initializeApp({
+          credential: cert(serviceAccount),
+          projectId: process.env.FIREBASE_PROJECT_ID
+        });
+      }
+
+      const messaging = getMessaging();
+
+      // 単一トークンの場合
+      if (typeof pushData.token === 'string') {
+        const message = {
+          token: pushData.token,
+          notification: {
+            title: pushData.title,
+            body: pushData.body,
+            imageUrl: pushData.imageUrl
+          },
+          data: pushData.data || {},
+          android: {
+            priority: 'high' as const,
+            notification: {
+              icon: 'ic_notification',
+              color: '#007bff',
+              sound: 'default'
+            }
+          },
+          apns: {
+            payload: {
+              aps: {
+                sound: 'default',
+                badge: 1
+              }
+            }
+          },
+          webpush: {
+            notification: {
+              icon: '/icons/icon-192x192.png',
+              badge: '/icons/icon-96x96.png'
+            }
+          }
+        } as const;
+
+        const response = await messaging.send(message);
+        logger.info('Firebase push notification sent successfully', { 
+          token: pushData.token, 
+          messageId: response 
+        });
+      } 
+      // 複数トークンの場合
+      else if (Array.isArray(pushData.tokens) && pushData.tokens.length > 0) {
+        const message = {
+          tokens: pushData.tokens,
+          notification: {
+            title: pushData.title,
+            body: pushData.body,
+            imageUrl: pushData.imageUrl
+          },
+          data: pushData.data || {},
+          android: {
+            priority: 'high' as const,
+            notification: {
+              icon: 'ic_notification',
+              color: '#007bff',
+              sound: 'default'
+            }
+          },
+          apns: {
+            payload: {
+              aps: {
+                sound: 'default',
+                badge: 1
+              }
+            }
+          },
+          webpush: {
+            notification: {
+              icon: '/icons/icon-192x192.png',
+              badge: '/icons/icon-96x96.png'
+            }
+          }
+        } as const;
+
+        const response = await messaging.sendEachForMulticast(message);
+        logger.info('Firebase push notifications sent successfully', { 
+          tokens: pushData.tokens.length,
+          successCount: response.successCount,
+          failureCount: response.failureCount
+        });
+
+        // 失敗したトークンをログ出力
+        if (response.failureCount > 0) {
+          response.responses.forEach((resp, idx) => {
+            if (!resp.success) {
+              logger.warn('Firebase push notification failed for token', {
+                token: pushData.tokens![idx],
+                error: resp.error?.message
+              });
+            }
+          });
+        }
+      }
+    } catch (error) {
+      const tokensCount = Array.isArray(pushData.tokens) ? pushData.tokens.length : (pushData.token ? 1 : 0);
+      logger.error('Failed to send Firebase push notification', { 
+        tokens: tokensCount, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+      throw error;
+    }
   }
 
-  private async sendOneSignalPush(pushData: any): Promise<void> {
+  private async sendOneSignalPush(pushData: PushMessage): Promise<void> {
     // TODO: OneSignal API integration
-    logger.debug('OneSignal push sent', { tokens: pushData.tokens.length });
+    const tokensCount = Array.isArray(pushData.tokens) ? pushData.tokens.length : (pushData.token ? 1 : 0);
+    logger.debug('OneSignal push sent', { tokens: tokensCount });
   }
 
-  private async sendExpoPush(pushData: any): Promise<void> {
+  private async sendExpoPush(pushData: PushMessage): Promise<void> {
     // TODO: Expo Push Notifications integration
-    logger.debug('Expo push sent', { tokens: pushData.tokens.length });
+    const tokensCount = Array.isArray(pushData.tokens) ? pushData.tokens.length : (pushData.token ? 1 : 0);
+    logger.debug('Expo push sent', { tokens: tokensCount });
   }
 
-  private async sendTwilioSMS(smsData: any): Promise<void> {
-    // TODO: Twilio API integration
-    logger.debug('Twilio SMS sent', { to: smsData.to });
+  private async sendTwilioSMS(smsData: SMSMessage): Promise<void> {
+    try {
+      const { Twilio } = await import('twilio');
+      
+      const client = new Twilio(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_AUTH_TOKEN
+      );
+
+      const message = await client.messages.create({
+        body: smsData.body,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: smsData.to,
+        mediaUrl: smsData.mediaUrl ? [smsData.mediaUrl] : undefined
+      });
+
+      logger.info('Twilio SMS sent successfully', { 
+        to: smsData.to, 
+        messageSid: message.sid,
+        status: message.status
+      });
+    } catch (error) {
+      logger.error('Failed to send Twilio SMS', { 
+        to: smsData.to, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+      throw error;
+    }
   }
 
-  private async sendAWSSNS(smsData: any): Promise<void> {
+  private async sendAWSSNS(smsData: SMSMessage): Promise<void> {
     // TODO: AWS SNS integration
     logger.debug('AWS SNS sent', { to: smsData.to });
   }
 
-  private async sendRealtimeNotification(userId: string, data: any): Promise<void> {
-    // TODO: WebSocket/Server-Sent Events integration
-    logger.debug('Realtime notification sent', { userId });
+  private async sendRealtimeNotification(userId: string, data: RealtimeNotification): Promise<void> {
+    try {
+      const supabase = await createClient();
+      
+      // Supabaseのリアルタイム機能を使用してブロードキャスト
+      const channel = supabase.channel(`user_notifications_${userId}`)
+        .on('broadcast', { event: 'notification' }, (_payload) => {
+          // クライアント側での受信処理は別途実装
+        });
+
+      // 通知データをブロードキャスト
+      await channel.send({
+        type: 'broadcast',
+        event: 'notification',
+        payload: {
+          id: data.id || crypto.randomUUID(),
+          userId: userId,
+          type: data.type,
+          title: data.title,
+          message: data.message,
+          data: data.additionalData || {},
+          timestamp: new Date().toISOString(),
+          read: false
+        }
+      });
+
+      // データベースにも保存（履歴管理用）
+      await safeAwait(
+        supabase.from('user_notifications').insert({
+          id: data.id || crypto.randomUUID(),
+          user_id: userId,
+          type: data.type,
+          title: data.title,
+          message: data.message,
+          data: data.additionalData || {},
+          read: false,
+          created_at: new Date()
+        })
+      );
+
+      logger.info('Realtime notification sent successfully', { 
+        userId, 
+        type: data.type,
+        title: data.title
+      });
+    } catch (error) {
+      logger.error('Failed to send realtime notification', { 
+        userId, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
+      throw error;
+    }
   }
 
   /**
@@ -639,7 +936,7 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
 
   private async getUserNotificationPreferences(userId: string): Promise<UserNotificationPreferences | null> {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       const { data, error } = await supabase
         .from('user_notification_preferences')
         .select('*')
@@ -659,7 +956,7 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
         quietHours: data.quiet_hours
       };
     } catch (error) {
-      logger.error('Error fetching user notification preferences', { userId, wsError: error });
+      logger.error('Error fetching user notification preferences', { userId, error: error instanceof Error ? error.message : String(error) });
       return null;
     }
   }
@@ -727,7 +1024,8 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
   }
 
   private startProcessingQueue(): void {
-    setInterval(async () => {
+    if (process.env.NODE_ENV === 'test') return;
+    const t = setInterval(async () => {
       if (this.isProcessing || this.notificationQueue.length === 0) return;
 
       this.isProcessing = true;
@@ -740,7 +1038,7 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
           
           try {
             await this.sendAlertNotification(item.alert, item.condition);
-          } catch (error) {
+          } catch (_error) {
             item.retryCount++;
             if (item.retryCount < 3) {
               this.notificationQueue.push(item); // Re-queue for retry
@@ -751,6 +1049,7 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
         this.isProcessing = false;
       }
     }, 30000); // Process every 30 seconds
+    ;(t as { unref?: () => void }).unref?.();
   }
 
   private updateMetrics(method: NotificationMethod, success: boolean, deliveryTime: number): void {
@@ -780,9 +1079,48 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
     return { ...this.metrics };
   }
 
+  // Public method for sending simple emails (for 2FA, etc.)
+  async sendSimpleEmail(to: string, emailContent: { subject: string; html: string }): Promise<void> {
+    const emailData: EmailMessage = {
+      to,
+      from: {
+        email: this.config.email.fromEmail,
+        name: this.config.email.fromName
+      },
+      subject: emailContent.subject,
+      html: emailContent.html,
+      text: emailContent.html.replace(/<[^>]*>/g, '') // Simple HTML to text conversion
+    };
+
+    try {
+      switch (this.config.email.provider) {
+        case 'resend':
+          await this.sendResendEmail(emailData);
+          break;
+        case 'sendgrid':
+          await this.sendSendGridEmail(emailData);
+          break;
+        case 'nodemailer':
+          await this.sendNodemailerEmail(emailData);
+          break;
+        default:
+          throw new Error(`Unsupported email provider: ${this.config.email.provider}`);
+      }
+
+      logger.info('Simple email sent successfully', { to, subject: emailContent.subject });
+    } catch (error) {
+      logger.error('Failed to send simple email', { 
+        to, 
+        subject: emailContent.subject,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
   async updateUserPreferences(userId: string, preferences: Partial<UserNotificationPreferences>): Promise<void> {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       await supabase.from('user_notification_preferences')
         .upsert({
           user_id: userId,
@@ -798,7 +1136,76 @@ Manage notifications: ${process.env.NEXT_PUBLIC_APP_URL}/settings/notifications
 
       logger.info('User notification preferences updated', { userId });
     } catch (error) {
-      logger.error('Error updating user notification preferences', { userId, wsError: error });
+      logger.error('Error updating user notification preferences', { userId, error: error instanceof Error ? error.message : String(error) });
+      throw error;
+    }
+  }
+
+  // Public method for sending emails (for 2FA, etc.)
+  async sendEmail(to: string, subject: string, html: string, text?: string): Promise<void> {
+    const emailData: EmailMessage = {
+      to,
+      from: {
+        email: this.config.email.fromEmail,
+        name: this.config.email.fromName
+      },
+      subject,
+      html,
+      text: text || html.replace(/<[^>]*>/g, '') // Simple HTML to text conversion
+    };
+
+    try {
+      switch (this.config.email.provider) {
+        case 'resend':
+          await this.sendResendEmail(emailData);
+          break;
+        case 'sendgrid':
+          await this.sendSendGridEmail(emailData);
+          break;
+        case 'nodemailer':
+          await this.sendNodemailerEmail(emailData);
+          break;
+        default:
+          throw new Error(`Unsupported email provider: ${this.config.email.provider}`);
+      }
+
+      logger.info('Email sent successfully', { to, subject });
+    } catch (error) {
+      logger.error('Failed to send email', { 
+        to, 
+        subject,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  // Public method for sending SMS (for 2FA, etc.)
+  async sendSMS(to: string, message: string): Promise<void> {
+    const smsData: SMSMessage = {
+      to,
+      from: this.config.sms.fromNumber,
+      body: message
+    };
+
+    try {
+      switch (this.config.sms.provider) {
+        case 'twilio':
+          await this.sendTwilioSMS(smsData);
+          break;
+        case 'aws-sns':
+          await this.sendAWSSNS(smsData);
+          break;
+        default:
+          throw new Error(`Unsupported SMS provider: ${this.config.sms.provider}`);
+      }
+
+      logger.info('SMS sent successfully', { to });
+    } catch (error) {
+      logger.error('Failed to send SMS', { 
+        to, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
       throw error;
     }
   }

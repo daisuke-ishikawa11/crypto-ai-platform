@@ -1,0 +1,184 @@
+groups:
+  - name: notifications-alerts
+    interval: 30s
+    rules:
+      # Webhook invalid signature rate (overall)
+      - alert: HighInvalidSignatureRateOverall
+        expr: |
+          (sum(rate(webhook_invalid_signature_total[5m])) / sum(rate(webhook_requests_total[5m])))*100 > 5
+        for: 5m
+        labels:
+          severity: warning
+          service: notifications
+        annotations:
+          summary: "Overall invalid webhook signature rate is high (>5%)"
+          description: |
+            Current rate: {{ printf "%.2f" ( ( sum(rate(webhook_invalid_signature_total[5m])) / sum(rate(webhook_requests_total[5m])) )*100 ) }}%
+
+  - name: defi-alerts
+    interval: 30s
+    rules:
+      - alert: HighDeFiApiErrorRate
+        expr: |
+          (sum(rate(defi_api_errors_total[5m])) / sum(rate(defi_api_requests_total[5m]))) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          service: defi
+        annotations:
+          summary: "DeFi API error rate > 5%"
+          description: |
+            Error rate: {{ printf "%.2f" ( ( sum(rate(defi_api_errors_total[5m])) / sum(rate(defi_api_requests_total[5m])) )*100 ) }}%
+
+      - alert: HighDeFiApiLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum by (le) (rate(defi_api_request_duration_seconds_bucket[5m]))) > 2
+        for: 10m
+        labels:
+          severity: warning
+          service: defi
+        annotations:
+          summary: "DeFi API p95 latency > 2s"
+          description: |
+            Current p95: {{ printf "%.2f" ( histogram_quantile(0.95, sum(rate(defi_api_request_duration_seconds_bucket[5m])) by (le)) ) }}s
+
+      - alert: DeFiTvlMissing
+        expr: |
+          absent(defi_overview_total_tvl_usd)
+        for: 15m
+        labels:
+          severity: critical
+          service: defi
+        annotations:
+          summary: "DeFi TVL metric missing"
+          description: |
+            defi_overview_total_tvl_usd is absent for 15 minutes.
+
+      # Webhook error rate
+      - alert: HighWebhookErrorRate
+        expr: |
+          (sum(rate(webhook_requests_errors_total[5m])) / sum(rate(webhook_requests_total[5m]))) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+          service: notifications
+        annotations:
+          summary: "Webhook error rate > 5%"
+          description: |
+            Error rate: {{ printf "%.2f" ( ( sum(rate(webhook_requests_errors_total[5m])) / sum(rate(webhook_requests_total[5m])) )*100 ) }}%
+
+      # Export latency p95
+      - alert: HighExportLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(export_request_duration_seconds_bucket[5m])) by (le)) > 2
+        for: 10m
+        labels:
+          severity: warning
+          service: analytics
+        annotations:
+          summary: "Export API p95 latency > 2s"
+          description: |
+            Current p95: {{ printf "%.2f" ( histogram_quantile(0.95, sum(rate(export_request_duration_seconds_bucket[5m])) by (le)) ) }}s
+
+      # Analytics latency p95
+      - alert: HighAnalyticsLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(analytics_request_duration_seconds_bucket[5m])) by (le)) > 3
+        for: 10m
+        labels:
+          severity: warning
+          service: analytics
+        annotations:
+          summary: "Analytics API p95 latency > 3s"
+          description: |
+            Current p95: {{ printf "%.2f" ( histogram_quantile(0.95, sum(rate(analytics_request_duration_seconds_bucket[5m])) by (le)) ) }}s
+
+      # Alert sending error rate (Slack/Discord)
+      - alert: HighAlertSendErrorRate
+        expr: |
+          (sum(rate(alerts_send_total{outcome!="success"}[10m])) / sum(rate(alerts_send_total[10m]))) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          service: notifications
+        annotations:
+          summary: "Alert send error rate > 5%"
+          description: |
+            Error rate: {{ printf "%.2f" ( ( sum(rate(alerts_send_total{outcome!=\"success\"}[10m])) / sum(rate(alerts_send_total[10m])) )*100 ) }}%
+
+      # Alert sending p95 latency
+      - alert: HighAlertSendLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(alerts_send_duration_seconds_bucket[10m])) by (le)) > 3
+        for: 10m
+        labels:
+          severity: warning
+          service: notifications
+        annotations:
+          summary: "Alert send p95 latency > 3s"
+          description: |
+            Current p95: {{ printf "%.2f" ( histogram_quantile(0.95, sum(rate(alerts_send_duration_seconds_bucket[10m])) by (le)) ) }}s
+
+      # Alert dropped rate (rate limit / cooldown)
+      - alert: HighAlertDroppedRate
+        expr: |
+          (sum(rate(alerts_dropped_total[10m])) / sum(rate(alerts_send_total[10m]) + rate(alerts_dropped_total[10m]))) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          service: notifications
+        annotations:
+          summary: "Alert dropped rate > 5%"
+          description: |
+            Drop rate: {{ printf "%.2f" ( ( sum(rate(alerts_dropped_total[10m])) / ( sum(rate(alerts_send_total[10m])) + sum(rate(alerts_dropped_total[10m])) ) )*100 ) }}%
+
+  - name: business-kpi-alerts
+    interval: 1m
+    rules:
+      - alert: NoActiveSubscribers
+        expr: business_active_subscribers_total == 0
+        for: 10m
+        labels:
+          severity: warning
+          service: business
+        annotations:
+          summary: "Active subscribers count is zero"
+          description: |
+            No active subscribers detected for 10 minutes.
+
+      - alert: RevenueTodayZero
+        expr: sum(business_revenue_today_total) == 0
+        for: 30m
+        labels:
+          severity: warning
+          service: business
+        annotations:
+          summary: "Revenue today is zero"
+          description: |
+            No successful payments recorded today for 30 minutes.
+
+      - alert: BusinessMetricsMissing
+        expr: |
+          absent(business_active_subscribers_total) or absent(business_revenue_today_total)
+        for: 15m
+        labels:
+          severity: critical
+          service: business
+        annotations:
+          summary: "Business metrics are missing"
+          description: |
+            One or more business metrics are not being scraped.
+
+  - name: alertmanager-webhook
+    interval: 30s
+    rules:
+      - alert: AlertmanagerIngestErrors
+        expr: sum(rate(alerts_am_ingest_errors_total[5m])) > 0
+        for: 10m
+        labels:
+          severity: warning
+          service: platform
+        annotations:
+          summary: "Alertmanager webhook ingestion errors"
+          description: |
+            There are errors ingesting Alertmanager webhooks.

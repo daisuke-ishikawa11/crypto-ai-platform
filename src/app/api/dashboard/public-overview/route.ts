@@ -20,10 +20,13 @@ export async function GET() {
       timestamp: new Date().toISOString()
     };
 
+    const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+    const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
     return NextResponse.json(publicOverview, {
       headers: {
         'Cache-Control': 'public, max-age=300', // 5分キャッシュ
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowOrigin,
+        'Vary': 'Origin',
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
       }
@@ -33,6 +36,8 @@ export async function GET() {
     console.error('Failed to get public overview:', error);
     
     // フォールバック値を返す
+    const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+    const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
     return NextResponse.json({
       activeUsers: 47000,
       totalAssets: 2300000000,
@@ -49,7 +54,8 @@ export async function GET() {
     }, {
       headers: {
         'Cache-Control': 'public, max-age=60',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowOrigin,
+        'Vary': 'Origin',
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
       }
@@ -58,12 +64,16 @@ export async function GET() {
 }
 
 export async function OPTIONS() {
+  const originEnv = process.env.NEXT_PUBLIC_APP_ORIGIN || process.env.VERCEL_URL || 'http://localhost:3000';
+  const allowOrigin = originEnv.startsWith('http') ? originEnv : `https://${originEnv}`;
   return new NextResponse(null, { 
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowOrigin,
+      'Vary': 'Origin',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
     }
   });
 }

@@ -1,0 +1,78 @@
+# AWS Configuration
+aws_region = "us-west-2"
+environment = "staging" # or "production"
+
+# Terraform State Configuration
+terraform_state_bucket = "crypto-ai-terraform-state"
+terraform_state_lock_table = "crypto-ai-terraform-lock"
+
+# Application Configuration
+app_name = "crypto-ai-platform"
+app_version = "v1.0.0"
+
+# Domain Configuration
+domain_name = "crypto-ai-platform.com"
+create_route53_zone = false # Set to true if you want Terraform to create the hosted zone
+
+# EKS Configuration
+kubernetes_version = "1.28"
+
+# Override default node groups (optional)
+eks_node_groups = {
+  main = {
+    instance_types = ["m5.large", "m5.xlarge"]
+    capacity_type  = "ON_DEMAND"
+    min_size      = 3
+    max_size      = 20
+    desired_size  = 3
+  }
+  spot = {
+    instance_types = ["m5.large", "m4.large", "m5a.large"]
+    capacity_type  = "SPOT"
+    min_size      = 0
+    max_size      = 10
+    desired_size  = 2
+  }
+}
+
+# Database Configuration (optional overrides)
+# db_instance_class = "db.r6g.large"
+# db_allocated_storage = 100
+# db_max_allocated_storage = 1000
+# db_backup_retention_period = 30
+
+# Redis Configuration (optional overrides)
+# redis_node_type = "cache.r6g.large"
+# redis_num_cache_nodes = 3
+
+# Monitoring Configuration
+enable_detailed_monitoring = true
+log_retention_days = 30
+
+# Security Configuration
+enable_waf = true
+allowed_cidr_blocks = ["0.0.0.0/0"] # Consider restricting this in production
+
+# Backup Configuration
+backup_schedule = "cron(0 5 ? * * *)" # Daily at 5 AM UTC
+backup_retention_days = 30
+
+# Auto-scaling Configuration
+enable_cluster_autoscaler = true
+enable_horizontal_pod_autoscaler = true
+enable_vertical_pod_autoscaler = false
+
+# Cost Optimization
+enable_spot_instances = true
+spot_instance_types = [
+  "m5.large", "m5.xlarge", 
+  "m4.large", "m4.xlarge", 
+  "m5a.large", "m5a.xlarge"
+]
+
+# Additional Tags
+additional_tags = {
+  Owner       = "defi-team"
+  CostCenter  = "engineering"
+  Compliance  = "required"
+}

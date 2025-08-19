@@ -1,6 +1,8 @@
 "use client"
 
+
 import * as React from "react"
+// removed unused named React hooks; using React.use* style below
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -35,7 +37,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
 import { 
   Select,
   SelectContent,
@@ -87,14 +88,14 @@ export function DataTable<TData, TValue>({
           header: ({ table }) => (
             <Checkbox
               checked={table.getIsAllPageRowsSelected()}
-              onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+              onCheckedChange={(value: boolean | 'indeterminate') => table.toggleAllPageRowsSelected(!!value)}
               aria-label="Select all"
             />
           ),
           cell: ({ row }) => (
             <Checkbox
               checked={row.getIsSelected()}
-              onCheckedChange={(value) => row.toggleSelected(!!value)}
+              onCheckedChange={(value: boolean | 'indeterminate') => row.toggleSelected(!!value)}
               aria-label="Select row"
             />
           ),
@@ -210,8 +211,8 @@ export function DataTable<TData, TValue>({
                         key={column.id}
                         className="capitalize"
                         checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
+                        onCheckedChange={(value: boolean) =>
+                          column.toggleVisibility(Boolean(value))
                         }
                       >
                         {column.id}
@@ -290,7 +291,7 @@ export function DataTable<TData, TValue>({
           </p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
+            onValueChange={(value: string) => {
               table.setPageSize(Number(value))
             }}
           >
@@ -330,8 +331,13 @@ export function DataTable<TData, TValue>({
 }
 
 // Utility function to create sortable header
+type SortableColumn = {
+  toggleSorting: (desc: boolean) => void
+  getIsSorted: () => 'asc' | 'desc' | false
+}
+
 export function createSortableHeader(title: string) {
-  return ({ column }: { column: any }) => {
+  const SortableHeader = ({ column }: { column: SortableColumn }) => {
     return (
       <Button
         variant="ghost"
@@ -343,6 +349,8 @@ export function createSortableHeader(title: string) {
       </Button>
     )
   }
+  SortableHeader.displayName = `SortableHeader(${title})`
+  return SortableHeader
 }
 
 // Utility function to create action cell
@@ -353,7 +361,7 @@ export function createActionCell<T>(
     variant?: "default" | "destructive"
   }>
 ) {
-  return ({ row }: { row: { original: T } }) => {
+  const ActionCell = ({ row }: { row: { original: T } }) => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -377,4 +385,6 @@ export function createActionCell<T>(
       </DropdownMenu>
     )
   }
+  ActionCell.displayName = 'ActionCell'
+  return ActionCell
 }

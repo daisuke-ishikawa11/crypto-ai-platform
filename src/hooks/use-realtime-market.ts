@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import * as React from "react"
 import { getRealtimeMarketData, RealtimePrice, RealtimeTickerData, RealtimeTradeData, RealtimeOrderBookData } from "@/lib/market/realtime-data"
 import { createLogger } from "@/lib/monitoring/logger"
 
@@ -27,7 +27,7 @@ export interface RealtimeMarketState {
 }
 
 export function useRealtimeMarket(options: UseRealtimeMarketOptions) {
-  const [state, setState] = useState<RealtimeMarketState>({
+  const [state, setState] = React.useState<RealtimeMarketState>({
     connected: false,
     connectionState: 'disconnected',
     subscriptions: 0,
@@ -40,13 +40,13 @@ export function useRealtimeMarket(options: UseRealtimeMarketOptions) {
     }
   })
 
-  const realtimeDataRef = useRef(getRealtimeMarketData())
-  const subscriptionKeysRef = useRef<string[]>([])
-  const tradesBufferRef = useRef<Record<string, RealtimeTradeData[]>>({})
+  const realtimeDataRef = React.useRef(getRealtimeMarketData())
+  const subscriptionKeysRef = React.useRef<string[]>([])
+  const tradesBufferRef = React.useRef<Record<string, RealtimeTradeData[]>>({})
   const maxTradesPerSymbol = 100
 
   // 接続状態の監視
-  useEffect(() => {
+  React.useEffect(() => {
     const checkConnection = () => {
       const rtData = realtimeDataRef.current
       setState(prev => ({
@@ -62,7 +62,7 @@ export function useRealtimeMarket(options: UseRealtimeMarketOptions) {
   }, [])
 
   // 購読の管理
-  useEffect(() => {
+  React.useEffect(() => {
     const { symbols, dataTypes, autoConnect = true } = options
     
     if (!symbols.length || !dataTypes.length) {
@@ -125,7 +125,7 @@ export function useRealtimeMarket(options: UseRealtimeMarketOptions) {
   }, [options.symbols, options.dataTypes, options.autoConnect])
 
   // リアルタイムデータの処理
-  const handleRealtimeData = (dataType: string, symbol: string, data: any) => {
+  const handleRealtimeData = (dataType: string, symbol: string, data: unknown) => {
     setState(prev => {
       const newState = { ...prev }
 

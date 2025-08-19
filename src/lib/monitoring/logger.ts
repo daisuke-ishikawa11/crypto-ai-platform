@@ -15,7 +15,7 @@ interface LogContext {
   metadata?: Record<string, unknown>;
   // Auth-specific fields
   email?: string;
-  error?: string;
+  error?: unknown;
   feature?: string;
   pathname?: string;
   userPlan?: string;
@@ -23,8 +23,8 @@ interface LogContext {
   path?: string;
   count?: number;
   // Market API fields
-  symbols?: number;
-  ids?: number;
+  symbols?: unknown;
+  ids?: unknown;
   convert?: string;
   authenticated?: boolean;
   hasApiKey?: boolean;
@@ -38,7 +38,7 @@ interface LogContext {
   // Dashboard API fields
   activeAlerts?: number;
   // Health API fields
-  status?: string;
+  status?: number | string;
   responseTime?: number;
   // Learning API fields
   totalAchievements?: number;

@@ -4,7 +4,8 @@ import { apiLogger } from '@/lib/monitoring/logger'
 import type { Database } from '@/lib/supabase/types'
 import { getPlanDefinition, isPlanUpgrade } from './plan-definitions'
 
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+// UIのプラン名（課金商品）とDBの subscription_status は別概念
+type UserPlan = 'free' | 'mini' | 'basic' | 'standard' | 'pro'
 
 export interface PlanChangeResult {
   success: boolean
@@ -33,8 +34,8 @@ export async function changePlan(
     
     // Get current user plan
     const { data: currentUser, error: userError } = await supabase
-      .from('users')
-      .select('plan')
+      .from('user_profiles')
+      .select('plan, subscription_status')
       .eq('id', userId)
       .single()
     
@@ -47,7 +48,7 @@ export async function changePlan(
       return { success: false, error: 'ユーザー情報の取得に失敗しました' }
     }
     
-    const currentPlan = currentUser.plan
+    const currentPlan = (currentUser?.plan as UserPlan | null) ?? 'free'
     
     // Check if plan change is valid
     if (currentPlan === newPlan) {
@@ -65,7 +66,7 @@ export async function changePlan(
     
     // For free plan, immediate change
     if (newPlan === 'free') {
-      const updateResult = await updateUserProfile(userId, { plan: newPlan })
+      const updateResult = await updateUserProfile(userId, { subscription_status: 'inactive' as Database['public']['Tables']['user_profiles']['Row']['subscription_status'] })
       if (!updateResult.success) {
         return { success: false, error: updateResult.error }
       }
@@ -101,8 +102,8 @@ export async function changePlan(
       return { success: false, error: paymentResult.error }
     }
     
-    // Update user plan
-    const updateResult = await updateUserProfile(userId, { plan: newPlan })
+    // 有料プラン支払い完了後は subscription_status を active に
+    const updateResult = await updateUserProfile(userId, { subscription_status: 'active' as Database['public']['Tables']['user_profiles']['Row']['subscription_status'] })
     if (!updateResult.success) {
       return { success: false, error: updateResult.error }
     }

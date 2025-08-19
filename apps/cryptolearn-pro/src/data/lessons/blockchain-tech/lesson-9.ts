@@ -1,0 +1,35 @@
+import type { Lesson } from '../../../types';
+
+export const lesson9: Lesson = {
+  id: 'blockchain-9',
+  categoryId: '8',
+  title: 'Blockchain Topic 9',
+  slug: 'blockchain-topic-9',
+  description: 'Blockchain lesson 9 description',
+  difficultyLevel: 'intermediate',
+  estimatedMinutes: 30,
+  orderIndex: 9,
+  content: {
+    sections: [
+      {
+        title: 'Section 1',
+        content: 'Content for blockchain lesson 9'
+      }
+    ],
+    keyPoints: ['Key point 1', 'Key point 2'],
+    summary: 'Summary for lesson 9',
+    practicalExamples: ['Example 1'],
+    warningNotes: ['Warning 1']
+  },
+  quiz: [
+    {
+      id: 'blockchain-9-q1',
+      question: 'Question 1?',
+      options: ['A', 'B', 'C', 'D'],
+      correctAnswer: 0,
+      explanation: 'Explanation'
+    }
+  ],
+  lastUpdated: '2024-12-10',
+  factChecked: true
+};

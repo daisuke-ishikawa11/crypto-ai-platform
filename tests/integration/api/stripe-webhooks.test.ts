@@ -23,13 +23,13 @@ describe('Stripe Webhooks Integration Tests', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (createClient as jest.Mock).mockReturnValue(mockSupabase);
+    (createClient as jest.MockedFunction<typeof createClient>).mockReturnValue(mockSupabase as any);
     (stripe.webhooks as any) = mockStripe.webhooks;
   });
 
   describe('POST /api/stripe/webhook', () => {
     const createWebhookRequest = (event: any, signature: string) => {
-      return createMocks({
+      const { req } = createMocks({
         method: 'POST',
         headers: {
           'stripe-signature': signature,
@@ -37,6 +37,11 @@ describe('Stripe Webhooks Integration Tests', () => {
         },
         body: JSON.stringify(event)
       });
+
+      // Mock the text() method for NextRequest compatibility
+      (req as any).text = jest.fn().mockResolvedValue(JSON.stringify(event));
+      
+      return { req };
     };
 
     describe('Subscription Events', () => {
@@ -80,20 +85,21 @@ describe('Stripe Webhooks Integration Tests', () => {
 
         // Supabase更新をモック
         mockSupabase.from.mockImplementation((table: string) => {
-          if (table === 'user_subscriptions') {
+          if (table === 'user_profiles') {
             return {
-              upsert: jest.fn().mockResolvedValue({
+              update: jest.fn().mockReturnThis(),
+              eq: jest.fn().mockResolvedValue({
                 data: {
                   user_id: 'user-123',
                   stripe_subscription_id: 'sub_test123',
-                  status: 'active',
-                  plan_type: 'pro'
+                  subscription_status: 'active',
+                  subscription_tier: 'pro'
                 },
                 error: null
               })
             };
           }
-          if (table === 'subscription_events') {
+          if (table === 'subscription_history') {
             return {
               insert: jest.fn().mockResolvedValue({
                 data: { event_type: 'subscription_created' },
@@ -107,12 +113,13 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
         const data = await response.json();
 
         expect(response.status).toBe(200);
         expect(data.received).toBe(true);
-        expect(mockSupabase.from).toHaveBeenCalledWith('user_subscriptions');
+        expect(mockSupabase.from).toHaveBeenCalledWith('user_profiles');
+        expect(mockSupabase.from).toHaveBeenCalledWith('subscription_history');
       });
 
       it('customer.subscription.updated - サブスクリプション更新（アップグレード）', async () => {
@@ -162,23 +169,11 @@ describe('Stripe Webhooks Integration Tests', () => {
         mockStripe.webhooks.constructEvent.mockReturnValue(event);
 
         mockSupabase.from.mockImplementation((table: string) => {
-          if (table === 'user_subscriptions') {
+          if (table === 'user_profiles') {
             return {
               update: jest.fn().mockReturnThis(),
               eq: jest.fn().mockResolvedValue({
-                data: { plan_type: 'enterprise' },
-                error: null
-              })
-            };
-          }
-          if (table === 'billing_history') {
-            return {
-              insert: jest.fn().mockResolvedValue({
-                data: {
-                  event_type: 'plan_upgrade',
-                  from_plan: 'pro',
-                  to_plan: 'enterprise'
-                },
+                data: { subscription_tier: 'enterprise' },
                 error: null
               })
             };
@@ -189,10 +184,10 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(200);
-        expect(mockSupabase.from).toHaveBeenCalledWith('billing_history');
+        expect(mockSupabase.from).toHaveBeenCalledWith('user_profiles');
       });
 
       it('customer.subscription.deleted - サブスクリプションキャンセル', async () => {
@@ -222,20 +217,11 @@ describe('Stripe Webhooks Integration Tests', () => {
         mockStripe.webhooks.constructEvent.mockReturnValue(event);
 
         mockSupabase.from.mockImplementation((table: string) => {
-          if (table === 'user_subscriptions') {
+          if (table === 'user_profiles') {
             return {
               update: jest.fn().mockReturnThis(),
               eq: jest.fn().mockResolvedValue({
-                data: { status: 'canceled' },
-                error: null
-              })
-            };
-          }
-          if (table === 'user_features') {
-            return {
-              update: jest.fn().mockReturnThis(),
-              eq: jest.fn().mockResolvedValue({
-                data: { premium_features_enabled: false },
+                data: { subscription_status: 'inactive', subscription_tier: 'basic' },
                 error: null
               })
             };
@@ -246,10 +232,10 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(200);
-        expect(mockSupabase.from).toHaveBeenCalledWith('user_features');
+        expect(mockSupabase.from).toHaveBeenCalledWith('user_profiles');
       });
     });
 
@@ -300,7 +286,7 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(200);
         expect(mockSupabase.from).toHaveBeenCalledWith('payment_history');
@@ -316,6 +302,8 @@ describe('Stripe Webhooks Integration Tests', () => {
             object: {
               id: 'pi_test123',
               amount: 9900,
+              currency: 'usd',
+              customer: 'cus_test456',
               last_payment_error: {
                 code: 'card_declined',
                 message: 'Your card was declined.'
@@ -334,23 +322,12 @@ describe('Stripe Webhooks Integration Tests', () => {
         mockStripe.webhooks.constructEvent.mockReturnValue(event);
 
         mockSupabase.from.mockImplementation((table: string) => {
-          if (table === 'payment_failures') {
+          if (table === 'payment_history') {
             return {
               insert: jest.fn().mockResolvedValue({
                 data: {
                   payment_intent_id: 'pi_test123',
-                  error_code: 'card_declined'
-                },
-                error: null
-              })
-            };
-          }
-          if (table === 'user_notifications') {
-            return {
-              insert: jest.fn().mockResolvedValue({
-                data: {
-                  type: 'payment_failed',
-                  message: '支払いに失敗しました。カード情報をご確認ください。'
+                  status: 'failed'
                 },
                 error: null
               })
@@ -362,10 +339,10 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(200);
-        expect(mockSupabase.from).toHaveBeenCalledWith('user_notifications');
+        expect(mockSupabase.from).toHaveBeenCalledWith('payment_history');
       });
     });
 
@@ -398,9 +375,9 @@ describe('Stripe Webhooks Integration Tests', () => {
         mockStripe.webhooks.constructEvent.mockReturnValue(event);
 
         mockSupabase.from.mockImplementation((table: string) => {
-          if (table === 'invoices') {
+          if (table === 'invoice_history') {
             return {
-              upsert: jest.fn().mockResolvedValue({
+              insert: jest.fn().mockResolvedValue({
                 data: {
                   invoice_id: 'in_test123',
                   status: 'paid',
@@ -416,7 +393,7 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(200);
       });
@@ -431,7 +408,7 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest({}, 'invalid_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         expect(response.status).toBe(400);
       });
@@ -460,7 +437,7 @@ describe('Stripe Webhooks Integration Tests', () => {
         const { POST } = await import('@/app/api/stripe/webhook/route');
         const { req } = createWebhookRequest(event, 'test_signature');
 
-        const response = await POST(req as unknown as NextRequest);
+        const response = await POST(req as NextRequest);
 
         // Webhookは常に200を返すが、エラーログは記録される
         expect(response.status).toBe(200);
@@ -504,10 +481,10 @@ describe('Stripe Webhooks Integration Tests', () => {
         
         // 同じイベントを2回送信
         const { req: req1 } = createWebhookRequest(event, 'test_signature');
-        const response1 = await POST(req1 as unknown as NextRequest);
+        const response1 = await POST(req1 as NextRequest);
         
         const { req: req2 } = createWebhookRequest(event, 'test_signature');
-        const response2 = await POST(req2 as unknown as NextRequest);
+        const response2 = await POST(req2 as NextRequest);
 
         expect(response1.status).toBe(200);
         expect(response2.status).toBe(200); // 重複でも200を返す

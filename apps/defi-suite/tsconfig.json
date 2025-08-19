@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["../../packages/ui/src/*"],
+      "@types/*": ["../../packages/types/src/*"],
+      "@core/*": ["../../packages/core/src/*"],
+      "@defi/*": ["../../packages/defi/src/*"],
+      "@alerts/*": ["../../packages/alerts/src/*"],
+      "@learning-content/*": ["../../packages/learning-content/src/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    ".next/types/**/*.ts"
+  ]
+}

@@ -4,7 +4,10 @@
 import { 
   TriggeredAlert, 
   AlertCondition, 
-  NotificationMethod 
+  NotificationMethod,
+  AlertType,
+  AlertSeverity,
+  AlertStatus
 } from '@/lib/alerts/types';
 import { 
   NotificationService, 
@@ -37,11 +40,13 @@ export class NotificationManager {
       defaultPreferences: {
         email: {
           enabled: true,
+          address: '',
           frequency: 'immediate',
           alertTypes: ['price_above', 'price_below', 'technical', 'risk']
         },
         push: {
           enabled: true,
+          deviceTokens: [],
           frequency: 'immediate',
           alertTypes: ['price_above', 'price_below', 'technical', 'risk']
         },
@@ -129,12 +134,12 @@ export class NotificationManager {
   ): Promise<void> {
     try {
       // システム通知用のアラートオブジェクトを作成
-      const systemAlert: TriggeredAlert = {
+        const systemAlert: TriggeredAlert = {
         id: crypto.randomUUID(),
         alertConditionId: 'system',
         userId,
-        type: 'SYSTEM_NOTIFICATION' as any,
-        severity: type === 'error' ? 'critical' : type === 'warning' ? 'warning' : 'info',
+          type: AlertType.API_ERROR,
+          severity: type === 'error' ? AlertSeverity.CRITICAL : type === 'warning' ? AlertSeverity.WARNING : AlertSeverity.INFO,
         triggeredAt: new Date(),
         currentValue: 0,
         title,
@@ -143,13 +148,13 @@ export class NotificationManager {
         notificationsSent: []
       };
 
-      const systemCondition: AlertCondition = {
+        const systemCondition: AlertCondition = {
         id: 'system',
         userId,
         name: 'System Notification',
-        type: 'SYSTEM_NOTIFICATION' as any,
-        severity: 'info',
-        status: 'active' as any,
+          type: AlertType.API_ERROR,
+          severity: AlertSeverity.INFO,
+          status: AlertStatus.ACTIVE,
         symbol: 'SYSTEM',
         conditions: {},
         notificationMethods: this.getEnabledNotificationMethods(methods),
@@ -344,8 +349,8 @@ export class NotificationManager {
         id: `test_${Date.now()}`,
         alertConditionId: 'test',
         userId,
-        type: 'PRICE_ABOVE' as any,
-        severity: 'info',
+        type: AlertType.PRICE_ABOVE,
+        severity: AlertSeverity.INFO,
         triggeredAt: new Date(),
         currentValue: 50000,
         title: 'Test Notification',
@@ -363,9 +368,9 @@ export class NotificationManager {
         id: 'test',
         userId,
         name: 'Test Alert',
-        type: 'PRICE_ABOVE' as any,
-        severity: 'info',
-        status: 'active' as any,
+        type: AlertType.PRICE_ABOVE,
+        severity: AlertSeverity.INFO,
+        status: AlertStatus.ACTIVE,
         symbol: 'BTC',
         conditions: { targetPrice: 50000 },
         notificationMethods: [method],

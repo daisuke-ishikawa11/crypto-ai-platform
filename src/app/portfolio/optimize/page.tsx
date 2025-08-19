@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { apiFetch } from '@/lib/api/fetcher';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -86,7 +88,7 @@ export default function PortfolioOptimizePage() {
     setError(null);
     
     try {
-      const response = await fetch('/api/portfolio/optimize', {
+      const response = await apiFetch('/api/portfolio/optimize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ assets, params })

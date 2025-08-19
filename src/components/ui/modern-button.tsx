@@ -1,23 +1,26 @@
+"use client"
+
+import * as React from "react"
+import { useState } from 'react'
 // 🚀 Ultra-Modern Button Component with Advanced Micro-interactions
 // 2025年最新トレンド: 3D効果、発光、マイクロインタラクション
 
-"use client";
+// duplicate directive removed; already declared at top
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ReactNode, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 interface ModernButtonProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   variant?: "primary" | "secondary" | "ghost" | "glow" | "gradient" | "glass" | "neon";
   size?: "sm" | "md" | "lg" | "xl";
   isLoading?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   ripple?: boolean;
@@ -38,7 +41,7 @@ export function ModernButton({
   ripple = true,
   ...props
 }: ModernButtonProps) {
-  const [rippleAnimation, setRippleAnimation] = useState<{ x: number; y: number; show: boolean }>({
+  const [rippleAnimation, setRippleAnimation] = React.useState<{ x: number; y: number; show: boolean }>({
     x: 0,
     y: 0,
     show: false

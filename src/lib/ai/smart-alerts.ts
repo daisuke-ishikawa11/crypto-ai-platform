@@ -2,7 +2,8 @@
 // AI-driven intelligent alerting system for DeFi opportunities and risks
 
 import { logger } from '@/lib/monitoring/logger';
-import { createClient } from '@/lib/supabase/server';
+import { createClient as createBrowserClient } from '@/lib/supabase/client';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 import { generateChatResponse } from './openai';
 import { generateClaudeResponse } from './anthropic';
 import type { Portfolio, UserPreferences } from './types/ai-service-types';
@@ -94,16 +95,17 @@ export interface OpportunityAlert {
 }
 
 class SmartAlertsEngine {
-  private supabase = createClient();
+  private supabaseClient: ReturnType<typeof createBrowserClient> | null = null;
   private alertHistory = new Map<string, SmartAlert[]>();
-  private userPreferencesCache = new Map<string, { preferences: any; lastUpdated: Date }>();
+  private userPreferencesCache = new Map<string, { preferences: UserPreferences | null; lastUpdated: Date }>();
 
-  async processMarketData(marketData: Record<string, any>): Promise<SmartAlert[]> {
+  async processMarketData(marketData: Record<string, unknown>): Promise<SmartAlert[]> {
     try {
       const alerts: SmartAlert[] = [];
       
       // Get all active users with alert conditions
-      const { data: alertConditions, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data: alertConditions, error } = await supabase
         .from('alert_conditions')
         .select('*')
         .eq('is_active', true);
@@ -135,8 +137,8 @@ class SmartAlertsEngine {
       return alerts;
 
     } catch (error) {
-      logger.error('Market data processing error', { error });
-      throw new Error(`市場データ処理に失敗しました: ${error.message}`);
+      logger.error('Market data processing error', { error: error instanceof Error ? error.message : String(error) });
+      throw new Error(`市場データ処理に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -180,8 +182,8 @@ class SmartAlertsEngine {
       return { score, alerts };
 
     } catch (error) {
-      logger.error('Portfolio health evaluation error', { error, userId });
-      throw new Error(`ポートフォリオ健全性評価に失敗しました: ${error.message}`);
+      logger.error('Portfolio health evaluation error', { error: error instanceof Error ? error.message : String(error), userId });
+      throw new Error(`ポートフォリオ健全性評価に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -232,8 +234,8 @@ class SmartAlertsEngine {
       return opportunities.slice(0, 10); // Return top 10 opportunities
 
     } catch (error) {
-      logger.error('Opportunity discovery error', { error, userId });
-      throw new Error(`機会発見に失敗しました: ${error.message}`);
+      logger.error('Opportunity discovery error', { error: error instanceof Error ? error.message : String(error), userId });
+      throw new Error(`機会発見に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -248,12 +250,12 @@ class SmartAlertsEngine {
       const alertCondition: AlertCondition = {
         id: `custom_${Date.now()}`,
         user_id: userId,
-        name: parsedCondition.name,
+        name: String(parsedCondition.name),
         description: naturalLanguageCondition,
         type: 'custom_ai',
         parameters: {
           custom_logic: naturalLanguageCondition,
-          ...parsedCondition.parameters
+          ...(parsedCondition.parameters || {})
         },
         is_active: true,
         created_at: new Date(),
@@ -261,7 +263,8 @@ class SmartAlertsEngine {
       };
 
       // Save to database
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('alert_conditions')
         .insert([alertCondition]);
 
@@ -275,15 +278,16 @@ class SmartAlertsEngine {
       return alertCondition;
 
     } catch (error) {
-      logger.error('Custom alert creation error', { error, userId });
-      throw new Error(`カスタムアラート作成に失敗しました: ${error.message}`);
+      logger.error('Custom alert creation error', { error: error instanceof Error ? error.message : String(error), userId });
+      throw new Error(`カスタムアラート作成に失敗しました: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
   async learnFromUserFeedback(alertId: string, feedback: SmartAlert['user_feedback']): Promise<void> {
     try {
       // Update alert with feedback
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('smart_alerts')
         .update({ user_feedback: feedback })
         .eq('id', alertId);
@@ -319,12 +323,12 @@ class SmartAlertsEngine {
   private async evaluateUserConditions(
     userId: string,
     conditions: AlertCondition[],
-    marketData: Record<string, any>
+    marketData: Record<string, unknown>
   ): Promise<SmartAlert[]> {
     const alerts: SmartAlert[] = [];
 
     for (const condition of conditions) {
-      const conditionMet = this.evaluateCondition(condition, marketData);
+      const conditionMet = await this.evaluateCondition(condition, marketData);
       
       if (conditionMet) {
         const alert: SmartAlert = {
@@ -354,7 +358,7 @@ class SmartAlertsEngine {
     return alerts;
   }
 
-  private evaluateCondition(condition: AlertCondition, marketData: Record<string, any>): boolean {
+  private async evaluateCondition(condition: AlertCondition, marketData: Record<string, unknown>): Promise<boolean> {
     const { parameters } = condition;
     
     switch (condition.type) {
@@ -367,70 +371,75 @@ class SmartAlertsEngine {
       case 'risk_score_change':
         return this.evaluateRiskScoreChange(parameters, marketData);
       case 'custom_ai':
-        return this.evaluateCustomCondition(parameters, marketData);
+        return await this.evaluateCustomCondition(parameters, marketData);
       default:
         return false;
     }
   }
 
-  private evaluatePriceMovement(parameters: any, marketData: Record<string, any>): boolean {
-    const asset = parameters.asset;
-    const threshold = parameters.threshold;
-    const operator = parameters.operator;
-    const currentPrice = marketData[`${asset}_price`];
-    const previousPrice = marketData[`${asset}_previous_price`];
+  private evaluatePriceMovement(parameters: unknown, marketData: Record<string, unknown>): boolean {
+    const p = parameters as { asset?: string; threshold?: number; operator?: 'gt'|'lt'|'eq'|'gte'|'lte' }
+    const asset = p.asset || ''
+    const threshold = Number(p.threshold ?? NaN)
+    const operator = p.operator
+    const currentPrice = Number((marketData[`${asset}_price`] as number) ?? NaN)
+    const previousPrice = Number((marketData[`${asset}_previous_price`] as number) ?? NaN)
 
-    if (!currentPrice || !previousPrice) return false;
+    if (!isFinite(currentPrice) || !isFinite(previousPrice) || !isFinite(threshold)) return false
 
-    const changePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
+    const changePercentage = ((currentPrice - previousPrice) / previousPrice) * 100
 
     switch (operator) {
-      case 'gt': return changePercentage > threshold;
-      case 'lt': return changePercentage < threshold;
-      case 'gte': return changePercentage >= threshold;
-      case 'lte': return changePercentage <= threshold;
-      default: return false;
+      case 'gt': return changePercentage > threshold
+      case 'lt': return changePercentage < threshold
+      case 'gte': return changePercentage >= threshold
+      case 'lte': return changePercentage <= threshold
+      case 'eq': return Math.abs(changePercentage - threshold) < 1e-9
+      default: return false
     }
   }
 
-  private evaluateAPYChange(parameters: any, marketData: Record<string, any>): boolean {
-    const protocol = parameters.protocol;
-    const threshold = parameters.threshold;
-    const currentAPY = marketData[`${protocol}_apy`];
-    const previousAPY = marketData[`${protocol}_previous_apy`];
+  private evaluateAPYChange(parameters: unknown, marketData: Record<string, unknown>): boolean {
+    const p = parameters as { protocol?: string; threshold?: number }
+    const protocol = p.protocol || ''
+    const threshold = Number(p.threshold ?? NaN)
+    const currentAPY = Number((marketData[`${protocol}_apy`] as number) ?? NaN)
+    const previousAPY = Number((marketData[`${protocol}_previous_apy`] as number) ?? NaN)
 
-    if (!currentAPY || !previousAPY) return false;
+    if (!isFinite(currentAPY) || !isFinite(previousAPY) || !isFinite(threshold)) return false
 
-    const changePercentage = ((currentAPY - previousAPY) / previousAPY) * 100;
-    return Math.abs(changePercentage) > threshold;
+    const changePercentage = ((currentAPY - previousAPY) / previousAPY) * 100
+    return Math.abs(changePercentage) > threshold
   }
 
-  private evaluateTVLChange(parameters: any, marketData: Record<string, any>): boolean {
-    const protocol = parameters.protocol;
-    const threshold = parameters.threshold;
-    const currentTVL = marketData[`${protocol}_tvl`];
-    const previousTVL = marketData[`${protocol}_previous_tvl`];
+  private evaluateTVLChange(parameters: unknown, marketData: Record<string, unknown>): boolean {
+    const p = parameters as { protocol?: string; threshold?: number }
+    const protocol = p.protocol || ''
+    const threshold = Number(p.threshold ?? NaN)
+    const currentTVL = Number((marketData[`${protocol}_tvl`] as number) ?? NaN)
+    const previousTVL = Number((marketData[`${protocol}_previous_tvl`] as number) ?? NaN)
 
-    if (!currentTVL || !previousTVL) return false;
+    if (!isFinite(currentTVL) || !isFinite(previousTVL) || !isFinite(threshold)) return false
 
-    const changePercentage = ((currentTVL - previousTVL) / previousTVL) * 100;
-    return Math.abs(changePercentage) > threshold;
+    const changePercentage = ((currentTVL - previousTVL) / previousTVL) * 100
+    return Math.abs(changePercentage) > threshold
   }
 
-  private evaluateRiskScoreChange(parameters: any, marketData: Record<string, any>): boolean {
-    const protocol = parameters.protocol;
-    const threshold = parameters.threshold;
-    const currentRisk = marketData[`${protocol}_risk_score`];
-    const previousRisk = marketData[`${protocol}_previous_risk_score`];
+  private evaluateRiskScoreChange(parameters: unknown, marketData: Record<string, unknown>): boolean {
+    const p = parameters as { protocol?: string; threshold?: number }
+    const protocol = p.protocol || ''
+    const threshold = Number(p.threshold ?? NaN)
+    const currentRisk = Number((marketData[`${protocol}_risk_score`] as number) ?? NaN)
+    const previousRisk = Number((marketData[`${protocol}_previous_risk_score`] as number) ?? NaN)
 
-    if (!currentRisk || !previousRisk) return false;
+    if (!isFinite(currentRisk) || !isFinite(previousRisk) || !isFinite(threshold)) return false
 
-    return Math.abs(currentRisk - previousRisk) > threshold;
+    return Math.abs(currentRisk - previousRisk) > threshold
   }
 
-  private async evaluateCustomCondition(parameters: any, marketData: Record<string, any>): Promise<boolean> {
+  private async evaluateCustomCondition(parameters: unknown, marketData: Record<string, unknown>): Promise<boolean> {
     try {
-      const customLogic = parameters.custom_logic;
+      const customLogic = (parameters as { custom_logic?: string }).custom_logic || ''
       
       // Use AI to evaluate the custom condition
       const response = await generateChatResponse({
@@ -449,7 +458,7 @@ class SmartAlertsEngine {
         temperature: 0.1
       });
 
-      return response.content.toLowerCase().includes('true');
+      return (response?.content ? String(response.content) : '').toLowerCase().includes('true');
 
     } catch (error) {
       logger.error('Custom condition evaluation error', { error });
@@ -457,7 +466,7 @@ class SmartAlertsEngine {
     }
   }
 
-  private async detectAnomalies(marketData: Record<string, any>): Promise<SmartAlert[]> {
+  private async detectAnomalies(marketData: Record<string, unknown>): Promise<SmartAlert[]> {
     const alerts: SmartAlert[] = [];
 
     try {
@@ -473,7 +482,7 @@ class SmartAlertsEngine {
         temperature: 0.3
       });
 
-      const detectedAnomalies = JSON.parse(response.content);
+      const detectedAnomalies = JSON.parse(String(response.content ?? "{}"));
       
       // Convert AI detections to SmartAlert format
       for (const anomaly of detectedAnomalies.alerts || []) {
@@ -499,7 +508,7 @@ class SmartAlertsEngine {
       }
 
     } catch (error) {
-      logger.error('Anomaly detection error', { error });
+      logger.error('Anomaly detection error', { error: error instanceof Error ? error.message : String(error) });
     }
 
     return alerts;
@@ -507,7 +516,8 @@ class SmartAlertsEngine {
 
   private async saveAlerts(alerts: SmartAlert[]): Promise<void> {
     try {
-      const { error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { error } = await supabase
         .from('smart_alerts')
         .insert(alerts);
 
@@ -520,7 +530,7 @@ class SmartAlertsEngine {
       }
 
     } catch (error) {
-      logger.error('Alert saving error', { error });
+      logger.error('Alert saving error', { error: error instanceof Error ? error.message : String(error) });
     }
   }
 
@@ -531,7 +541,8 @@ class SmartAlertsEngine {
     }
 
     try {
-      const { data, error } = await this.supabase
+      const supabase = await this.getSupabaseClient();
+      const { data, error } = await supabase
         .from('user_preferences')
         .select('*')
         .eq('user_id', userId)
@@ -539,7 +550,7 @@ class SmartAlertsEngine {
 
       if (error && error.code !== 'PGRST116') throw error;
 
-      const preferences = data || null;
+      const preferences = (data || null) as UserPreferences | null;
       this.userPreferencesCache.set(userId, {
         preferences,
         lastUpdated: new Date()
@@ -548,13 +559,24 @@ class SmartAlertsEngine {
       return preferences;
 
     } catch (error) {
-      logger.error('User preferences fetch error', { error, userId });
+      logger.error('User preferences fetch error', { error: error instanceof Error ? error.message : String(error), userId });
       return null;
     }
   }
 
   // Additional helper methods would be implemented here...
   // Due to length constraints, I'm showing the core structure
+
+  private async getSupabaseClient() {
+    if (!this.supabaseClient) {
+      if (typeof window === 'undefined') {
+        this.supabaseClient = await createServerClient();
+      } else {
+        this.supabaseClient = createBrowserClient();
+      }
+    }
+    return this.supabaseClient;
+  }
 
   private calculateRiskScore(portfolio: Portfolio, protocols: DeFiProtocol[]): number {
     // Implement risk score calculation
@@ -576,12 +598,11 @@ class SmartAlertsEngine {
     return 85; // Placeholder
   }
 
-  private identifyHealthFactors(portfolio: Portfolio, protocols: DeFiProtocol[], userPrefs: any): any[] {
-    // Implement health factors identification
-    return [];
+  private identifyHealthFactors(portfolio: Portfolio, protocols: DeFiProtocol[], userPrefs: unknown): Array<{ factor: string; score: number; impact: 'positive' | 'negative' | 'neutral'; recommendation?: string }> {
+    return []
   }
 
-  private async getPortfolioTrends(userId: string): Promise<any> {
+  private async getPortfolioTrends(userId: string): Promise<PortfolioHealthScore['trends']> {
     // Implement trend calculation
     return {
       score_change_24h: 2,
@@ -590,12 +611,12 @@ class SmartAlertsEngine {
     };
   }
 
-  private async generateHealthAlerts(userId: string, score: PortfolioHealthScore, userPrefs: any): Promise<SmartAlert[]> {
+  private async generateHealthAlerts(userId: string, score: PortfolioHealthScore, userPrefs: unknown): Promise<SmartAlert[]> {
     // Generate health-based alerts
     return [];
   }
 
-  private findHighYieldOpportunities(protocols: DeFiProtocol[], userPrefs: any): OpportunityAlert[] {
+  private findHighYieldOpportunities(protocols: DeFiProtocol[], userPrefs: unknown): OpportunityAlert[] {
     return protocols
       .filter(p => p.apy > 15 && p.riskScore < 60)
       .slice(0, 3)
@@ -616,7 +637,7 @@ class SmartAlertsEngine {
     return [];
   }
 
-  private async findNewPoolOpportunities(userPrefs: any): Promise<OpportunityAlert[]> {
+  private async findNewPoolOpportunities(userPrefs: unknown): Promise<OpportunityAlert[]> {
     // Implement new pool detection
     return [];
   }
@@ -631,28 +652,24 @@ class SmartAlertsEngine {
     return [];
   }
 
-  private async parseNaturalLanguageCondition(condition: string): Promise<any> {
-    // Use AI to parse natural language conditions
-    return {
-      name: 'Custom Condition',
-      parameters: {}
-    };
+  private async parseNaturalLanguageCondition(condition: string): Promise<{ name: string; parameters: Record<string, unknown> }> {
+    return { name: 'Custom Condition', parameters: {} }
   }
 
   private mapConditionTypeToAlertType(type: string): SmartAlert['type'] {
     return 'custom';
   }
 
-  private determineSeverity(condition: AlertCondition, marketData: Record<string, any>): SmartAlert['severity'] {
+  private determineSeverity(condition: AlertCondition, marketData: Record<string, unknown>): SmartAlert['severity'] {
     return 'warning';
   }
 
-  private async generateAlertDescription(condition: AlertCondition, marketData: Record<string, any>): Promise<string> {
+  private async generateAlertDescription(condition: AlertCondition, marketData: Record<string, unknown>): Promise<string> {
     return condition.description;
   }
 
-  private getMetConditions(condition: AlertCondition, marketData: Record<string, any>): any[] {
-    return [];
+  private getMetConditions(condition: AlertCondition, marketData: Record<string, unknown>): Array<{ condition: string; value: number; threshold: number; operator: 'gt' | 'lt' | 'eq' | 'gte' | 'lte' }> {
+    return []
   }
 
   private determineTimeSensitivity(condition: AlertCondition): 'immediate' | 'hours' | 'days' | 'weeks' {

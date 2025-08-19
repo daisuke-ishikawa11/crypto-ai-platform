@@ -1,0 +1,76 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/app/(dashboard)/dashboard/**/*.ts",
+    "src/app/(dashboard)/dashboard/**/*.tsx", 
+    "src/app/(dashboard)/billing/**/*.ts",
+    "src/app/(dashboard)/billing/**/*.tsx",
+    "src/app/learning/**/*.ts",
+    "src/app/learning/**/*.tsx",
+    "src/app/ai/chat/**/*.ts", 
+    "src/app/ai/chat/**/*.tsx",
+    "src/app/api/learning/**/*.ts",
+    "src/app/api/dashboard/**/*.ts",
+    "src/app/api/market/**/*.ts",
+    "src/components/ui/**/*.ts",
+    "src/components/ui/**/*.tsx",
+    "src/components/dashboard/**/*.ts",
+    "src/components/dashboard/**/*.tsx",
+    "src/components/market/**/*.ts",
+    "src/components/market/**/*.tsx",
+    "src/data/lessons/financial-literacy/**/*.ts",
+    "src/data/lessons/crypto-basics/**/*.ts",
+    "src/data/lessons/trading-basics/**/*.ts",
+    "src/lib/supabase/**/*.ts",
+    "src/lib/types/**/*.ts",
+    "src/lib/utils.ts",
+    "next-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts/**/*",
+    "src/data/lessons/blockchain-tech/**/*",
+    "src/data/lessons/defi-nft/**/*", 
+    "src/data/lessons/advanced-investment/**/*",
+    "src/app/**/*defi*/**/*",
+    "src/components/defi/**/*",
+    "src/lib/performance/**/*",
+    "src/lib/notifications/**/*",
+    "src/lib/security/**/*",
+    "src/lib/defi/**/*",
+    "src/lib/ai/**/*",
+    "src/app/api/ai/**/*",
+    "src/app/api/defi/**/*",
+    "src/app/api/notifications/**/*",
+    "src/app/api/auth/**/*",
+    "tests/**/*"
+  ]
+}

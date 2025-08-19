@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crypto-ai-config
+  namespace: crypto-ai-production
+data:
+  NODE_ENV: "production"
+  NEXT_TELEMETRY_DISABLED: "1"
+  PORT: "3000"
+  HOSTNAME: "0.0.0.0"
+  REDIS_URL: "redis://redis-service:6379"
+  NEXT_PUBLIC_APP_URL: "https://crypto-ai-platform.com"
+  NEXT_PUBLIC_APP_ORIGIN: "https://crypto-ai-platform.com"
+  
+  # Performance settings
+  OPTIMIZATION_MAX_ASSETS: "20"
+  OPTIMIZATION_CACHE_TTL: "3600"
+  
+  # Rate limiting
+  TWO_FA_VERIFY_RATE_LIMIT_MAX: "10"
+  TWO_FA_SETUP_RATE_LIMIT_MAX: "5"
+  TWO_FA_LOCKOUT_MINUTES: "30"
+  
+  # 2FA settings
+  TWO_FA_ISSUER: "Crypto AI Platform"
+  TWO_FA_SERVICE: "crypto-ai-platform.com"
+  TWO_FA_TOTP_WINDOW: "1"
+  TWO_FA_TOTP_DIGITS: "6"
+  TWO_FA_TOTP_PERIOD: "30"
+  TWO_FA_TOTP_ALGO: "SHA256"
+  TWO_FA_MAX_ATTEMPTS: "5"
+  TWO_FA_SESSION_TIMEOUT_MINUTES: "10"
+  TWO_FA_TRUSTED_DEVICE_DAYS: "30"
+  TWO_FA_BACKUP_CODE_COUNT: "10"
+  TWO_FA_BACKUP_CODE_LENGTH: "8"
+  TWO_FA_SUSPICIOUS_THRESHOLD: "70"
+  TWO_FA_GEOLOCATION_ENABLED: "true"
+  TWO_FA_DEVICE_FINGERPRINT_ENABLED: "true"
+  TWO_FA_RISK_ANALYSIS_ENABLED: "true"
+  
+  # Monitoring
+  SENTRY_REPORT_IN_DEV: "false"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crypto-ai-config-staging
+  namespace: crypto-ai-staging
+data:
+  NODE_ENV: "staging"
+  NEXT_TELEMETRY_DISABLED: "1"
+  PORT: "3000"
+  HOSTNAME: "0.0.0.0"
+  REDIS_URL: "redis://redis-service:6379"
+  NEXT_PUBLIC_APP_URL: "https://staging.crypto-ai-platform.com"
+  NEXT_PUBLIC_APP_ORIGIN: "https://staging.crypto-ai-platform.com"
+  
+  # Performance settings (more relaxed for staging)
+  OPTIMIZATION_MAX_ASSETS: "50"
+  OPTIMIZATION_CACHE_TTL: "1800"
+  
+  # Rate limiting (more relaxed for staging)
+  TWO_FA_VERIFY_RATE_LIMIT_MAX: "50"
+  TWO_FA_SETUP_RATE_LIMIT_MAX: "25"
+  TWO_FA_LOCKOUT_MINUTES: "5"
+  
+  # 2FA settings
+  TWO_FA_ISSUER: "Crypto AI Platform (Staging)"
+  TWO_FA_SERVICE: "staging.crypto-ai-platform.com"
+  TWO_FA_TOTP_WINDOW: "1"
+  TWO_FA_TOTP_DIGITS: "6"
+  TWO_FA_TOTP_PERIOD: "30"
+  TWO_FA_TOTP_ALGO: "SHA256"
+  TWO_FA_MAX_ATTEMPTS: "10"
+  TWO_FA_SESSION_TIMEOUT_MINUTES: "30"
+  TWO_FA_TRUSTED_DEVICE_DAYS: "7"
+  TWO_FA_BACKUP_CODE_COUNT: "5"
+  TWO_FA_BACKUP_CODE_LENGTH: "8"
+  TWO_FA_SUSPICIOUS_THRESHOLD: "50"
+  TWO_FA_GEOLOCATION_ENABLED: "false"
+  TWO_FA_DEVICE_FINGERPRINT_ENABLED: "false"
+  TWO_FA_RISK_ANALYSIS_ENABLED: "false"
+  
+  # Monitoring (enable for staging testing)
+  SENTRY_REPORT_IN_DEV: "true"

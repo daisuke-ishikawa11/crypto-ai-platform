@@ -4,10 +4,45 @@ import { smartAlertsEngine } from '@/lib/ai/smart-alerts';
 import { aiCacheService } from '@/lib/ai/ai-cache';
 import { logger } from '@/lib/monitoring/logger';
 import { headers } from 'next/headers';
+import type { 
+  DeFiPortfolioData, 
+  DeFiAlertData, 
+  DeFiProtocolData
+} from '@/types/common';
+import type { Portfolio } from '@/lib/ai/types/ai-service-types';
+import type { DeFiProtocol } from '@/lib/ai/defi-ai-advisor';
+
+// 型定義
+// AlertCondition interface removed as unused
+
+// CustomAlert interface removed as it's not used
+
+interface AlertProcessingResult {
+  alert_id?: string;
+  condition_id?: string;
+  status: string;
+  triggered?: boolean;
+  next_check?: string;
+  score?: {
+    overall_score: number;
+    risk_level: 'low' | 'medium' | 'high';
+    recommendations: string[];
+  };
+  alerts?: DeFiAlertData[];
+  opportunities?: Array<{
+    id: string;
+    type: string;
+    protocol: string;
+    expectedReturn: number;
+    riskLevel: 'low' | 'medium' | 'high';
+    description: string;
+  }>;
+  message?: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const body = await request.json();
@@ -32,7 +67,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let result: any;
+    let result: AlertProcessingResult;
 
     switch (action) {
       case 'create_custom_alert':
@@ -44,7 +79,16 @@ export async function POST(request: NextRequest) {
           );
         }
         
-        result = await smartAlertsEngine.createCustomAlert(userId, condition);
+        const alertResult = await smartAlertsEngine.createCustomAlert(userId, condition);
+        result = {
+          alert_id: typeof alertResult === 'object' && alertResult && 'alert_id' in alertResult 
+            ? (alertResult as Record<string, unknown>).alert_id as string
+            : 'alert_001',
+          condition_id: typeof alertResult === 'object' && alertResult && 'condition_id' in alertResult 
+            ? (alertResult as Record<string, unknown>).condition_id as string
+            : 'cond_001',
+          status: 'created'
+        };
         
         logger.info('Custom alert created', {
           userId,
@@ -61,16 +105,38 @@ export async function POST(request: NextRequest) {
           );
         }
         
-        result = await smartAlertsEngine.evaluatePortfolioHealth(
+        const healthResult = await smartAlertsEngine.evaluatePortfolioHealth(
           userId,
           portfolio,
           protocols || []
         );
+        result = {
+          status: 'evaluated',
+          score: {
+            overall_score: healthResult.score.overall_score,
+            risk_level: healthResult.score.risk_score > 70 ? 'high' as const : 
+                       healthResult.score.risk_score > 40 ? 'medium' as const : 'low' as const,
+            recommendations: healthResult.score.factors.map(f => f.recommendation || '改善の提案はありません').filter(Boolean) as string[]
+          },
+          alerts: healthResult.alerts.map(alert => ({
+            id: alert.id,
+            type: mapSmartAlertTypeToDeFiAlertType(alert.type),
+            severity: mapSmartAlertSeverityToDeFiSeverity(alert.severity),
+            title: alert.title,
+            message: alert.description,
+            asset: alert.metadata.asset,
+            protocol: alert.metadata.protocol,
+            threshold: alert.conditions_met[0]?.threshold,
+            currentValue: alert.conditions_met[0]?.value,
+            timestamp: alert.created_at.toISOString(),
+            actionRequired: alert.metadata.action_required
+          }))
+        };
         
         logger.info('Portfolio health evaluated', {
           userId,
           portfolioValue: portfolio.totalValue,
-          healthScore: result.score.overall_score
+          healthScore: result.score?.overall_score || 0
         });
         break;
 
@@ -83,15 +149,26 @@ export async function POST(request: NextRequest) {
           );
         }
         
-        result = await smartAlertsEngine.discoverOpportunities(
+        const opportunities = await smartAlertsEngine.discoverOpportunities(
           userId,
-          userPortfolio,
-          available_protocols || []
+          convertDeFiPortfolioToPortfolio(userPortfolio as DeFiPortfolioData),
+          (available_protocols as DeFiProtocolData[]).map(convertDeFiProtocolDataToDeFiProtocol) || []
         );
+        result = {
+          status: 'discovered',
+          opportunities: Array.isArray(opportunities) ? opportunities.map(opp => ({
+            id: `opp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            type: opp.opportunity_type,
+            protocol: opp.protocol,
+            expectedReturn: opp.estimated_apy || opp.estimated_profit || 0,
+            riskLevel: opp.risk_level,
+            description: `${opp.protocol} ${opp.opportunity_type} opportunity with ${opp.confidence * 100}% confidence`
+          })) : []
+        };
         
         logger.info('Opportunities discovered', {
           userId,
-          opportunitiesFound: result.length
+          opportunitiesFound: result.opportunities?.length || 0
         });
         break;
 
@@ -105,11 +182,28 @@ export async function POST(request: NextRequest) {
         }
         
         // This is typically called by internal systems
-        result = await smartAlertsEngine.processMarketData(market_data);
+        const marketResult = await smartAlertsEngine.processMarketData(market_data as Record<string, unknown>);
+        const alertsArray = Array.isArray(marketResult) ? marketResult : [marketResult];
+        result = {
+          status: 'processed',
+          alerts: alertsArray.map(alert => ({
+            id: alert.id,
+            type: mapSmartAlertTypeToDeFiAlertType(alert.type),
+            severity: mapSmartAlertSeverityToDeFiSeverity(alert.severity),
+            title: alert.title,
+            message: alert.description,
+            asset: alert.metadata?.asset,
+            protocol: alert.metadata?.protocol,
+            threshold: alert.conditions_met?.[0]?.threshold,
+            currentValue: alert.conditions_met?.[0]?.value,
+            timestamp: alert.created_at.toISOString(),
+            actionRequired: alert.metadata?.action_required
+          }))
+        };
         
         logger.info('Market data processed', {
-          alertsGenerated: result.length,
-          criticalAlerts: result.filter((a: any) => a.severity === 'critical').length
+          alertsGenerated: result.alerts?.length || 0,
+          criticalAlerts: result.alerts?.filter((a: DeFiAlertData) => a.severity === 'critical').length || 0
         });
         break;
 
@@ -123,7 +217,10 @@ export async function POST(request: NextRequest) {
         }
         
         await smartAlertsEngine.learnFromUserFeedback(alert_id, feedback);
-        result = { success: true, message: 'Feedback recorded successfully' };
+        result = {
+          status: 'feedback_recorded',
+          message: 'Feedback recorded successfully'
+        };
         
         logger.info('Alert feedback processed', {
           userId,
@@ -154,8 +251,8 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString()
     });
 
-  } catch (error) {
-    logger.error('DeFi alerts API error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi alerts API error', { error: error instanceof Error ? error.message : 'Unknown error' });
     
     return NextResponse.json(
       { 
@@ -169,7 +266,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const { searchParams } = new URL(request.url);
@@ -281,15 +378,17 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
 
-  } catch (error) {
-    logger.error('DeFi alerts GET error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi alerts GET error', { 
+      error: error instanceof Error ? error.message : String(error)
+    });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const userId = headersList.get('x-user-id') || 'anonymous';
     
     const { searchParams } = new URL(request.url);
@@ -306,8 +405,8 @@ export async function DELETE(request: NextRequest) {
     // In production, this would delete from database
     logger.info('Alert/Condition deleted', {
       userId,
-      alertId,
-      conditionId
+      ...(alertId && { alertId }),
+      ...(conditionId && { conditionId })
     });
 
     return NextResponse.json({
@@ -315,10 +414,69 @@ export async function DELETE(request: NextRequest) {
       message: alertId ? 'Alert deleted successfully' : 'Alert condition deleted successfully'
     });
 
-  } catch (error) {
-    logger.error('DeFi alerts DELETE error', { error });
+  } catch (error: unknown) {
+    logger.error('DeFi alerts DELETE error', { 
+      error: error instanceof Error ? error.message : String(error)
+    });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
+}
+
+// Helper functions for type conversion and mock data generation
+
+// Type conversion helpers
+function mapSmartAlertTypeToDeFiAlertType(type: string): 'price' | 'yield' | 'risk' | 'opportunity' {
+  switch (type) {
+    case 'opportunity':
+      return 'opportunity';
+    case 'risk':
+      return 'risk';
+    case 'market_event':
+      return 'price';
+    case 'portfolio_health':
+      return 'yield';
+    default:
+      return 'risk';
+  }
+}
+
+function mapSmartAlertSeverityToDeFiSeverity(severity: string): 'low' | 'medium' | 'high' | 'critical' {
+  switch (severity) {
+    case 'info':
+      return 'low';
+    case 'warning':
+      return 'medium';
+    case 'critical':
+      return 'critical';
+    default:
+      return 'medium';
+  }
+}
+
+function convertDeFiProtocolDataToDeFiProtocol(protocol: DeFiProtocolData): DeFiProtocol {
+  return {
+    id: protocol.id,
+    name: protocol.name,
+    category: protocol.category as 'lending' | 'dex' | 'yield_farming' | 'derivatives' | 'insurance' | 'bridge',
+    tvl: protocol.tvl,
+    apy: protocol.apr,
+    riskScore: protocol.risk,
+    chain: protocol.chain,
+    address: undefined // Not available in DeFiProtocolData
+  };
+}
+
+function convertDeFiPortfolioToPortfolio(defiPortfolio: DeFiPortfolioData): Portfolio {
+  return {
+    assets: defiPortfolio.assets.map(asset => ({
+      symbol: asset.symbol,
+      amount: asset.amount,
+      currentPrice: asset.price,
+      value: asset.value,
+      allocation: (asset.value / defiPortfolio.totalValue) * 100
+    })),
+    totalValue: defiPortfolio.totalValue
+  };
 }
 
 // Helper functions for mock data generation
@@ -400,6 +558,7 @@ async function generateMockUserAlerts(userId: string, status: string, limit: num
 }
 
 async function generateAlertStats(userId: string) {
+  console.log('Generating alert stats for user:', userId);
   return {
     total_alerts: 15,
     unread_alerts: 3,

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
@@ -36,8 +37,8 @@ interface UserHeaderProps {
 }
 
 export function UserHeader({ user }: UserHeaderProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
   const router = useRouter();
   const supabase = createClient();
 
@@ -46,13 +47,16 @@ export function UserHeader({ user }: UserHeaderProps) {
     router.push('/');
   };
 
-  const userPlan = 'free'; // これは実際のユーザープランから取得する
+  // 実際は`user_profiles.subscription_status`を取得しUI表示にマップ
+  // 表示用のローカル区分。実DBの `subscription_status` とは別管理
+  type LocalPlan = 'free' | 'standard' | 'premium'
+  const userPlan: LocalPlan = 'free';
   const aiUsageCount = 2;
   const aiUsageLimit = 5;
   const notificationCount = 3;
 
   const getPlanBadge = () => {
-    switch (userPlan) {
+    switch (userPlan as 'free' | 'standard' | 'premium') {
       case 'premium':
         return (
           <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
@@ -82,9 +86,11 @@ export function UserHeader({ user }: UserHeaderProps) {
         <div className="flex items-center justify-between">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-4">
-            <Link href="/dashboard" className="flex items-center space-x-2">
-              <Sparkles className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">CryptoAI</span>
+            <Link href="/dashboard">
+              <span className="flex items-center space-x-2">
+                <Sparkles className="h-6 w-6 text-primary" />
+                <span className="text-xl font-bold">CryptoAI</span>
+              </span>
             </Link>
             
             {/* Mobile Menu Button */}

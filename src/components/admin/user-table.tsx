@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from "react"
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -151,12 +152,13 @@ export function UserTable() {
   };
 
   const sortedUsers = [...mockUsers].sort((a, b) => {
-    const aValue = a[sortConfig.key];
-    const bValue = b[sortConfig.key];
-    
-    if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
-    return 0;
+    const aRaw = a[sortConfig.key]
+    const bRaw = b[sortConfig.key]
+    const aValue = (typeof aRaw === 'string' || typeof aRaw === 'number' || typeof aRaw === 'boolean') ? aRaw : String(aRaw)
+    const bValue = (typeof bRaw === 'string' || typeof bRaw === 'number' || typeof bRaw === 'boolean') ? bRaw : String(bRaw)
+    if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1
+    if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1
+    return 0
   });
 
   const paginatedUsers = sortedUsers.slice(

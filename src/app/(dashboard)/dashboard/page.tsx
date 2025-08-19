@@ -6,7 +6,8 @@
 // ダッシュボードは認証が必要なため動的レンダリング
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -32,8 +33,6 @@ import {
   Star,
   Target,
   TrendingUp as TrendUp,
-  Users,
-  Gift,
   Award,
   PieChart,
   LineChart
@@ -598,7 +597,7 @@ function DashboardContent() {
                             >
                               <div className="flex items-center space-x-3">
                                 <Badge 
-                                  variant={getSeverityColor(alert.severity) as any}
+                                  variant={getSeverityColor(alert.severity) as "default" | "destructive" | "outline" | "secondary"}
                                   className="animate-pulse"
                                 >
                                   {alert.severity}

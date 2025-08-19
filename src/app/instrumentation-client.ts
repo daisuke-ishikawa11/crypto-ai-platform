@@ -14,7 +14,7 @@ export function setUser(user: {
   }
 }
 
-export function captureException(error: Error, context?: Record<string, any>) {
+export function captureException(error: Error, context?: Record<string, unknown>) {
   if (typeof window !== 'undefined' && window.Sentry) {
     window.Sentry.captureException(error, { extra: context });
   }
@@ -27,13 +27,13 @@ export function captureMessage(message: string, level: 'info' | 'warning' | 'err
 }
 
 // PostHog クライアント設定
-export function identifyUser(userId: string, properties?: Record<string, any>) {
+export function identifyUser(userId: string, properties?: Record<string, unknown>) {
   if (typeof window !== 'undefined' && window.posthog) {
     window.posthog.identify(userId, properties);
   }
 }
 
-export function trackEvent(event: string, properties?: Record<string, any>) {
+export function trackEvent(event: string, properties?: Record<string, unknown>) {
   if (typeof window !== 'undefined' && window.posthog) {
     window.posthog.capture(event, properties);
   }
@@ -43,13 +43,13 @@ export function trackEvent(event: string, properties?: Record<string, any>) {
 declare global {
   interface Window {
     Sentry?: {
-      setUser: (user: any) => void;
-      captureException: (error: Error, context?: any) => void;
+      setUser: (user: unknown) => void;
+      captureException: (error: Error, context?: unknown) => void;
       captureMessage: (message: string, level?: string) => void;
     };
     posthog?: {
-      identify: (userId: string, properties?: any) => void;
-      capture: (event: string, properties?: any) => void;
+      identify: (userId: string, properties?: unknown) => void;
+      capture: (event: string, properties?: unknown) => void;
     };
   }
 }

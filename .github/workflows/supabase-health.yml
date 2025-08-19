@@ -1,0 +1,34 @@
+name: supabase-health
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Run Supabase health check
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: bash scripts/ops/health-supabase.sh
+      - name: Notify Discord on failure
+        if: failure() && env.DISCORD_WEBHOOK != ''
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: |
+          msg="❗ Supabase health check failed. Check ${BASE_URL}/api/health/supabase and /api/health/supabase-auth."
+          curl -fsSL -H 'Content-Type: application/json' -d "{\"content\": \"${msg}\"}" "$DISCORD_WEBHOOK" || true
+      - name: Notify Slack on failure
+        if: failure() && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: |
+          msg="❗ Supabase health check failed. Check ${BASE_URL}/api/health/supabase and /api/health/supabase-auth."
+          curl -fsSL -H 'Content-Type: application/json' -d "{\"text\": \"${msg}\"}" "$SLACK_WEBHOOK_URL" || true

@@ -1,8 +1,8 @@
 'use client'
 
 import posthog from 'posthog-js'
+import * as React from "react"
 import { PostHogProvider } from 'posthog-js/react'
-import { useEffect } from 'react'
 
 // PostHog設定
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
@@ -41,7 +41,7 @@ if (typeof window !== 'undefined' && POSTHOG_KEY) {
 }
 
 export function PHProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
+  React.useEffect(() => {
     // 開発環境でのデバッグ情報
     if (process.env.NODE_ENV === 'development' && POSTHOG_KEY) {
       console.log('PostHog initialized with key:', POSTHOG_KEY.substring(0, 10) + '...')

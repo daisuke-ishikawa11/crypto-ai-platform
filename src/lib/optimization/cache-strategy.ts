@@ -374,7 +374,8 @@ export class EdgeCache {
     
     try {
       const cache = await caches.open('edge-cache');
-      return await cache.match(key);
+      const res = await cache.match(key)
+      return res ?? null
     } catch (error) {
       console.error('Edge cache get error:', error);
       return null;
@@ -458,11 +459,13 @@ export function measurePerformance<T>(
       
       // Cloudflare Analytics への送信
       if (typeof ANALYTICS !== 'undefined') {
+        const path = typeof window !== 'undefined' ? window.location.pathname : '/'
         ANALYTICS.writeDataPoint({
+          dataset: 'app_metrics',
           blobs: [name, 'performance'],
           doubles: [duration],
-          indexes: [window.location.pathname]
-        });
+          indexes: [path]
+        })
       }
       
       resolve(result);

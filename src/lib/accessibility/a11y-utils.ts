@@ -1,9 +1,6 @@
-// ♿ アクセシビリティユーティリティ
-// WCAG 2.1 準拠のアクセシビリティ機能とヘルパー
-
 'use client';
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import * as React from "react"
 
 // アクセシビリティ設定の型定義
 export interface AccessibilitySettings {
@@ -30,11 +27,11 @@ const A11Y_STORAGE_KEY = 'crypto-ai-a11y-settings';
 
 // アクセシビリティ設定フック
 export function useAccessibilitySettings() {
-  const [settings, setSettings] = useState<AccessibilitySettings>(DEFAULT_SETTINGS);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [settings, setSettings] = React.useState<AccessibilitySettings>(DEFAULT_SETTINGS);
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   // 設定を読み込み
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem(A11Y_STORAGE_KEY);
@@ -56,7 +53,7 @@ export function useAccessibilitySettings() {
   }, []);
 
   // 設定を保存
-  const updateSettings = useCallback((updates: Partial<AccessibilitySettings>) => {
+  const updateSettings = React.useCallback((updates: Partial<AccessibilitySettings>) => {
     setSettings(prev => {
       const newSettings = { ...prev, ...updates };
       
@@ -71,7 +68,7 @@ export function useAccessibilitySettings() {
   }, []);
 
   // 設定をリセット
-  const resetSettings = useCallback(() => {
+  const resetSettings = React.useCallback(() => {
     setSettings(DEFAULT_SETTINGS);
     try {
       localStorage.removeItem(A11Y_STORAGE_KEY);
@@ -109,11 +106,11 @@ export function detectSystemPreferences(): Partial<AccessibilitySettings> {
 
 // フォーカス管理フック
 export function useFocusManagement() {
-  const [focusedElement, setFocusedElement] = useState<Element | null>(null);
-  const previousFocusRef = useRef<Element | null>(null);
+  const [focusedElement, setFocusedElement] = React.useState<Element | null>(null);
+  const previousFocusRef = React.useRef<Element | null>(null);
 
   // フォーカストラップ
-  const trapFocus = useCallback((container: Element) => {
+  const trapFocus = React.useCallback((container: Element) => {
     const focusableElements = container.querySelectorAll(
       'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
     );
@@ -121,7 +118,8 @@ export function useFocusManagement() {
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown: EventListener = (evt) => {
+      const e = evt as KeyboardEvent
       if (e.key === 'Tab') {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
@@ -137,27 +135,27 @@ export function useFocusManagement() {
       }
     };
 
-    container.addEventListener('keydown', handleKeyDown);
+    (container as HTMLElement).addEventListener('keydown', handleKeyDown);
     
     return () => {
-      container.removeEventListener('keydown', handleKeyDown);
+      (container as HTMLElement).removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
   // フォーカスを保存
-  const saveFocus = useCallback(() => {
+  const saveFocus = React.useCallback(() => {
     previousFocusRef.current = document.activeElement;
   }, []);
 
   // フォーカスを復元
-  const restoreFocus = useCallback(() => {
+  const restoreFocus = React.useCallback(() => {
     if (previousFocusRef.current && 'focus' in previousFocusRef.current) {
       (previousFocusRef.current as HTMLElement).focus();
     }
   }, []);
 
   // フォーカスを移動
-  const moveFocus = useCallback((selector: string) => {
+  const moveFocus = React.useCallback((selector: string) => {
     const element = document.querySelector(selector) as HTMLElement;
     if (element) {
       element.focus();
@@ -176,9 +174,9 @@ export function useFocusManagement() {
 
 // キーボードナビゲーションフック
 export function useKeyboardNavigation() {
-  const [isKeyboardUser, setIsKeyboardUser] = useState(false);
+  const [isKeyboardUser, setIsKeyboardUser] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let keyboardTimeout: NodeJS.Timeout;
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -212,9 +210,9 @@ export function useKeyboardNavigation() {
 
 // スクリーンリーダー検出フック
 export function useScreenReaderDetection() {
-  const [isScreenReader, setIsScreenReader] = useState(false);
+  const [isScreenReader, setIsScreenReader] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // スクリーンリーダーの存在を検出
     const detectScreenReader = () => {
       // アクセシビリティAPIの存在を確認
@@ -382,20 +380,20 @@ export interface AccessibilityIssue {
 // CSS クラス生成
 export function getAccessibilityClasses(settings: AccessibilitySettings): string {
   const classes: string[] = [];
-
+  
   if (settings.highContrast) {
     classes.push('high-contrast');
   }
-
+  
   if (settings.reducedMotion) {
     classes.push('reduced-motion');
   }
-
+  
   if (settings.focusVisible) {
     classes.push('focus-visible');
   }
-
+  
   classes.push(`font-size-${settings.fontSize}`);
-
+  
   return classes.join(' ');
 }

@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Alerts Service API
+  version: 0.1.0
+servers:
+  - url: https://alerts.example.com
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      security:
+        - internalKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      status: { type: string, example: ok }
+                      db: { type: string, enum: [up, down] }
+  /api/notifications/send:
+    post:
+      summary: Queue a notification (and send immediately if SMTP configured)
+      security:
+        - internalKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendRequest'
+      responses:
+        '200':
+          description: Queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResponse'
+        '400': { description: Invalid payload }
+        '401': { description: Unauthorized }
+  /api/notifications/{id}:
+    get:
+      summary: Get notification by id
+      security:
+        - internalKey: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    $ref: '#/components/schemas/Notification'
+        '404': { description: Not found }
+  /api/notifications/process:
+    post:
+      summary: Process queued notifications
+      security:
+        - internalKey: []
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 50, default: 10 }
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessResponse'
+components:
+  securitySchemes:
+    internalKey:
+      type: apiKey
+      in: header
+      name: x-internal-key
+  schemas:
+    SendRequest:
+      type: object
+      required: [channel, to, subject]
+      properties:
+        channel: { type: string, enum: ['email'] }
+        to: { type: string, format: email }
+        subject: { type: string }
+        text: { type: string }
+        html: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        scheduledAt: { type: string, format: date-time }
+    SendResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        data:
+          type: object
+          properties:
+            id: { type: string, format: uuid }
+    Notification:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        channel: { type: string, enum: ['email'] }
+        to: { type: string, format: email }
+        subject: { type: string }
+        text: { type: string, nullable: true }
+        html: { type: string, nullable: true }
+        tags:
+          type: array
+          items: { type: string }
+          nullable: true
+        status: { type: string, enum: ['queued','processing','sent','failed'] }
+        error_message: { type: string, nullable: true }
+        created_at: { type: string, format: date-time }
+        scheduled_at: { type: string, format: date-time, nullable: true }
+        sent_at: { type: string, format: date-time, nullable: true }
+    ProcessResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        processed: { type: integer }
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string, format: uuid }
+              status: { type: string, enum: ['queued','processing','sent','failed'] }
+              error: { type: string }
+
+

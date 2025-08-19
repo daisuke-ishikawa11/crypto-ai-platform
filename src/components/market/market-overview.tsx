@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import * as React from "react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TrendingUp, TrendingDown, Activity, DollarSign } from 'lucide-react';
 
 interface GlobalMarketData {
@@ -12,15 +12,11 @@ interface GlobalMarketData {
 }
 
 export function MarketOverview() {
-  const [marketData, setMarketData] = useState<GlobalMarketData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [marketData, setMarketData] = React.useState<GlobalMarketData | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  useEffect(() => {
-    fetchMarketData();
-  }, []);
-
-  const fetchMarketData = async () => {
+  const fetchMarketData = React.useCallback(async () => {
     try {
       const response = await fetch('/api/market/global');
       
@@ -31,11 +27,56 @@ export function MarketOverview() {
       const data = await response.json();
       setMarketData(data);
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError('Failed to fetch market data');
       setLoading(false);
     }
-  };
+  }, []);
+
+  React.useEffect(() => {
+    fetchMarketData();
+  }, [fetchMarketData]);
+
+  const formatCurrency = React.useCallback((value: number) => {
+    if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
+    if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
+    if (value >= 1e6) return `$${(value / 1e6).toFixed(2)}M`;
+    return `$${value.toFixed(2)}`;
+  }, []);
+
+  const cards = React.useMemo(() => {
+    if (!marketData) return [] as Array<{
+      title: string; value: string; description: string; change?: number; icon: typeof DollarSign
+    }>;
+    return [
+      {
+        title: 'Total Market Cap',
+        value: formatCurrency(marketData.total_market_cap),
+        description: '24h change',
+        change: marketData.market_cap_change_24h,
+        icon: DollarSign
+      },
+      {
+        title: '24h Volume',
+        value: formatCurrency(marketData.total_volume),
+        description: 'Trading volume',
+        icon: Activity
+      },
+      {
+        title: 'BTC Dominance',
+        value: `${marketData.bitcoin_dominance.toFixed(1)}%`,
+        description: 'Market share',
+        icon: TrendingUp
+      },
+      {
+        title: 'Market Trend',
+        value: marketData.market_cap_change_24h > 0 ? 'Bullish' : 'Bearish',
+        description: '24h sentiment',
+        change: marketData.market_cap_change_24h,
+        icon: marketData.market_cap_change_24h > 0 ? TrendingUp : TrendingDown
+      }
+    ];
+  }, [marketData, formatCurrency]);
 
   if (loading) {
     return (
@@ -65,42 +106,6 @@ export function MarketOverview() {
       </Card>
     );
   }
-
-  const formatCurrency = (value: number) => {
-    if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
-    if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
-    if (value >= 1e6) return `$${(value / 1e6).toFixed(2)}M`;
-    return `$${value.toFixed(2)}`;
-  };
-
-  const cards = [
-    {
-      title: 'Total Market Cap',
-      value: formatCurrency(marketData.total_market_cap),
-      description: '24h change',
-      change: marketData.market_cap_change_24h,
-      icon: DollarSign
-    },
-    {
-      title: '24h Volume',
-      value: formatCurrency(marketData.total_volume),
-      description: 'Trading volume',
-      icon: Activity
-    },
-    {
-      title: 'BTC Dominance',
-      value: `${marketData.bitcoin_dominance.toFixed(1)}%`,
-      description: 'Market share',
-      icon: TrendingUp
-    },
-    {
-      title: 'Market Trend',
-      value: marketData.market_cap_change_24h > 0 ? 'Bullish' : 'Bearish',
-      description: '24h sentiment',
-      change: marketData.market_cap_change_24h,
-      icon: marketData.market_cap_change_24h > 0 ? TrendingUp : TrendingDown
-    }
-  ];
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

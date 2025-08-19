@@ -3,7 +3,8 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SkipLink {
@@ -236,7 +237,7 @@ export function AutoSkipLinks() {
 }
 
 // ランドマーク要素の自動ID設定
-export function ensureLandmarkIds() {
+export function EnsureLandmarkIds() {
   useEffect(() => {
     const ensureId = (selector: string, defaultId: string) => {
       const element = document.querySelector(selector);

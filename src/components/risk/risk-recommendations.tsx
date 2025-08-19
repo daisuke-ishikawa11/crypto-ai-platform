@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RiskMitigation, MitigationRecommendation } from '@/lib/risk/types';
 import { TrendingDown, Shield, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export function RiskRecommendations() {
-  const [mitigation, setMitigation] = useState<RiskMitigation | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [implementedActions, setImplementedActions] = useState<Set<number>>(new Set());
+  const [mitigation, setMitigation] = React.useState<RiskMitigation | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [implementedActions, setImplementedActions] = React.useState<Set<number>>(new Set());
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchRecommendations();
   }, []);
 
@@ -121,7 +122,7 @@ export function RiskRecommendations() {
       </Card>
 
       <div className="space-y-4">
-        {mitigation.recommendations.map((rec, index) => (
+        {mitigation.recommendations.map((rec: MitigationRecommendation, index: number) => (
           <Card key={index} className={implementedActions.has(index) ? 'opacity-60' : ''}>
             <CardHeader>
               <div className="flex items-start justify-between">

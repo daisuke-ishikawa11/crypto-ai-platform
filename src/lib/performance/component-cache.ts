@@ -1,12 +1,9 @@
-// 🚀 パフォーマンス最適化 - コンポーネントキャッシュシステム
-// メモ化とキャッシュでレンダリング性能を向上
-
 'use client';
 
-import { ComponentType, useMemo, useCallback, useRef, useState, useEffect, createElement } from 'react';
+import * as React from "react"
 
 // キャッシュストレージインターface
-interface CacheStorage<T = any> {
+interface CacheStorage<T = unknown> {
   get(key: string): T | null;
   set(key: string, value: T, ttl?: number): void;
   delete(key: string): void;
@@ -15,7 +12,7 @@ interface CacheStorage<T = any> {
 }
 
 // メモリキャッシュ実装
-class MemoryCache<T = any> implements CacheStorage<T> {
+class MemoryCache<T = unknown> implements CacheStorage<T> {
   private cache = new Map<string, { value: T; expiry?: number }>();
   private maxSize: number;
 
@@ -40,8 +37,10 @@ class MemoryCache<T = any> implements CacheStorage<T> {
     // サイズ制限チェック
     if (this.cache.size >= this.maxSize && !this.cache.has(key)) {
       // 最も古いエントリを削除（LRU）
-      const firstKey = this.cache.keys().next().value;
-      this.cache.delete(firstKey);
+      const firstKey = this.cache.keys().next().value as string | undefined;
+      if (typeof firstKey === 'string') {
+        this.cache.delete(firstKey);
+      }
     }
 
     const expiry = ttlMs ? Date.now() + ttlMs : undefined;
@@ -62,25 +61,25 @@ class MemoryCache<T = any> implements CacheStorage<T> {
 }
 
 // グローバルキャッシュインスタンス
-export const componentCache = new MemoryCache();
-export const dataCache = new MemoryCache();
+export const componentCache = new MemoryCache<unknown>();
+export const dataCache = new MemoryCache<unknown>();
 
 // コンポーネント結果をキャッシュするHOC
 export function withComponentCache<P extends object>(
-  Component: ComponentType<P>,
+  Component: React.ComponentType<P>,
   getCacheKey: (props: P) => string,
   ttlMs = 5 * 60 * 1000 // 5分デフォルト
 ) {
   return function CachedComponent(props: P) {
     const cacheKey = getCacheKey(props);
     
-    return useMemo(() => {
+    return React.useMemo(() => {
       const cached = componentCache.get(cacheKey);
       if (cached) {
-        return cached;
+        return cached as ReturnType<typeof React.createElement>;
       }
 
-      const result = createElement(Component, props);
+      const result = React.createElement(Component, props);
       componentCache.set(cacheKey, result, ttlMs);
       return result;
     }, [cacheKey, props]);
@@ -92,21 +91,21 @@ export function useCachedData<T>(
   key: string,
   fetcher: () => Promise<T>,
   ttlMs = 5 * 60 * 1000, // 5分デフォルト
-  dependencies: any[] = []
+  dependencies: unknown[] = []
 ) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  const fetchRef = useRef<Promise<T> | null>(null);
+  const [data, setData] = React.useState<T | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<Error | null>(null);
+  const fetchRef = React.useRef<Promise<T> | null>(null);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = React.useCallback(async () => {
     const cacheKey = `${key}-${JSON.stringify(dependencies)}`;
     
     // キャッシュチェック
     const cached = dataCache.get(cacheKey);
-    if (cached) {
-      setData(cached);
-      return cached;
+    if (cached !== null) {
+      setData(cached as T);
+      return cached as T;
     }
 
     // 同時実行防止
@@ -135,7 +134,7 @@ export function useCachedData<T>(
     }
   }, [key, fetcher, ttlMs, dependencies]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchData();
   }, [fetchData]);
 
@@ -153,44 +152,44 @@ export function useOptimizedMemo<T>(
   deps: React.DependencyList,
   cacheKey?: string
 ): T {
-  return useMemo(() => {
+  return React.useMemo(() => {
     if (cacheKey) {
       const cached = componentCache.get(cacheKey);
-      if (cached) {
-        return cached;
+      if (cached !== null) {
+        return cached as T;
       }
     }
 
     const result = factory();
     
-    if (cacheKey) {
-      componentCache.set(cacheKey, result, 60 * 1000); // 1分キャッシュ
-    }
+      if (cacheKey) {
+        componentCache.set(cacheKey, result, 60 * 1000); // 1分キャッシュ
+      }
     
     return result;
   }, deps);
 }
 
 // コールバック最適化
-export function useOptimizedCallback<T extends (...args: any[]) => any>(
+export function useOptimizedCallback<T extends (...args: unknown[]) => unknown>(
   callback: T,
   deps: React.DependencyList,
   cacheKey?: string
 ): T {
-  return useCallback((...args: Parameters<T>) => {
+  return React.useCallback((...args: Parameters<T>) => {
     if (cacheKey) {
-      const argKey = `${cacheKey}-${JSON.stringify(args)}`;
-      const cached = componentCache.get(argKey);
-      if (cached) {
-        return cached;
+      const argKeyLocal = `${cacheKey}-${JSON.stringify(args)}`;
+      const cached = componentCache.get(argKeyLocal);
+      if (cached !== null) {
+        return cached as ReturnType<T>;
       }
     }
 
-    const result = callback(...args);
+    const result = callback(...args) as ReturnType<T>;
     
     if (cacheKey) {
-      const argKey = `${cacheKey}-${JSON.stringify(args)}`;
-      componentCache.set(argKey, result, 30 * 1000); // 30秒キャッシュ
+      const argKeyLocal = `${cacheKey}-${JSON.stringify(args)}`;
+      componentCache.set(argKeyLocal, result, 30 * 1000); // 30秒キャッシュ
     }
     
     return result;
@@ -199,10 +198,10 @@ export function useOptimizedCallback<T extends (...args: any[]) => any>(
 
 // パフォーマンス監視
 export function usePerformanceMonitor(componentName: string) {
-  const renderCount = useRef(0);
-  const startTime = useRef(Date.now());
+  const renderCount = React.useRef(0);
+  const startTime = React.useRef(Date.now());
 
-  useEffect(() => {
+  React.useEffect(() => {
     renderCount.current += 1;
     
     if (process.env.NODE_ENV === 'development') {
@@ -210,7 +209,7 @@ export function usePerformanceMonitor(componentName: string) {
     }
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     const endTime = Date.now();
     const renderTime = endTime - startTime.current;
     
@@ -230,13 +229,13 @@ export function useHeavyComputation<T>(
   deps: React.DependencyList,
   cacheKey?: string
 ): T {
-  const computationRef = useRef<Promise<T> | null>(null);
+  const computationRef = React.useRef<Promise<T> | null>(null);
   
-  return useMemo(() => {
+  return React.useMemo(() => {
     if (cacheKey) {
       const cached = dataCache.get(cacheKey);
-      if (cached) {
-        return cached;
+      if (cached !== null) {
+        return cached as T;
       }
     }
 
@@ -283,8 +282,9 @@ export function getCacheStats() {
 // 開発環境でのキャッシュ監視
 if (process.env.NODE_ENV === 'development') {
   // 5秒ごとにキャッシュ統計を表示
-  setInterval(() => {
+  const t = setInterval(() => {
     const stats = getCacheStats();
     console.log('📊 キャッシュ統計:', stats);
   }, 5000);
+  (t as { unref?: () => void }).unref?.();
 }

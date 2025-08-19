@@ -673,16 +673,16 @@ ${protocol}プロトコルでの${amount.toLocaleString()}ドル、${timeframe}�
 また、リスク軽減策も具体的に提示してください。
 `,
 
-  YIELD_OPTIMIZATION: (portfolio: any, preferences: any) => `
+  YIELD_OPTIMIZATION: (portfolio: unknown, preferences: { riskTolerance?: string; investmentHorizon?: string; liquidityNeed?: string } ) => `
 以下のポートフォリオと投資家プロファイルに基づいて、最適な収益戦略を提案してください：
 
 現在のポートフォリオ：
 ${JSON.stringify(portfolio, null, 2)}
 
 投資家プロファイル：
-- リスク許容度: ${preferences.riskTolerance}
-- 投資期間: ${preferences.investmentHorizon}
-- 流動性ニーズ: ${preferences.liquidityNeed || '中程度'}
+- リスク許容度: ${String(preferences?.riskTolerance ?? '')}
+- 投資期間: ${String(preferences?.investmentHorizon ?? '')}
+- 流動性ニーズ: ${String(preferences?.liquidityNeed ?? '中程度')}
 
 最適化目標：
 1. リスク調整後リターンの最大化
@@ -766,7 +766,7 @@ export const DISCLAIMERS = {
   REGULATORY: '規制環境は急速に変化しており、今後DeFiの利用が制限される可能性があります。最新の規制情報を常に確認してください。'
 };
 
-export default {
+const DeFiPrompts = {
   PROTOCOL_KNOWLEDGE,
   DEFI_SYSTEM_PROMPTS,
   RISK_ASSESSMENT_TEMPLATES,
@@ -775,3 +775,5 @@ export default {
   RESPONSE_FORMATS,
   DISCLAIMERS
 };
+
+export default DeFiPrompts;

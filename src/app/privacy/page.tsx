@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from "react"
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Cpu, Sparkles, ArrowRight, Menu, Shield, Lock, Eye, FileText, CheckCircle, AlertTriangle, Calendar, Mail, ExternalLink, Book, Database, Settings, UserCheck, Globe, Server, Trash2, Download, Scale, Users } from 'lucide-react';
 

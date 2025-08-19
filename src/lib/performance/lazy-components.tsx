@@ -3,8 +3,18 @@
 
 'use client';
 
-import { lazy, Suspense, ComponentType, useState, useEffect, memo } from 'react';
+import React, { lazy, Suspense, ComponentType } from 'react';
 import { motion } from 'framer-motion';
+// 動的 import の default export を安全に取り出す補助
+function getDefaultComponent(mod: unknown): ComponentType<Record<string, unknown>> {
+  const m = mod as { default?: unknown }
+  const d = m?.default
+  if (typeof d === 'function') {
+    return d as ComponentType<Record<string, unknown>>
+  }
+  const NullComponent: ComponentType<Record<string, unknown>> = () => null
+  return NullComponent
+}
 
 // ローディングスケルトン用の共通コンポーネント
 export function LoadingSkeleton({ 
@@ -64,14 +74,14 @@ export function withLazyLoading<T extends object>(
   Component: ComponentType<T>,
   fallback?: ComponentType
 ) {
-  const LazyComponent = lazy(() => Promise.resolve({ default: Component }));
+  const LazyComponent = lazy(() => Promise.resolve({ default: Component }) as Promise<{ default: ComponentType<T> }>);
   
   return function LazyLoadedComponent(props: T) {
     const FallbackComponent = fallback || LoadingSkeleton;
     
     return (
       <Suspense fallback={<FallbackComponent />}>
-        <LazyComponent {...props} />
+        {React.createElement(LazyComponent as unknown as ComponentType<T>, props as T)}
       </Suspense>
     );
   };
@@ -80,31 +90,31 @@ export function withLazyLoading<T extends object>(
 // 遅延読み込み対象コンポーネント（重いコンポーネント用）
 export const LazyPricePrediction = lazy(() => 
   import('@/components/ai/price-prediction').then(module => ({
-    default: module.default
+    default: getDefaultComponent(module)
   }))
 );
 
 export const LazyMarketOverview = lazy(() => 
   import('@/components/market/market-overview').then(module => ({
-    default: module.default
+    default: getDefaultComponent(module)
   }))
 );
 
 export const LazyCoinAnalysis = lazy(() => 
   import('@/components/market/coin-analysis').then(module => ({
-    default: module.default
+    default: getDefaultComponent(module)
   }))
 );
 
 export const LazyTopMovers = lazy(() => 
   import('@/components/market/top-movers').then(module => ({
-    default: module.default
+    default: getDefaultComponent(module)
   }))
 );
 
 export const LazyTrendingCoins = lazy(() => 
   import('@/components/market/trending-coins').then(module => ({
-    default: module.default
+    default: getDefaultComponent(module)
   }))
 );
 
@@ -149,48 +159,10 @@ export function LazyTrendingCoinsWrapper() {
   );
 }
 
-// インタラクション用最適化フック
-export function useIntersectionObserver(
-  elementRef: React.RefObject<Element>,
-  {
-    threshold = 0.1,
-    rootMargin = '50px',
-    freezeOnceVisible = true,
-  } = {}
-) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasBeenVisible, setHasBeenVisible] = useState(false);
-
-  useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isElementVisible = entry.isIntersecting;
-        setIsVisible(isElementVisible);
-        
-        if (isElementVisible && !hasBeenVisible) {
-          setHasBeenVisible(true);
-        }
-      },
-      { threshold, rootMargin }
-    );
-
-    observer.observe(element);
-
-    return () => {
-      observer.unobserve(element);
-    };
-  }, [elementRef, threshold, rootMargin, hasBeenVisible]);
-
-  return freezeOnceVisible ? hasBeenVisible : isVisible;
-}
-
 // メモ化されたアニメーションコンポーネント
-export const OptimizedMotionDiv = memo(motion.div);
-export const OptimizedMotionSection = memo(motion.section);
-export const OptimizedMotionArticle = memo(motion.article);
+export const OptimizedMotionDiv = React.memo(motion.div);
+export const OptimizedMotionSection = React.memo(motion.section);
+export const OptimizedMotionArticle = React.memo(motion.article);
 
 // パフォーマンス監視用ユーティリティ
 export function measurePerformance(name: string, fn: () => void) {
@@ -209,7 +181,7 @@ export const optimizedIcons = {
   // 必要なアイコンのみを動的インポート
   loadIcon: (iconName: string) => lazy(() => 
     import('lucide-react').then(module => ({
-      default: module[iconName as keyof typeof module] as ComponentType
+      default: module[iconName as keyof typeof module] as ComponentType<Record<string, unknown>>
     }))
   )
 };

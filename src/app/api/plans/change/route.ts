@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerUser } from '@/lib/supabase/server'
 import { changePlan, canChangePlan } from '@/lib/pricing/plan-management'
 import { apiLogger } from '@/lib/monitoring/logger'
-import type { Database } from '@/lib/supabase/types'
-
-type UserPlan = Database['public']['Tables']['users']['Row']['plan']
+// Supabaseのusersテーブル参照を排除し、ローカルのPlanId型を使用
+type PlanId = 'free' | 'mini' | 'basic' | 'standard' | 'pro'
 
 export async function POST(request: NextRequest) {
   const requestId = crypto.randomUUID()
@@ -31,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Validate plan ID
-    const validPlans: UserPlan[] = ['free', 'mini', 'basic', 'standard', 'pro']
+    const validPlans: PlanId[] = ['free', 'mini', 'basic', 'standard', 'pro']
     if (!validPlans.includes(planId)) {
       return NextResponse.json(
         { error: 'Invalid plan ID' },

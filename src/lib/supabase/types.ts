@@ -598,6 +598,221 @@ export interface Database {
           created_at?: string
         }
       }
+      users: {
+        Row: {
+          id: string
+          email: string
+          plan: 'free' | 'mini' | 'basic' | 'standard' | 'pro'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          email: string
+          plan?: 'free' | 'mini' | 'basic' | 'standard' | 'pro'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          email?: string
+          plan?: 'free' | 'mini' | 'basic' | 'standard' | 'pro'
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      profiles: {
+        Row: {
+          id: string
+          role: 'admin' | 'analyst' | 'system' | 'user'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          role?: 'admin' | 'analyst' | 'system' | 'user'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          role?: 'admin' | 'analyst' | 'system' | 'user'
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      usage_tracking: {
+        Row: {
+          id: string
+          user_id: string
+          feature: string
+          usage_count: number
+          usage_date: string
+          tokens_used: number | null
+          cost_usd: number | null
+          model: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          feature: string
+          usage_count?: number
+          usage_date: string
+          tokens_used?: number | null
+          cost_usd?: number | null
+          model?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          feature?: string
+          usage_count?: number
+          usage_date?: string
+          tokens_used?: number | null
+          cost_usd?: number | null
+          model?: string | null
+          created_at?: string
+        }
+      }
+      portfolio_optimizations: {
+        Row: {
+          id: string
+          user_id: string
+          symbols: string[]
+          method: string
+          constraints: Json
+          investment_amount: number
+          optimization_result: Json
+          risk_metrics: Json
+          allocations: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          symbols: string[]
+          method: string
+          constraints: Json
+          investment_amount: number
+          optimization_result: Json
+          risk_metrics: Json
+          allocations: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          symbols?: string[]
+          method?: string
+          constraints?: Json
+          investment_amount?: number
+          optimization_result?: Json
+          risk_metrics?: Json
+          allocations?: Json
+          created_at?: string
+        }
+      }
+      notifications: {
+        Row: {
+          id: string
+          type: string
+          channel: string
+          priority: string
+          recipient_id: string
+          data: Json
+          metadata: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          type: string
+          channel: string
+          priority: string
+          recipient_id: string
+          data: Json
+          metadata: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          type?: string
+          channel?: string
+          priority?: string
+          recipient_id?: string
+          data?: Json
+          metadata?: Json
+          created_at?: string
+        }
+      }
+      notification_delivery_logs: {
+        Row: {
+          id: string
+          notification_id: string
+          status: 'pending' | 'delivered' | 'failed'
+          channel: string
+          delivery_time: number | null
+          cost_cents: number | null
+          opened_at: string | null
+          clicked_at: string | null
+          unsubscribed_at: string | null
+          error: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          notification_id: string
+          status?: 'pending' | 'delivered' | 'failed'
+          channel: string
+          delivery_time?: number | null
+          cost_cents?: number | null
+          opened_at?: string | null
+          clicked_at?: string | null
+          unsubscribed_at?: string | null
+          error?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          notification_id?: string
+          status?: 'pending' | 'delivered' | 'failed'
+          channel?: string
+          delivery_time?: number | null
+          cost_cents?: number | null
+          opened_at?: string | null
+          clicked_at?: string | null
+          unsubscribed_at?: string | null
+          error?: string | null
+          created_at?: string
+        }
+      }
+      analytics_reports: {
+        Row: {
+          id: string
+          type: string
+          query: Json
+          report: Json
+          generated_by: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          type: string
+          query: Json
+          report: Json
+          generated_by: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          type?: string
+          query?: Json
+          report?: Json
+          generated_by?: string
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

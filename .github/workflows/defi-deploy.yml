@@ -1,0 +1,518 @@
+name: DeFi Application Deployment Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      rollback:
+        description: 'Rollback to previous version'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '20'
+  DOCKER_REGISTRY: ghcr.io
+  IMAGE_NAME: crypto-ai-platform/defi-app
+  KUBECTL_VERSION: 'v1.28.0'
+  HELM_VERSION: 'v3.13.0'
+
+jobs:
+  # Static Analysis and Security Scanning
+  security-scan:
+    name: Security & Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level moderate
+
+      - name: Run Snyk security scan
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Run Semgrep security scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: auto
+
+  # Build and Test
+  build-test:
+    name: Build & Test Application
+    runs-on: ubuntu-latest
+    needs: security-scan
+    strategy:
+      matrix:
+        test-suite: [unit, integration, e2e]
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Run ${{ matrix.test-suite }} tests
+        run: npm run test:${{ matrix.test-suite }}
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgresql://postgres:test123@localhost:5432/crypto_ai_test
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.TEST_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.TEST_SUPABASE_ANON_KEY }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.test-suite }}
+          path: |
+            test-results/
+            coverage/
+            playwright-report/
+
+  # Docker Build and Push
+  docker-build:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    needs: build-test
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            NODE_ENV=production
+            NEXT_TELEMETRY_DISABLED=1
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ steps.meta.outputs.tags }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Infrastructure Validation
+  infrastructure-validate:
+    name: Validate Infrastructure Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+
+      - name: Terraform Format Check
+        run: |
+          cd infrastructure/terraform
+          terraform fmt -check
+
+      - name: Terraform Init
+        run: |
+          cd infrastructure/terraform
+          terraform init -backend=false
+
+      - name: Terraform Validate
+        run: |
+          cd infrastructure/terraform
+          terraform validate
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Helm Lint
+        run: |
+          helm lint infrastructure/helm/crypto-ai-platform
+
+      - name: Kubernetes Manifest Validation
+        uses: instrumenta/kubeval-action@master
+        with:
+          files: k8s/
+
+  # Staging Deployment
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [docker-build, infrastructure-validate]
+    if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    environment: 
+      name: staging
+      url: https://staging.crypto-ai-platform.com
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: ${{ env.KUBECTL_VERSION }}
+
+      - name: Update kube config
+        run: |
+          aws eks update-kubeconfig --name crypto-ai-staging --region ${{ secrets.AWS_REGION }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Deploy to Staging
+        run: |
+          helm upgrade --install crypto-ai-staging ./infrastructure/helm/crypto-ai-platform \
+            --namespace crypto-ai-staging \
+            --create-namespace \
+            --values ./infrastructure/helm/crypto-ai-platform/values-staging.yaml \
+            --set image.repository=${{ env.DOCKER_REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }} \
+            --set image.tag=${{ needs.docker-build.outputs.image-tag }} \
+            --set ingress.hosts[0].host=staging.crypto-ai-platform.com \
+            --wait --timeout=600s
+
+      - name: Verify Staging Deployment
+        run: |
+          kubectl rollout status deployment/crypto-ai-staging -n crypto-ai-staging --timeout=300s
+          kubectl get pods -n crypto-ai-staging
+          
+      - name: Run Smoke Tests
+        run: |
+          sleep 30
+          curl -f https://staging.crypto-ai-platform.com/api/health || exit 1
+          npm run test:smoke -- --env=staging
+
+      - name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          channel: '#deployments'
+          text: 'Staging deployment ${{ job.status }}: https://staging.crypto-ai-platform.com'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Production Deployment
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [docker-build, infrastructure-validate, deploy-staging]
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    environment: 
+      name: production
+      url: https://crypto-ai-platform.com
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: ${{ env.KUBECTL_VERSION }}
+
+      - name: Update kube config
+        run: |
+          aws eks update-kubeconfig --name crypto-ai-production --region ${{ secrets.AWS_REGION }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Backup Current Deployment
+        run: |
+          kubectl get deployment crypto-ai-production -n crypto-ai-production -o yaml > deployment-backup.yaml
+          helm get values crypto-ai-production -n crypto-ai-production > values-backup.yaml
+
+      - name: Deploy to Production with Blue-Green Strategy
+        run: |
+          # Deploy green version
+          helm upgrade --install crypto-ai-production-green ./infrastructure/helm/crypto-ai-platform \
+            --namespace crypto-ai-production \
+            --create-namespace \
+            --values ./infrastructure/helm/crypto-ai-platform/values-production.yaml \
+            --set image.repository=${{ env.DOCKER_REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }} \
+            --set image.tag=${{ needs.docker-build.outputs.image-tag }} \
+            --set nameOverride=crypto-ai-production-green \
+            --set service.name=crypto-ai-production-green \
+            --wait --timeout=600s
+
+      - name: Run Production Health Checks
+        run: |
+          kubectl rollout status deployment/crypto-ai-production-green -n crypto-ai-production --timeout=300s
+          
+          # Wait for pods to be ready
+          sleep 60
+          
+          # Port-forward for testing
+          kubectl port-forward svc/crypto-ai-production-green 8080:80 -n crypto-ai-production &
+          PF_PID=$!
+          
+          # Health check
+          sleep 10
+          curl -f http://localhost:8080/api/health || exit 1
+          
+          # Kill port-forward
+          kill $PF_PID
+
+      - name: Switch Traffic to Green Deployment
+        run: |
+          # Update ingress to point to green deployment
+          helm upgrade crypto-ai-production ./infrastructure/helm/crypto-ai-platform \
+            --namespace crypto-ai-production \
+            --values ./infrastructure/helm/crypto-ai-platform/values-production.yaml \
+            --set image.repository=${{ env.DOCKER_REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }} \
+            --set image.tag=${{ needs.docker-build.outputs.image-tag }} \
+            --set ingress.hosts[0].host=crypto-ai-platform.com \
+            --wait --timeout=300s
+
+      - name: Verify Production Deployment
+        run: |
+          sleep 30
+          curl -f https://crypto-ai-platform.com/api/health || exit 1
+          npm run test:smoke -- --env=production
+
+      - name: Cleanup Old Blue Deployment
+        run: |
+          sleep 60
+          helm uninstall crypto-ai-production-green -n crypto-ai-production || true
+
+      - name: Update Deployment Status
+        run: |
+          echo "deployment_status=success" >> $GITHUB_OUTPUT
+          echo "deployment_url=https://crypto-ai-platform.com" >> $GITHUB_OUTPUT
+          echo "deployment_version=${{ needs.docker-build.outputs.image-tag }}" >> $GITHUB_OUTPUT
+
+      - name: Notify Success
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: '#deployments'
+          text: |
+            🚀 Production deployment successful!
+            Version: ${{ needs.docker-build.outputs.image-tag }}
+            URL: https://crypto-ai-platform.com
+            Commit: ${{ github.sha }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Rollback Job
+  rollback:
+    name: Rollback Deployment
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.rollback == 'true'
+    environment: 
+      name: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: ${{ env.KUBECTL_VERSION }}
+
+      - name: Update kube config
+        run: |
+          aws eks update-kubeconfig --name crypto-ai-${{ github.event.inputs.environment }} --region ${{ secrets.AWS_REGION }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Rollback Deployment
+        run: |
+          helm rollback crypto-ai-${{ github.event.inputs.environment }} -n crypto-ai-${{ github.event.inputs.environment }}
+          kubectl rollout status deployment/crypto-ai-${{ github.event.inputs.environment }} -n crypto-ai-${{ github.event.inputs.environment }} --timeout=300s
+
+      - name: Verify Rollback
+        run: |
+          sleep 30
+          if [ "${{ github.event.inputs.environment }}" == "production" ]; then
+            curl -f https://crypto-ai-platform.com/api/health || exit 1
+          else
+            curl -f https://staging.crypto-ai-platform.com/api/health || exit 1
+          fi
+
+      - name: Notify Rollback
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: '#deployments'
+          text: '⏪ Rollback completed for ${{ github.event.inputs.environment }} environment'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Performance Testing
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Performance Tests
+        run: |
+          npm run test:performance -- --env=staging
+          npm run test:performance:load -- --env=staging
+
+      - name: Upload Performance Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results
+          path: |
+            lighthouse-report/
+            load-test-results/
+
+  # Post-deployment Monitoring
+  post-deployment-check:
+    name: Post-deployment Monitoring
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    if: success()
+    
+    steps:
+      - name: Wait for Application Warmup
+        run: sleep 120
+
+      - name: Check Application Health
+        run: |
+          for i in {1..5}; do
+            if curl -f https://crypto-ai-platform.com/api/health; then
+              echo "Health check $i passed"
+            else
+              echo "Health check $i failed"
+              exit 1
+            fi
+            sleep 30
+          done
+
+      - name: Verify Database Connectivity
+        run: |
+          curl -f https://crypto-ai-platform.com/api/dashboard/overview || exit 1
+
+      - name: Check Error Rates in Sentry
+        run: |
+          # Custom script to check Sentry for error spikes
+          node ./scripts/check-sentry-errors.js
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}

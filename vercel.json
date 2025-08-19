@@ -4,25 +4,32 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["hnd1"],
+  "regions": ["hnd1", "iad1", "sfo1"],
+  "name": "crypto-ai-platform-270",
   "functions": {
     "app/api/**/*.ts": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "memory": 1024
     },
-    "app/api/ai/chat/route.ts": {
-      "maxDuration": 60
+    "app/api/ai/**/*.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "app/api/learning/**/*.ts": {
+      "maxDuration": 15,
+      "memory": 512
     },
     "app/api/portfolio/optimize/route.ts": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 1024
     },
-    "app/api/market/binance/route.ts": {
-      "maxDuration": 30
-    },
-    "app/api/market/coinmarketcap/route.ts": {
-      "maxDuration": 30
+    "app/api/market/**/*.ts": {
+      "maxDuration": 30,
+      "memory": 512
     },
     "app/api/risk/analysis/route.ts": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 1024
     }
   },
   "env": {
@@ -48,6 +55,15 @@
       ]
     },
     {
+      "source": "/learning/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -69,6 +85,10 @@
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
         }
       ]
     }
@@ -84,6 +104,20 @@
     {
       "source": "/health",
       "destination": "/api/health"
+    },
+    {
+      "source": "/lessons/:path*",
+      "destination": "/learning/lessons/:path*"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/market-data",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 2 * * *"
     }
   ]
 }

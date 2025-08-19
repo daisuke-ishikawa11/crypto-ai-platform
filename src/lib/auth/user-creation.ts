@@ -2,7 +2,8 @@ import { createClient as createClientClient } from '@/lib/supabase/client'
 import { apiLogger } from '@/lib/monitoring/logger'
 import type { Database } from '@/lib/supabase/types'
 
-type UserProfile = Database['public']['Tables']['users']['Insert']
+type UserProfileRow = Database['public']['Tables']['user_profiles']['Row']
+type UserProfileInsert = Database['public']['Tables']['user_profiles']['Insert']
 
 export async function createUserProfile(
   userId: string,
@@ -12,29 +13,32 @@ export async function createUserProfile(
   try {
     const supabase = createClientClient()
     
-    // Check if user already exists
+    // 既存ユーザー確認（user_profiles）
     const { data: existingUser } = await supabase
-      .from('users')
+      .from('user_profiles')
       .select('id')
       .eq('id', userId)
-      .single()
+      .maybeSingle()
 
     if (existingUser) {
       return { success: true }
     }
 
-    // Create user profile
-    const userProfile: UserProfile = {
+    // プロファイル作成（subscription_status はスキーマ準拠）
+    const userProfile: UserProfileInsert = {
       id: userId,
       email,
-      name: name || null,
-      plan: 'free',
+      full_name: name || null,
+      avatar_url: null,
+      role: 'user',
+      subscription_status: 'inactive',
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
+      last_active_at: null
     }
 
     const { error } = await supabase
-      .from('users')
+      .from('user_profiles')
       .insert([userProfile])
 
     if (error) {
@@ -46,7 +50,7 @@ export async function createUserProfile(
       return { success: false, error: error.message }
     }
 
-    // Initialize usage tracking for the new user
+    // 初期利用状況を作成
     await initializeUsageTracking(userId)
 
     apiLogger.info('User profile created successfully', {
@@ -71,11 +75,8 @@ async function initializeUsageTracking(userId: string): Promise<void> {
   try {
     const supabase = createClientClient()
     const today = new Date().toISOString().split('T')[0]
-    
-    // Initialize usage tracking for free plan features
-    const freeFeatures = ['ai_chats', 'portfolio_analysis', 'market_insights']
-    
-    for (const feature of freeFeatures) {
+    const features = ['ai_chats', 'portfolio_analysis', 'market_insights']
+    for (const feature of features) {
       await supabase
         .from('usage_tracking')
         .upsert({
@@ -94,12 +95,12 @@ async function initializeUsageTracking(userId: string): Promise<void> {
   }
 }
 
-export async function getUserProfile(userId: string) {
+export async function getUserProfile(userId: string): Promise<UserProfileRow | null> {
   try {
     const supabase = createClientClient()
     
     const { data, error } = await supabase
-      .from('users')
+      .from('user_profiles')
       .select('*')
       .eq('id', userId)
       .single()
@@ -113,7 +114,7 @@ export async function getUserProfile(userId: string) {
       return null
     }
 
-    return data
+    return data as UserProfileRow
   } catch (error) {
     apiLogger.error('Unexpected error fetching user profile', {
       userId,
@@ -126,13 +127,13 @@ export async function getUserProfile(userId: string) {
 
 export async function updateUserProfile(
   userId: string,
-  updates: Partial<UserProfile>
+  updates: Partial<UserProfileInsert>
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const supabase = createClientClient()
     
     const { error } = await supabase
-      .from('users')
+      .from('user_profiles')
       .update({
         ...updates,
         updated_at: new Date().toISOString()
