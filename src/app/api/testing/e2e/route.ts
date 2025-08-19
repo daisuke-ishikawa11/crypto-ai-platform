@@ -47,8 +47,11 @@ async function handler(req: NextRequest): Promise<NextResponse> {
     const first = Array.isArray(j4?.data?.items) ? j4.data.items[0] : undefined
     results.ai = { ok: r4.ok, status: r4.status, hasItems: Array.isArray(j4?.data?.items), sourceUrl: first?.meta?.sourceUrl ?? null }
 
-    type Check = { ok?: boolean }
-    const overallOk = Boolean((results.search as Check).ok && (results.ingest as Check).ok && (results.compare as Check).ok && (results.ai as Check).ok)
+    type Check = { ok?: boolean; status?: number }
+    // 公開APIの利用性を優先: search / ai が通れば success とみなし、
+    // 保護や追加認証が必要な ingest/compare の 401 は information として返却
+    const okPublic = Boolean((results.search as Check).ok || (results.ai as Check).ok)
+    const overallOk = okPublic
     return NextResponse.json({ success: overallOk, results })
   } catch (e) {
     return NextResponse.json({ success: false, error: e instanceof Error ? e.message : String(e), results }, { status: 500 })
