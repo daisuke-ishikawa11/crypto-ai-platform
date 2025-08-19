@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger batch ingest
+        env:
+          BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          CRON_TOKEN: ${{ secrets.CRON_TOKEN }}
+          VERCEL_BYPASS_TOKEN: ${{ secrets.VERCEL_BYPASS_TOKEN }}
         run: |
-          curl -sS "${{ secrets.NEXT_PUBLIC_BASE_URL }}/api/defi/pools/history/ingest/cron?token=${{ secrets.CRON_TOKEN }}"
-
+          curl -sS -H "x-vercel-protection-bypass: ${VERCEL_BYPASS_TOKEN}" "${BASE_URL}/api/defi/pools/history/ingest/cron?token=${CRON_TOKEN}"
