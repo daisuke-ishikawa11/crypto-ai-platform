@@ -7,11 +7,19 @@ async function handler(req: NextRequest): Promise<NextResponse> {
   const url = new URL(req.url)
   const origin = url.origin
   const incomingBypass = req.headers.get('x-vercel-protection-bypass') || process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
-  const fopts = (extra?: RequestInit): RequestInit => ({
-    cache: 'no-store',
-    headers: incomingBypass ? { 'x-vercel-protection-bypass': incomingBypass } : undefined,
-    ...(extra || {}),
-  })
+  const incomingCookie = req.headers.get('cookie') || ''
+  const incomingAuth = req.headers.get('authorization') || ''
+  const fopts = (extra?: RequestInit): RequestInit => {
+    const headers: Record<string, string> = {}
+    if (incomingBypass) headers['x-vercel-protection-bypass'] = incomingBypass
+    if (incomingCookie) headers['cookie'] = incomingCookie
+    if (incomingAuth) headers['authorization'] = incomingAuth
+    return {
+      cache: 'no-store',
+      headers: Object.keys(headers).length ? headers : undefined,
+      ...(extra || {}),
+    }
+  }
   const results: Record<string, unknown> = {}
   try {
     // 1) search
