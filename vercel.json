@@ -5,7 +5,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["hnd1", "iad1", "sfo1"],
-  "name": "crypto-ai-platform-270",
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30,
@@ -108,20 +107,6 @@
     {
       "source": "/lessons/:path*",
       "destination": "/learning/lessons/:path*"
-    }
-  ],
-  "crons": [
-    {
-      "path": "/api/cron/market-data",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/cleanup",
-      "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/defi/pools/history/ingest/cron",
-      "schedule": "*/10 * * * *"
     }
   ]
 }
