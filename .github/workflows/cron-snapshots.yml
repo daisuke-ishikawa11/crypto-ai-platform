@@ -1,0 +1,15 @@
+name: Cron Snapshots
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  run-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger batch ingest
+        run: |
+          curl -sS "${{ secrets.NEXT_PUBLIC_BASE_URL }}/api/defi/pools/history/ingest/cron?token=${{ secrets.CRON_TOKEN }}"
+
