@@ -124,3 +124,39 @@ export function computeRiskScoreSummary(input: RiskInput): RiskSummary {
     ],
   }
 }
+
+export type RiskReasonFull = RiskReason & {
+  method?: string
+  params?: Record<string, unknown>
+  thresholds?: Record<string, unknown>
+}
+
+export function computeRiskScoreFull(input: RiskInput): { summary: RiskSummary; reasonsFull: RiskReasonFull[] } {
+  const sum = computeRiskScoreSummary(input)
+  const T = getEnvJson<typeof DEFAULT_THRESHOLDS>('RISK_SCORE_THRESHOLDS_JSON', DEFAULT_THRESHOLDS)
+  const reasonsFull: RiskReasonFull[] = sum.reasonsSummary.map(r => {
+    const rf: RiskReasonFull = { ...r }
+    if (r.id.startsWith('source')) {
+      rf.method = 'source_evidence'
+      rf.params = { graphSourceUrl: input.graphSourceUrl }
+      rf.thresholds = { trustedKeywords: ['uniswap','aave','thegraph','graph'] }
+    } else if (r.id.startsWith('tvl')) {
+      rf.method = 'tvl_level'
+      rf.params = { tvl: input.tvl }
+      rf.thresholds = { low: T.tvl.low, mid: T.tvl.mid }
+    } else if (r.id.startsWith('apy')) {
+      rf.method = 'apy_outlier'
+      rf.params = { apy: input.apy }
+      rf.thresholds = { mid: T.apy.mid, high: T.apy.high }
+    } else if (r.id.startsWith('volatility')) {
+      rf.method = 'volume_to_tvl_ratio'
+      rf.params = { volume24h: input.volume24h, tvl: input.tvl }
+      rf.thresholds = { mid: T.volumeToTvl.mid, high: T.volumeToTvl.high }
+    } else if (r.id === 'missing.data') {
+      rf.method = 'missing_fields'
+      rf.params = { fields: { tvl: input.tvl, apy: input.apy, volume24h: input.volume24h, source: input.graphSourceUrl } }
+    }
+    return rf
+  })
+  return { summary: sum, reasonsFull }
+}

@@ -201,7 +201,10 @@ export const defiNftCategoryTest: CategoryTest = {
       points: 3
     },
     {
-      id: 'q9',
+      id: 'defi-nft-test-q9',
+      type: 'multiple_choice',
+      difficulty: 'intermediate',
+      category: 'NFT応用',
       question: 'NFTの「Royalty（ロイヤリティ）」システムの現在の最大の課題は？',
       options: [
         'ロイヤリティ率が低すぎること',
@@ -210,10 +213,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '計算方法が複雑すぎること'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：技術的強制力がなく、マーケットプレイス依存であること</strong></p><p><strong>NFTロイヤリティ</strong>は、<strong>技術標準化の欠如</strong>により実効性に課題があります。</p><p><strong>現在の問題：</strong></p><ul><li><strong>No Technical Enforcement</strong>：ブロックチェーンレベルでの強制不可</li><li><strong>Marketplace Dependent</strong>：各プラットフォームの任意実装</li><li><strong>Easy Circumvention</strong>：技術的回避が容易</li><li><strong>Inconsistent Implementation</strong>：統一されていない実装</li></ul><p>OpenSeaの段階的廃止等により、クリエイター収益確保の新しいモデル構築が課題となっています。</p>'
+      explanation: 'NFTロイヤリティは技術標準化の欠如により実効性に課題があります。ブロックチェーンレベルでの強制力がなく、各マーケットプレイスの任意実装に依存しているため、技術的回避が容易な状況です。',
+      points: 2
     },
     {
-      id: 'q10',
+      id: 'defi-nft-test-q10',
+      type: 'multiple_choice',
+      difficulty: 'intermediate',
+      category: 'DeFi応用',
       question: 'DeFiプロトコルの「Governance」で最も重要な原則は？',
       options: [
         '開発チームが全決定権を持つ',
@@ -222,10 +229,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '最大投資家による管理'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：トークン保有者による分散的意思決定</strong></p><p><strong>DeFi Governance</strong>の核心は、<strong>コミュニティによる分散的統治</strong>です。</p><p><strong>Governance原則：</strong></p><ul><li><strong>Decentralized Decision Making</strong>：分散的意思決定</li><li><strong>Token-based Voting</strong>：トークン保有量に応じた投票権</li><li><strong>Transparent Process</strong>：透明な意思決定プロセス</li><li><strong>Community Participation</strong>：コミュニティの積極参加</li></ul><p>中央集権的統制を排除し、ステークホルダー全員が参加できる<strong>民主的ガバナンス</strong>がDeFiの価値提案です。</p>'
+      explanation: 'DeFi Governanceの核心は、コミュニティによる分散的統治です。トークン保有量に応じた投票権、透明な意思決定プロセス、ステークホルダー全員の参加が民主的ガバナンスを実現します。',
+      points: 2
     },
     {
-      id: 'q11',
+      id: 'defi-nft-test-q11',
+      type: 'multiple_choice',
+      difficulty: 'intermediate',
+      category: '実践応用',
       question: 'NFT投資における「DYOR（Do Your Own Research）」で最も重要な調査項目は？',
       options: [
         'NFTの見た目の美しさ',
@@ -234,10 +245,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '有名人の推薦'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：プロジェクトチーム、技術、コミュニティの総合評価</strong></p><p><strong>包括的なDYOR</strong>は、<strong>ファンダメンタル分析</strong>に基づく必要があります。</p><p><strong>重要調査項目：</strong></p><ul><li><strong>Team Background</strong>：開発チームの経歴・実績</li><li><strong>Technology Innovation</strong>：技術的優位性・独自性</li><li><strong>Community Health</strong>：コミュニティの質・活動度</li><li><strong>Utility & Roadmap</strong>：実用性・将来計画</li><li><strong>Tokenomics</strong>：トークン経済学の健全性</li></ul><p>見た目や一時的な話題性ではなく、<strong>長期的価値の源泉</strong>を評価することが重要です。</p>'
+      explanation: '包括的なDYORはファンダメンタル分析に基づく必要があります。開発チームの経歴・実績、技術的優位性、コミュニティの質、実用性・将来計画、トークン経済学の健全性を評価することが重要です。',
+      points: 2
     },
     {
-      id: 'q12',
+      id: 'defi-nft-test-q12',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: 'NFT応用',
       question: 'Cross-Chain NFTの最も困難な技術的課題は？',
       options: [
         '取引速度の向上',
@@ -246,10 +261,14 @@ export const defiNftCategoryTest: CategoryTest = {
         'ユーザーインターフェースの統一'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：異なるブロックチェーン間でのメタデータ整合性確保</strong></p><p><strong>Cross-Chain NFT</strong>では、<strong>データ一貫性</strong>が最重要課題です。</p><p><strong>技術的課題：</strong></p><ul><li><strong>Metadata Synchronization</strong>：メタデータの同期</li><li><strong>State Management</strong>：状態管理の統一</li><li><strong>Ownership Verification</strong>：所有権の検証</li><li><strong>Update Propagation</strong>：変更の伝播</li></ul><p>複数チェーン間でのNFT状態管理は、単純な価格データと異なり、複雑なメタデータ構造の整合性維持が必要です。</p>'
+      explanation: 'Cross-Chain NFTではデータ一貫性が最重要課題です。メタデータの同期、状態管理の統一、所有権の検証、変更の伝播など、複数チェーン間でのNFT状態管理には複雑なメタデータ構造の整合性維持が必要です。',
+      points: 3
     },
     {
-      id: 'q13',
+      id: 'defi-nft-test-q13',
+      type: 'multiple_choice',
+      difficulty: 'intermediate',
+      category: 'DeFi応用',
       question: 'DeFi Yield Farmingの最適戦略で最も重要でない要素は？',
       options: [
         'APY（年間収益率）の分析',
@@ -258,10 +277,14 @@ export const defiNftCategoryTest: CategoryTest = {
         'Impermanent Lossの計算'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：SNSでの人気度</strong></p><p><strong>効果的なYield Farming</strong>には、<strong>定量的・技術的分析</strong>が必要です。</p><p><strong>重要な分析要素：</strong></p><ul><li><strong>Risk-Adjusted Returns</strong>：リスク調整済みリターン</li><li><strong>Smart Contract Security</strong>：技術的安全性</li><li><strong>Tokenomics Analysis</strong>：トークン経済学</li><li><strong>Liquidity Analysis</strong>：流動性リスク評価</li></ul><p>SNSの人気は感情的判断を引き起こし、適切なリスク評価を阻害する可能性があります。<strong>データ駆動</strong>のアプローチが重要です。</p>'
+      explanation: '効果的なYield Farmingには定量的・技術的分析が必要です。リスク調整済みリターン、技術的安全性、トークン経済学、流動性リスク評価が重要であり、SNSの人気は感情的判断を引き起こす可能性があります。',
+      points: 2
     },
     {
-      id: 'q14',
+      id: 'defi-nft-test-q14',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: 'NFT応用',
       question: 'NFT市場における「Wash Trading」の見分け方として最も効果的なのは？',
       options: [
         '価格の急上昇',
@@ -270,10 +293,14 @@ export const defiNftCategoryTest: CategoryTest = {
         'メディア露出の多さ'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：同一ウォレット間での繰り返し取引パターン</strong></p><p><strong>Wash Trading</strong>は、<strong>人為的な取引量操作</strong>であり、パターン分析で検出可能です。</p><p><strong>検出方法：</strong></p><ul><li><strong>Transaction Pattern Analysis</strong>：取引パターンの分析</li><li><strong>Wallet Relationship Mapping</strong>：ウォレット関連性の調査</li><li><strong>Timing Analysis</strong>：不自然な取引タイミング</li><li><strong>Price Rationality</strong>：不合理な価格設定</li></ul><p>オンチェーンデータの分析により、健全な取引と人為的操作を区別することが可能です。</p>'
+      explanation: 'Wash Tradingは人為的な取引量操作であり、パターン分析で検出可能です。取引パターンの分析、ウォレット関連性の調査、不自然な取引タイミング、不合理な価格設定など、オンチェーンデータ分析で健全な取引と操作を区別できます。',
+      points: 3
     },
     {
-      id: 'q15',
+      id: 'defi-nft-test-q15',
+      type: 'multiple_choice',
+      difficulty: 'intermediate',
+      category: 'Web3・GameFi',
       question: 'メタバースにおけるVirtual Real Estate NFTの価値決定で最も重要な要因は？',
       options: [
         '土地の見た目',
@@ -282,7 +309,8 @@ export const defiNftCategoryTest: CategoryTest = {
         '所有者の知名度'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：立地・トラフィック・開発可能性</strong></p><p><strong>Virtual Real Estate</strong>の価値は、<strong>現実不動産の価値要因</strong>と類似しています。</p><p><strong>価値決定要因：</strong></p><ul><li><strong>Location Premium</strong>：中心地・人気エリア近接</li><li><strong>Traffic Volume</strong>：訪問者数・利用頻度</li><li><strong>Development Potential</strong>：建築・収益化可能性</li><li><strong>Network Effects</strong>：周辺環境・インフラ</li></ul><p>メタバースにおいても「Location, Location, Location」の不動産原則が適用され、<strong>実用性と収益性</strong>が価値の源泉です。</p>'
+      explanation: 'Virtual Real Estateの価値は現実不動産の価値要因と類似しています。中心地・人気エリア近接、訪問者数・利用頻度、建築・収益化可能性、周辺環境・インフラが重要で、「Location, Location, Location」の原則が適用されます。',
+      points: 2
     },
     {
       id: 'q16',

@@ -41,5 +41,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: e instanceof Error ? e.message : String(e) }, { status: 500 })
   }
 }
-
-
