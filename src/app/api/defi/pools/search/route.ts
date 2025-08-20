@@ -5,6 +5,7 @@ import { fetchDexPools } from '@/lib/defi/dex-integrations'
 import { createApiHandler } from '@/lib/utils/api-error-middleware'
 import { runAdapter } from '@/lib/sdk/runner'
 import { detectUniswapV4Hooks } from '@/lib/evm/uniswap-sdk-helpers'
+import { computeRiskScoreSummary } from '@/lib/defi/risk-scoring'
 
 async function handler(request: NextRequest): Promise<NextResponse> {
   try {
@@ -24,6 +25,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     const maxApy = parseFloat(searchParams.get('maxApy') || '100000')
     const sortBy = (searchParams.get('sortBy') || 'tvl').toLowerCase()
     const sortOrder = (searchParams.get('sortOrder') || 'desc').toLowerCase()
+    const includeRisk = (searchParams.get('includeRisk') || 'summary').toLowerCase() !== 'none'
 
     type PoolItem = {
       source: 'internal' | 'external'
@@ -41,6 +43,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
       graphSourceName?: string
       estimatedVolumeUsd24h?: number
       graphSourceUrl?: string
+      meta?: Record<string, unknown>
     }
     type DbPoolRow = {
       pool_name?: string | null
@@ -466,7 +469,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     }
 
     // 3) マージ＆ソート
-    const merged = [...dbResults, ...extResults]
+    let merged: Array<PoolItem & { meta?: Record<string, unknown> }> = [...dbResults, ...extResults]
       .filter(x => x.tvl >= minTvl)
       .sort((a, b) => {
         const key = sortBy === 'apy' ? 'apy' : (sortBy === 'volume' ? 'volume24h' : 'tvl')
@@ -475,6 +478,27 @@ async function handler(request: NextRequest): Promise<NextResponse> {
         return sortOrder === 'asc' ? av - bv : bv - av
       })
       .slice(offset, offset + limit)
+
+    // リスクサマリ（減点方式: 低スコア=要警戒）を必要時に付与
+    if (includeRisk) {
+      merged = merged.map((it) => {
+        try {
+          const risk = computeRiskScoreSummary({
+            protocol: it.protocol,
+            network: it.network,
+            tvl: it.tvl,
+            apy: it.apy,
+            volume24h: it.volume24h,
+            graphSourceUrl: it.graphSourceUrl,
+            feeTier: (it as { feeTier?: number }).feeTier,
+          })
+          const currMeta = (it as { meta?: Record<string, unknown> }).meta || {}
+          return { ...it, meta: { ...currMeta, risk } }
+        } catch {
+          return it
+        }
+      })
+    }
 
     return NextResponse.json({ success: true, data: { items: merged, total: dbResults.length + extResults.length, offset, limit, filters: { q, token, network, includeDexes: includeDexesParam, includeUniswap, minApy, maxApy, minTvl, apyKind, sortBy, sortOrder } } })
   } catch (e) {
