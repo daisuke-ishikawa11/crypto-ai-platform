@@ -65,6 +65,7 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+          SUPABASE_SERVICE_KEY: dummy-service-key
       - name: Start app
         run: |
           NEXT_DISABLE_SOURCEMAPS=1 NODE_OPTIONS="--max-old-space-size=2048" npm run start &
@@ -104,6 +105,7 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+          SUPABASE_SERVICE_KEY: dummy-service-key
           SKIP_ENV_VALIDATION: true
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
