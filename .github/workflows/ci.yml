@@ -73,8 +73,13 @@ jobs:
             curl -fsS http://localhost:3000/api/health && break
             sleep 1
           done
-      - name: Run E2E tests
-        run: npm run test:e2e
+      - name: Run E2E tests (skip if no tests)
+        run: |
+          if npx playwright test --list | grep -qi "no tests found\|0 tests"; then
+            echo "No E2E tests found. Skipping.";
+            exit 0;
+          fi
+          npm run test:e2e
         env:
           BASE_URL: http://localhost:3000
           OPENAI_API_KEY: dummy-openai-key

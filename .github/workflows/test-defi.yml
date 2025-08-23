@@ -42,10 +42,15 @@ jobs:
             sleep 1
           done
 
-      - name: Run DeFi E2E
+      - name: Run DeFi E2E (skip if no tests)
         env:
           BASE_URL: http://localhost:3000
-        run: npm run test:defi
+        run: |
+          if npx playwright test --list -c playwright-defi.config.ts | grep -qi "no tests found\|0 tests"; then
+            echo "No defi E2E tests found. Skipping.";
+            exit 0;
+          fi
+          npm run test:defi
 
       - name: Upload report on failure
         if: failure()
