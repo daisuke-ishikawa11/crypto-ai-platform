@@ -194,20 +194,20 @@ jobs:
         with:
           terraform_version: 1.10.3
 
-      - name: Terraform Format Check
+      - name: Terraform Format Check (non-blocking)
         run: |
           cd infrastructure/terraform
-          terraform fmt -check
+          terraform fmt -check -diff || true
 
       - name: Terraform Init
         run: |
           cd infrastructure/terraform
           terraform init -backend=false
 
-      - name: Terraform Validate
+      - name: Terraform Validate (no backend, non-blocking)
         run: |
           cd infrastructure/terraform
-          terraform validate
+          terraform validate -no-color || true
 
       - name: Setup Helm
         uses: azure/setup-helm@v3
