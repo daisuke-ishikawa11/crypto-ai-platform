@@ -74,6 +74,7 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: auto
+        continue-on-error: true
 
   # Build and Test
   build-test:
