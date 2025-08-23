@@ -32,12 +32,15 @@ jobs:
 
       - name: Build app
         run: npm run build
+        env:
+          SKIP_ENV_VALIDATION: true
+          NEXT_TELEMETRY_DISABLED: 1
 
       - name: Start app (scoped to alerts)
         run: |
-          APP_ACCESS_SCOPE=alerts NEXT_DISABLE_SOURCEMAPS=1 NODE_OPTIONS="--max-old-space-size=2048" npm run start &
+          NODE_ENV=test APP_ACCESS_SCOPE=alerts NEXT_DISABLE_SOURCEMAPS=1 NODE_OPTIONS="--max-old-space-size=2048" npm run start &
           for i in {1..60}; do
-            curl -fsS http://localhost:3000/api/health && break
+            curl -fsS http://localhost:3000/api/monitoring/status && break
             sleep 1
           done
 
