@@ -73,402 +73,508 @@ export const lesson34: Lesson = {
         type: 'text',
         content: `# 主要マクロ要因の基礎から応用分析
 
-## 中央銀行政策分析（基礎）
-### 米連邦準備制度（FED）の影響
-**政策金利の暗号資産への影響**
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">中央銀行政策分析（基礎）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">米連邦準備制度（FED）の影響</h3>
+<strong>政策金利の暗号資産への影響</strong>
 
-#### 利上げ局面（基礎）
-- **直接影響**: 借入コスト増加、投資資金減少
-- **間接影響**: 株式等リスク資産からの資金流出
-- **暗号資産**: 一般的に価格下押し圧力
-- **例外**: インフレヘッジ需要による相反する動き
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">利上げ局面（基礎）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>直接影響</strong>: 借入コスト増加、投資資金減少</li>
+<li><strong>間接影響</strong>: 株式等リスク資産からの資金流出</li>
+<li><strong>暗号資産</strong>: 一般的に価格下押し圧力</li>
+<li><strong>例外</strong>: インフレヘッジ需要による相反する動き</li>
+</ul>
 
-#### 利下げ局面（基礎）
-- **直接影響**: 流動性増加、投資意欲向上
-- **間接影響**: リスク資産への資金回帰
-- **暗号資産**: 一般的に価格上昇要因
-- **注意点**: 景気後退懸念による複雑な影響
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">利下げ局面（基礎）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>直接影響</strong>: 流動性増加、投資意欲向上</li>
+<li><strong>間接影響</strong>: リスク資産への資金回帰</li>
+<li><strong>暗号資産</strong>: 一般的に価格上昇要因</li>
+<li><strong>注意点</strong>: 景気後退懸念による複雑な影響</li>
+</ul>
 
-### 実践的な政策分析（応用）
-#### 2025年FED政策スタンス分析
-**現在の政策環境**
-- **政策金利**: 4.75-5.00%（2024年末から微調整）
-- **インフレ率**: 2.8%（目標2%を上回る）
-- **雇用情勢**: 失業率3.9%（ほぼ完全雇用）
-- **政策方向**: 慎重な利下げ検討段階
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践的な政策分析（応用）</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">2025年FED政策スタンス分析</h4>
+<strong>現在の政策環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>政策金利</strong>: 4.75-5.00%（2024年末から微調整）</li>
+<li><strong>インフレ率</strong>: 2.8%（目標2%を上回る）</li>
+<li><strong>雇用情勢</strong>: 失業率3.9%（ほぼ完全雇用）</li>
+<li><strong>政策方向</strong>: 慎重な利下げ検討段階</li>
+</ul>
 
-**暗号資産投資への含意**
-- **短期影響**: 政策発表による高ボラティリティ
-- **中期影響**: 利下げ期待による段階的上昇
-- **長期影響**: 金融正常化による持続的成長
+<strong>暗号資産投資への含意</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>短期影響</strong>: 政策発表による高ボラティリティ</li>
+<li><strong>中期影響</strong>: 利下げ期待による段階的上昇</li>
+<li><strong>長期影響</strong>: 金融正常化による持続的成長</li>
+</ul>
 
-### 量的緩和（QE）と量的引き締め（QT）
-#### QE（量的緩和）の影響メカニズム
-**2020-2021年のQE効果**
-- **資金供給**: 月次$1200億の債券購入
-- **流動性**: 金融システムへの大量資金供給
-- **リスク資産**: 株式・暗号資産への資金流入
-- **結果**: Bitcoin 10倍、Ethereum 40倍の上昇
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">量的緩和（QE）と量的引き締め（QT）</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">QE（量的緩和）の影響メカニズム</h4>
+<strong>2020-2021年のQE効果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金供給</strong>: 月次$1200億の債券購入</li>
+<li><strong>流動性</strong>: 金融システムへの大量資金供給</li>
+<li><strong>リスク資産</strong>: 株式・暗号資産への資金流入</li>
+<li><strong>結果</strong>: Bitcoin 10倍、Ethereum 40倍の上昇</li>
+</ul>
 
-#### QT（量的引き締め）の影響
-**2022-2024年のQT効果**
-- **資金回収**: 月次$950億のバランスシート縮小
-- **流動性減少**: 市場からの資金吸収
-- **リスク資産**: 株式・暗号資産からの資金流出
-- **結果**: 暗号資産市場70%以上の下落
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">QT（量的引き締め）の影響</h4>
+<strong>2022-2024年のQT効果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金回収</strong>: 月次$950億のバランスシート縮小</li>
+<li><strong>流動性減少</strong>: 市場からの資金吸収</li>
+<li><strong>リスク資産</strong>: 株式・暗号資産からの資金流出</li>
+<li><strong>結果</strong>: 暗号資産市場70%以上の下落</li>
+</ul>
 
-## 国際金融市場との相関分析
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">国際金融市場との相関分析</h2>
 
-### 株式市場との相関（応用）
-#### S&P500との相関係数推移
-**時期別相関関係**
-- **2020年**: 0.32（中程度の正相関）
-- **2021年**: 0.67（高い正相関）
-- **2022年**: 0.78（非常に高い正相関）
-- **2023年**: 0.45（中程度の正相関）
-- **2024年**: 0.39（選択的相関）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">株式市場との相関（応用）</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">S&P500との相関係数推移</h4>
+<strong>時期別相関関係</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>2020年</strong>: 0.32（中程度の正相関）</li>
+<li><strong>2021年</strong>: 0.67（高い正相関）</li>
+<li><strong>2022年</strong>: 0.78（非常に高い正相関）</li>
+<li><strong>2023年</strong>: 0.45（中程度の正相関）</li>
+<li><strong>2024年</strong>: 0.39（選択的相関）</li>
+</ul>
 
-#### 投資戦略への活用
-**高相関期の戦略**
-- **順張り**: 株式市場トレンドに連動した投資
-- **分散効果**: 限定的、同方向リスク
-- **タイミング**: 株式市場指標での暗号資産投資判断
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">投資戦略への活用</h4>
+<strong>高相関期の戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>順張り</strong>: 株式市場トレンドに連動した投資</li>
+<li><strong>分散効果</strong>: 限定的、同方向リスク</li>
+<li><strong>タイミング</strong>: 株式市場指標での暗号資産投資判断</li>
+</ul>
 
-**低相関期の戦略**
-- **分散投資**: 真の分散効果を期待
-- **独立判断**: 暗号資産固有要因を重視
-- **機会創出**: 相関低下時の裁定機会
+<strong>低相関期の戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>分散投資</strong>: 真の分散効果を期待</li>
+<li><strong>独立判断</strong>: 暗号資産固有要因を重視</li>
+<li><strong>機会創出</strong>: 相関低下時の裁定機会</li>
+</ul>
 
-### 債券市場との関係
-#### 10年国債利回りとの関係
-**利回り上昇時**
-- **競合関係**: 債券利回り向上→暗号資産魅力減少
-- **機会コスト**: 無リスク利回り上昇の影響
-- **資金流出**: 安全資産への選好シフト
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">債券市場との関係</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">10年国債利回りとの関係</h4>
+<strong>利回り上昇時</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>競合関係</strong>: 債券利回り向上→暗号資産魅力減少</li>
+<li><strong>機会コスト</strong>: 無リスク利回り上昇の影響</li>
+<li><strong>資金流出</strong>: 安全資産への選好シフト</li>
+</ul>
 
-**利回り下降時**
-- **補完関係**: 低利回り→代替投資需要
-- **インフレヘッジ**: 実質利回り低下時の価値保存
-- **資金流入**: 高リターン資産への需要
+<strong>利回り下降時</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>補完関係</strong>: 低利回り→代替投資需要</li>
+<li><strong>インフレヘッジ</strong>: 実質利回り低下時の価値保存</li>
+<li><strong>資金流入</strong>: 高リターン資産への需要</li>
+</ul>
 
-## 地政学リスクと暗号資産
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">地政学リスクと暗号資産</h2>
 
-### 主要地政学リスクの分類
-#### 軍事・安全保障リスク
-**ロシア・ウクライナ戦争（2022-継続中）**
-- **直接影響**: エネルギー価格上昇、インフレ加速
-- **暗号資産**: 初期下落後、避難資産として一部需要
-- **地域差**: ウクライナでの暗号資産利用増加
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">主要地政学リスクの分類</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">軍事・安全保障リスク</h4>
+<strong>ロシア・ウクライナ戦争（2022-継続中）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>直接影響</strong>: エネルギー価格上昇、インフレ加速</li>
+<li><strong>暗号資産</strong>: 初期下落後、避難資産として一部需要</li>
+<li><strong>地域差</strong>: ウクライナでの暗号資産利用増加</li>
+</ul>
 
-**中東情勢不安**
-- **石油価格**: 原油価格上昇→インフレ懸念
-- **リスク回避**: 安全資産需要増加
-- **暗号資産**: 短期的下落、長期的には分散需要
+<strong>中東情勢不安</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>石油価格</strong>: 原油価格上昇→インフレ懸念</li>
+<li><strong>リスク回避</strong>: 安全資産需要増加</li>
+<li><strong>暗号資産</strong>: 短期的下落、長期的には分散需要</li>
+</ul>
 
-#### 米中技術競争
-**半導体・AI分野の競争**
-- **技術制裁**: 半導体輸出規制、技術移転制限
-- **ブロックチェーン**: 分散技術への注目増加
-- **投資影響**: 技術関連暗号資産への影響
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">米中技術競争</h4>
+<strong>半導体・AI分野の競争</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>技術制裁</strong>: 半導体輸出規制、技術移転制限</li>
+<li><strong>ブロックチェーン</strong>: 分散技術への注目増加</li>
+<li><strong>投資影響</strong>: 技術関連暗号資産への影響</li>
+</ul>
 
-### 実践例：地政学イベント対応戦略
-#### 2025年想定シナリオ分析
-**台湾海峡情勢緊迫化**
-1. **初期反応**: 全面的リスク回避、暗号資産20-30%下落
-2. **分析判断**: 一時的な感情的反応vs.構造的変化
-3. **投資戦略**: 
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践例：地政学イベント対応戦略</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">2025年想定シナリオ分析</h4>
+<strong>台湾海峡情勢緊迫化</strong>
+1. <strong>初期反応</strong>: 全面的リスク回避、暗号資産20-30%下落
+2. <strong>分析判断</strong>: 一時的な感情的反応vs.構造的変化
+3. <strong>投資戦略</strong>: 
    - 短期: 現金比率増加、様子見
    - 中期: 地政学プレミアム組み込み
    - 長期: 分散化メリット再評価
 
-**米大統領選挙（2024年影響継続）**
-1. **政策不確実性**: 規制政策の方向性不明
-2. **市場反応**: 選挙前後のボラティリティ増大
-3. **投資戦略**:
+<strong>米大統領選挙（2024年影響継続）</strong>
+1. <strong>政策不確実性</strong>: 規制政策の方向性不明
+2. <strong>市場反応</strong>: 選挙前後のボラティリティ増大
+3. <strong>投資戦略</strong>:
    - 政策シナリオ別のポートフォリオ準備
    - 短期ヘッジ、長期ポジション維持`
       },
       {
         type: 'example',
-        content: `## 実践例：マクロ分析を活用した投資戦略
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践例：マクロ分析を活用した投資戦略</h2>
 
-### ケース1: FED利下げ局面での投資戦略（2025年想定）
-**マクロ環境分析**
-- **インフレ率**: 2.8%→2.3%に低下トレンド
-- **雇用情勢**: 失業率3.9%→4.2%に微増
-- **GDP成長**: 2.1%で安定成長継続
-- **FED政策**: 9月に0.25%利下げ実施予想
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: FED利下げ局面での投資戦略（2025年想定）</h3>
+<strong>マクロ環境分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>インフレ率</strong>: 2.8%→2.3%に低下トレンド</li>
+<li><strong>雇用情勢</strong>: 失業率3.9%→4.2%に微増</li>
+<li><strong>GDP成長</strong>: 2.1%で安定成長継続</li>
+<li><strong>FED政策</strong>: 9月に0.25%利下げ実施予想</li>
+</ul>
 
-**暗号資産市場への影響予測**:
-1. **流動性効果**: 利下げ→資金調達コスト低下→リスク投資増加
-2. **ドル安効果**: 利下げ→ドル安→暗号資産にプラス
-3. **リスク選好**: 金融緩和→投資家のリスク選好向上
+<strong>暗号資産市場への影響予測</strong>:
+1. <strong>流動性効果</strong>: 利下げ→資金調達コスト低下→リスク投資増加
+2. <strong>ドル安効果</strong>: 利下げ→ドル安→暗号資産にプラス
+3. <strong>リスク選好</strong>: 金融緩和→投資家のリスク選好向上
 
-**具体的投資戦略**:
-- **事前準備**: 利下げ発表1ヶ月前から段階的投資開始
-- **銘柄選択**: 
+<strong>具体的投資戦略</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>事前準備</strong>: 利下げ発表1ヶ月前から段階的投資開始</li>
+<li><strong>銘柄選択</strong>: </li>
+</ul>
   - Bitcoin: 50%（機関投資の主要対象）
   - Ethereum: 30%（DeFi・Layer2成長）
   - 大型アルト: 20%（高ベータ効果狙い）
-- **タイミング**: FOMC会合前後の価格変動活用
-- **リスク管理**: 景気後退懸念浮上時の早期撤退準備
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>タイミング</strong>: FOMC会合前後の価格変動活用</li>
+<li><strong>リスク管理</strong>: 景気後退懸念浮上時の早期撤退準備</li>
+</ul>
 
-**結果想定**:
-- **1ヶ月後**: Bitcoin +15%、Ethereum +25%、大型アルト +35%
-- **成功要因**: マクロ分析による先行投資
-- **学習**: 政策変更の市場影響の時間差理解
+<strong>結果想定</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>1ヶ月後</strong>: Bitcoin +15%、Ethereum +25%、大型アルト +35%</li>
+<li><strong>成功要因</strong>: マクロ分析による先行投資</li>
+<li><strong>学習</strong>: 政策変更の市場影響の時間差理解</li>
+</ul>
 
-### ケース2: インフレヘッジとしてのBitcoin投資
-**マクロ環境**: 2025年中期のインフレ再燃懸念
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース2: インフレヘッジとしてのBitcoin投資</h3>
+<strong>マクロ環境</strong>: 2025年中期のインフレ再燃懸念
 
-**インフレ指標分析**:
-- **CPI**: 2.8%→3.5%に上昇
-- **PCE**: 2.1%→2.9%に上昇
-- **期待インフレ率**: 5年BEI 2.8%に上昇
-- **賃金上昇**: 年率4.2%で高水準継続
+<strong>インフレ指標分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>CPI</strong>: 2.8%→3.5%に上昇</li>
+<li><strong>PCE</strong>: 2.1%→2.9%に上昇</li>
+<li><strong>期待インフレ率</strong>: 5年BEI 2.8%に上昇</li>
+<li><strong>賃金上昇</strong>: 年率4.2%で高水準継続</li>
+</ul>
 
-**Bitcoin分析**:
-- **デジタルゴールド**: 希少性による価値保存機能
-- **過去実績**: 2021年インフレ期に最高値更新
-- **機関認識**: 「インフレヘッジ資産」として浸透
+<strong>Bitcoin分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>デジタルゴールド</strong>: 希少性による価値保存機能</li>
+<li><strong>過去実績</strong>: 2021年インフレ期に最高値更新</li>
+<li><strong>機関認識</strong>: 「インフレヘッジ資産」として浸透</li>
+</ul>
 
-**投資戦略の実行**:
-1. **配分**: ポートフォリオの10%をBitcoinに配分
-2. **手法**: DCA（Dollar Cost Averaging）で3ヶ月かけて投資
-3. **確認指標**: CPI発表、FOMC議事録、金価格動向
-4. **利確ルール**: インフレ率2.5%以下安定時に段階的利確
+<strong>投資戦略の実行</strong>:
+1. <strong>配分</strong>: ポートフォリオの10%をBitcoinに配分
+2. <strong>手法</strong>: DCA（Dollar Cost Averaging）で3ヶ月かけて投資
+3. <strong>確認指標</strong>: CPI発表、FOMC議事録、金価格動向
+4. <strong>利確ルール</strong>: インフレ率2.5%以下安定時に段階的利確
 
-**他資産との比較**:
-- **金（Gold）**: +8%（従来のインフレヘッジ）
-- **TIPS**: +3%（インフレ連動債）
-- **Bitcoin**: +22%（デジタル時代のヘッジ資産）
-- **学習**: 新しい世代のインフレヘッジ資産として確立
+<strong>他資産との比較</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>金（Gold）</strong>: +8%（従来のインフレヘッジ）</li>
+<li><strong>TIPS</strong>: +3%（インフレ連動債）</li>
+<li><strong>Bitcoin</strong>: +22%（デジタル時代のヘッジ資産）</li>
+<li><strong>学習</strong>: 新しい世代のインフレヘッジ資産として確立</li>
+</ul>
 
-### ケース3: 地政学リスクと安全資産需要
-**シナリオ**: 中東情勢悪化による原油価格急騰
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース3: 地政学リスクと安全資産需要</h3>
+<strong>シナリオ</strong>: 中東情勢悪化による原油価格急騰
 
-**地政学分析**:
-- **原油価格**: $85→$110に急騰（+29%）
-- **VIX指数**: 18→35に上昇（恐怖指数）
-- **安全資産**: 金+5%、米国債+3%、ドル+4%
-- **リスク資産**: 株式-8%、暗号資産-15%（初期反応）
+<strong>地政学分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>原油価格</strong>: $85→$110に急騰（+29%）</li>
+<li><strong>VIX指数</strong>: 18→35に上昇（恐怖指数）</li>
+<li><strong>安全資産</strong>: 金+5%、米国債+3%、ドル+4%</li>
+<li><strong>リスク資産</strong>: 株式-8%、暗号資産-15%（初期反応）</li>
+</ul>
 
-**2段階分析と戦略**:
-#### 第1段階: 緊急事態対応（1-2週間）
-- **即座撤退**: リスク資産50%売却
-- **現金確保**: 不確実性への備え
-- **様子見**: 状況展開の見極め
+<strong>2段階分析と戦略</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第1段階: 緊急事態対応（1-2週間）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>即座撤退</strong>: リスク資産50%売却</li>
+<li><strong>現金確保</strong>: 不確実性への備え</li>
+<li><strong>様子見</strong>: 状況展開の見極め</li>
+</ul>
 
-#### 第2段階: 冷静分析と再投資（1ヶ月後）
-**冷静な分析**:
-- **影響限定**: 暗号資産への直接影響は限定的
-- **過度反応**: 感情的売りによる一時的下落
-- **基盤堅調**: テクノロジーファンダメンタルズは不変
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第2段階: 冷静分析と再投資（1ヶ月後）</h4>
+<strong>冷静な分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>影響限定</strong>: 暗号資産への直接影響は限定的</li>
+<li><strong>過度反応</strong>: 感情的売りによる一時的下落</li>
+<li><strong>基盤堅調</strong>: テクノロジーファンダメンタルズは不変</li>
+</ul>
 
-**再投資戦略**:
-- **底値買い**: 15%下落を買い機会として活用
-- **分散強化**: 地政学リスク分散としての暗号資産価値
-- **長期視点**: 一時的変動を超えた成長期待
+<strong>再投資戦略</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>底値買い</strong>: 15%下落を買い機会として活用</li>
+<li><strong>分散強化</strong>: 地政学リスク分散としての暗号資産価値</li>
+<li><strong>長期視点</strong>: 一時的変動を超えた成長期待</li>
+</ul>
 
-### ケース4: ドル安局面での暗号資産投資
-**マクロ環境**: 米国双子の赤字拡大によるドル安懸念
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース4: ドル安局面での暗号資産投資</h3>
+<strong>マクロ環境</strong>: 米国双子の赤字拡大によるドル安懸念
 
-**ドル安要因分析**:
-- **財政赤字**: GDP比6.2%の高水準継続
-- **経常赤字**: GDP比3.1%の構造的赤字
-- **金利差縮小**: 他国との金利差縮小傾向
-- **準備通貨**: ドル基軸通貨制度への信認低下懸念
+<strong>ドル安要因分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>財政赤字</strong>: GDP比6.2%の高水準継続</li>
+<li><strong>経常赤字</strong>: GDP比3.1%の構造的赤字</li>
+<li><strong>金利差縮小</strong>: 他国との金利差縮小傾向</li>
+<li><strong>準備通貨</strong>: ドル基軸通貨制度への信認低下懸念</li>
+</ul>
 
-**ドルインデックス（DXY）分析**:
-- **現在**: 103→98に下落（-4.9%）
-- **テクニカル**: 重要サポート96割れ懸念
-- **ファンダメンタル**: 構造的ドル安圧力
+<strong>ドルインデックス（DXY）分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現在</strong>: 103→98に下落（-4.9%）</li>
+<li><strong>テクニカル</strong>: 重要サポート96割れ懸念</li>
+<li><strong>ファンダメンタル</strong>: 構造的ドル安圧力</li>
+</ul>
 
-**暗号資産投資戦略**:
-1. **通貨分散**: ドル建て資産からの分散
-2. **Bitcoin重点**: 「デジタル金」としての価値保存
-3. **グローバル資産**: 国境を超えた価値移転手段
-4. **投資比率**: 従来5%→15%に引き上げ
+<strong>暗号資産投資戦略</strong>:
+1. <strong>通貨分散</strong>: ドル建て資産からの分散
+2. <strong>Bitcoin重点</strong>: 「デジタル金」としての価値保存
+3. <strong>グローバル資産</strong>: 国境を超えた価値移転手段
+4. <strong>投資比率</strong>: 従来5%→15%に引き上げ
 
-**パフォーマンス分析**:
-- **ドル建て**: Bitcoin +18%、Ethereum +25%
-- **他通貨建て**: さらに高いリターン（ドル安効果）
-- **分散効果**: ドル安ヘッジとして機能確認
+<strong>パフォーマンス分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ドル建て</strong>: Bitcoin +18%、Ethereum +25%</li>
+<li><strong>他通貨建て</strong>: さらに高いリターン（ドル安効果）</li>
+<li><strong>分散効果</strong>: ドル安ヘッジとして機能確認</li>
+</ul>
 
-### ケース5: 新興国通貨危機での避難資産
-**シナリオ**: トルコ・アルゼンチン通貨危機の暗号資産への影響
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース5: 新興国通貨危機での避難資産</h3>
+<strong>シナリオ</strong>: トルコ・アルゼンチン通貨危機の暗号資産への影響
 
-**新興国情勢**:
-- **トルコリラ**: 年間40%下落継続
-- **アルゼンチンペソ**: ハイパーインフレ継続（年率120%）
-- **資本逃避**: 新興国からの大規模資本流出
+<strong>新興国情勢</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>トルコリラ</strong>: 年間40%下落継続</li>
+<li><strong>アルゼンチンペソ</strong>: ハイパーインフレ継続（年率120%）</li>
+<li><strong>資本逃避</strong>: 新興国からの大規模資本流出</li>
+</ul>
 
-**暗号資産需要**:
-- **国内需要**: 自国通貨からの避難
-- **海外送金**: 低コストな国際送金手段
-- **価値保存**: インフレ対抗手段
+<strong>暗号資産需要</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>国内需要</strong>: 自国通貨からの避難</li>
+<li><strong>海外送金</strong>: 低コストな国際送金手段</li>
+<li><strong>価値保存</strong>: インフレ対抗手段</li>
+</ul>
 
-**投資機会の分析**:
-1. **直接需要**: 該当国からの暗号資産購入増加
-2. **間接需要**: グローバル分散需要の高まり
-3. **長期構造**: 新興国の構造的暗号資産採用
-4. **投資戦略**: 新興国関連テーマでの投資
+<strong>投資機会の分析</strong>:
+1. <strong>直接需要</strong>: 該当国からの暗号資産購入増加
+2. <strong>間接需要</strong>: グローバル分散需要の高まり
+3. <strong>長期構造</strong>: 新興国の構造的暗号資産採用
+4. <strong>投資戦略</strong>: 新興国関連テーマでの投資
 
-**ポートフォリオ影響**:
-- **地域分散**: 先進国・新興国リスク分散
-- **通貨分散**: 法定通貨全般に対するヘッジ
-- **危機耐性**: 金融危機時の資産保護機能`
+<strong>ポートフォリオ影響</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>地域分散</strong>: 先進国・新興国リスク分散</li>
+<li><strong>通貨分散</strong>: 法定通貨全般に対するヘッジ</li>
+<li><strong>危機耐性</strong>: 金融危機時の資産保護機能</li>
+</ul>`
       },
       {
         type: 'tip',
-        content: `**マクロ分析成功のコツ**
-1. **情報の階層化**:
+        content: `<strong>マクロ分析成功のコツ</strong>
+1. <strong>情報の階層化</strong>:
    - 一次情報（中央銀行発表）を最重視
    - 二次分析（アナリストレポート）は参考程度
    - 三次情報（SNS・噂）は割り引いて評価
-2. **時間軸の使い分け**:
+2. <strong>時間軸の使い分け</strong>:
    - 短期（1-3ヶ月）: 政策発表、イベント反応
    - 中期（6-12ヶ月）: 政策サイクル、景気循環
    - 長期（2-5年）: 構造変化、パラダイムシフト
-3. **継続的な監視**: マクロ環境は常に変化するため、定期的な見直しと戦略調整が必要！`
+3. <strong>継続的な監視</strong>: マクロ環境は常に変化するため、定期的な見直しと戦略調整が必要！`
       },
       {
         type: 'text',
         content: `# 高度なマクロ分析技術
 
-## 経済指標の先行性分析
-### 先行指標の活用
-#### ISM製造業PMI
-**基本概念**: 製造業の景気動向を示す先行指標
-- **50超**: 製造業拡大、景気改善
-- **50割れ**: 製造業縮小、景気悪化
-- **暗号資産**: 一般的にリスク資産として連動
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">経済指標の先行性分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">先行指標の活用</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ISM製造業PMI</h4>
+<strong>基本概念</strong>: 製造業の景気動向を示す先行指標
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>50超</strong>: 製造業拡大、景気改善</li>
+<li><strong>50割れ</strong>: 製造業縮小、景気悪化</li>
+<li><strong>暗号資産</strong>: 一般的にリスク資産として連動</li>
+</ul>
 
-#### 雇用統計（非農業部門雇用者数）
-**重要性**: FED政策判断の重要指標
-- **強い雇用**: 利上げ圧力、暗号資産下押し
-- **弱い雇用**: 利下げ期待、暗号資産上昇
-- **注意**: 雇用の質（賃金上昇率）も重要
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">雇用統計（非農業部門雇用者数）</h4>
+<strong>重要性</strong>: FED政策判断の重要指標
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>強い雇用</strong>: 利上げ圧力、暗号資産下押し</li>
+<li><strong>弱い雇用</strong>: 利下げ期待、暗号資産上昇</li>
+<li><strong>注意</strong>: 雇用の質（賃金上昇率）も重要</li>
+</ul>
 
-### 複合指標の構築
-#### マクロスコアカード作成
-**経済成長指標（25%）**
-- GDP成長率、工業生産、個人消費
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">複合指標の構築</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">マクロスコアカード作成</h4>
+<strong>経済成長指標（25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>GDP成長率、工業生産、個人消費</li>
+</ul>
 
-**インフレ指標（25%）**
-- CPI、PCE、期待インフレ率
+<strong>インフレ指標（25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>CPI、PCE、期待インフレ率</li>
+</ul>
 
-**金融政策指標（25%）**
-- 政策金利、イールドカーブ、金融緩和度
+<strong>金融政策指標（25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>政策金利、イールドカーブ、金融緩和度</li>
+</ul>
 
-**市場指標（25%）**
-- 株式市場、VIX、ドルインデックス
+<strong>市場指標（25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>株式市場、VIX、ドルインデックス</li>
+</ul>
 
-#### スコア化と投資判断
-**総合スコア計算**
-- 各指標を0-100点で評価
-- ウェイト付き平均で総合スコア算出
-- 70点以上: 強気、30点以下: 弱気
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">スコア化と投資判断</h4>
+<strong>総合スコア計算</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各指標を0-100点で評価</li>
+<li>ウェイト付き平均で総合スコア算出</li>
+<li>70点以上: 強気、30点以下: 弱気</li>
+</ul>
 
-## 金融市場の相互関係分析
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">金融市場の相互関係分析</h2>
 
-### 債券市場の深層分析
-#### イールドカーブ分析
-**正常曲線（Normal Curve）**
-- **形状**: 短期<長期金利
-- **意味**: 正常な経済状況
-- **暗号資産**: 中立的影響
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">債券市場の深層分析</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">イールドカーブ分析</h4>
+<strong>正常曲線（Normal Curve）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>形状</strong>: 短期<長期金利</li>
+<li><strong>意味</strong>: 正常な経済状況</li>
+<li><strong>暗号資産</strong>: 中立的影響</li>
+</ul>
 
-**逆イールド（Inverted Curve）**
-- **形状**: 短期>長期金利
-- **意味**: 景気後退懸念
-- **暗号資産**: 一般的に下落要因
+<strong>逆イールド（Inverted Curve）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>形状</strong>: 短期>長期金利</li>
+<li><strong>意味</strong>: 景気後退懸念</li>
+<li><strong>暗号資産</strong>: 一般的に下落要因</li>
+</ul>
 
-**フラット化（Flattening）**
-- **形状**: 短期・長期金利差縮小
-- **意味**: 成長減速懸念
-- **暗号資産**: 慎重な判断必要
+<strong>フラット化（Flattening）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>形状</strong>: 短期・長期金利差縮小</li>
+<li><strong>意味</strong>: 成長減速懸念</li>
+<li><strong>暗号資産</strong>: 慎重な判断必要</li>
+</ul>
 
-### 商品市場との関係
-#### 金（Gold）との相関分析
-**補完関係期**
-- **共通点**: 価値保存、インフレヘッジ
-- **投資戦略**: 両方への分散投資
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">商品市場との関係</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">金（Gold）との相関分析</h4>
+<strong>補完関係期</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>共通点</strong>: 価値保存、インフレヘッジ</li>
+<li><strong>投資戦略</strong>: 両方への分散投資</li>
+</ul>
 
-**競合関係期**
-- **差異**: デジタル vs 物理的資産
-- **投資戦略**: より効率的な資産への集中
+<strong>競合関係期</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>差異</strong>: デジタル vs 物理的資産</li>
+<li><strong>投資戦略</strong>: より効率的な資産への集中</li>
+</ul>
 
-#### 原油価格との関係
-**エネルギー集約性**
-- **Mining影響**: 原油高→電力コスト増→Mining収益悪化
-- **環境懸念**: 原油高→ESG投資圧力→暗号資産逆風
-- **インフレ**: 原油高→インフレ→金融引き締め→リスク資産売り
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">原油価格との関係</h4>
+<strong>エネルギー集約性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>Mining影響</strong>: 原油高→電力コスト増→Mining収益悪化</li>
+<li><strong>環境懸念</strong>: 原油高→ESG投資圧力→暗号資産逆風</li>
+<li><strong>インフレ</strong>: 原油高→インフレ→金融引き締め→リスク資産売り</li>
+</ul>
 
-## 政策リスクの定量化
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">政策リスクの定量化</h2>
 
-### 規制リスク評価フレームワーク
-#### 国別規制スコア
-**規制環境評価（5段階）**
-1. **非常に友好的**: シンガポール、スイス
-2. **友好的**: 日本、ドイツ
-3. **中立**: 米国、英国
-4. **制限的**: 韓国、インド  
-5. **敵対的**: 中国、ロシア
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">規制リスク評価フレームワーク</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">国別規制スコア</h4>
+<strong>規制環境評価（5段階）</strong>
+1. <strong>非常に友好的</strong>: シンガポール、スイス
+2. <strong>友好的</strong>: 日本、ドイツ
+3. <strong>中立</strong>: 米国、英国
+4. <strong>制限的</strong>: 韓国、インド  
+5. <strong>敵対的</strong>: 中国、ロシア
 
-#### 規制変更リスクの監視
-**モニタリング指標**
-- 政策当局者の発言頻度・トーン
-- 法案提出・審議状況
-- 国際的な規制協調動向
-- 業界団体のロビー活動
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">規制変更リスクの監視</h4>
+<strong>モニタリング指標</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>政策当局者の発言頻度・トーン</li>
+<li>法案提出・審議状況</li>
+<li>国際的な規制協調動向</li>
+<li>業界団体のロビー活動</li>
+</ul>
 
-### 中央銀行デジタル通貨（CBDC）の影響
-#### CBDC進展と暗号資産への影響
-**短期影響（1-2年）**
-- **競合関係**: 決済手段としての競合
-- **規制強化**: CBDC普及のための民間暗号資産規制
-- **技術検証**: ブロックチェーン技術の政府認証
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">中央銀行デジタル通貨（CBDC）の影響</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">CBDC進展と暗号資産への影響</h4>
+<strong>短期影響（1-2年）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>競合関係</strong>: 決済手段としての競合</li>
+<li><strong>規制強化</strong>: CBDC普及のための民間暗号資産規制</li>
+<li><strong>技術検証</strong>: ブロックチェーン技術の政府認証</li>
+</ul>
 
-**長期影響（5-10年）**
-- **共存関係**: 公的・民間デジタル通貨の役割分担
-- **技術進歩**: CBDC技術の民間転用
-- **市場拡大**: デジタル通貨市場全体の拡大
+<strong>長期影響（5-10年）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>共存関係</strong>: 公的・民間デジタル通貨の役割分担</li>
+<li><strong>技術進歩</strong>: CBDC技術の民間転用</li>
+<li><strong>市場拡大</strong>: デジタル通貨市場全体の拡大</li>
+</ul>
 
-## リスク管理とマクロ分析
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理とマクロ分析</h2>
 
-### シナリオ分析の活用
-#### 複数シナリオの準備
-**ベースケース（確率50%）**
-- 想定: 緩やかな経済成長継続
-- 暗号資産: 年率20-30%の成長
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">シナリオ分析の活用</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">複数シナリオの準備</h4>
+<strong>ベースケース（確率50%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>想定: 緩やかな経済成長継続</li>
+<li>暗号資産: 年率20-30%の成長</li>
+</ul>
 
-**上振れケース（確率25%）**
-- 想定: 経済成長加速、金融緩和継続
-- 暗号資産: 年率50%以上の成長
+<strong>上振れケース（確率25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>想定: 経済成長加速、金融緩和継続</li>
+<li>暗号資産: 年率50%以上の成長</li>
+</ul>
 
-**下振れケース（確率25%）**
-- 想定: 景気後退、金融引き締め
-- 暗号資産: 20-40%の下落
+<strong>下振れケース（確率25%）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>想定: 景気後退、金融引き締め</li>
+<li>暗号資産: 20-40%の下落</li>
+</ul>
 
-### 動的ポートフォリオ管理
-#### マクロ環境別資産配分
-**金融緩和環境**
-- 暗号資産: 30%（高リスク・高リターン）
-- 株式: 50%（成長資産）
-- 債券: 20%（安定性）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">動的ポートフォリオ管理</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">マクロ環境別資産配分</h4>
+<strong>金融緩和環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産: 30%（高リスク・高リターン）</li>
+<li>株式: 50%（成長資産）</li>
+<li>債券: 20%（安定性）</li>
+</ul>
 
-**金融引き締め環境**
-- 暗号資産: 15%（リスク縮小）
-- 株式: 35%（ディフェンシブ銘柄中心）
-- 債券: 40%（安全資産）
-- 現金: 10%（機会待ち）
+<strong>金融引き締め環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産: 15%（リスク縮小）</li>
+<li>株式: 35%（ディフェンシブ銘柄中心）</li>
+<li>債券: 40%（安全資産）</li>
+<li>現金: 10%（機会待ち）</li>
+</ul>
 
-**不確実性高環境**
-- 暗号資産: 10%（極小リスク）
-- 株式: 25%（厳選投資）
-- 債券: 45%（安全重視）
-- 現金: 20%（高い流動性）`
+<strong>不確実性高環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産: 10%（極小リスク）</li>
+<li>株式: 25%（厳選投資）</li>
+<li>債券: 45%（安全重視）</li>
+<li>現金: 20%（高い流動性）</li>
+</ul>`
       },
       {
         type: 'text',
@@ -489,40 +595,48 @@ export const lesson34: Lesson = {
       },
       {
         type: 'warning',
-        content: `**マクロ分析時の注意点**
-### 1. 単純な相関の過信
-**問題**: 過去の相関関係が将来も継続すると仮定
-**対策**:
-- 相関関係の動的変化を認識
-- 市場成熟度による相関変化
-- 定期的な相関関係の見直し
-- 複数期間での相関分析
+        content: `<strong>マクロ分析時の注意点</strong>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">1. 単純な相関の過信</h3>
+<strong>問題</strong>: 過去の相関関係が将来も継続すると仮定
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>相関関係の動的変化を認識</li>
+<li>市場成熟度による相関変化</li>
+<li>定期的な相関関係の見直し</li>
+<li>複数期間での相関分析</li>
+</ul>
 
-### 2. 情報の遅れと市場効率性
-**問題**: 公開情報による分析の限界
-**対策**:
-- 先行指標の重視
-- 市場価格に既に織り込まれた情報の認識
-- 情報の質と鮮度の評価
-- コンセンサスとの差異を重視
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2. 情報の遅れと市場効率性</h3>
+<strong>問題</strong>: 公開情報による分析の限界
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>先行指標の重視</li>
+<li>市場価格に既に織り込まれた情報の認識</li>
+<li>情報の質と鮮度の評価</li>
+<li>コンセンサスとの差異を重視</li>
+</ul>
 
-### 3. 地政学リスクの過度な重視
-**問題**: 短期的なイベントに過敏反応
-**対策**:
-- 長期構造トレンドとの分離
-- 一時的影響vs持続的影響の区別
-- 地政学プレミアムの適正評価
-- 感情的反応と合理的分析の分離
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">3. 地政学リスクの過度な重視</h3>
+<strong>問題</strong>: 短期的なイベントに過敏反応
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期構造トレンドとの分離</li>
+<li>一時的影響vs持続的影響の区別</li>
+<li>地政学プレミアムの適正評価</li>
+<li>感情的反応と合理的分析の分離</li>
+</ul>
 
-### 4. マクロ要因の重複考慮
-**問題**: 同じ要因を複数の指標で重複評価
-**対策**:
-- 因果関係の明確化
-- 独立性の確認
-- 主要因子の特定
-- 統合指標の構築
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">4. マクロ要因の重複考慮</h3>
+<strong>問題</strong>: 同じ要因を複数の指標で重複評価
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>因果関係の明確化</li>
+<li>独立性の確認</li>
+<li>主要因子の特定</li>
+<li>統合指標の構築</li>
+</ul>
 
-**成功の秘訣**: マクロ分析は暗号資産投資の重要な補完ツールです。単独判断ではなく、テクニカル分析・ファンダメンタル分析と組み合わせた総合的判断が成功の鍵です。`
+<strong>成功の秘訣</strong>: マクロ分析は暗号資産投資の重要な補完ツールです。単独判断ではなく、テクニカル分析・ファンダメンタル分析と組み合わせた総合的判断が成功の鍵です。`
       }
     ],
     keyPoints: [

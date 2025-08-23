@@ -17,29 +17,37 @@ export const lesson3: Lesson = {
         content: `
 アメリカの暗号資産規制は複数の規制機関が関与する複雑な構造となっており、証券性の判断が重要な争点となっています。
 
-**規制機関の役割分担：**
+<strong>規制機関の役割分担：</strong>
 
-**1. 証券取引委員会（SEC）**
-- 証券に該当する暗号資産とICOの規制
-- 投資家保護の観点から執行
-- Howeyテストによる証券性の判断
+<strong>1. 証券取引委員会（SEC）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>証券に該当する暗号資産とICOの規制</li>
+<li>投資家保護の観点から執行</li>
+<li>Howeyテストによる証券性の判断</li>
+</ul>
 
-**2. 商品先物取引委員会（CFTC）**
-- コモディティに該当する暗号資産の規制
-- デリバティブ取引の監督
-- Bitcoin、Ethereumをコモディティとして分類
+<strong>2. 商品先物取引委員会（CFTC）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>コモディティに該当する暗号資産の規制</li>
+<li>デリバティブ取引の監督</li>
+<li>Bitcoin、Ethereumをコモディティとして分類</li>
+</ul>
 
-**3. その他の規制機関**
-- FinCEN：反資金洗浄（AML）・テロ資金供与対策
-- FDIC：預金保険、銀行規制
-- OCC：国法銀行の暗号資産業務
-- 州政府：Money Transmitter License（MTL）
+<strong>3. その他の規制機関</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>FinCEN：反資金洗浄（AML）・テロ資金供与対策</li>
+<li>FDIC：預金保険、銀行規制</li>
+<li>OCC：国法銀行の暗号資産業務</li>
+<li>州政府：Money Transmitter License（MTL）</li>
+</ul>
 
-**規制の複雑性：**
-- 連邦政府と州政府の二重規制
-- 規制機関間の見解の相違
-- 判例法による段階的な明確化
-- 政治的な影響による方針変更
+<strong>規制の複雑性：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>連邦政府と州政府の二重規制</li>
+<li>規制機関間の見解の相違</li>
+<li>判例法による段階的な明確化</li>
+<li>政治的な影響による方針変更</li>
+</ul>
         `
       },
       {
@@ -48,38 +56,50 @@ export const lesson3: Lesson = {
         content: `
 SECは暗号資産の証券性を判断する際、最高裁判例のHoweyテストを適用しています。
 
-**Howeyテスト（4要件）：**
+<strong>Howeyテスト（4要件）：</strong>
 
-**1. 資金の投資（Investment of Money）**
-- 金銭またはその他の対価の支払い
-- ICOでの資金調達が典型例
-- エアドロップも対象となる場合がある
+<strong>1. 資金の投資（Investment of Money）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>金銭またはその他の対価の支払い</li>
+<li>ICOでの資金調達が典型例</li>
+<li>エアドロップも対象となる場合がある</li>
+</ul>
 
-**2. 共同事業（Common Enterprise）**
-- 投資家の利益が相互に関連
-- 水平的共同性（投資家間の利害関係）
-- 垂直的共同性（発行者との利害関係）
+<strong>2. 共同事業（Common Enterprise）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資家の利益が相互に関連</li>
+<li>水平的共同性（投資家間の利害関係）</li>
+<li>垂直的共同性（発行者との利害関係）</li>
+</ul>
 
-**3. 利益の期待（Expectation of Profits）**
-- 投資によるリターンの期待
-- 価格上昇による利益の期待
-- 配当や利息などの収益の期待
+<strong>3. 利益の期待（Expectation of Profits）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資によるリターンの期待</li>
+<li>価格上昇による利益の期待</li>
+<li>配当や利息などの収益の期待</li>
+</ul>
 
-**4. 他者の努力（Efforts of Others）**
-- 投資家以外の努力による利益創出
-- 発行者や第三者のマネジメント
-- プロモーション活動や開発活動
+<strong>4. 他者の努力（Efforts of Others）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資家以外の努力による利益創出</li>
+<li>発行者や第三者のマネジメント</li>
+<li>プロモーション活動や開発活動</li>
+</ul>
 
-**SEC の執行事例：**
-- Ripple vs SEC：XRPの証券性を巡る訴訟
-- ICO規制：The DAO事件（2017年）
-- 未登録証券の販売による制裁
-- Registration Statement の要求
+<strong>SEC の執行事例：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ripple vs SEC：XRPの証券性を巡る訴訟</li>
+<li>ICO規制：The DAO事件（2017年）</li>
+<li>未登録証券の販売による制裁</li>
+<li>Registration Statement の要求</li>
+</ul>
 
-**Safe Harbor制度の議論：**
-- 新興プロジェクトへの配慮
-- 段階的な規制適用
-- イノベーションと投資家保護のバランス
+<strong>Safe Harbor制度の議論：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新興プロジェクトへの配慮</li>
+<li>段階的な規制適用</li>
+<li>イノベーションと投資家保護のバランス</li>
+</ul>
         `
       },
       {
@@ -88,35 +108,45 @@ SECは暗号資産の証券性を判断する際、最高裁判例のHoweyテス
         content: `
 CFTCは暗号資産をコモディティとして分類し、現物取引とデリバティブ取引を区別して規制しています。
 
-**CFTCの管轄範囲：**
+<strong>CFTCの管轄範囲：</strong>
 
-**1. コモディティとしての暗号資産**
-- Bitcoin：2015年に明確にコモディティと認定
-- Ethereum：2018年にコモディティ的性質を認める発言
-- 現物取引への直接的な規制権限は限定的
-- 詐欺・操作に対する執行権限は保持
+<strong>1. コモディティとしての暗号資産</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Bitcoin：2015年に明確にコモディティと認定</li>
+<li>Ethereum：2018年にコモディティ的性質を認める発言</li>
+<li>現物取引への直接的な規制権限は限定的</li>
+<li>詐欺・操作に対する執行権限は保持</li>
+</ul>
 
-**2. デリバティブ取引の規制**
-- 暗号資産先物・オプション取引
-- CME、CBOEでのBitcoin先物
-- スワップ取引の規制
-- 登録されたDCM（指定契約市場）での取引
+<strong>2. デリバティブ取引の規制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産先物・オプション取引</li>
+<li>CME、CBOEでのBitcoin先物</li>
+<li>スワップ取引の規制</li>
+<li>登録されたDCM（指定契約市場）での取引</li>
+</ul>
 
-**3. 執行活動**
-- 価格操作・詐欺行為の摘発
-- 無登録デリバティブ取引業者への制裁
-- ポンジスキーム等の不正行為
+<strong>3. 執行活動</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>価格操作・詐欺行為の摘発</li>
+<li>無登録デリバティブ取引業者への制裁</li>
+<li>ポンジスキーム等の不正行為</li>
+</ul>
 
-**CFTC の重要な判断：**
-- 分散性の高い暗号資産はコモディティ
-- 中央集権的な管理がある場合は証券の可能性
-- DeFiプロトコルに対する執行方針
-- クロスボーダー取引の管轄権
+<strong>CFTC の重要な判断：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散性の高い暗号資産はコモディティ</li>
+<li>中央集権的な管理がある場合は証券の可能性</li>
+<li>DeFiプロトコルに対する執行方針</li>
+<li>クロスボーダー取引の管轄権</li>
+</ul>
 
-**業界への影響：**
-- 機関投資家の参入促進
-- リスク管理ツールの提供
-- 市場の成熟化と価格発見機能の向上
+<strong>業界への影響：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機関投資家の参入促進</li>
+<li>リスク管理ツールの提供</li>
+<li>市場の成熟化と価格発見機能の向上</li>
+</ul>
         `
       },
       {
@@ -125,41 +155,53 @@ CFTCは暗号資産をコモディティとして分類し、現物取引とデ�
         content: `
 各州政府は独自の暗号資産規制を制定しており、事業者は州レベルでのコンプライアンス対応が必要です。
 
-**主要な州規制：**
+<strong>主要な州規制：</strong>
 
-**1. ニューヨーク州（BitLicense）**
-- 2015年制定の先進的な規制
-- 厳格なライセンス要件
-- カストディ、AML、サイバーセキュリティ
-- Safe Harbor制度（Green List）
+<strong>1. ニューヨーク州（BitLicense）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>2015年制定の先進的な規制</li>
+<li>厳格なライセンス要件</li>
+<li>カストディ、AML、サイバーセキュリティ</li>
+<li>Safe Harbor制度（Green List）</li>
+</ul>
 
-**2. カリフォルニア州**
-- デジタル金融サービス法案の検討
-- 消費者保護重視の規制方針
-- イノベーションフレンドリーな環境
+<strong>2. カリフォルニア州</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>デジタル金融サービス法案の検討</li>
+<li>消費者保護重視の規制方針</li>
+<li>イノベーションフレンドリーな環境</li>
+</ul>
 
-**3. ワイオミング州**
-- 暗号資産に最も友好的な州
-- SPDI（特別目的預金機関）制度
-- デジタル資産銀行の認可
-- DAOの法人格認定
+<strong>3. ワイオミング州</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産に最も友好的な州</li>
+<li>SPDI（特別目的預金機関）制度</li>
+<li>デジタル資産銀行の認可</li>
+<li>DAOの法人格認定</li>
+</ul>
 
-**4. フロリダ州・テキサス州**
-- 暗号資産産業の誘致政策
-- 規制の明確化と簡素化
-- マイニング事業の支援
+<strong>4. フロリダ州・テキサス州</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産産業の誘致政策</li>
+<li>規制の明確化と簡素化</li>
+<li>マイニング事業の支援</li>
+</ul>
 
-**Money Transmitter License（MTL）：**
-- 48州で必要なライセンス
-- 各州で異なる要件
-- 債券・担保の要求
-- 定期報告義務
+<strong>Money Transmitter License（MTL）：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>48州で必要なライセンス</li>
+<li>各州で異なる要件</li>
+<li>債券・担保の要求</li>
+<li>定期報告義務</li>
+</ul>
 
-**コンプライアンス戦略：**
-- Multi-state登録の効率化
-- 統一規制の要望
-- 業界団体による協調
-- 段階的な事業展開
+<strong>コンプライアンス戦略：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Multi-state登録の効率化</li>
+<li>統一規制の要望</li>
+<li>業界団体による協調</li>
+<li>段階的な事業展開</li>
+</ul>
         `
       }
     ],

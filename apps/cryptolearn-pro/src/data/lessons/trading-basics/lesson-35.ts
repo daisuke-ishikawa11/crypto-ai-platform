@@ -75,7 +75,7 @@ export const lesson35: Lesson = {
 
 <h2>オンチェーン分析による機関動向把握（基礎）</h2>
 <h3>大口アドレスの追跡方法</h3>
-**機関投資家の特徴的なパターン**
+<strong>機関投資家の特徴的なパターン</strong>
 
 <h4>取引パターンの識別（基礎）</h4>
 <ul>
@@ -179,270 +179,328 @@ export const lesson35: Lesson = {
       },
       {
         type: 'example',
-        content: `## 実践例：機関投資家動向を活用した投資戦略
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践例：機関投資家動向を活用した投資戦略</h2>
 
-### ケース1: MicroStrategy買い増し追従戦略（2025年想定）
-**背景**: MicroStrategyの定期的Bitcoin買い増しパターン活用
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: MicroStrategy買い増し追従戦略（2025年想定）</h3>
+<strong>背景</strong>: MicroStrategyの定期的Bitcoin買い増しパターン活用
 
-**分析プロセス**:
-1. **四半期パターン確認**:
+<strong>分析プロセス</strong>:
+1. <strong>四半期パターン確認</strong>:
    - 3月、6月、9月、12月の決算発表
    - 決算2週間前の買い増し発表パターン
    - 平均買い増し額: $200-500M
 
-2. **オンチェーン確認**:
+2. <strong>オンチェーン確認</strong>:
    - Coinbase Primeからの大量流出
    - 新規アドレスでの数千BTC単位蓄積
    - 即座のコールドウォレット移動
 
-**投資戦略の実行**:
-- **事前投資**: 決算3週間前にポジション構築
-- **投資額**: $10,000
-- **エントリー**: $92,000-$95,000
-- **期待**: 発表後5-10%の上昇
+<strong>投資戦略の実行</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>事前投資</strong>: 決算3週間前にポジション構築</li>
+<li><strong>投資額</strong>: $10,000</li>
+<li><strong>エントリー</strong>: $92,000-$95,000</li>
+<li><strong>期待</strong>: 発表後5-10%の上昇</li>
+</ul>
 
-**結果想定と学習**:
-- **発表日**: Bitcoin買い増し$300M発表
-- **価格反応**: 24時間で$98,000→$105,000（7%上昇）
-- **利確**: $103,000で50%利確（$1,500利益）
-- **学習**: 機関発表の価格影響パターン確認
+<strong>結果想定と学習</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>発表日</strong>: Bitcoin買い増し$300M発表</li>
+<li><strong>価格反応</strong>: 24時間で$98,000→$105,000（7%上昇）</li>
+<li><strong>利確</strong>: $103,000で50%利確（$1,500利益）</li>
+<li><strong>学習</strong>: 機関発表の価格影響パターン確認</li>
+</ul>
 
-### ケース2: ETF大量流入による市場分析
-**シナリオ**: Bitcoin ETF週次$2B流入継続時の戦略
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース2: ETF大量流入による市場分析</h3>
+<strong>シナリオ</strong>: Bitcoin ETF週次$2B流入継続時の戦略
 
-**データ分析**:
-1. **流入データ**: 3週連続で週次$2B超流入
-2. **過去パターン**: 大量流入期の価格上昇率+25%
-3. **需給分析**: 流入量 > 新規供給量の需給逼迫
-4. **継続性**: 機関投資家の長期配分増加トレンド
+<strong>データ分析</strong>:
+1. <strong>流入データ</strong>: 3週連続で週次$2B超流入
+2. <strong>過去パターン</strong>: 大量流入期の価格上昇率+25%
+3. <strong>需給分析</strong>: 流入量 > 新規供給量の需給逼迫
+4. <strong>継続性</strong>: 機関投資家の長期配分増加トレンド
 
-**段階的投資戦略**:
-#### 第1週（流入確認）
-- **投資**: $5,000の25%（$1,250）
-- **価格**: $85,000
-- **根拠**: 流入トレンド開始の確認
+<strong>段階的投資戦略</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第1週（流入確認）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>投資</strong>: $5,000の25%（$1,250）</li>
+<li><strong>価格</strong>: $85,000</li>
+<li><strong>根拠</strong>: 流入トレンド開始の確認</li>
+</ul>
 
-#### 第2週（継続確認）
-- **追加投資**: 25%（$1,250）
-- **価格**: $89,000
-- **根拠**: 流入継続による需給逼迫
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第2週（継続確認）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>追加投資</strong>: 25%（$1,250）</li>
+<li><strong>価格</strong>: $89,000</li>
+<li><strong>根拠</strong>: 流入継続による需給逼迫</li>
+</ul>
 
-#### 第3週（加速確認）
-- **追加投資**: 25%（$1,250）
-- **価格**: $94,000
-- **根拠**: 流入加速とFOMO開始
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第3週（加速確認）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>追加投資</strong>: 25%（$1,250）</li>
+<li><strong>価格</strong>: $94,000</li>
+<li><strong>根拠</strong>: 流入加速とFOMO開始</li>
+</ul>
 
-#### 第4週（利確開始）
-- **部分利確**: 50%
-- **価格**: $105,000
-- **利益**: $4,000（約40%利益）
-- **残ポジション**: 長期保有継続
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">第4週（利確開始）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>部分利確</strong>: 50%</li>
+<li><strong>価格</strong>: $105,000</li>
+<li><strong>利益</strong>: $4,000（約40%利益）</li>
+<li><strong>残ポジション</strong>: 長期保有継続</li>
+</ul>
 
-### ケース3: 機関投資家センチメント分析
-**対象**: 大手ファンドのポートフォリオ配分変化
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース3: 機関投資家センチメント分析</h3>
+<strong>対象</strong>: 大手ファンドのポートフォリオ配分変化
 
-**分析対象（2025年Q1）**:
-1. **BlackRock**: 暗号資産配分1%→3%へ増加
-2. **Fidelity**: Bitcoin ETF大量購入継続
-3. **Bridgewater**: 初回暗号資産投資発表
-4. **Renaissance**: 暗号資産関連株式投資拡大
+<strong>分析対象（2025年Q1）</strong>:
+1. <strong>BlackRock</strong>: 暗号資産配分1%→3%へ増加
+2. <strong>Fidelity</strong>: Bitcoin ETF大量購入継続
+3. <strong>Bridgewater</strong>: 初回暗号資産投資発表
+4. <strong>Renaissance</strong>: 暗号資産関連株式投資拡大
 
-**総合判断**:
-- **機関センチメント**: 中立→やや強気へ転換
-- **配分増加**: 大手ファンドの段階的配分増加
-- **長期トレンド**: 2-3年での本格的機関参入期待
-- **投資戦略**: 長期保有を基本とした投資
+<strong>総合判断</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機関センチメント</strong>: 中立→やや強気へ転換</li>
+<li><strong>配分増加</strong>: 大手ファンドの段階的配分増加</li>
+<li><strong>長期トレンド</strong>: 2-3年での本格的機関参入期待</li>
+<li><strong>投資戦略</strong>: 長期保有を基本とした投資</li>
+</ul>
 
-**ポートフォリオ調整**:
-- **暗号資産比率**: 15%→25%へ段階的増加
-- **投資手法**: DCA（Dollar Cost Averaging）
-- **期間**: 6ヶ月かけて段階的投資
-- **目標**: 機関参入本格化での恩恵享受
+<strong>ポートフォリオ調整</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>暗号資産比率</strong>: 15%→25%へ段階的増加</li>
+<li><strong>投資手法</strong>: DCA（Dollar Cost Averaging）</li>
+<li><strong>期間</strong>: 6ヶ月かけて段階的投資</li>
+<li><strong>目標</strong>: 機関参入本格化での恩恵享受</li>
+</ul>
 
-### ケース4: 逆張り戦略（機関売却時）
-**シナリオ**: Tesla Bitcoin部分売却発表時の対応
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース4: 逆張り戦略（機関売却時）</h3>
+<strong>シナリオ</strong>: Tesla Bitcoin部分売却発表時の対応
 
-**状況分析**:
-- **発表**: Tesla 25% Bitcoin売却（約$800M）
-- **理由**: キャッシュフロー改善、ESG配慮
-- **市場反応**: 即座に5-8%下落
-- **分析**: 一時的な需給悪化、ファンダメンタルズ不変
+<strong>状況分析</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>発表</strong>: Tesla 25% Bitcoin売却（約$800M）</li>
+<li><strong>理由</strong>: キャッシュフロー改善、ESG配慮</li>
+<li><strong>市場反応</strong>: 即座に5-8%下落</li>
+<li><strong>分析</strong>: 一時的な需給悪化、ファンダメンタルズ不変</li>
+</ul>
 
-**逆張り投資戦略**:
-1. **初期反応**: 24時間は様子見（感情的売り）
-2. **分析期間**: 48-72時間での冷静な市場分析
-3. **投資判断**: 下落が過度と判断した場合の買い
-4. **投資実行**: $82,000（8%下落後）でエントリー
+<strong>逆張り投資戦略</strong>:
+1. <strong>初期反応</strong>: 24時間は様子見（感情的売り）
+2. <strong>分析期間</strong>: 48-72時間での冷静な市場分析
+3. <strong>投資判断</strong>: 下落が過度と判断した場合の買い
+4. <strong>投資実行</strong>: $82,000（8%下落後）でエントリー
 
-**結果と学習**:
-- **1週間後**: $88,000回復（7%上昇）
-- **1ヶ月後**: $95,000（16%上昇）
-- **学習**: 機関売却の一時的影響と回復パターン
-- **戦略**: 感情的市場反応の逆張り効果確認
+<strong>結果と学習</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>1週間後</strong>: $88,000回復（7%上昇）</li>
+<li><strong>1ヶ月後</strong>: $95,000（16%上昇）</li>
+<li><strong>学習</strong>: 機関売却の一時的影響と回復パターン</li>
+<li><strong>戦略</strong>: 感情的市場反応の逆張り効果確認</li>
+</ul>
 
-### ケース5: 複数機関動向の統合分析
-**総合的な機関動向分析（2025年3月想定）**
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース5: 複数機関動向の統合分析</h3>
+<strong>総合的な機関動向分析（2025年3月想定）</strong>
 
-**ポジティブ要因**:
-1. **MicroStrategy**: 追加$400M投資発表
-2. **ETF**: 月間$8B純流入継続
-3. **BlackRock**: 配分目標2%→5%へ引き上げ
-4. **年金基金**: カナダ・オンタリオ州が初回投資
+<strong>ポジティブ要因</strong>:
+1. <strong>MicroStrategy</strong>: 追加$400M投資発表
+2. <strong>ETF</strong>: 月間$8B純流入継続
+3. <strong>BlackRock</strong>: 配分目標2%→5%へ引き上げ
+4. <strong>年金基金</strong>: カナダ・オンタリオ州が初回投資
 
-**ネガティブ要因**:
-1. **Grayscale**: GBTC大量流出継続
-2. **一部ヘッジファンド**: 利確売り実行
-3. **規制懸念**: SEC追加ガイダンス待ち
+<strong>ネガティブ要因</strong>:
+1. <strong>Grayscale</strong>: GBTC大量流出継続
+2. <strong>一部ヘッジファンド</strong>: 利確売り実行
+3. <strong>規制懸念</strong>: SEC追加ガイダンス待ち
 
-**統合判断**:
-- **総合スコア**: +7/10（やや強気）
-- **投資戦略**: 積極的投資継続
-- **リスク管理**: 規制ニュース警戒
-- **ポジション**: 目標配分30%まで段階的投資
+<strong>統合判断</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>総合スコア</strong>: +7/10（やや強気）</li>
+<li><strong>投資戦略</strong>: 積極的投資継続</li>
+<li><strong>リスク管理</strong>: 規制ニュース警戒</li>
+<li><strong>ポジション</strong>: 目標配分30%まで段階的投資</li>
+</ul>
 
-**実行計画**:
-- **月次投資**: $2,000×3ヶ月
-- **価格目標**: $110,000-$120,000
-- **利確**: 50%上昇で段階的利確開始
-- **監視**: 週次での機関動向アップデート`
+<strong>実行計画</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>月次投資</strong>: $2,000×3ヶ月</li>
+<li><strong>価格目標</strong>: $110,000-$120,000</li>
+<li><strong>利確</strong>: 50%上昇で段階的利確開始</li>
+<li><strong>監視</strong>: 週次での機関動向アップデート</li>
+</ul>`
       },
       {
         type: 'tip',
-        content: `**機関投資家分析成功のコツ**
-1. **複数ソースの確認**:
+        content: `<strong>機関投資家分析成功のコツ</strong>
+1. <strong>複数ソースの確認</strong>:
    - オンチェーンデータ + 公式発表 + 市場データ
    - 単一情報源への依存回避
    - 相互確認による精度向上
-2. **パターン認識**:
+2. <strong>パターン認識</strong>:
    - 過去の機関行動パターン学習
    - 季節性・周期性の把握
    - 個別企業の投資スタイル理解
-3. **継続的な監視**: 機関動向は市場に大きな影響を与えるため、定期的な確認と戦略調整が必要！`
+3. <strong>継続的な監視</strong>: 機関動向は市場に大きな影響を与えるため、定期的な確認と戦略調整が必要！`
       },
       {
         type: 'text',
         content: `# 高度な機関投資家分析技術
 
-## フロー分析とセンチメント評価
-### 量的フロー分析
-#### 資金流入の測定方法
-**ETF資金フロー計算**
-- **日次フロー**: (当日AUM - 前日AUM) - 価格変動分
-- **週次集計**: 5営業日の累積フロー
-- **月次トレンド**: 4週間の移動平均
-- **年次比較**: 前年同期との比較分析
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">フロー分析とセンチメント評価</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">量的フロー分析</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">資金流入の測定方法</h4>
+<strong>ETF資金フロー計算</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>日次フロー</strong>: (当日AUM - 前日AUM) - 価格変動分</li>
+<li><strong>週次集計</strong>: 5営業日の累積フロー</li>
+<li><strong>月次トレンド</strong>: 4週間の移動平均</li>
+<li><strong>年次比較</strong>: 前年同期との比較分析</li>
+</ul>
 
-#### 閾値の設定と投資シグナル
-**強気シグナル閾値**
-- **日次**: $100M以上の純流入
-- **週次**: $500M以上の純流入
-- **月次**: $2B以上の純流入
-- **投資判断**: 閾値継続的超過時の追随投資
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">閾値の設定と投資シグナル</h4>
+<strong>強気シグナル閾値</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>日次</strong>: $100M以上の純流入</li>
+<li><strong>週次</strong>: $500M以上の純流入</li>
+<li><strong>月次</strong>: $2B以上の純流入</li>
+<li><strong>投資判断</strong>: 閾値継続的超過時の追随投資</li>
+</ul>
 
-### センチメント指標の構築
-#### 機関センチメントスコア
-**要素別重み付け**
-1. **ETFフロー（40%）**: 最も客観的な指標
-2. **企業発表（30%）**: 公式見解の重要性
-3. **ポジション変化（20%）**: 13F等の開示情報
-4. **メディア言及（10%）**: 補完的指標
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">センチメント指標の構築</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">機関センチメントスコア</h4>
+<strong>要素別重み付け</strong>
+1. <strong>ETFフロー（40%）</strong>: 最も客観的な指標
+2. <strong>企業発表（30%）</strong>: 公式見解の重要性
+3. <strong>ポジション変化（20%）</strong>: 13F等の開示情報
+4. <strong>メディア言及（10%）</strong>: 補完的指標
 
-#### スコア化と投資判断
-**-10 to +10スケール**
-- **+7以上**: 強気、積極的投資
-- **+3 to +6**: やや強気、段階的投資
-- **-3 to +3**: 中立、現状維持
-- **-7以下**: 弱気、ポジション縮小
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">スコア化と投資判断</h4>
+<strong>-10 to +10スケール</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>+7以上</strong>: 強気、積極的投資</li>
+<li><strong>+3 to +6</strong>: やや強気、段階的投資</li>
+<li><strong>-3 to +3</strong>: 中立、現状維持</li>
+<li><strong>-7以下</strong>: 弱気、ポジション縮小</li>
+</ul>
 
-## 規制環境と機関動向
-### 規制変化の影響分析
-#### SEC規制と機関行動
-**ETF承認の段階的影響**
-- **第1段階**: Bitcoin ETF承認（2024年）
-- **第2段階**: Ethereum ETF承認（2024年後半）
-- **第3段階**: その他アルトコインETF検討
-- **機関影響**: 段階的な暗号資産配分増加
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">規制環境と機関動向</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">規制変化の影響分析</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">SEC規制と機関行動</h4>
+<strong>ETF承認の段階的影響</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>第1段階</strong>: Bitcoin ETF承認（2024年）</li>
+<li><strong>第2段階</strong>: Ethereum ETF承認（2024年後半）</li>
+<li><strong>第3段階</strong>: その他アルトコインETF検討</li>
+<li><strong>機関影響</strong>: 段階的な暗号資産配分増加</li>
+</ul>
 
-#### 会計基準の変化
-**FASB会計基準改訂**
-- **改訂内容**: 公正価値評価の採用
-- **企業影響**: バランスシート計上の簡素化
-- **投資促進**: 会計処理負担の軽減
-- **予想効果**: 企業の暗号資産投資増加
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">会計基準の変化</h4>
+<strong>FASB会計基準改訂</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>改訂内容</strong>: 公正価値評価の採用</li>
+<li><strong>企業影響</strong>: バランスシート計上の簡素化</li>
+<li><strong>投資促進</strong>: 会計処理負担の軽減</li>
+<li><strong>予想効果</strong>: 企業の暗号資産投資増加</li>
+</ul>
 
-### 国際的な機関動向
-#### 地域別機関投資トレンド
-**北米（2025年）**
-- **特徴**: ETF主導の機関参入
-- **主要プレイヤー**: BlackRock、Fidelity
-- **投資額**: 月次$5-10B流入
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">国際的な機関動向</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">地域別機関投資トレンド</h4>
+<strong>北米（2025年）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: ETF主導の機関参入</li>
+<li><strong>主要プレイヤー</strong>: BlackRock、Fidelity</li>
+<li><strong>投資額</strong>: 月次$5-10B流入</li>
+</ul>
 
-**ヨーロッパ**
-- **特徴**: 規制準拠重視
-- **MiCA規制**: 2024年施行の影響
-- **機関採用**: 慎重だが着実な進展
+<strong>ヨーロッパ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: 規制準拠重視</li>
+<li><strong>MiCA規制</strong>: 2024年施行の影響</li>
+<li><strong>機関採用</strong>: 慎重だが着実な進展</li>
+</ul>
 
-**アジア**
-- **日本**: ETF解禁による機関参入期待
-- **シンガポール**: ファミリーオフィス投資拡大
-- **香港**: 機関向けライセンス拡大
+<strong>アジア</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>日本</strong>: ETF解禁による機関参入期待</li>
+<li><strong>シンガポール</strong>: ファミリーオフィス投資拡大</li>
+<li><strong>香港</strong>: 機関向けライセンス拡大</li>
+</ul>
 
-## リスク管理と機関分析
-### 機関投資家リスクの特徴
-#### 大口投資家特有のリスク
-**流動性リスク**
-- **問題**: 大量売却時の価格影響
-- **対策**: 分散売却、OTC活用
-- **投資判断**: 大口売却兆候の早期察知
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理と機関分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">機関投資家リスクの特徴</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">大口投資家特有のリスク</h4>
+<strong>流動性リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>問題</strong>: 大量売却時の価格影響</li>
+<li><strong>対策</strong>: 分散売却、OTC活用</li>
+<li><strong>投資判断</strong>: 大口売却兆候の早期察知</li>
+</ul>
 
-**規制リスク**
-- **問題**: 規制変化による投資制約
-- **監視**: 規制動向の継続的確認
-- **対策**: 規制対応力のある銘柄選択
+<strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>問題</strong>: 規制変化による投資制約</li>
+<li><strong>監視</strong>: 規制動向の継続的確認</li>
+<li><strong>対策</strong>: 規制対応力のある銘柄選択</li>
+</ul>
 
-### ポートフォリオレベルでの管理
-#### 機関動向連動戦略
-**高相関期の戦略**
-- **機関買い期**: 25-35%まで暗号資産比率増加
-- **追随投資**: 機関発表後の早期投資
-- **利確戦略**: 機関利確兆候での先行利確
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ポートフォリオレベルでの管理</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">機関動向連動戦略</h4>
+<strong>高相関期の戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機関買い期</strong>: 25-35%まで暗号資産比率増加</li>
+<li><strong>追随投資</strong>: 機関発表後の早期投資</li>
+<li><strong>利確戦略</strong>: 機関利確兆候での先行利確</li>
+</ul>
 
-**低相関期の戦略**
-- **独立判断**: 機関動向に依存しない分析
-- **逆張り機会**: 機関売却時の買い機会
-- **分散強化**: 非相関資産の比率増加
+<strong>低相関期の戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>独立判断</strong>: 機関動向に依存しない分析</li>
+<li><strong>逆張り機会</strong>: 機関売却時の買い機会</li>
+<li><strong>分散強化</strong>: 非相関資産の比率増加</li>
+</ul>
 
-## 将来的な機関投資トレンド
-### 2025-2030年の予測
-#### 機関採用の拡大シナリオ
-**保守的シナリオ**
-- **採用率**: 大手機関の30%が配分
-- **配分比率**: ポートフォリオの1-3%
-- **総流入**: 年間$200-500B
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">将来的な機関投資トレンド</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2025-2030年の予測</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">機関採用の拡大シナリオ</h4>
+<strong>保守的シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>採用率</strong>: 大手機関の30%が配分</li>
+<li><strong>配分比率</strong>: ポートフォリオの1-3%</li>
+<li><strong>総流入</strong>: 年間$200-500B</li>
+</ul>
 
-**積極的シナリオ**
-- **採用率**: 大手機関の60%が配分
-- **配分比率**: ポートフォリオの3-7%
-- **総流入**: 年間$500B-1T
+<strong>積極的シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>採用率</strong>: 大手機関の60%が配分</li>
+<li><strong>配分比率</strong>: ポートフォリオの3-7%</li>
+<li><strong>総流入</strong>: 年間$500B-1T</li>
+</ul>
 
-#### 新しい投資手法の登場
-**機関向け商品の多様化**
-- **インデックス投資**: 暗号資産指数連動商品
-- **アクティブ運用**: 専門的暗号資産ファンド
-- **オルタナティブ**: DeFiプロトコルへの直接投資
-- **デリバティブ**: 先物・オプション活用拡大
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">新しい投資手法の登場</h4>
+<strong>機関向け商品の多様化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>インデックス投資</strong>: 暗号資産指数連動商品</li>
+<li><strong>アクティブ運用</strong>: 専門的暗号資産ファンド</li>
+<li><strong>オルタナティブ</strong>: DeFiプロトコルへの直接投資</li>
+<li><strong>デリバティブ</strong>: 先物・オプション活用拡大</li>
+</ul>
 
-### 個人投資家への含意
-#### 機関主導市場での個人戦略
-**優位性の活用**
-- **機動性**: 機関より迅速な売買実行
-- **柔軟性**: 規制制約の少なさ
-- **情報活用**: オンチェーン情報の早期活用
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">個人投資家への含意</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">機関主導市場での個人戦略</h4>
+<strong>優位性の活用</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機動性</strong>: 機関より迅速な売買実行</li>
+<li><strong>柔軟性</strong>: 規制制約の少なさ</li>
+<li><strong>情報活用</strong>: オンチェーン情報の早期活用</li>
+</ul>
 
-**劣位性の補完**
-- **情報格差**: 高品質な情報源の確保
-- **分析力**: 簡素化された分析手法
-- **資金力**: 機関動向への効率的な追随`
+<strong>劣位性の補完</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>情報格差</strong>: 高品質な情報源の確保</li>
+<li><strong>分析力</strong>: 簡素化された分析手法</li>
+<li><strong>資金力</strong>: 機関動向への効率的な追随</li>
+</ul>`
       },
       {
         type: 'text',
@@ -463,40 +521,48 @@ export const lesson35: Lesson = {
       },
       {
         type: 'warning',
-        content: `**機関投資家分析時の注意点**
-### 1. 情報の遅れとタイムラグ
-**問題**: 公式発表時には既に価格に織り込まれている可能性
-**対策**:
-- オンチェーンデータによる早期察知
-- 複数の先行指標の組み合わせ
-- 発表前の行動パターン学習
-- 市場効率性の考慮
+        content: `<strong>機関投資家分析時の注意点</strong>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">1. 情報の遅れとタイムラグ</h3>
+<strong>問題</strong>: 公式発表時には既に価格に織り込まれている可能性
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>オンチェーンデータによる早期察知</li>
+<li>複数の先行指標の組み合わせ</li>
+<li>発表前の行動パターン学習</li>
+<li>市場効率性の考慮</li>
+</ul>
 
-### 2. 機関投資家の多様性
-**問題**: 全ての機関が同じ行動を取ると仮定
-**対策**:
-- 個別機関の投資スタイル理解
-- 投資目的・時間軸の違い認識
-- 規制環境による制約差の考慮
-- セクター別の行動パターン分析
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2. 機関投資家の多様性</h3>
+<strong>問題</strong>: 全ての機関が同じ行動を取ると仮定
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>個別機関の投資スタイル理解</li>
+<li>投資目的・時間軸の違い認識</li>
+<li>規制環境による制約差の考慮</li>
+<li>セクター別の行動パターン分析</li>
+</ul>
 
-### 3. 過度な依存リスク
-**問題**: 機関動向のみに基づく投資判断
-**対策**:
-- ファンダメンタル分析との組み合わせ
-- テクニカル分析による補完
-- マクロ経済要因の考慮
-- 独立した判断能力の維持
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">3. 過度な依存リスク</h3>
+<strong>問題</strong>: 機関動向のみに基づく投資判断
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ファンダメンタル分析との組み合わせ</li>
+<li>テクニカル分析による補完</li>
+<li>マクロ経済要因の考慮</li>
+<li>独立した判断能力の維持</li>
+</ul>
 
-### 4. 短期的なノイズの影響
-**問題**: 一時的な機関動向を過大評価
-**対策**:
-- 長期トレンドと短期変動の分離
-- 複数期間での分析実施
-- 統計的有意性の確認
-- 感情的反応の回避
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">4. 短期的なノイズの影響</h3>
+<strong>問題</strong>: 一時的な機関動向を過大評価
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期トレンドと短期変動の分離</li>
+<li>複数期間での分析実施</li>
+<li>統計的有意性の確認</li>
+<li>感情的反応の回避</li>
+</ul>
 
-**成功の秘訣**: 機関投資家分析は市場の重要な手がかりですが、万能ではありません。複数の分析手法を組み合わせ、継続的な学習と改善により分析精度を向上させることが重要です。`
+<strong>成功の秘訣</strong>: 機関投資家分析は市場の重要な手がかりですが、万能ではありません。複数の分析手法を組み合わせ、継続的な学習と改善により分析精度を向上させることが重要です。`
       }
     ],
     keyPoints: [

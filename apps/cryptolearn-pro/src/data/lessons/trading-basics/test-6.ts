@@ -1,6 +1,6 @@
 import type { Lesson } from '../../../types';
 
-export const test6: Lesson = {
+export const tradingBasicsTest6: Lesson = {
   id: 'trading-basics-test-6',
   slug: 'trading-basics-test-6',
   title: '確認テスト6：資金・心理管理（レッスン26-30）',

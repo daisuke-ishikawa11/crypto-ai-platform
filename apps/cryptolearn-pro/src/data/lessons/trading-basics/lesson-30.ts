@@ -1,6 +1,8 @@
 import type { Lesson } from '../../../types';
 
-export const lesson30: Lesson = {
+export const import type { Lesson } from '@/types/lesson'
+
+const lesson30: Lesson = {
   id: 'trading-basics-algorithmic-trading-fundamentals-applications',
   slug: 'algorithmic-trading-fundamentals-applications',
   title: 'アルゴリズム取引の基礎から応用：自動売買システムの実践構築',
@@ -73,18 +75,20 @@ export const lesson30: Lesson = {
         type: 'text',
         content: `# 基本的なアルゴリズム戦略（基礎から応用）
 
-## トレンドフォロー戦略の基礎
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">トレンドフォロー戦略の基礎</h2>
 
-### 単純移動平均クロス戦略（基礎）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">単純移動平均クロス戦略（基礎）</h3>
 
-**基本的な仕組み**
-- **短期MA**: 20日移動平均線
-- **長期MA**: 50日移動平均線
-- **買いシグナル**: 短期MA > 長期MA
-- **売りシグナル**: 短期MA < 長期MA
+<strong>基本的な仕組み</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>短期MA</strong>: 20日移動平均線</li>
+<li><strong>長期MA</strong>: 50日移動平均線</li>
+<li><strong>買いシグナル</strong>: 短期MA > 長期MA</li>
+<li><strong>売りシグナル</strong>: 短期MA < 長期MA</li>
+</ul>
 
-**基本実装例（Python疑似コード）**
-```python
+<strong>基本実装例（Python疑似コード）</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 def simple_ma_cross_strategy(prices, short_window=20, long_window=50):
     short_ma = prices.rolling(short_window).mean()
     long_ma = prices.rolling(long_window).mean()
@@ -96,18 +100,18 @@ def simple_ma_cross_strategy(prices, short_window=20, long_window=50):
         signal = -1  # 売りシグナル
     
     return signal
-```
+</div>
 
-### 改良版トレンドフォロー戦略（応用）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">改良版トレンドフォロー戦略（応用）</h3>
 
-**複数指標組み合わせ**
-1. **MA クロス**: 基本的なトレンド方向確認
-2. **RSI フィルター**: 過買い・過売り状態の除外
-3. **出来高確認**: トレンドの信頼性検証
-4. **ATR調整**: ボラティリティに応じたストップロス
+<strong>複数指標組み合わせ</strong>
+1. <strong>MA クロス</strong>: 基本的なトレンド方向確認
+2. <strong>RSI フィルター</strong>: 過買い・過売り状態の除外
+3. <strong>出来高確認</strong>: トレンドの信頼性検証
+4. <strong>ATR調整</strong>: ボラティリティに応じたストップロス
 
-**実践例（ビットコイン・2025年1月想定）**
-```
+<strong>実践例（ビットコイン・2025年1月想定）</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 エントリー条件（全て同時満足）:
 - 20日MA > 50日MA（上昇トレンド）
 - RSI < 70（過買いでない）
@@ -121,22 +125,22 @@ def simple_ma_cross_strategy(prices, short_window=20, long_window=50):
 - ポジション: ロング開始
 - ストップロス: $92,150（3%下、ATR調整）
 - 利確目標: $104,500（10%上）
-```
+</div>
 
 ## 平均回帰戦略の基礎から応用
 
-### ボリンジャーバンド平均回帰（基礎）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ボリンジャーバンド平均回帰（基礎）</h3>
 
-**基本原理**
-- **中央線**: 20期間移動平均
-- **上下バンド**: 中央線 ± 2標準偏差
-- **買いシグナル**: 価格が下バンド到達後反発
-- **売りシグナル**: 価格が上バンド到達後反落
+<strong>基本原理</strong>
+- <strong>中央線</strong>: 20期間移動平均
+- <strong>上下バンド</strong>: 中央線 ± 2標準偏差
+- <strong>買いシグナル</strong>: 価格が下バンド到達後反発
+- <strong>売りシグナル</strong>: 価格が上バンド到達後反落
 
-### RSI平均回帰戦略（応用）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">RSI平均回帰戦略（応用）</h3>
 
-**より精密な実装**
-```python
+<strong>より精密な実装</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 def advanced_mean_reversion(price, rsi, bb_upper, bb_lower, volume):
     signal = 0
     
@@ -146,6 +150,216 @@ def advanced_mean_reversion(price, rsi, bb_upper, bb_lower, volume):
         volume > volume.mean() * 1.2): # 出来高増加
         signal = 1
     
+    # 売り条件  
+    elif (price >= bb_upper * 0.99 and # 上バンド近辺
+          rsi > 70 and                 # 買われすぎ
+          volume > volume.mean() * 1.2): # 出来高増加
+        signal = -1
+    
+    return signal
+</div>
+
+<strong>実践例（イーサリアム・2025年2月想定）</strong>
+- <strong>シグナル発生</strong>: 2025-02-08 14:20
+- <strong>ETH価格</strong>: $2,950（下バンド$2,960近辺）
+- <strong>RSI</strong>: 28（売られすぎ）
+- <strong>出来高</strong>: 平均の145%増加
+- <strong>ポジション</strong>: ロング開始
+- <strong>目標価格</strong>: $3,120（中央線回帰）
+- <strong>ストップロス</strong>: $2,870（3%下）
+
+## バックテスト手法の基礎から応用（重要）
+
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的なバックテスト設計（基礎）</h3>
+
+<strong>必要な構成要素</strong>
+1. <strong>履歴データ</strong>: 価格・出来高・指標データ
+2. <strong>戦略ロジック</strong>: エントリー・エグジットルール
+3. <strong>コスト計算</strong>: 手数料・スプレッドの考慮
+4. <strong>パフォーマンス測定</strong>: 利益率・最大ドローダウン等
+
+<strong>基本実装フロー</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
+class BacktestEngine:
+    def __init__(self, initial_capital=100000):
+        self.capital = initial_capital
+        self.positions = {}
+        self.trades = []
+        
+    def run_backtest(self, data, strategy):
+        for i in range(len(data)):
+            signal = strategy.generate_signal(data[:i+1])
+            
+            if signal != 0:
+                trade = self.execute_trade(signal, data[i])
+                self.trades.append(trade)
+        
+        return self.calculate_performance()
+</div>
+
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">高度なバックテスト手法（応用）</h3>
+
+<strong>改良項目</strong>
+1. <strong>ウォークフォワード</strong>: 期間分割での動的最適化
+2. <strong>モンテカルロ</strong>: ランダムサンプリングでの頑健性確認
+3. <strong>アウトオブサンプル</strong>: 未知データでの検証
+4. <strong>多次元最適化</strong>: 複数パラメータの同時最適化
+
+<strong>実践例（包括的バックテスト・2024年通年データ）</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
+バックテスト結果（BTC-USD、2024年1-12月）:
+戦略: 改良版MAクロス + RSIフィルター
+
+パフォーマンス指標:
+- 総リターン: +34.5%
+- 年率リターン: +31.2%
+- 最大ドローダウン: -8.7%
+- シャープレシオ: 1.89
+- カルマーレシオ: 3.58
+
+取引統計:
+- 総取引数: 47回
+- 勝率: 61.7%
+- 平均利益: +2.8%
+- 平均損失: -1.9%
+- プロフィットファクター: 2.14
+</div>
+
+## リスク管理の自動化（応用）
+
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ダイナミックポジションサイジング</h3>
+
+<strong>資金管理ルールの自動化</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
+def dynamic_position_sizing(account_value, risk_per_trade=0.02, 
+                          entry_price, stop_loss, volatility):
+    # ケリー基準の改良版
+    risk_amount = account_value * risk_per_trade
+    price_risk = abs(entry_price - stop_loss)
+    
+    # ボラティリティ調整
+    volatility_factor = min(1.0, 0.3 / volatility)
+    
+    position_size = (risk_amount / price_risk) * volatility_factor
+    
+    # 最大ポジション制限（口座の25%）
+    max_position = account_value * 0.25 / entry_price
+    
+    return min(position_size, max_position)
+</div>
+
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">自動損切り・利確システム</h3>
+
+<strong>トレーリングストップの実装</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
+class TrailingStop:
+    def __init__(self, initial_stop, trail_percent=0.03):
+        self.stop_price = initial_stop
+        self.trail_percent = trail_percent
+        self.peak_price = None
+        
+    def update(self, current_price, position_type):
+        if position_type == 'long':
+            if self.peak_price is None or current_price > self.peak_price:
+                self.peak_price = current_price
+                new_stop = current_price * (1 - self.trail_percent)
+                self.stop_price = max(self.stop_price, new_stop)
+        
+        return self.stop_price
+</div>
+
+## 実践的な実装ガイド（システム構築）
+
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">完全自動システムの構築手順</h3>
+
+<strong>段階的開発プロセス</strong>
+1. <strong>戦略設計</strong>: ルールの明確化とロジック構築
+2. <strong>バックテスト</strong>: 履歴データでの検証
+3. <strong>ペーパートレード</strong>: リアルタイム環境での検証  
+4. <strong>小額運用</strong>: 少額資金での実際運用開始
+5. <strong>段階的拡大</strong>: 検証済み戦略の資金投入拡大
+
+<strong>最終的な統合システム例</strong>
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
+システム構成（2025年実装想定）:
+
+データ取得:
+- Binance WebSocket (リアルタイム価格)
+- CoinGecko API (ファンダメンタル)
+- Twitter API (センチメント)
+
+戦略エンジン:
+- 複数戦略の並列実行
+- リスク管理の一元化
+- パフォーマンス監視
+
+実行システム:
+- 自動注文執行
+- スリッページ最小化
+- 緊急停止機能
+
+監視・アラート:
+- Discord/Slack通知
+- パフォーマンスダッシュボード
+- 異常動作検知
+</div>`
+      },
+      {
+        type: 'quiz',
+        content: {
+          question: 'アルゴリズム取引の主要な利点として適切でないものはどれですか？',
+          options: [
+            '感情に左右されない客観的な判断',
+            '24時間の継続的な市場監視',
+            '必ず利益を保証する',
+            '高速で精密な取引実行'
+          ],
+          correctAnswer: 2,
+          explanation: 'アルゴリズム取引は利益を保証するものではありません。主な利点は感情制御、継続監視、実行効率の向上です。'
+        }
+      }
+    ],
+    quiz: [
+      {
+        question: '移動平均クロス戦略における「買いシグナル」の基本条件は何ですか？',
+        options: [
+          '短期MA < 長期MA',
+          '短期MA > 長期MA',
+          '短期MA = 長期MA',
+          '価格 > 短期MA'
+        ],
+        correctAnswer: 1,
+        explanation: '移動平均クロス戦略では、短期移動平均が長期移動平均を上回った時が買いシグナルとなります。'
+      },
+      {
+        question: 'バックテストで最も重要な考慮事項は何ですか？',
+        options: [
+          '最大利益の追求',
+          '取引コストとスリッページの考慮',
+          '複雑な戦略の実装',
+          '短期間でのテスト完了'
+        ],
+        correctAnswer: 1,
+        explanation: 'バックテストでは取引コスト、スリッページ、スプレッドなど実際の取引環境を正確に反映することが重要です。'
+      },
+      {
+        question: 'トレーリングストップの主な目的は何ですか？',
+        options: [
+          '利益を最大化すること',
+          '利益を確保しながらさらなる上昇を狙うこと',
+          '損失を固定すること',
+          '取引回数を増やすこと'
+        ],
+        correctAnswer: 1,
+        explanation: 'トレーリングストップは価格上昇に合わせてストップロスを引き上げ、利益を確保しながら更なる上昇の恩恵を受けることが目的です。'
+      }
+    ]
+  }
+}
+
+export default lesson30): # 出来高増加
+        signal = 1
+    
     # 売り条件
     elif (price >= bb_upper * 0.99 and  # 上バンド近辺
           rsi > 70 and                  # 買われすぎ
@@ -153,10 +367,10 @@ def advanced_mean_reversion(price, rsi, bb_upper, bb_lower, volume):
         signal = -1
     
     return signal
-```
+\`\`\`
 
-**実践例（イーサリアム・2025年2月想定）**
-```
+<strong>実践例（イーサリアム・2025年2月想定）</strong>
+\`\`\`
 平均回帰シグナル発生:
 - 日時: 2025-02-08 14:45
 - ETH価格: $3,150（下バンド$3,140近辺）
@@ -169,22 +383,22 @@ def advanced_mean_reversion(price, rsi, bb_upper, bb_lower, volume):
 - ストップロス: $3,050（下バンド下抜け）
 - 利確目標: $3,350（中央線+1標準偏差）
 - 結果: 3日後$3,380で利確（+7.1%）
-```
+\`\`\`
 
 ## ペアトレーディング戦略（応用）
 
-### 基本的なペア選定
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的なペア選定</h3>
 
-**統計的関係の確認**
-1. **相関係数**: 0.7以上の高い相関
-2. **共和分検定**: 長期均衡関係の存在確認
-3. **ベータ値**: リスク調整のためのヘッジ比率
-4. **流動性**: 両銘柄の十分な取引量
+<strong>統計的関係の確認</strong>
+1. <strong>相関係数</strong>: 0.7以上の高い相関
+2. <strong>共和分検定</strong>: 長期均衡関係の存在確認
+3. <strong>ベータ値</strong>: リスク調整のためのヘッジ比率
+4. <strong>流動性</strong>: 両銘柄の十分な取引量
 
-### 実装例（BTC-ETHペア・2025年3月想定）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">実装例（BTC-ETHペア・2025年3月想定）</h3>
 
-**ペア関係の分析**
-```
+<strong>ペア関係の分析</strong>
+\`\`\`
 BTC-ETHペア統計（過去1年）:
 - 相関係数: 0.82
 - ヘッジ比率: 1 BTC = 16.5 ETH
@@ -195,10 +409,10 @@ BTC-ETHペア統計（過去1年）:
 - ロングスプレッド: Z-score > +2
 - ショートスプレッド: Z-score < -2
 - 決済: Z-score = 0付近
-```
+\`\`\`
 
-**実際の取引例**
-```
+<strong>実際の取引例</strong>
+\`\`\`
 エントリー:
 - 日時: 2025-03-10 09:15
 - BTC価格: $98,000
@@ -212,20 +426,20 @@ BTC-ETHペア統計（過去1年）:
 - ETH ショート: 16.5 ETH
 - 3日後決済: Z-score 0.1で決済
 - 利益: $1,850（スプレッド縮小による）
-```
+\`\`\`
 
 ## 高頻度取引の基礎（応用）
 
-### マーケットメイキング戦略
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">マーケットメイキング戦略</h3>
 
-**基本的な仕組み**
-- **ビッド提示**: 現在価格より僅かに低い買い注文
-- **アスク提示**: 現在価格より僅かに高い売り注文
-- **利益源**: ビッド・アスクスプレッドの獲得
-- **リスク**: 一方向への大きな価格変動
+<strong>基本的な仕組み</strong>
+- <strong>ビッド提示</strong>: 現在価格より僅かに低い買い注文
+- <strong>アスク提示</strong>: 現在価格より僅かに高い売り注文
+- <strong>利益源</strong>: ビッド・アスクスプレッドの獲得
+- <strong>リスク</strong>: 一方向への大きな価格変動
 
-**実装パラメータ例**
-```
+<strong>実装パラメータ例</strong>
+\`\`\`
 マーケットメイキング設定:
 - スプレッド幅: 0.05%（片側0.025%）
 - 最大ポジション: $50,000相当
@@ -238,18 +452,18 @@ BTC-ETHペア統計（過去1年）:
 - 粗利益: $47（スプレッド収入）
 - 在庫リスク: ロング偏重3 SOL
 - 調整: ビッド価格を$0.02下げて調整
-```
+\`\`\`
 
-### レイテンシーアービトラージ（高度応用）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">レイテンシーアービトラージ（高度応用）</h3>
 
-**情報速度差の利用**
-- **データソース**: 複数取引所の価格フィード
-- **速度差**: 高速フィードと通常フィードの時間差
-- **実行速度**: ミリ秒単位での超高速執行
-- **技術要件**: 専用ハードウェア・ネットワーク最適化
+<strong>情報速度差の利用</strong>
+- <strong>データソース</strong>: 複数取引所の価格フィード
+- <strong>速度差</strong>: 高速フィードと通常フィードの時間差
+- <strong>実行速度</strong>: ミリ秒単位での超高速執行
+- <strong>技術要件</strong>: 専用ハードウェア・ネットワーク最適化
 
-**実装概念（技術解説）**
-```
+<strong>実装概念（技術解説）</strong>
+\`\`\`
 システム構成:
 - コロケーション: 取引所隣接データセンター
 - 専用回線: 光ファイバー直接接続
@@ -260,22 +474,22 @@ BTC-ETHペア統計（過去1年）:
 - データ受信-判断: <0.1ミリ秒
 - 判断-注文送信: <0.05ミリ秒
 - 総遅延: <0.5ミリ秒（電気信号伝播含む）
-```
+\`\`\`
 
 ## 機械学習統合戦略（最新応用）
 
-### 強化学習による戦略最適化
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">強化学習による戦略最適化</h3>
 
-**環境設定**
-- **状態空間**: 価格・出来高・テクニカル指標の組み合わせ
-- **行動空間**: ポジションサイズ（-100%～+100%）
-- **報酬関数**: シャープ比率最大化
-- **学習アルゴリズム**: PPO（Proximal Policy Optimization）
+<strong>環境設定</strong>
+- <strong>状態空間</strong>: 価格・出来高・テクニカル指標の組み合わせ
+- <strong>行動空間</strong>: ポジションサイズ（-100%～+100%）
+- <strong>報酬関数</strong>: シャープ比率最大化
+- <strong>学習アルゴリズム</strong>: PPO（Proximal Policy Optimization）
 
-### ニューラルネットワーク価格予測
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ニューラルネットワーク価格予測</h3>
 
-**アーキテクチャ例**
-```
+<strong>アーキテクチャ例</strong>
+\`\`\`
 LSTM-CNN ハイブリッドモデル:
 
 入力層:
@@ -296,10 +510,10 @@ CNN層:
 出力層:
 - 1期間先価格変動確率分布
 - softmax活性化（上昇・横ばい・下降）
-```
+\`\`\`
 
-**実践運用例（2025年5月想定）**
-```
+<strong>実践運用例（2025年5月想定）</strong>
+\`\`\`
 予測モデル運用:
 - 学習期間: 過去2年間データ
 - 再学習: 週1回
@@ -312,14 +526,14 @@ CNN層:
 - 予測: 上昇確率 0.72
 - 実行: ロングポジション 0.5%配分
 - 結果: 翌日+2.3%上昇、利確
-```
+\`\`\`
 
 ## リスク管理の自動化（応用）
 
-### 動的ポジションサイジング
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">動的ポジションサイジング</h3>
 
-**Kelly基準の応用**
-```python
+<strong>Kelly基準の応用</strong>
+\`\`\`python
 def kelly_position_size(win_rate, avg_win, avg_loss, capital):
     if avg_loss == 0:
         return 0
@@ -331,12 +545,12 @@ def kelly_position_size(win_rate, avg_win, avg_loss, capital):
     safe_fraction = max(0, min(kelly_fraction * 0.25, 0.1))
     
     return capital * safe_fraction
-```
+\`\`\`
 
-### リアルタイムリスク監視
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">リアルタイムリスク監視</h3>
 
-**自動制御システム**
-```
+<strong>自動制御システム</strong>
+\`\`\`
 リスク監視パラメータ:
 - 日次VaR: 資金の2%上限
 - 最大ドローダウン: 10%上限
@@ -348,26 +562,28 @@ def kelly_position_size(win_rate, avg_win, avg_loss, capital):
 - レベル2制限: 新規ポジション停止
 - レベル3強制: 既存ポジション50%削減
 - 緊急停止: 全ポジション即時決済
-```
+\`\`\`
 
 アルゴリズム取引は高度な技術と深い市場理解が必要ですが、適切に実装すれば感情に左右されない安定した取引システムを構築できます。基本戦略から始めて段階的に高度な手法を習得することが成功の鍵です。`
       },
       {
         type: 'example',
-        content: `## アルゴリズム取引実践例：総合システム構築
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">アルゴリズム取引実践例：総合システム構築</h2>
 
-### ケース1: 個人投資家向け基本システム
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: 個人投資家向け基本システム</h3>
 
-**システム要件**
-- **資金規模**: $100,000
-- **技術レベル**: プログラミング基礎知識あり
-- **目標**: 年率15%リターン、最大DD 8%以内
-- **取引頻度**: デイトレード～スイングトレード
+<strong>システム要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金規模</strong>: $100,000</li>
+<li><strong>技術レベル</strong>: プログラミング基礎知識あり</li>
+<li><strong>目標</strong>: 年率15%リターン、最大DD 8%以内</li>
+<li><strong>取引頻度</strong>: デイトレード～スイングトレード</li>
+</ul>
 
-**採用戦略の組み合わせ**
+<strong>採用戦略の組み合わせ</strong>
 
-**メイン戦略: 改良版トレンドフォロー（70%配分）**
-```python
+<strong>メイン戦略: 改良版トレンドフォロー（70%配分）</strong>
+\`\`\`python
 class TrendFollowStrategy:
     def __init__(self):
         self.short_ma = 20
@@ -393,10 +609,10 @@ class TrendFollowStrategy:
             return -1
             
         return 0
-```
+\`\`\`
 
-**サブ戦略: 平均回帰（30%配分）**
-```python
+<strong>サブ戦略: 平均回帰（30%配分）</strong>
+\`\`\`python
 class MeanReversionStrategy:
     def __init__(self):
         self.bb_period = 20
@@ -420,10 +636,10 @@ class MeanReversionStrategy:
             return -1
             
         return 0
-```
+\`\`\`
 
-**6ヶ月運用実績（2025年1月-6月想定）**
-```
+<strong>6ヶ月運用実績（2025年1月-6月想定）</strong>
+\`\`\`
 月別パフォーマンス:
 - 1月: +3.2%（BTC上昇トレンド捕捉）
 - 2月: -1.8%（レンジ相場、小幅ドローダウン）
@@ -438,20 +654,20 @@ class MeanReversionStrategy:
 - シャープ比率: 1.89
 - 勝率: 62%（108勝66敗）
 - プロフィットファクター: 1.67
-```
+\`\`\`
 
-### ケース2: 高度なマルチ戦略システム
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース2: 高度なマルチ戦略システム</h3>
 
-**システム要件**
-- **資金規模**: $1,000,000
-- **技術レベル**: 高度なプログラミング・統計知識
-- **目標**: 年率25%リターン、最大DD 15%以内
-- **取引頻度**: 高頻度～中期取引の組み合わせ
+<strong>システム要件</strong>
+- <strong>資金規模</strong>: $1,000,000
+- <strong>技術レベル</strong>: 高度なプログラミング・統計知識
+- <strong>目標</strong>: 年率25%リターン、最大DD 15%以内
+- <strong>取引頻度</strong>: 高頻度～中期取引の組み合わせ
 
-**戦略配分とパラメータ**
+<strong>戦略配分とパラメータ</strong>
 
-**戦略1: マーケットメイキング（40%配分）**
-```python
+<strong>戦略1: マーケットメイキング（40%配分）</strong>
+\`\`\`python
 class MarketMakingStrategy:
     def __init__(self):
         self.spread_target = 0.05  # 0.05%のスプレッド
@@ -474,10 +690,10 @@ class MarketMakingStrategy:
         if abs(inventory) > self.max_inventory:
             return False
         return True
-```
+\`\`\`
 
-**戦略2: 統計的アービトラージ（35%配分）**
-```python
+<strong>戦略2: 統計的アービトラージ（35%配分）</strong>
+\`\`\`python
 class StatisticalArbitrageStrategy:
     def __init__(self):
         self.pairs = [('BTC', 'ETH'), ('ADA', 'SOL'), ('LINK', 'DOT')]
@@ -496,10 +712,10 @@ class StatisticalArbitrageStrategy:
         elif abs(spread_zscore) < self.exit_threshold:
             return 0   # 決済
         return None    # ホールド
-```
+\`\`\`
 
-**戦略3: 機械学習予測（25%配分）**
-```python
+<strong>戦略3: 機械学習予測（25%配分）</strong>
+\`\`\`python
 class MLPredictionStrategy:
     def __init__(self):
         self.model = self.load_trained_model()
@@ -541,10 +757,10 @@ class MLPredictionStrategy:
             return predicted_class - 1  # -1, 0, 1に変換
         
         return 0  # 信頼度不足の場合はポジションなし
-```
+\`\`\`
 
-**システム全体の運用結果（1年間・2025年想定）**
-```
+<strong>システム全体の運用結果（1年間・2025年想定）</strong>
+\`\`\`
 戦略別パフォーマンス:
 
 マーケットメイキング:
@@ -571,17 +787,17 @@ class MLPredictionStrategy:
 - 最大ドローダウン: -6.7%
 - 勝率: 58%
 - カルマー比率: 3.6
-```
+\`\`\`
 
-### ケース3: リスク管理重視システム
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース3: リスク管理重視システム</h3>
 
-**保守的アプローチ**
-- **資金規模**: $500,000
-- **リスク許容度**: 非常に低い
-- **目標**: 年率10%リターン、最大DD 5%以内
+<strong>保守的アプローチ</strong>
+- <strong>資金規模</strong>: $500,000
+- <strong>リスク許容度</strong>: 非常に低い
+- <strong>目標</strong>: 年率10%リターン、最大DD 5%以内
 
-**リスク管理の実装**
-```python
+<strong>リスク管理の実装</strong>
+\`\`\`python
 class RiskManager:
     def __init__(self, total_capital):
         self.total_capital = total_capital
@@ -613,10 +829,10 @@ class RiskManager:
         if drawdown > self.max_drawdown_limit:
             return True, "緊急停止：最大DD超過"
         return False, "正常"
-```
+\`\`\`
 
-**保守運用結果（1年間）**
-```
+<strong>保守運用結果（1年間）</strong>
+\`\`\`
 リスク重視運用結果:
 - 年率リターン: +11.8%
 - 最大ドローダウン: -4.2%
@@ -629,53 +845,55 @@ class RiskManager:
 - 緊急停止発動: 0回
 - 相関制限発動: 7回
 - 目標達成度: リターン118%、リスク84%
-```
+\`\`\`
 
-**学習ポイント**
-- **段階的構築**: 基本戦略から高度戦略への段階的発展
-- **リスク重視**: リターンよりもリスク管理を優先
-- **多様化**: 複数戦略の組み合わせによるリスク分散
-- **継続改善**: 定期的な戦略見直しと最適化`
+<strong>学習ポイント</strong>
+- <strong>段階的構築</strong>: 基本戦略から高度戦略への段階的発展
+- <strong>リスク重視</strong>: リターンよりもリスク管理を優先
+- <strong>多様化</strong>: 複数戦略の組み合わせによるリスク分散
+- <strong>継続改善</strong>: 定期的な戦略見直しと最適化`
       },
       {
         type: 'tip',
-        content: `**アルゴリズム取引実践のコツ**
+        content: `<strong>アルゴリズム取引実践のコツ</strong>
 
-1. **段階的な学習と実装**:
+1. <strong>段階的な学習と実装</strong>:
    - 基本戦略（移動平均クロス）から開始
    - デモ取引での十分な検証期間
    - 小額資金での実運用テスト
    - 成功確認後の段階的規模拡大
 
-2. **堅実なバックテスト**:
+2. <strong>堅実なバックテスト</strong>:
    - 十分な履歴データ（最低2-3年）
    - アウトオブサンプルテストの実施
    - 取引コスト・スリッページの考慮
    - 生存者バイアス等の統計的罠回避
 
-3. **リスク管理の自動化**:
+3. <strong>リスク管理の自動化</strong>:
    - 最大損失額の事前設定
    - ポートフォリオレベルのリスク監視
    - 緊急停止システムの実装
    - 定期的なパフォーマンス評価
 
-4. **継続的な改善**: 市場環境変化への適応と戦略の継続的最適化が長期成功の鍵！`
+4. <strong>継続的な改善</strong>: 市場環境変化への適応と戦略の継続的最適化が長期成功の鍵！`
       },
       {
         type: 'text',
         content: `# バックテストと戦略検証
 
-## 科学的なバックテスト手法
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">科学的なバックテスト手法</h2>
 
-### データ分割の基本原則
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">データ分割の基本原則</h3>
 
-**時系列分割の重要性**
-- **In-Sample期間（60%）**: 戦略開発・パラメータ最適化
-- **Out-of-Sample期間（25%）**: 初期検証・調整
-- **Forward Test期間（15%）**: 最終検証・実用性確認
+<strong>時系列分割の重要性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>In-Sample期間（60%）</strong>: 戦略開発・パラメータ最適化</li>
+<li><strong>Out-of-Sample期間（25%）</strong>: 初期検証・調整</li>
+<li><strong>Forward Test期間（15%）</strong>: 最終検証・実用性確認</li>
+</ul>
 
-**実践例（3年間データの分割）**
-```
+<strong>実践例（3年間データの分割）</strong>
+\`\`\`
 2022年1月-2024年8月のデータ使用:
 
 In-Sample: 2022年1月-2023年8月（20ヶ月）
@@ -692,18 +910,18 @@ Forward Test: 2024年6月-2025年1月（8ヶ月）
 - 用途: 最終的な実用性確認
 - 市場変化への適応性テスト
 - 実運用前の最終検証
-```
+\`\`\`
 
-### Walk-Forward Analysis（応用）
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">Walk-Forward Analysis（応用）</h3>
 
-**動的最適化プロセス**
-1. **初期最適化**: 6ヶ月データでパラメータ最適化
-2. **戦略実行**: 1ヶ月間の実戦テスト
-3. **評価・調整**: パフォーマンス評価と必要な調整
-4. **前進・繰り返し**: 期間を1ヶ月前進させて繰り返し
+<strong>動的最適化プロセス</strong>
+1. <strong>初期最適化</strong>: 6ヶ月データでパラメータ最適化
+2. <strong>戦略実行</strong>: 1ヶ月間の実戦テスト
+3. <strong>評価・調整</strong>: パフォーマンス評価と必要な調整
+4. <strong>前進・繰り返し</strong>: 期間を1ヶ月前進させて繰り返し
 
-**実装例（2025年想定）**
-```python
+<strong>実装例（2025年想定）</strong>
+\`\`\`python
 class WalkForwardAnalysis:
     def __init__(self, optimization_window=180, test_window=30):
         self.opt_window = optimization_window  # 6ヶ月
@@ -731,12 +949,12 @@ class WalkForwardAnalysis:
             })
             
         return results
-```
+\`\`\`
 
-### パフォーマンス指標の総合評価
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">パフォーマンス指標の総合評価</h3>
 
-**基本的なリターン指標**
-```python
+<strong style="color: #1f2937; font-weight: 600;">基本的なリターン指標</strong>
+\`\`\`python
 def calculate_performance_metrics(returns):
     metrics = {}
     
@@ -760,10 +978,10 @@ def calculate_performance_metrics(returns):
     metrics['max_drawdown'] = drawdown.min()
     
     return metrics
-```
+\`\`\`
 
-**高度なリスク指標**
-```python
+<strong>高度なリスク指標</strong>
+\`\`\`python
 def calculate_risk_metrics(returns, confidence_level=0.05):
     risk_metrics = {}
     
@@ -785,14 +1003,14 @@ def calculate_risk_metrics(returns, confidence_level=0.05):
     risk_metrics['calmar_ratio'] = annual_return / abs(max_dd)
     
     return risk_metrics
-```
+\`\`\`
 
 ## 統計的検証手法（応用）
 
-### モンテカルロシミュレーション
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">モンテカルロシミュレーション</h3>
 
-**ランダム化テストによる検証**
-```python
+<strong>ランダム化テストによる検証</strong>
+\`\`\`python
 class MonteCarloValidator:
     def __init__(self, n_simulations=1000):
         self.n_simulations = n_simulations
@@ -812,12 +1030,12 @@ class MonteCarloValidator:
         """実際の成果の統計的有意性を計算"""
         percentile = (random_returns < actual_return).mean() * 100
         return percentile
-```
+\`\`\`
 
-### ブートストラップ法による信頼区間
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ブートストラップ法による信頼区間</h3>
 
-**将来パフォーマンスの予測範囲**
-```python
+<strong>将来パフォーマンスの予測範囲</strong>
+\`\`\`python
 def bootstrap_confidence_interval(returns, n_bootstrap=1000, confidence=0.95):
     bootstrap_results = []
     
@@ -835,14 +1053,14 @@ def bootstrap_confidence_interval(returns, n_bootstrap=1000, confidence=0.95):
     upper_bound = np.percentile(bootstrap_results, (1 - alpha/2) * 100)
     
     return lower_bound, upper_bound, bootstrap_results.mean()
-```
+\`\`\`
 
 ## 実装上の重要な考慮点
 
-### 取引コストの正確な計算
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">取引コストの正確な計算</h3>
 
-**包括的コストモデル**
-```python
+<strong>包括的コストモデル</strong>
+\`\`\`python
 class TransactionCostModel:
     def __init__(self):
         self.commission_rate = 0.001  # 0.1%の委託手数料
@@ -862,12 +1080,12 @@ class TransactionCostModel:
         slippage = trade_size * 0.0002 * volatility
         
         return commission + spread + impact + slippage
-```
+\`\`\`
 
-### データ品質管理
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">データ品質管理</h3>
 
-**データクリーニングプロセス**
-```python
+<strong>データクリーニングプロセス</strong>
+\`\`\`python
 class DataQualityManager:
     def __init__(self):
         self.outlier_threshold = 3.0  # 3σルール
@@ -896,12 +1114,12 @@ class DataQualityManager:
         data.loc[outlier_mask, 'close'] = data['close'].rolling(5).median()
         
         return data
-```
+\`\`\`
 
-### システム実装のベストプラクティス
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">システム実装のベストプラクティス</h3>
 
-**モジュール設計**
-```python
+<strong>モジュール設計</strong>
+\`\`\`python
 class TradingSystem:
     def __init__(self):
         self.data_manager = DataManager()
@@ -929,7 +1147,7 @@ class TradingSystem:
             
             # 次回実行まで待機
             self.wait_for_next_interval()
-```
+\`\`\`
 
 アルゴリズム取引の実装には技術的な知識だけでなく、統計学、リスク管理、システム設計の包括的な理解が必要です。段階的なアプローチと継続的な改善により、安定した自動取引システムを構築できます。`
       },
@@ -952,41 +1170,41 @@ class TradingSystem:
       },
       {
         type: 'warning',
-        content: `**アルゴリズム取引実践時の注意点**
+        content: `<strong>アルゴリズム取引実践時の注意点</strong>
 
-### 1. 過度な最適化（オーバーフィッティング）
-**問題**: 過去データに過度に適合した戦略
-**対策**:
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">1. 過度な最適化（オーバーフィッティング）</h3>
+<strong>問題</strong>: 過去データに過度に適合した戦略
+<strong>対策</strong>:
 - Out-of-Sampleテストの必須実施
 - Walk-Forward Analysisによる動的検証
 - パラメータ数の制限と汎用性重視
 - 統計的有意性の確認
 
-### 2. システムリスクと技術的障害
-**問題**: システム停止・データ遅延・執行エラー
-**対策**:
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">2. システムリスクと技術的障害</h3>
+<strong>問題</strong>: システム停止・データ遅延・執行エラー
+<strong>対策</strong>:
 - 冗長化システムとバックアップ体制
 - リアルタイムシステム監視
 - 緊急停止機能の実装
 - 障害時の手動介入手順策定
 
-### 3. 市場環境変化への適応不足
-**問題**: 戦略が特定期間に特化しすぎ
-**対策**:
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">3. 市場環境変化への適応不足</h3>
+<strong>問題</strong>: 戦略が特定期間に特化しすぎ
+<strong>対策</strong>:
 - 複数市場環境での検証
 - 定期的な戦略見直し・更新
 - レジーム変化検出システム
 - 複数戦略の組み合わせ活用
 
-### 4. 取引コストの過小評価
-**問題**: バックテスト時のコスト軽視
-**対策**:
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">4. 取引コストの過小評価</h3>
+<strong>問題</strong>: バックテスト時のコスト軽視
+<strong>対策</strong>:
 - 包括的コストモデルの使用
 - スリッページ・マーケットインパクト考慮
 - 実際の執行コストとの継続比較
 - 高頻度取引時の累積コスト注意
 
-**成功の秘訣**: アルゴリズム取引は技術と規律の組み合わせです。基本概念の確実な理解、段階的な実装、継続的な改善により長期的な成功を実現できます。**
+<strong>成功の秘訣</strong>: アルゴリズム取引は技術と規律の組み合わせです。基本概念の確実な理解、段階的な実装、継続的な改善により長期的な成功を実現できます。**
       }
     ],
     keyPoints: [

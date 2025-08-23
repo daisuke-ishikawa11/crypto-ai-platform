@@ -391,9 +391,9 @@ export const lesson50: Lesson = {
 </div>
           \`\`\`
 
-          **時間軸別配分戦略:**
+          <strong>時間軸別配分戦略:</strong>
 
-          **戦術的資産配分（Tactical Asset Allocation）:**
+          <strong>戦術的資産配分（Tactical Asset Allocation）:</strong>
           \`\`\`
           市況サイクル別調整:
           
@@ -422,7 +422,7 @@ export const lesson50: Lesson = {
           - マクロ経済動向
           \`\`\`
 
-          **動的リバランシング戦略:**
+          <strong>動的リバランシング戦略:</strong>
           \`\`\`
           リバランシング手法:
           
@@ -451,9 +451,9 @@ export const lesson50: Lesson = {
           - 流動性確保
           \`\`\`
 
-          **リスク管理統合:**
+          <strong>リスク管理統合:</strong>
 
-          **ポートフォリオレベルリスク管理:**
+          <strong>ポートフォリオレベルリスク管理:</strong>
           \`\`\`
           リスク測定指標:
           
@@ -481,7 +481,7 @@ export const lesson50: Lesson = {
           目標: 1.0以上が良好
           \`\`\`
 
-          **相関関係・分散効果:**
+          <strong>相関関係・分散効果:</strong>
           \`\`\`
           資産間相関分析:
           
@@ -508,9 +508,9 @@ export const lesson50: Lesson = {
           適度相関: 0.3-0.7が理想
           \`\`\`
 
-          **実装・実行戦略:**
+          <strong>実装・実行戦略:</strong>
 
-          **投資プラットフォーム選択:**
+          <strong>投資プラットフォーム選択:</strong>
           \`\`\`
           プラットフォーム分類:
           
@@ -539,7 +539,7 @@ export const lesson50: Lesson = {
           適用: 機関投資家・富裕層
           \`\`\`
 
-          **コスト最適化:**
+          <strong>コスト最適化:</strong>
           \`\`\`
           取引コスト管理:
           
@@ -575,7 +575,7 @@ export const lesson50: Lesson = {
           - 専門家相談活用
           \`\`\`
 
-          **実行スケジュール:**
+          <strong>実行スケジュール:</strong>
           \`\`\`
           段階的実装計画:
           
@@ -703,9 +703,9 @@ export const lesson50: Lesson = {
 </div>
           暗号通貨投資で長期的成功を達成するには、継続的な学習・改善・適応が不可欠です。
 
-          **パフォーマンス測定・分析システム:**
+          <strong>パフォーマンス測定・分析システム:</strong>
 
-          **定量的評価指標:**
+          <strong>定量的評価指標:</strong>
           \`\`\`
           絶対収益指標:
           
@@ -730,7 +730,7 @@ export const lesson50: Lesson = {
           税引後: 実質リターン計算
           \`\`\`
 
-          **リスク調整後指標:**
+          <strong>リスク調整後指標:</strong>
           \`\`\`
           Sharpe Ratio:
           計算: (ポートフォリオリターン - 無リスク利率) / 標準偏差
@@ -753,7 +753,7 @@ export const lesson50: Lesson = {
           目標: 1.0以上が良好
           \`\`\`
 
-          **ベンチマーク比較:**
+          <strong>ベンチマーク比較:</strong>
           \`\`\`
           比較対象設定:
           
@@ -782,9 +782,9 @@ export const lesson50: Lesson = {
           - 勝率・負け幅分析
           \`\`\`
 
-          **学習・改善サイクル:**
+          <strong>学習・改善サイクル:</strong>
 
-          **PDCA継続改善:**
+          <strong>PDCA継続改善:</strong>
           \`\`\`
           Plan (計画):
           - 投資戦略見直し・改善計画
@@ -817,7 +817,7 @@ export const lesson50: Lesson = {
           - 随時: 緊急対応・危機管理
           \`\`\`
 
-          **知識・スキル向上計画:**
+          <strong>知識・スキル向上計画:</strong>
           \`\`\`
           学習領域体系化:
           
@@ -852,7 +852,7 @@ export const lesson50: Lesson = {
           - コミュニティ参加・議論
           \`\`\`
 
-          **ネットワーク・コミュニティ活用:**
+          <strong>ネットワーク・コミュニティ活用:</strong>
           \`\`\`
           情報源多様化:
           
@@ -881,9 +881,9 @@ export const lesson50: Lesson = {
           - 批判的思考能力
           \`\`\`
 
-          **技術・市場変化への適応:**
+          <strong>技術・市場変化への適応:</strong>
 
-          **イノベーション追跡・評価:**
+          <strong>イノベーション追跡・評価:</strong>
           \`\`\`
           技術トレンド監視:
           
@@ -919,7 +919,7 @@ export const lesson50: Lesson = {
           - 衰退段階: 撤退・代替検討
           \`\`\`
 
-          **規制・制度変化対応:**
+          <strong>規制・制度変化対応:</strong>
           \`\`\`
           規制動向監視:
           
@@ -949,9 +949,9 @@ export const lesson50: Lesson = {
           - 地域・プラットフォーム分散
           \`\`\`
 
-          **長期成功のための心構え:**
+          <strong>長期成功のための心構え:</strong>
 
-          **持続可能性重視:**
+          <strong>持続可能性重視:</strong>
           \`\`\`
           健康・バランス維持:
           
@@ -980,7 +980,7 @@ export const lesson50: Lesson = {
           - 謙虚・柔軟性
           \`\`\`
 
-          **価値創造・社会貢献:**
+          <strong>価値創造・社会貢献:</strong>
           \`\`\`
           社会への還元:
           
@@ -1009,7 +1009,7 @@ export const lesson50: Lesson = {
           - 国際協力・交流
           \`\`\`
 
-          **レガシー・相続対策:**
+          <strong>レガシー・相続対策:</strong>
           \`\`\`
           資産承継準備:
           

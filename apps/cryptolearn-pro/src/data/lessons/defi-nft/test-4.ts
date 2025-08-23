@@ -1,46 +1,51 @@
-import { Test } from '../../types'
+import { CategoryTest } from '@/lib/types/learning'
 
-export const test4: Test = {
+export const defiNftTest4: CategoryTest = {
   id: 'defi-nft-test-4',
   categoryId: 'defi-nft',
-  title: 'DeFi基礎と貸付プロトコル：確認テスト4（レッスン16-20）',
-  description: 'DeFiの基本概念、主要プロトコル、貸付・借入の仕組みに関する理解度を確認します',
+  title: 'クロスチェーンDeFi・Layer2・NFT基礎：確認テスト4（レッスン16-20）',
+  description: 'クロスチェーンDeFi、Layer2ソリューション、NFT基礎概念、NFT規格・メタデータ、NFTマーケットプレイスに関する理解度を確認します',
+  difficulty: 'intermediate',
+  category: 'defi-nft',
+  lessonRange: 'lesson-16-20',
+  passingScore: 80,
+  timeLimit: 25,
   questions: [
     {
-      id: 'q1',
-      question: 'DeFi（分散型金融）の最も根本的な特徴は何ですか？',
+      id: 'defi-nft-test-4-q1',
+      question: 'クロスチェーンDeFiの最大のリスクは？',
       options: [
-        '高い利回りの提供',
-        '中央管理者が存在しないこと',
-        '暗号通貨のみでの取引',
-        '24時間取引可能であること'
+        '高いガス代',
+        '取引速度の低下',
+        'ブリッジプロトコルのセキュリティリスク',
+        'ユーザーインターフェースの複雑さ'
+      ],
+      correctAnswer: 2,
+      explanation: '<p><strong>正解：ブリッジプロトコルのセキュリティリスク</strong></p><p><strong>クロスチェーンDeFi</strong>では、<strong>異なるブロックチェーン間の資産移動</strong>が最大のリスクポイントです。</p><p><strong>ブリッジリスクの要因：</strong></p><ul><li><strong>技術的複雑さ</strong>：複数チェーンの状態検証の困難</li><li><strong>中央集権的要素</strong>：多くのブリッジが信頼できる第三者に依存</li><li><strong>大額資金プール</strong>：攻撃者にとって魅力的なターゲット</li><li><strong>新しい技術</strong>：十分にテストされていない場合がある</li></ul><p><strong>実際の被害事例：</strong></p><ul><li><strong>Ronin Bridge</strong>（2022年）：$600M流出</li><li><strong>Wormhole</strong>（2022年）：$320M被害</li><li><strong>Poly Network</strong>（2021年）：$600M攻撃</li></ul><p><strong>リスク軽減策：</strong></p><ul><li><strong>複数検証者</strong>：分散型バリデーションシステム</li><li><strong>時間遅延</strong>：大額移動時の待機時間</li><li><strong>保険プロトコル</strong>：ブリッジ専用保険</li><li><strong>監査</strong>：定期的なセキュリティ監査</li></ul>'
+    },
+    {
+      id: 'defi-nft-test-4-q2',
+      question: 'Layer2ソリューションの主な利点は？',
+      options: [
+        'セキュリティの向上のみ',
+        'スケーラビリティ向上と手数料削減',
+        '完全に新しいブロックチェーンの作成',
+        'プライバシーの完全な保護'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：中央管理者が存在しないこと</strong></p><p><strong>DeFi</strong>の本質は<strong>「Decentralized（分散型）」</strong>という言葉が示す通り、<strong>中央管理者の不在</strong>です。</p><p><strong>従来の金融 vs DeFi：</strong></p><ul><li><strong>従来</strong>：銀行・証券会社が中央管理</li><li><strong>DeFi</strong>：スマートコントラクトが自動実行</li></ul><p><strong>分散化のメリット：</strong></p><ul><li><strong>検閲耐性</strong>：第三者による取引停止ができない</li><li><strong>透明性</strong>：すべての取引がオープン</li><li><strong>アクセシビリティ</strong>：許可不要で利用可能</li><li><strong>プログラマビリティ</strong>：自動化された金融サービス</li></ul><p><strong>注意：</strong>高利回りや24時間取引は特徴の一つですが、根本的な価値提案ではありません。</p>'
+      explanation: '<p><strong>正解：スケーラビリティ向上と手数料削減</strong></p><p><strong>Layer2</strong>は、<strong>メインチェーンの負荷軽減</strong>により性能向上を図るソリューションです。</p><p><strong>主要な利点：</strong></p><ul><li><strong>高速処理</strong>：秒間数千〜数万トランザクション</li><li><strong>低手数料</strong>：メインチェーンの1/100以下</li><li><strong>セキュリティ継承</strong>：メインチェーンのセキュリティを活用</li><li><strong>互換性</strong>：既存のdAppsとの連携</li></ul><p><strong>主要なLayer2技術：</strong></p><ul><li><strong>Optimistic Rollups</strong>：Arbitrum、Optimism</li><li><strong>ZK-Rollups</strong>：Polygon zkEVM、zkSync</li><li><strong>State Channels</strong>：Lightning Network</li><li><strong>Plasma</strong>：Polygon（旧Matic）</li></ul><p><strong>トレードオフ：</strong></p><ul><li>若干の複雑さ増加</li><li>資金引き出し時の遅延（一部）</li><li>新技術のリスク</li></ul><p><strong>用途：</strong>DeFi、NFT、ゲーム等で広く採用されています</p>'
     },
     {
-      id: 'q2',
-      question: 'Compound プロトコルにおける「cToken」の役割として正しいのは？',
+      id: 'defi-nft-test-4-q3',
+      question: 'NFT（Non-Fungible Token）の最も重要な特徴は？',
       options: [
-        'Compoundの独自通貨',
-        '貸付・借入の利息を表すトークン',
-        '預けた資産の証明・利息獲得権を表すトークン',
-        'ガバナンストークン'
+        '高い投資収益率',
+        '代替不可能性（ユニーク性）',
+        '低い取引手数料',
+        '高速な取引処理'
       ],
-      correctAnswer: 2,
-      explanation: '<p><strong>正解：預けた資産の証明・利息獲得権を表すトークン</strong></p><p><strong>cToken</strong>は、Compoundプロトコルで<strong>預金証明書</strong>として機能するトークンです。</p><p><strong>cTokenの仕組み：</strong></p><ul><li><strong>預金時</strong>：ETH預金 → cETHを受け取り</li><li><strong>利息蓄積</strong>：cTokenの価値が時間とともに増加</li><li><strong>引出し</strong>：cToken返却 → 元本+利息を受取</li><li><strong>流動性</strong>：cToken自体も取引可能</li></ul><p><strong>例：</strong></p><ul><li>100 DAI 預金 → 100 cDAI 受取（1:1レート）</li><li>1年後：cDAIの価値が1.05 DAIに上昇</li><li>100 cDAI返却 → 105 DAI受取（5 DAI利息）</li></ul><p><strong>応用：</strong>cTokenは担保として他の DeFi プロトコルでも利用可能です。</p>'
-    },
-    {
-      id: 'q3',
-      question: 'DeFiにおける「Liquidation」（清算）が発生する条件として正確なのは？',
-      options: [
-        '借入期間が満了したとき',
-        '借入者が返済を忘れたとき',
-        '担保価値が最低担保比率を下回ったとき',
-        '貸付プロトコルが停止したとき'
-      ],
-      correctAnswer: 2,
-      explanation: '<p><strong>正解：担保価値が最低担保比率を下回ったとき</strong></p><p><strong>Liquidation（清算）</strong>は、担保不足による<strong>自動的な強制決済</strong>システムです。</p><p><strong>清算の仕組み：</strong></p><ol><li><strong>価格変動</strong>：担保資産の価格下落</li><li><strong>担保不足</strong>：最低担保比率を下回る</li><li><strong>清算実行</strong>：第三者（Liquidator）が実行</li><li><strong>担保処分</strong>：割引価格で担保売却</li><li><strong>債務返済</strong>：売却代金で借入返済</li></ol><p><strong>例（Compoundの場合）：</strong></p><ul><li>ETH担保で DAI借入（担保比率150%必要）</li><li>ETH価格下落 → 担保比率140%に低下</li><li>清算実行 → ETH担保の一部を割引価格で売却</li><li>売却代金でDAI債務を部分返済</li></ul><p><strong>リスク管理：</strong>適切な担保比率の維持が重要です。</p>'
+      correctAnswer: 1,
+      explanation: '<p><strong>正解：代替不可能性（ユニーク性）</strong></p><p><strong>NFT</strong>の根本的価値は<strong>「Non-Fungible（代替不可能）」</strong>という特性です。</p><p><strong>代替可能 vs 代替不可能：</strong></p><ul><li><strong>Fungible（代替可能）</strong>：1 ETH = 1 ETH（同等価値）</li><li><strong>Non-Fungible（代替不可能）</strong>：各NFTが固有のID・属性を持つ</li></ul><p><strong>ユニーク性の実現：</strong></p><ul><li><strong>トークンID</strong>：各NFTに固有の識別番号</li><li><strong>メタデータ</strong>：画像、属性、説明等の固有情報</li><li><strong>所有権記録</strong>：ブロックチェーン上での明確な所有権</li><li><strong>移転履歴</strong>：完全な取引履歴の追跡</li></ul><p><strong>活用分野：</strong></p><ul><li><strong>デジタルアート</strong>：アーティスト作品の証明</li><li><strong>コレクティブル</strong>：デジタル収集品</li><li><strong>ゲームアイテム</strong>：キャラクター・装備品</li><li><strong>証明書</strong>：資格・実績の証明</li></ul>'
     },
     {
       id: 'q4',

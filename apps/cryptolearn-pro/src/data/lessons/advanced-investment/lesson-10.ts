@@ -16,287 +16,371 @@ export const lesson10: Lesson = {
       {
         type: 'quiz',
         title: '規制環境の概要',
-        content: `**2024年の規制環境**
+        content: `<strong>2024年の規制環境</strong>
 暗号通貨に関する規制は世界的に整備が進んでおり、機関投資家にとって明確な法的枠組みが形成されつつあります。各国・地域の規制動向を理解し、適切な対応を行うことが重要です。
-## 主要な規制動向
-**米国**
-- **SEC(証券取引委員会)**による規制強化
-- ビットコインETF承認による市場変化
-- **CFTC(商品先物取引委員会)**の管轄拡大
-- 州レベルでの規制多様化
-**欧州(EU)**
-- **MiCA(Markets in Crypto-Assets)**規制の完全施行済み(2024年12月30日)
-- 統一的な規制枠組み
-- 暗号資産サービス提供者の許可制
-- 投資家保護の強化
-- ※情報は2025年8月時点、最新情報は公式サイト要確認
-**日本**
-- **金融商品取引法**の適用
-- **資金決済法**による規制
-- 暗号資産交換業者の登録制
-- 機関投資家向け規制の明確化
-**アジア太平洋**
-- シンガポール：包括的な規制枠組み
-- 香港：段階的な規制導入
-- 韓国：厳格な規制と監視
-- オーストラリア：ライセンス制度
-## 機関投資家への影響
-**投資対象の制限**
-- 認可された暗号通貨のみ
-- 流動性要件の充足
-- 信頼できるカストディアンの利用
-- 定期的な評価と報告
-**コンプライアンス体制**
-- 内部統制システム
-- リスク管理体制
-- 監査・検査対応
-- 継続的な法令遵守`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要な規制動向</h2>
+<strong>米国</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>SEC(証券取引委員会)</strong>による規制強化</li>
+<li>ビットコインETF承認による市場変化</li>
+<li><strong>CFTC(商品先物取引委員会)</strong>の管轄拡大</li>
+<li>州レベルでの規制多様化</li>
+</ul>
+<strong>欧州(EU)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>MiCA(Markets in Crypto-Assets)</strong>規制の完全施行済み(2024年12月30日)</li>
+<li>統一的な規制枠組み</li>
+<li>暗号資産サービス提供者の許可制</li>
+<li>投資家保護の強化</li>
+<li>※情報は2025年8月時点、最新情報は公式サイト要確認</li>
+</ul>
+<strong>日本</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>金融商品取引法</strong>の適用</li>
+<li><strong>資金決済法</strong>による規制</li>
+<li>暗号資産交換業者の登録制</li>
+<li>機関投資家向け規制の明確化</li>
+</ul>
+<strong>アジア太平洋</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>シンガポール：包括的な規制枠組み</li>
+<li>香港：段階的な規制導入</li>
+<li>韓国：厳格な規制と監視</li>
+<li>オーストラリア：ライセンス制度</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">機関投資家への影響</h2>
+<strong>投資対象の制限</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>認可された暗号通貨のみ</li>
+<li>流動性要件の充足</li>
+<li>信頼できるカストディアンの利用</li>
+<li>定期的な評価と報告</li>
+</ul>
+<strong>コンプライアンス体制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>内部統制システム</li>
+<li>リスク管理体制</li>
+<li>監査・検査対応</li>
+<li>継続的な法令遵守</li>
+</ul>`
       },
       {
         type: 'text',
         title: '主要規制の詳細解説',
-        content: `## MiCA(Markets in Crypto-Assets)規制(2024年12月30日完全施行済み)
-**適用範囲**
-- 暗号資産の発行・販売
-- 暗号資産サービス提供
-- 電子マネートークン
-- 資産参照トークン
-**主要要件**
-1. **認可・登録**
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">MiCA(Markets in Crypto-Assets)規制(2024年12月30日完全施行済み)</h2>
+<strong>適用範囲</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産の発行・販売</li>
+<li>暗号資産サービス提供</li>
+<li>電子マネートークン</li>
+<li>資産参照トークン</li>
+</ul>
+<strong>主要要件</strong>
+1. <strong>認可・登録</strong>
    - 暗号資産サービス提供者の認可
    - 本店所在地での登録
    - 最低資本金要件
    - 継続的な要件遵守
-2. **行為規制**
+2. <strong>行為規制</strong>
    - 適切な情報開示
    - 投資家保護措置
    - 利益相反の管理
    - 最良執行義務
-3. **リスク管理**
+3. <strong>リスク管理</strong>
    - 内部統制システム
    - 資産の分別管理
    - 流動性管理
    - サイバーセキュリティ
-## 米国の規制動向
-**SEC規制**
-- 証券性の判定基準(Howey Test)
-- 登録済み投資顧問業者の要件
-- カストディアン規制
-- 投資会社法の適用
-**CFTC規制**
-- 商品としての暗号通貨
-- 先物・オプション取引
-- スワップ取引規制
-- 市場操作防止
-**銀行規制**
-- OCC(通貨監督庁)ガイダンス
-- 銀行の暗号通貨業務
-- 準備金要件
-- 流動性管理
-## 日本の規制体系
-**金融商品取引法**
-- 暗号資産投資信託
-- 投資一任契約
-- 集団投資スキーム
-- 開示規制
-**資金決済法**
-- 暗号資産交換業
-- 分別管理義務
-- 顧客保護措置
-- 外部監査`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">米国の規制動向</h2>
+<strong>SEC規制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>証券性の判定基準(Howey Test)</li>
+<li>登録済み投資顧問業者の要件</li>
+<li>カストディアン規制</li>
+<li>投資会社法の適用</li>
+</ul>
+<strong>CFTC規制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>商品としての暗号通貨</li>
+<li>先物・オプション取引</li>
+<li>スワップ取引規制</li>
+<li>市場操作防止</li>
+</ul>
+<strong>銀行規制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>OCC(通貨監督庁)ガイダンス</li>
+<li>銀行の暗号通貨業務</li>
+<li>準備金要件</li>
+<li>流動性管理</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">日本の規制体系</h2>
+<strong>金融商品取引法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産投資信託</li>
+<li>投資一任契約</li>
+<li>集団投資スキーム</li>
+<li>開示規制</li>
+</ul>
+<strong>資金決済法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号資産交換業</li>
+<li>分別管理義務</li>
+<li>顧客保護措置</li>
+<li>外部監査</li>
+</ul>`
       },
       {
         type: 'example',
         title: 'コンプライアンス体制の構築例',
-        content: `## 大手年金基金のコンプライアンス体制
-**組織体制**
-- 最高コンプライアンス責任者(CCO)
-- コンプライアンス部門
-- 法務部門
-- リスク管理部門
-**投資プロセス**
-1. **投資可能性審査**
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">大手年金基金のコンプライアンス体制</h2>
+<strong>組織体制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>最高コンプライアンス責任者(CCO)</li>
+<li>コンプライアンス部門</li>
+<li>法務部門</li>
+<li>リスク管理部門</li>
+</ul>
+<strong>投資プロセス</strong>
+1. <strong>投資可能性審査</strong>
    - 規制適合性確認
    - 法的リスク評価
    - 投資委員会承認
    - 継続的モニタリング
-2. **デューデリジェンス**
+2. <strong>デューデリジェンス</strong>
    - 発行体の法的地位
    - 規制遵守状況
    - 監査状況
    - 過去の違反歴
-3. **投資実行**
+3. <strong>投資実行</strong>
    - 認可されたブローカー利用
    - 適格カストディアン
    - 取引記録保持
    - 定期報告
-**リスク管理**
-- 投資限度額設定
-- 集中度管理
-- 流動性管理
-- 定期的な見直し
-## 保険会社のコンプライアンス例
-**規制要件**
-- ソルベンシー規制遵守
-- 適格投資の要件
-- リスク管理体制
-- 規制当局への報告
-**投資ガイドライン**
-- 投資可能資産の定義
-- 投資比率の制限
-- 信用格付要件
-- 流動性要件
-**内部統制**
-- 投資委員会の設置
-- 投資方針の策定
-- 定期的な見直し
-- 外部監査の実施
-## 投資顧問会社のコンプライアンス
-**登録要件**
-- 投資顧問業者登録
-- 最低純資産要件
-- 専門人材の配置
-- 継続的な要件遵守
-**顧客保護**
-- 適合性原則
-- 情報開示義務
-- 利益相反管理
-- 苦情処理体制
-**記録保持**
-- 取引記録の保持
-- 投資判断の根拠
-- 顧客との通信記録
-- 定期的な報告書作成`
+<strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資限度額設定</li>
+<li>集中度管理</li>
+<li>流動性管理</li>
+<li>定期的な見直し</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">保険会社のコンプライアンス例</h2>
+<strong>規制要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ソルベンシー規制遵守</li>
+<li>適格投資の要件</li>
+<li>リスク管理体制</li>
+<li>規制当局への報告</li>
+</ul>
+<strong>投資ガイドライン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資可能資産の定義</li>
+<li>投資比率の制限</li>
+<li>信用格付要件</li>
+<li>流動性要件</li>
+</ul>
+<strong>内部統制</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資委員会の設置</li>
+<li>投資方針の策定</li>
+<li>定期的な見直し</li>
+<li>外部監査の実施</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資顧問会社のコンプライアンス</h2>
+<strong>登録要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資顧問業者登録</li>
+<li>最低純資産要件</li>
+<li>専門人材の配置</li>
+<li>継続的な要件遵守</li>
+</ul>
+<strong>顧客保護</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適合性原則</li>
+<li>情報開示義務</li>
+<li>利益相反管理</li>
+<li>苦情処理体制</li>
+</ul>
+<strong>記録保持</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引記録の保持</li>
+<li>投資判断の根拠</li>
+<li>顧客との通信記録</li>
+<li>定期的な報告書作成</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'AML・KYC要件',
-        content: `## マネーロンダリング対策(AML)
-**基本要件**
-- 顧客の本人確認(KYC)
-- 継続的な顧客管理(CDD)
-- 疑わしい取引の報告(STR)
-- 記録保持義務
-**高度な要件**
-- 強化された顧客管理(EDD)
-- 政治的要人(PEP)確認
-- 制裁リスト照合
-- 実質的支配者の確認
-## KYC(Know Your Customer)
-**個人顧客**
-- 身元確認書類
-- 住所確認書類
-- 収入・資産証明
-- 投資経験・知識
-**法人顧客**
-- 登記事項証明書
-- 事業内容の確認
-- 実質的支配者の確認
-- 資金の出所確認
-**継続的監視**
-- 取引パターンの分析
-- 異常取引の検出
-- 定期的な情報更新
-- リスク評価の見直し
-## 制裁・規制リスト
-**主要な制裁リスト**
-- OFAC(米国財務省外国資産管理局)
-- EU制裁リスト
-- UN制裁リスト
-- 各国独自の制裁リスト
-**照合システム**
-- リアルタイム照合
-- 定期的な再照合
-- 偽陽性の管理
-- 継続的な更新
-## 報告義務
-**規制当局への報告**
-- 定期報告書
-- 重要事項報告
-- 疑わしい取引報告
-- インシデント報告
-**記録保持**
-- 最低5年間の保持
-- 電子記録の管理
-- 検索可能な形式
-- セキュリティ対策`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">マネーロンダリング対策(AML)</h2>
+<strong>基本要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>顧客の本人確認(KYC)</li>
+<li>継続的な顧客管理(CDD)</li>
+<li>疑わしい取引の報告(STR)</li>
+<li>記録保持義務</li>
+</ul>
+<strong>高度な要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>強化された顧客管理(EDD)</li>
+<li>政治的要人(PEP)確認</li>
+<li>制裁リスト照合</li>
+<li>実質的支配者の確認</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">KYC(Know Your Customer)</h2>
+<strong>個人顧客</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>身元確認書類</li>
+<li>住所確認書類</li>
+<li>収入・資産証明</li>
+<li>投資経験・知識</li>
+</ul>
+<strong>法人顧客</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>登記事項証明書</li>
+<li>事業内容の確認</li>
+<li>実質的支配者の確認</li>
+<li>資金の出所確認</li>
+</ul>
+<strong>継続的監視</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引パターンの分析</li>
+<li>異常取引の検出</li>
+<li>定期的な情報更新</li>
+<li>リスク評価の見直し</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">制裁・規制リスト</h2>
+<strong>主要な制裁リスト</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>OFAC(米国財務省外国資産管理局)</li>
+<li>EU制裁リスト</li>
+<li>UN制裁リスト</li>
+<li>各国独自の制裁リスト</li>
+</ul>
+<strong>照合システム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リアルタイム照合</li>
+<li>定期的な再照合</li>
+<li>偽陽性の管理</li>
+<li>継続的な更新</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">報告義務</h2>
+<strong>規制当局への報告</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期報告書</li>
+<li>重要事項報告</li>
+<li>疑わしい取引報告</li>
+<li>インシデント報告</li>
+</ul>
+<strong>記録保持</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>最低5年間の保持</li>
+<li>電子記録の管理</li>
+<li>検索可能な形式</li>
+<li>セキュリティ対策</li>
+</ul>`
       },
       {
         type: 'text',
         title: '税務コンプライアンス',
-        content: `## 税務上の取り扱い
-**所得税**
-- 投資所得の分類
-- 実現損益の計算
-- 外国税額控除
-- 申告義務
-**法人税**
-- 事業所得の認定
-- 資産の評価方法
-- 減価償却の取り扱い
-- 移転価格税制
-**消費税・付加価値税**
-- 取引の課税・非課税判定
-- 国境を越える取引
-- 電子サービスの取り扱い
-- 税務調査対応
-## 国際税務
-**二重課税の回避**
-- 租税条約の活用
-- 外国税額控除制度
-- 事前確認制度
-- 相互協議制度
-**CRS(Common Reporting Standard)**
-- 金融口座情報の自動交換
-- 報告対象となる口座
-- 情報交換の範囲
-- プライバシー保護
-**FATCA(Foreign Account Tax Compliance Act)**
-- 米国人の海外口座報告
-- 金融機関の義務
-- 源泉徴収税
-- 適用除外規定
-## 記録管理と証憑保存
-**取引記録**
-- 取引日時・金額
-- 取引相手方
-- 取引の目的
-- 市場価格情報
-**評価記録**
-- 評価基準日
-- 評価方法
-- 市場価格の根拠
-- 外部評価の活用
-**税務計算**
-- 取得価額の算定
-- 譲渡価額の算定
-- 為替レートの適用
-- 必要経費の計算`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">税務上の取り扱い</h2>
+<strong>所得税</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資所得の分類</li>
+<li>実現損益の計算</li>
+<li>外国税額控除</li>
+<li>申告義務</li>
+</ul>
+<strong>法人税</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業所得の認定</li>
+<li>資産の評価方法</li>
+<li>減価償却の取り扱い</li>
+<li>移転価格税制</li>
+</ul>
+<strong>消費税・付加価値税</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引の課税・非課税判定</li>
+<li>国境を越える取引</li>
+<li>電子サービスの取り扱い</li>
+<li>税務調査対応</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">国際税務</h2>
+<strong>二重課税の回避</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>租税条約の活用</li>
+<li>外国税額控除制度</li>
+<li>事前確認制度</li>
+<li>相互協議制度</li>
+</ul>
+<strong>CRS(Common Reporting Standard)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>金融口座情報の自動交換</li>
+<li>報告対象となる口座</li>
+<li>情報交換の範囲</li>
+<li>プライバシー保護</li>
+</ul>
+<strong>FATCA(Foreign Account Tax Compliance Act)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>米国人の海外口座報告</li>
+<li>金融機関の義務</li>
+<li>源泉徴収税</li>
+<li>適用除外規定</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">記録管理と証憑保存</h2>
+<strong>取引記録</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引日時・金額</li>
+<li>取引相手方</li>
+<li>取引の目的</li>
+<li>市場価格情報</li>
+</ul>
+<strong>評価記録</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>評価基準日</li>
+<li>評価方法</li>
+<li>市場価格の根拠</li>
+<li>外部評価の活用</li>
+</ul>
+<strong>税務計算</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取得価額の算定</li>
+<li>譲渡価額の算定</li>
+<li>為替レートの適用</li>
+<li>必要経費の計算</li>
+</ul>`
       },
       {
         type: 'tip',
         title: 'コンプライアンス成功のポイント',
-        content: `**効果的な体制構築**
-📋 **規制理解**
-- 最新の規制動向把握
-- 専門家との連携
-- 継続的な教育・研修
-- 業界動向の監視
-🎯 **体制整備**
-- 明確な責任体制
-- 適切な人員配置
-- システムの整備
-- 継続的な改善
-📊 **記録管理**
-- 包括的な記録保持
-- 検索可能な形式
-- セキュリティ対策
-- 定期的な見直し
-⚡ **リスク管理**
-- 定期的なリスク評価
-- 早期警告システム
-- 継続的な監視
-- 迅速な対応体制`
+        content: `<strong>効果的な体制構築</strong>
+📋 <strong>規制理解</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>最新の規制動向把握</li>
+<li>専門家との連携</li>
+<li>継続的な教育・研修</li>
+<li>業界動向の監視</li>
+</ul>
+🎯 <strong>体制整備</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>明確な責任体制</li>
+<li>適切な人員配置</li>
+<li>システムの整備</li>
+<li>継続的な改善</li>
+</ul>
+📊 <strong>記録管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>包括的な記録保持</li>
+<li>検索可能な形式</li>
+<li>セキュリティ対策</li>
+<li>定期的な見直し</li>
+</ul>
+⚡ <strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的なリスク評価</li>
+<li>早期警告システム</li>
+<li>継続的な監視</li>
+<li>迅速な対応体制</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -341,27 +425,35 @@ export const lesson10: Lesson = {
       {
         type: 'warning',
         title: 'コンプライアンスリスク',
-        content: `**規制違反の重大な結果**
-⚠️ **法的リスク**
-- 刑事処分の可能性
-- 民事責任の発生
-- 営業停止処分
-- 免許取消処分
-⚠️ **経済的影響**
-- 高額な制裁金
-- 訴訟費用の発生
-- 事業機会の損失
-- 株価・評判への影響
-⚠️ **運用上の制約**
-- 投資制限の強化
-- 監督強化の継続
-- 追加コストの発生
-- 人材確保の困難
-⚠️ **継続的な影響**
-- 規制当局の監視強化
-- 業界内での信頼失墜
-- 顧客離れの発生
-- 競争上の不利益`
+        content: `<strong>規制違反の重大な結果</strong>
+⚠️ <strong>法的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>刑事処分の可能性</li>
+<li>民事責任の発生</li>
+<li>営業停止処分</li>
+<li>免許取消処分</li>
+</ul>
+⚠️ <strong>経済的影響</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高額な制裁金</li>
+<li>訴訟費用の発生</li>
+<li>事業機会の損失</li>
+<li>株価・評判への影響</li>
+</ul>
+⚠️ <strong>運用上の制約</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資制限の強化</li>
+<li>監督強化の継続</li>
+<li>追加コストの発生</li>
+<li>人材確保の困難</li>
+</ul>
+⚠️ <strong>継続的な影響</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制当局の監視強化</li>
+<li>業界内での信頼失墜</li>
+<li>顧客離れの発生</li>
+<li>競争上の不利益</li>
+</ul>`
       },
       ],
     keyPoints: [

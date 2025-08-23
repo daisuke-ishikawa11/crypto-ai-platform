@@ -313,7 +313,10 @@ export const defiNftCategoryTest: CategoryTest = {
       points: 2
     },
     {
-      id: 'q16',
+      id: 'defi-nft-test-q16',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: '将来展望',
       question: 'DeFi・NFT分野の長期的発展で最も重要な要素は？',
       options: [
         '価格の継続的上昇',
@@ -322,10 +325,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '政府による価格保証'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：実用価値と社会的価値の創造</strong></p><p><strong>持続可能な発展</strong>には、<strong>投機を超えた本質的価値</strong>が必要です。</p><p><strong>長期価値の要素：</strong></p><ul><li><strong>Real-world Utility</strong>：現実世界での実用性</li><li><strong>Social Impact</strong>：社会問題解決への貢献</li><li><strong>Economic Value Creation</strong>：新しい経済価値の創出</li><li><strong>Technology Innovation</strong>：革新的技術の発展</li><li><strong>Adoption & Integration</strong>：既存システムとの統合</li></ul><p>単純な価格上昇や投機に依存したモデルは持続不可能であり、<strong>実用性と社会価値に基づくエコシステム</strong>の構築が重要です。</p>'
+      explanation: '持続可能な発展には投機を超えた本質的価値が必要です。現実世界での実用性、社会問題解決への貢献、新しい経済価値の創出、革新的技術の発展、既存システムとの統合が重要です。',
+      points: 3
     },
     {
-      id: 'q17',
+      id: 'defi-nft-test-q17',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: 'NFT応用',
       question: 'AI生成NFTにおける「Provenance」証明の最大の課題は？',
       options: [
         '生成速度',
@@ -334,10 +341,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '生成コスト'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：AIモデルと生成プロセスの透明性確保</strong></p><p><strong>AI生成NFT</strong>では、<strong>創作の真正性</strong>と<strong>透明性</strong>が重要課題です。</p><p><strong>Provenance課題：</strong></p><ul><li><strong>Model Transparency</strong>：使用AIモデルの開示</li><li><strong>Training Data Ethics</strong>：学習データの適法性</li><li><strong>Generation Process</strong>：生成過程の記録・証明</li><li><strong>Uniqueness Verification</strong>：真の独自性の確認</li></ul><p>技術の発展とともに、<strong>AI生成物の透明性と責任</strong>に関する新しい標準が必要になっています。</p>'
+      explanation: 'AI生成NFTでは創作の真正性と透明性が重要課題です。使用AIモデルの開示、学習データの適法性、生成過程の記録・証明、真の独自性の確認など、AI生成物の透明性と責任に関する新しい標準が必要です。',
+      points: 3
     },
     {
-      id: 'q18',
+      id: 'defi-nft-test-q18',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: 'Web3・GameFi',
       question: 'GameFiにおける「Token Economy」で最も避けるべき構造は？',
       options: [
         '複数トークンシステム',
@@ -346,10 +357,14 @@ export const defiNftCategoryTest: CategoryTest = {
         'NFTとの組み合わせ'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：新規プレイヤー依存のPonzi構造</strong></p><p><strong>Ponzi構造</strong>は、<strong>新規参加資金で既存報酬を賄う</strong>持続不可能なモデルです。</p><p><strong>危険な構造：</strong></p><ul><li><strong>New Player Dependency</strong>：新規参入金依存</li><li><strong>Unsustainable Rewards</strong>：継続不可能な高報酬</li><li><strong>No Value Creation</strong>：実際の価値創造なし</li><li><strong>Pyramid Structure</strong>：ピラミッド型報酬構造</li></ul><p>健全なGameFi経済は、<strong>ゲーム自体の価値創造</strong>と<strong>外部収益源</strong>に基づく必要があります。</p>'
+      explanation: 'Ponzi構造は新規参加資金で既存報酬を賄う持続不可能なモデルです。新規参入金依存、継続不可能な高報酬、実際の価値創造なし、ピラミッド型報酬構造が危険な特徴です。健全なGameFi経済はゲーム自体の価値創造と外部収益源に基づく必要があります。',
+      points: 3
     },
     {
-      id: 'q19',
+      id: 'defi-nft-test-q19',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: 'DeFi応用',
       question: 'DeFiにおける「MEV（Maximal Extractable Value）」の対策として最も効果的なのは？',
       options: [
         'ガス代の引き上げ',
@@ -358,10 +373,14 @@ export const defiNftCategoryTest: CategoryTest = {
         '特定時間での取引禁止'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：Private Mempoolの利用</strong></p><p><strong>MEV攻撃</strong>は、<strong>取引の事前可視性</strong>を悪用するため、プライベート実行が効果的対策です。</p><p><strong>MEV対策：</strong></p><ul><li><strong>Private Mempool</strong>：取引の事前隠蔽</li><li><strong>Commit-Reveal Schemes</strong>：2段階実行方式</li><li><strong>MEV-resistant AMMs</strong>：MEV耐性のあるAMM設計</li><li><strong>Flashbots Protect</strong>：MEV保護サービス</li></ul><p>根本的解決には、<strong>取引順序操作の不可能化</strong>または<strong>MEV利益の公平分配</strong>が必要です。</p>'
+      explanation: 'MEV攻撃は取引の事前可視性を悪用するため、プライベート実行が効果的対策です。取引の事前隠蔽、2段階実行方式、MEV耐性のあるAMM設計、MEV保護サービスなどの対策があり、根本的解決には取引順序操作の不可能化またはMEV利益の公平分配が必要です。',
+      points: 3
     },
     {
-      id: 'q20',
+      id: 'defi-nft-test-q20',
+      type: 'multiple_choice',
+      difficulty: 'advanced',
+      category: '実践応用',
       question: 'NFT・DeFi分野での「Institutional Adoption」（機関投資家参入）の最大の障害は？',
       options: [
         '技術的複雑性',
@@ -370,7 +389,8 @@ export const defiNftCategoryTest: CategoryTest = {
         'UI/UXの問題'
       ],
       correctAnswer: 1,
-      explanation: '機関投資家参入には、規制遵守とリスク管理体制が不可欠です。規制の不確実性とカストディ問題が最大の障害となっており、技術の成熟とともに制度的インフラの整備が機関参入の鍵となります。'
+      explanation: '機関投資家参入には、規制遵守とリスク管理体制が不可欠です。規制の不確実性とカストディ問題が最大の障害となっており、技術の成熟とともに制度的インフラの整備が機関参入の鍵となります。',
+      points: 3
     },
     {
       id: 'defi-nft-test-q21',

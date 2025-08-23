@@ -26,6 +26,11 @@ import { lesson23 } from './lesson-23';
 import { lesson24 } from './lesson-24';
 import { lesson25 } from './lesson-25';
 import { financialLiteracyCategoryTest } from './category-test';
+import { financialLiteracyTest1 } from './test-1';
+import { financialLiteracyTest2 } from './test-2';
+import { financialLiteracyTest3 } from './test-3';
+import { financialLiteracyTest4 } from './test-4';
+import { financialLiteracyTest5 } from './test-5';
 
 export const financialLiteracyLessons: Lesson[] = [
   lesson1, lesson2, lesson3, lesson4, lesson5, 
@@ -36,3 +41,11 @@ export const financialLiteracyLessons: Lesson[] = [
 ];
 
 export const financialLiteracyTest: CategoryTest = financialLiteracyCategoryTest;
+
+export const financialLiteracyTests: CategoryTest[] = [
+  financialLiteracyTest1,
+  financialLiteracyTest2,
+  financialLiteracyTest3,
+  financialLiteracyTest4,
+  financialLiteracyTest5
+];

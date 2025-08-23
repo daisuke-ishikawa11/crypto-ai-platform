@@ -1,7 +1,7 @@
-import type { Lesson } from '../../../types';
+import type { Lesson } from '@/types';
 export const lesson6: Lesson = {
   id: 'risk-management-risk-budgeting-capital-allocation',
-  categoryId: '6',
+  categoryId: 'risk-management',
   title: 'リスクバジェッティング：投資資金の適切な配分戦略',
   slug: 'risk-budgeting-capital-allocation',
   description: 'リスクバジェッティング手法を用いた投資資金の最適配分、リスクキャパシティの評価方法を学びます',
@@ -16,89 +16,111 @@ export const lesson6: Lesson = {
       {
         type: 'quiz',
         title: '概要',
-        content: `このレッスンでは、**リスクバジェッティング：投資資金の適切な配分戦略**について詳しく学習します。
-## 学習目標
+        content: `このレッスンでは、<strong>リスクバジェッティング：投資資金の適切な配分戦略</strong>について詳しく学習します。
+<h3>学習目標</h3>
 この章を修了することで、以下のスキルを身につけることができます：
-- 投資資金の適切な配分戦略の基本概念の理解
-- 実践的な応用方法の習得  
-- リスク要因の特定と対策
-- 具体的な実装戦略の策定
-## 重要性
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資資金の適切な配分戦略の基本概念の理解</li>
+<li>実践的な応用方法の習得  </li>
+<li>リスク要因の特定と対策</li>
+<li>具体的な実装戦略の策定</li>
+</ul>
+<h3>重要性</h3>
 現代の投資環境において、リスクバジェッティングは投資成功にとって不可欠な要素です。適切な知識と実践により、投資リスクを効果的に管理し、長期的な資産形成を実現することができます。`
       },
       
       {
         type: 'text',
         title: '基本概念',
-        content: `## 定義と特徴
-**リスクバジェッティング**は、現代の投資管理において重要な概念の一つです。
-### 主要な特徴
-1. **リスク管理との統合**
+        content: `<h3>定義と特徴</h3>
+<strong>リスクバジェッティング</strong>は、現代の投資管理において重要な概念の一つです。
+<h4>主要な特徴</h4>
+1. <strong>リスク管理との統合</strong>
    - 包括的なリスク評価
    - 多角的な分析手法
    - 継続的なモニタリング
-2. **実践的応用**
+2. <strong>実践的応用</strong>
    - 具体的な実装方法
    - 測定可能な指標
    - 検証可能な結果
-3. **長期的視点**
+3. <strong>長期的視点</strong>
    - 持続可能な戦略
    - 適応的なアプローチ
    - 継続的な改善
-### 関連する重要概念
-- ポートフォリオ理論との関連性
-- 行動経済学的側面
-- 市場環境への適応性`
+<h4>関連する重要概念</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ポートフォリオ理論との関連性</li>
+<li>行動経済学的側面</li>
+<li>市場環境への適応性</li>
+</ul>`
       },
       {
         type: 'example',
         title: '実践例',
-        content: `## ケーススタディ
-### 実例1：効果的な実践
-**状況**: 投資家Aがリスクバジェッティングを活用したケース
-**実施内容**:
-- 事前の詳細分析
-- 段階的な実装
-- 継続的なモニタリング
-**結果**:
-- リスクの効果的な制御
-- 安定したパフォーマンス
-- 長期的な成功
-### 実例2：注意すべき失敗パターン
-**状況**: 不適切な実装による失敗例
-**問題点**:
-- 不十分な事前準備
-- リスク評価の甘さ
-- モニタリング不足
-**教訓**:
-- 慎重な計画の重要性
-- 継続的な見直しの必要性
-- 専門知識の活用価値`
+        content: `<h3>ケーススタディ</h3>
+<h4>実例1：効果的な実践</h4>
+<strong>状況</strong>: 投資家Aがリスクバジェッティングを活用したケース
+<strong>実施内容</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事前の詳細分析</li>
+<li>段階的な実装</li>
+<li>継続的なモニタリング</li>
+</ul>
+<strong>結果</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リスクの効果的な制御</li>
+<li>安定したパフォーマンス</li>
+<li>長期的な成功</li>
+</ul>
+<h4>実例2：注意すべき失敗パターン</h4>
+<strong>状況</strong>: 不適切な実装による失敗例
+<strong>問題点</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>不十分な事前準備</li>
+<li>リスク評価の甘さ</li>
+<li>モニタリング不足</li>
+</ul>
+<strong>教訓</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>慎重な計画の重要性</li>
+<li>継続的な見直しの必要性</li>
+<li>専門知識の活用価値</li>
+</ul>`
       },
       {
         type: 'tip',
         title: '実践のコツ',
-        content: `**効果的な実践のためのガイドライン**
-✅ **事前準備**
-- 十分な知識習得
-- リスク評価の実施
-- 目標設定の明確化
-✅ **実装段階**
-- 段階的なアプローチ
-- 適切なツール選択
-- 継続的なモニタリング
-✅ **継続的改善**
-- 定期的な見直し
-- 結果の分析・評価
-- 戦略の調整・最適化
-✅ **リスク管理**
-- 潜在リスクの特定
-- 対策の事前準備
-- 緊急時対応プラン
-✅ **専門性向上**
-- 継続的な学習
-- 最新情報の収集
-- 専門家との連携`
+        content: `<strong>効果的な実践のためのガイドライン</strong>
+✅ <strong>事前準備</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>十分な知識習得</li>
+<li>リスク評価の実施</li>
+<li>目標設定の明確化</li>
+</ul>
+✅ <strong>実装段階</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>段階的なアプローチ</li>
+<li>適切なツール選択</li>
+<li>継続的なモニタリング</li>
+</ul>
+✅ <strong>継続的改善</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的な見直し</li>
+<li>結果の分析・評価</li>
+<li>戦略の調整・最適化</li>
+</ul>
+✅ <strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>潜在リスクの特定</li>
+<li>対策の事前準備</li>
+<li>緊急時対応プラン</li>
+</ul>
+✅ <strong>専門性向上</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>継続的な学習</li>
+<li>最新情報の収集</li>
+<li>専門家との連携</li>
+</ul>`
       },
       {
         type: 'quiz',

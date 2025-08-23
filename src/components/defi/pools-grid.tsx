@@ -48,7 +48,7 @@ export const PoolsGrid: React.FC<{ chain?: string; project?: string; limit?: num
   const [selected, setSelected] = React.useState<PoolDetails | null>(null)
 
   // Advanced search (integrates /api/defi/pools/search)
-  type SearchItem = { source: 'internal' | 'external'; name: string; protocol: string; network: string; tvl: number; apy: number; volume24h: number; graphSourceUrl?: string }
+  type SearchItem = { source: 'internal' | 'external'; name: string; protocol: string; network: string; tvl: number; apy: number; volume24h: number; graphSourceUrl?: string; meta?: { latencyMs?: number; fetchedAt?: number } }
   const [advOpen, setAdvOpen] = React.useState(false)
   const [advQ, setAdvQ] = React.useState("")
   const [advToken, setAdvToken] = React.useState("")
@@ -188,8 +188,8 @@ export const PoolsGrid: React.FC<{ chain?: string; project?: string; limit?: num
       sp.set('maxApy', String(advMaxApy))
       sp.set('minTvl', String(advMinTvl))
       sp.set('apyKind', advApyKind)
-      // 一時マッピング: latency→tvl, freshness→volume（次フェーズでサーバ側のメタ集計に置換）
-      const mappedSort = advSortBy === 'latency' ? 'tvl' : (advSortBy === 'freshness' ? 'volume' : advSortBy)
+      // サーバ側はtvl/volume/apyのみ。latency/freshnessはクライアントで並べ替え。
+      const mappedSort = ['latency','freshness'].includes(advSortBy) ? 'tvl' : advSortBy
       sp.set('sortBy', mappedSort)
       sp.set('sortOrder', advSortOrder)
       sp.set('limit', '60')
@@ -197,7 +197,21 @@ export const PoolsGrid: React.FC<{ chain?: string; project?: string; limit?: num
       const res = await fetch(`/api/defi/pools/search?${sp.toString()}`, { cache: 'no-store' })
       const j = await res.json()
       if (!res.ok || !j?.success) throw new Error(j?.error || 'search failed')
-      setSearchItems(Array.isArray(j?.data?.items) ? j.data.items as SearchItem[] : [])
+      let items = Array.isArray(j?.data?.items) ? (j.data.items as SearchItem[]) : []
+      if (advSortBy === 'latency') {
+        items = [...items].sort((a, b) => {
+          const av = (a.meta?.latencyMs ?? Number.POSITIVE_INFINITY)
+          const bv = (b.meta?.latencyMs ?? Number.POSITIVE_INFINITY)
+          return advSortOrder === 'asc' ? av - bv : bv - av
+        })
+      } else if (advSortBy === 'freshness') {
+        items = [...items].sort((a, b) => {
+          const av = (a.meta?.fetchedAt ?? 0)
+          const bv = (b.meta?.fetchedAt ?? 0)
+          return advSortOrder === 'asc' ? av - bv : bv - av
+        })
+      }
+      setSearchItems(items)
       setSearchTotal(Number(j?.data?.total || 0))
       // URLに高度検索条件を保存
       if (typeof window !== 'undefined') {

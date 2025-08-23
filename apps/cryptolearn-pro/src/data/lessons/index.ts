@@ -1,9 +1,9 @@
-import { financialLiteracyLessons, financialLiteracyTest } from './financial-literacy'
+import { financialLiteracyLessons, financialLiteracyTest, financialLiteracyTests } from './financial-literacy'
 import { cryptoBasicsLessons, cryptoBasicsCategoryTest, cryptoBasicsTests } from './crypto-basics'
-import { tradingBasicsLessons } from './trading-basics'
-import { defiNftLessons } from './defi-nft'
-import { advancedInvestmentLessons } from './advanced-investment'
-import { riskManagementLessons } from './risk-management'
+import { tradingBasicsLessons, tradingBasicsCategoryTest, tradingBasicsTests } from './trading-basics'
+import { defiNftLessons, defiNftCategoryTest, defiNftTests } from './defi-nft'
+import { advancedInvestmentLessons, advancedInvestmentCategoryTest, advancedInvestmentTests } from './advanced-investment'
+import { riskManagementLessons, riskManagementTests } from './risk-management'
 import { regulationComplianceLessons } from './regulation-compliance'
 import { blockchainTechLessons } from './blockchain-tech'
 import { Lesson, CategoryTest } from '@/lib/types/learning'
@@ -29,7 +29,11 @@ export const getLessonsByCategory = (categoryId: string): Lesson[] => {
 
 export const allCategoryTests: CategoryTest[] = [
   financialLiteracyTest,
-  cryptoBasicsCategoryTest
+  cryptoBasicsCategoryTest,
+  tradingBasicsCategoryTest,
+  defiNftCategoryTest,
+  advancedInvestmentCategoryTest,
+  riskManagementTests[5] // riskManagementCategoryTest
 ]
 
 export const getCategoryTest = (categoryId: string): CategoryTest | undefined => {
@@ -38,7 +42,12 @@ export const getCategoryTest = (categoryId: string): CategoryTest | undefined =>
 
 // 5レッスンごとの確認テスト (5-lesson tests)
 export const allLessonTests: CategoryTest[] = [
-  ...cryptoBasicsTests
+  ...financialLiteracyTests,
+  ...cryptoBasicsTests,
+  ...tradingBasicsTests,
+  ...defiNftTests,
+  ...advancedInvestmentTests,
+  ...riskManagementTests.slice(0, 5) // riskManagementTest1-5
 ]
 
 // 全テスト統合 (All tests combined)

@@ -18,32 +18,38 @@ export const lesson15: Lesson = {
         type: 'text',
         title: 'レッスン概要',
         content: `このレッスンではメタバースとバーチャルワールドについて学習します。
-## 学習目標
-- メタバースとバーチャルワールドの基本概念を理解する
-- 実践的な活用方法を学ぶ
-- リスクと注意点を把握する
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">学習目標</h2>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>メタバースとバーチャルワールドの基本概念を理解する</li>
+<li>実践的な活用方法を学ぶ</li>
+<li>リスクと注意点を把握する</li>
+</ul>
 
-## 重要なポイント
-- 基本的な知識から応用まで段階的に学習
-- 実例を通じた理解の深化
-- 適切なリスク管理の重要性`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">重要なポイント</h2>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基本的な知識から応用まで段階的に学習</li>
+<li>実例を通じた理解の深化</li>
+<li>適切なリスク管理の重要性</li>
+</ul>`
       },
       {
         type: 'example',
         title: '実践例',
-        content: `## 基本的な例
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的な例</h2>
 実際のメタバースとバーチャルワールドの活用例：
 
-1. **ステップ1**: 基本設定の確認
-2. **ステップ2**: 実行手順の理解
-3. **ステップ3**: 結果の分析
+1. <strong>ステップ1</strong>: 基本設定の確認
+2. <strong>ステップ2</strong>: 実行手順の理解
+3. <strong>ステップ3</strong>: 結果の分析
 
-## 応用例
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">応用例</h2>
 
 より高度な活用方法：
-- 複合的な戦略の組み合わせ
-- リスク管理の徹底
-- 継続的な改善`
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複合的な戦略の組み合わせ</li>
+<li>リスク管理の徹底</li>
+<li>継続的な改善</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -67,21 +73,27 @@ export const lesson15: Lesson = {
       {
         type: 'warning',
         title: '注意点とリスク',
-        content: `**重要な注意事項**
-⚠️ **リスク管理**
-- メタバースとバーチャルワールドには固有のリスクが存在
-- 適切な知識なしに実行しない
-- 常に最新情報を確認
+        content: `<strong>重要な注意事項</strong>
+⚠️ <strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>メタバースとバーチャルワールドには固有のリスクが存在</li>
+<li>適切な知識なしに実行しない</li>
+<li>常に最新情報を確認</li>
+</ul>
 
-⚠️ **実践前の確認**
-- 十分な理解の確保
-- 小額での練習
-- 専門家への相談検討
+⚠️ <strong>実践前の確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>十分な理解の確保</li>
+<li>小額での練習</li>
+<li>専門家への相談検討</li>
+</ul>
 
-⚠️ **継続的な学習**
-- 技術の進歩に対応
-- 市場状況の変化に注意
-- 定期的な知識のアップデート`
+⚠️ <strong>継続的な学習</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術の進歩に対応</li>
+<li>市場状況の変化に注意</li>
+<li>定期的な知識のアップデート</li>
+</ul>`
       },
       ],
     keyPoints: [

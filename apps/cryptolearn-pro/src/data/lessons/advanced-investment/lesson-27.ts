@@ -16,41 +16,53 @@ export const lesson27: Lesson = {
       {
         type: 'quiz',
         title: 'STOの基本概念',
-        content: `**セキュリティトークンオファリング(STO)とは**
+        content: `<strong>セキュリティトークンオファリング(STO)とは</strong>
 STOは、証券法に準拠してデジタル証券(セキュリティトークン)を発行し、投資家から資金を調達する仕組みです。従来のIPOとICOの利点を組み合わせた新しい資金調達手法です。
-## STOの特徴
-**規制準拠**
-- 証券法の完全遵守
-- 投資家保護の確保
-- 規制当局の監督
-- 法的な透明性
-**技術的優位性**
-- ブロックチェーン技術の活用
-- 取引の自動化
-- 24/7の取引可能性
-- 低コストでの運営
-**投資家アクセス**
-- 世界中の投資家
-- 少額投資の可能性
-- 流動性の向上
-- 分散投資の促進
-## STOの分類
-**権利の種類別**
-- 株式型：企業の株式を表現
-- 債券型：債券の権利を表現
-- 不動産型：不動産の所有権を表現
-- 収益権型：特定の収益への権利
-**発行方式別**
-- 公募型：一般投資家向け
-- 私募型：適格投資家向け
-- 混合型：段階的な公開
-**地域別**
-- 米国：SEC規制準拠
-- 欧州：MiFID II準拠
-- 日本：金融商品取引法準拠
-- シンガポール：MAS規制準拠
-## 従来手法との比較
-**STOとIPOの比較**
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">STOの特徴</h2>
+<strong>規制準拠</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>証券法の完全遵守</li>
+<li>投資家保護の確保</li>
+<li>規制当局の監督</li>
+<li>法的な透明性</li>
+</ul>
+<strong>技術的優位性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ブロックチェーン技術の活用</li>
+<li>取引の自動化</li>
+<li>24/7の取引可能性</li>
+<li>低コストでの運営</li>
+</ul>
+<strong>投資家アクセス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>世界中の投資家</li>
+<li>少額投資の可能性</li>
+<li>流動性の向上</li>
+<li>分散投資の促進</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">STOの分類</h2>
+<strong>権利の種類別</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>株式型：企業の株式を表現</li>
+<li>債券型：債券の権利を表現</li>
+<li>不動産型：不動産の所有権を表現</li>
+<li>収益権型：特定の収益への権利</li>
+</ul>
+<strong>発行方式別</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>公募型：一般投資家向け</li>
+<li>私募型：適格投資家向け</li>
+<li>混合型：段階的な公開</li>
+</ul>
+<strong>地域別</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>米国：SEC規制準拠</li>
+<li>欧州：MiFID II準拠</li>
+<li>日本：金融商品取引法準拠</li>
+<li>シンガポール：MAS規制準拠</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">従来手法との比較</h2>
+<strong>STOとIPOの比較</strong>
 | 項目 | STO | IPO |
 |------|-----|-----|
 | 発行コスト | 低い | 高い |
@@ -59,7 +71,7 @@ STOは、証券法に準拠してデジタル証券(セキュリティトーク�
 | 投資家層 | 世界中 | 限定的 |
 | 流動性 | 高い | 中程度 |
 | 規制 | 新しい | 確立済み |
-**STOとICOの比較**
+<strong>STOとICOの比較</strong>
 | 項目 | STO | ICO |
 |------|-----|-----|
 | 規制 | 準拠 | 不明確 |
@@ -68,380 +80,514 @@ STOは、証券法に準拠してデジタル証券(セキュリティトーク�
 | 透明性 | 高い | 低い |
 | リスク | 低い | 高い |
 | 成長性 | 安定 | 不安定 |
-## 2024年の市場動向
-**市場規模**
-- 世界市場：$2.3B
-- 年間成長率：45%
-- 発行件数：500件以上
-- 平均調達額：$4.6M
-**地域別発展**
-- 米国：最大市場(40%)
-- 欧州：急成長(30%)
-- アジア太平洋：新興市場(20%)
-- その他：発展段階(10%)
-**業界別動向**
-- 不動産：35%
-- 金融サービス：25%
-- テクノロジー：20%
-- エネルギー：15%
-- その他：5%
-## 技術的基盤
-**ブロックチェーン選択**
-- Ethereum：最も一般的
-- Polygon：低コスト
-- Tezos：エネルギー効率
-- Hyperledger：企業向け
-**スマートコントラクト**
-- ERC-1400：セキュリティトークン標準
-- ERC-1404：転送制限機能
-- ERC-1410：部分的転送可能
-- カスタム実装：特定要件対応
-**KYC/AML統合**
-- 投資家識別
-- 資金源確認
-- 継続的監視
-- 規制報告`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の市場動向</h2>
+<strong>市場規模</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>世界市場：$2.3B</li>
+<li>年間成長率：45%</li>
+<li>発行件数：500件以上</li>
+<li>平均調達額：$4.6M</li>
+</ul>
+<strong>地域別発展</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>米国：最大市場(40%)</li>
+<li>欧州：急成長(30%)</li>
+<li>アジア太平洋：新興市場(20%)</li>
+<li>その他：発展段階(10%)</li>
+</ul>
+<strong>業界別動向</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>不動産：35%</li>
+<li>金融サービス：25%</li>
+<li>テクノロジー：20%</li>
+<li>エネルギー：15%</li>
+<li>その他：5%</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">技術的基盤</h2>
+<strong>ブロックチェーン選択</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ethereum：最も一般的</li>
+<li>Polygon：低コスト</li>
+<li>Tezos：エネルギー効率</li>
+<li>Hyperledger：企業向け</li>
+</ul>
+<strong>スマートコントラクト</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ERC-1400：セキュリティトークン標準</li>
+<li>ERC-1404：転送制限機能</li>
+<li>ERC-1410：部分的転送可能</li>
+<li>カスタム実装：特定要件対応</li>
+</ul>
+<strong>KYC/AML統合</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資家識別</li>
+<li>資金源確認</li>
+<li>継続的監視</li>
+<li>規制報告</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'STO投資の評価手法',
-        content: `## 投資評価の基本要素
-**発行企業の評価**
-- 事業モデルの健全性
-- 財務状況の分析
-- 経営陣の経歴
-- 市場競争力
-**技術的評価**
-- ブロックチェーン実装
-- セキュリティ対策
-- スマートコントラクト監査
-- 技術チームの能力
-**規制コンプライアンス**
-- 適用法域の確認
-- 規制要件の遵守
-- 法的意見書の確認
-- 継続的コンプライアンス
-**市場性評価**
-- 流動性見通し
-- 取引所上場計画
-- 投資家需要
-- 価格発見メカニズム
-## デューデリジェンス
-**財務デューデリジェンス**
-- 過去3年間の財務諸表
-- 監査報告書
-- 予算・事業計画
-- 資金使途の妥当性
-**法務デューデリジェンス**
-- 法的構造の確認
-- 知的財産権
-- 契約関係
-- 訴訟リスク
-**技術デューデリジェンス**
-- 技術アーキテクチャ
-- セキュリティ監査
-- 開発ロードマップ
-- 技術的リスク評価
-**商業デューデリジェンス**
-- 市場分析
-- 競合分析
-- 顧客基盤
-- 成長戦略
-## 価値評価手法
-**伝統的評価手法**
-- DCF法(割引キャッシュフロー)
-- マルチプル法
-- 純資産価値法
-- 清算価値法
-**STO特有の評価要素**
-- 流動性プレミアム
-- 技術的優位性
-- 規制コンプライアンス価値
-- ネットワーク効果
-**リスク調整**
-- 技術リスク
-- 規制リスク
-- 流動性リスク
-- 市場リスク
-## 投資戦略
-**長期投資戦略**
-- 成長企業への投資
-- 配当・利息収入
-- 株式上場時の売却
-- 長期的な価値向上
-**短期投資戦略**
-- 上場後の価格上昇
-- 流動性改善時の売却
-- アービトラージ機会
-- イベントドリブン投資
-**分散投資戦略**
-- 業界分散
-- 地域分散
-- 発行段階分散
-- リスクレベル分散
-**専門投資戦略**
-- 特定業界への集中
-- 技術的専門性の活用
-- 規制環境の理解
-- 早期段階投資
-## リスク管理
-**投資リスク**
-- 元本毀損リスク
-- 流動性リスク
-- 価格変動リスク
-- 信用リスク
-**技術リスク**
-- スマートコントラクトバグ
-- ブロックチェーン障害
-- セキュリティ侵害
-- 技術的陳腐化
-**規制リスク**
-- 法規制の変更
-- 解釈の変更
-- 執行の強化
-- 国際的な規制格差
-**対策方法**
-- 分散投資
-- 適切な投資金額
-- 継続的監視
-- 専門家との連携`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資評価の基本要素</h2>
+<strong>発行企業の評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業モデルの健全性</li>
+<li>財務状況の分析</li>
+<li>経営陣の経歴</li>
+<li>市場競争力</li>
+</ul>
+<strong>技術的評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ブロックチェーン実装</li>
+<li>セキュリティ対策</li>
+<li>スマートコントラクト監査</li>
+<li>技術チームの能力</li>
+</ul>
+<strong>規制コンプライアンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適用法域の確認</li>
+<li>規制要件の遵守</li>
+<li>法的意見書の確認</li>
+<li>継続的コンプライアンス</li>
+</ul>
+<strong>市場性評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>流動性見通し</li>
+<li>取引所上場計画</li>
+<li>投資家需要</li>
+<li>価格発見メカニズム</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">デューデリジェンス</h2>
+<strong>財務デューデリジェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>過去3年間の財務諸表</li>
+<li>監査報告書</li>
+<li>予算・事業計画</li>
+<li>資金使途の妥当性</li>
+</ul>
+<strong>法務デューデリジェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>法的構造の確認</li>
+<li>知的財産権</li>
+<li>契約関係</li>
+<li>訴訟リスク</li>
+</ul>
+<strong>技術デューデリジェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術アーキテクチャ</li>
+<li>セキュリティ監査</li>
+<li>開発ロードマップ</li>
+<li>技術的リスク評価</li>
+</ul>
+<strong>商業デューデリジェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場分析</li>
+<li>競合分析</li>
+<li>顧客基盤</li>
+<li>成長戦略</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">価値評価手法</h2>
+<strong>伝統的評価手法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>DCF法(割引キャッシュフロー)</li>
+<li>マルチプル法</li>
+<li>純資産価値法</li>
+<li>清算価値法</li>
+</ul>
+<strong>STO特有の評価要素</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>流動性プレミアム</li>
+<li>技術的優位性</li>
+<li>規制コンプライアンス価値</li>
+<li>ネットワーク効果</li>
+</ul>
+<strong>リスク調整</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術リスク</li>
+<li>規制リスク</li>
+<li>流動性リスク</li>
+<li>市場リスク</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資戦略</h2>
+<strong>長期投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>成長企業への投資</li>
+<li>配当・利息収入</li>
+<li>株式上場時の売却</li>
+<li>長期的な価値向上</li>
+</ul>
+<strong>短期投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>上場後の価格上昇</li>
+<li>流動性改善時の売却</li>
+<li>アービトラージ機会</li>
+<li>イベントドリブン投資</li>
+</ul>
+<strong>分散投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>業界分散</li>
+<li>地域分散</li>
+<li>発行段階分散</li>
+<li>リスクレベル分散</li>
+</ul>
+<strong>専門投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>特定業界への集中</li>
+<li>技術的専門性の活用</li>
+<li>規制環境の理解</li>
+<li>早期段階投資</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理</h2>
+<strong>投資リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>元本毀損リスク</li>
+<li>流動性リスク</li>
+<li>価格変動リスク</li>
+<li>信用リスク</li>
+</ul>
+<strong>技術リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>スマートコントラクトバグ</li>
+<li>ブロックチェーン障害</li>
+<li>セキュリティ侵害</li>
+<li>技術的陳腐化</li>
+</ul>
+<strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>法規制の変更</li>
+<li>解釈の変更</li>
+<li>執行の強化</li>
+<li>国際的な規制格差</li>
+</ul>
+<strong>対策方法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散投資</li>
+<li>適切な投資金額</li>
+<li>継続的監視</li>
+<li>専門家との連携</li>
+</ul>`
       },
       {
         type: 'example',
         title: 'STO投資の実践例',
-        content: `## 例1：不動産STOへの投資
-**投資対象：東京商業ビルSTO**
-- 発行体：不動産投資会社
-- 調達額：50億円
-- 投資最小単位：100万円
-- 期待配当利回り：年4.5%
-**投資判断要素**
-- 立地：東京都心一等地
-- 物件評価：鑑定評価額120億円
-- テナント：大手企業の長期契約
-- 管理実績：20年以上の運用経験
-**投資実績**
-- 投資額：1,000万円
-- 保有期間：3年
-- 年間配当：45万円
-- 売却価格：1,200万円
-- 総収益：$335万円(年率11.2%)
-**成功要因**
-- 優良な不動産の選択
-- 安定した賃料収入
-- 不動産価格の上昇
-- 流動性の改善
-## 例2：テクノロジー企業STO
-**投資対象：AI企業のSTO**
-- 発行体：AI技術開発会社
-- 調達額：10億円
-- 投資最小単位：50万円
-- 想定リターン：年20-30%
-**企業概要**
-- 事業：自動運転技術
-- 設立：2018年
-- 従業員：200名
-- 顧客：自動車メーカー5社
-**投資分析**
-- 技術的優位性：特許50件
-- 市場性：10兆円市場
-- 競合状況：先行優位
-- 財務状況：売上高成長率150%
-**投資結果**
-- 投資額：500万円
-- 保有期間：2年
-- 株式公開：成功
-- 売却価格：1,500万円
-- 総収益：1,000万円(年率100%)
-**リスク要因**
-- 技術開発の不確実性
-- 規制環境の変化
-- 競合の参入
-- 市場の成熟度
-## 例3：グリーンエネルギーSTO
-**投資対象：太陽光発電プロジェクト**
-- 発行体：再生可能エネルギー会社
-- 調達額：30億円
-- 投資最小単位：10万円
-- 期待リターン：年6-8%
-**プロジェクト概要**
-- 発電容量：100MW
-- 立地：九州地方
-- 売電契約：20年固定価格
-- 建設期間：18ヶ月
-**ESG投資の観点**
-- 環境：CO2削減効果
-- 社会：地域雇用創出
-- ガバナンス：透明な運営
-- 持続可能性：長期安定収益
-**投資成果**
-- 投資額：200万円
-- 保有期間：5年
-- 年間配当：15万円
-- 現在価値：220万円
-- 総収益：95万円(年率7.6%)
-**投資メリット**
-- 安定した収益
-- ESGテーマへの投資
-- 長期的な成長性
-- 社会的意義
-## 例4：STOファンドへの投資
-**投資方法：STOファンド**
-- ファンド名：グローバルSTOファンド
-- 最小投資額：1,000万円
-- 運用期間：5年
-- 期待リターン：年12-15%
-**ファンド戦略**
-- 世界各地のSTO投資
-- 業界分散投資
-- アクティブ運用
-- ESG考慮投資
-**ポートフォリオ**
-- 不動産：40%
-- テクノロジー：30%
-- 金融サービス：20%
-- エネルギー：10%
-**運用実績**
-- 投資額：1,000万円
-- 運用期間：3年
-- 年間リターン：13.5%
-- 現在価値：1,405万円
-- 管理手数料：年2%
-**ファンドの利点**
-- 専門的な投資判断
-- 分散投資効果
-- 流動性の提供
-- 継続的な監視`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例1：不動産STOへの投資</h2>
+<strong>投資対象：東京商業ビルSTO</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>発行体：不動産投資会社</li>
+<li>調達額：50億円</li>
+<li>投資最小単位：100万円</li>
+<li>期待配当利回り：年4.5%</li>
+</ul>
+<strong>投資判断要素</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地：東京都心一等地</li>
+<li>物件評価：鑑定評価額120億円</li>
+<li>テナント：大手企業の長期契約</li>
+<li>管理実績：20年以上の運用経験</li>
+</ul>
+<strong>投資実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：1,000万円</li>
+<li>保有期間：3年</li>
+<li>年間配当：45万円</li>
+<li>売却価格：1,200万円</li>
+<li>総収益：$335万円(年率11.2%)</li>
+</ul>
+<strong>成功要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>優良な不動産の選択</li>
+<li>安定した賃料収入</li>
+<li>不動産価格の上昇</li>
+<li>流動性の改善</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例2：テクノロジー企業STO</h2>
+<strong>投資対象：AI企業のSTO</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>発行体：AI技術開発会社</li>
+<li>調達額：10億円</li>
+<li>投資最小単位：50万円</li>
+<li>想定リターン：年20-30%</li>
+</ul>
+<strong>企業概要</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業：自動運転技術</li>
+<li>設立：2018年</li>
+<li>従業員：200名</li>
+<li>顧客：自動車メーカー5社</li>
+</ul>
+<strong>投資分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的優位性：特許50件</li>
+<li>市場性：10兆円市場</li>
+<li>競合状況：先行優位</li>
+<li>財務状況：売上高成長率150%</li>
+</ul>
+<strong>投資結果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：500万円</li>
+<li>保有期間：2年</li>
+<li>株式公開：成功</li>
+<li>売却価格：1,500万円</li>
+<li>総収益：1,000万円(年率100%)</li>
+</ul>
+<strong>リスク要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術開発の不確実性</li>
+<li>規制環境の変化</li>
+<li>競合の参入</li>
+<li>市場の成熟度</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例3：グリーンエネルギーSTO</h2>
+<strong>投資対象：太陽光発電プロジェクト</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>発行体：再生可能エネルギー会社</li>
+<li>調達額：30億円</li>
+<li>投資最小単位：10万円</li>
+<li>期待リターン：年6-8%</li>
+</ul>
+<strong>プロジェクト概要</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>発電容量：100MW</li>
+<li>立地：九州地方</li>
+<li>売電契約：20年固定価格</li>
+<li>建設期間：18ヶ月</li>
+</ul>
+<strong>ESG投資の観点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>環境：CO2削減効果</li>
+<li>社会：地域雇用創出</li>
+<li>ガバナンス：透明な運営</li>
+<li>持続可能性：長期安定収益</li>
+</ul>
+<strong>投資成果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：200万円</li>
+<li>保有期間：5年</li>
+<li>年間配当：15万円</li>
+<li>現在価値：220万円</li>
+<li>総収益：95万円(年率7.6%)</li>
+</ul>
+<strong>投資メリット</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>安定した収益</li>
+<li>ESGテーマへの投資</li>
+<li>長期的な成長性</li>
+<li>社会的意義</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例4：STOファンドへの投資</h2>
+<strong>投資方法：STOファンド</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ファンド名：グローバルSTOファンド</li>
+<li>最小投資額：1,000万円</li>
+<li>運用期間：5年</li>
+<li>期待リターン：年12-15%</li>
+</ul>
+<strong>ファンド戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>世界各地のSTO投資</li>
+<li>業界分散投資</li>
+<li>アクティブ運用</li>
+<li>ESG考慮投資</li>
+</ul>
+<strong>ポートフォリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>不動産：40%</li>
+<li>テクノロジー：30%</li>
+<li>金融サービス：20%</li>
+<li>エネルギー：10%</li>
+</ul>
+<strong>運用実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：1,000万円</li>
+<li>運用期間：3年</li>
+<li>年間リターン：13.5%</li>
+<li>現在価値：1,405万円</li>
+<li>管理手数料：年2%</li>
+</ul>
+<strong>ファンドの利点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>専門的な投資判断</li>
+<li>分散投資効果</li>
+<li>流動性の提供</li>
+<li>継続的な監視</li>
+</ul>`
       },
       {
         type: 'text',
         title: '規制環境と将来展望',
-        content: `## 主要国の規制状況
-**米国**
-- SEC(証券取引委員会)による規制
-- Regulation D：私募規制
-- Regulation S：海外投資家向け
-- Regulation A+：小規模公募
-**欧州**
-- MiFID II：投資サービス規制
-- AIFMD：代替投資ファンド規制
-- 各国の個別規制
-- デジタル資産規制の発展
-**日本**
-- 金融商品取引法の適用
-- 第一種金融商品取引業の登録
-- 投資家保護の強化
-- デジタル証券の整備
-**シンガポール**
-- MAS(シンガポール金融管理局)
-- Securities and Futures Act
-- 投資家分類制度
-- サンドボックス制度
-## 規制遵守のポイント
-**発行時の要件**
-- 適格投資家の確認
-- 開示書類の作成
-- 規制当局への届出
-- 継続的な報告義務
-**取引時の要件**
-- 転送制限の実装
-- KYC/AMLの実施
-- 取引記録の保存
-- 規制報告の実施
-**運用時の要件**
-- 株主管理
-- 配当支払い
-- 情報開示
-- 監査対応
-## 技術的発展
-**標準化の進展**
-- ERC-1400の採用拡大
-- 相互運用性の向上
-- 業界標準の確立
-- 国際的な協調
-**インフラの発展**
-- 取引所の充実
-- カストディサービス
-- 決済システム
-- 税務報告ツール
-**新技術の統合**
-- AI による自動化
-- IoT との連携
-- 量子暗号の活用
-- 分散型身元確認
-## 市場の将来展望
-**成長予測**
-- 2030年までの市場規模：$1T
-- 年間成長率：35%
-- 発行件数：年間10,000件
-- 平均調達額：$50M
-**新しい投資機会**
-- 中小企業の資金調達
-- 新興国市場の拡大
-- 新しい資産クラス
-- 分散投資の促進
-**課題と対策**
-- 規制の統一化
-- 技術標準の確立
-- 投資家教育
-- 市場の透明性向上
-## 投資家への影響
-**個人投資家**
-- 投資機会の拡大
-- 少額投資の可能性
-- 世界市場へのアクセス
-- 新しい資産クラス
-**機関投資家**
-- ポートフォリオの多様化
-- 効率的な投資実行
-- 流動性の向上
-- コスト削減
-**企業**
-- 資金調達の多様化
-- 投資家基盤の拡大
-- 運営効率の向上
-- グローバル展開
-## 成功のための要素
-**投資家の観点**
-- 十分な調査と分析
-- 分散投資の実践
-- 長期的な視点
-- 専門家との協力
-**発行体の観点**
-- 明確な事業戦略
-- 規制遵守の徹底
-- 透明な情報開示
-- 投資家との良好な関係
-**市場全体**
-- 規制環境の整備
-- 技術インフラの発展
-- 投資家教育の充実
-- 国際的な協調`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要国の規制状況</h2>
+<strong>米国</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>SEC(証券取引委員会)による規制</li>
+<li>Regulation D：私募規制</li>
+<li>Regulation S：海外投資家向け</li>
+<li>Regulation A+：小規模公募</li>
+</ul>
+<strong>欧州</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>MiFID II：投資サービス規制</li>
+<li>AIFMD：代替投資ファンド規制</li>
+<li>各国の個別規制</li>
+<li>デジタル資産規制の発展</li>
+</ul>
+<strong>日本</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>金融商品取引法の適用</li>
+<li>第一種金融商品取引業の登録</li>
+<li>投資家保護の強化</li>
+<li>デジタル証券の整備</li>
+</ul>
+<strong>シンガポール</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>MAS(シンガポール金融管理局)</li>
+<li>Securities and Futures Act</li>
+<li>投資家分類制度</li>
+<li>サンドボックス制度</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">規制遵守のポイント</h2>
+<strong>発行時の要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適格投資家の確認</li>
+<li>開示書類の作成</li>
+<li>規制当局への届出</li>
+<li>継続的な報告義務</li>
+</ul>
+<strong>取引時の要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>転送制限の実装</li>
+<li>KYC/AMLの実施</li>
+<li>取引記録の保存</li>
+<li>規制報告の実施</li>
+</ul>
+<strong>運用時の要件</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>株主管理</li>
+<li>配当支払い</li>
+<li>情報開示</li>
+<li>監査対応</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">技術的発展</h2>
+<strong>標準化の進展</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ERC-1400の採用拡大</li>
+<li>相互運用性の向上</li>
+<li>業界標準の確立</li>
+<li>国際的な協調</li>
+</ul>
+<strong>インフラの発展</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引所の充実</li>
+<li>カストディサービス</li>
+<li>決済システム</li>
+<li>税務報告ツール</li>
+</ul>
+<strong>新技術の統合</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>AI による自動化</li>
+<li>IoT との連携</li>
+<li>量子暗号の活用</li>
+<li>分散型身元確認</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">市場の将来展望</h2>
+<strong>成長予測</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>2030年までの市場規模：$1T</li>
+<li>年間成長率：35%</li>
+<li>発行件数：年間10,000件</li>
+<li>平均調達額：$50M</li>
+</ul>
+<strong>新しい投資機会</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>中小企業の資金調達</li>
+<li>新興国市場の拡大</li>
+<li>新しい資産クラス</li>
+<li>分散投資の促進</li>
+</ul>
+<strong>課題と対策</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制の統一化</li>
+<li>技術標準の確立</li>
+<li>投資家教育</li>
+<li>市場の透明性向上</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資家への影響</h2>
+<strong>個人投資家</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資機会の拡大</li>
+<li>少額投資の可能性</li>
+<li>世界市場へのアクセス</li>
+<li>新しい資産クラス</li>
+</ul>
+<strong>機関投資家</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ポートフォリオの多様化</li>
+<li>効率的な投資実行</li>
+<li>流動性の向上</li>
+<li>コスト削減</li>
+</ul>
+<strong>企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>資金調達の多様化</li>
+<li>投資家基盤の拡大</li>
+<li>運営効率の向上</li>
+<li>グローバル展開</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">成功のための要素</h2>
+<strong>投資家の観点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>十分な調査と分析</li>
+<li>分散投資の実践</li>
+<li>長期的な視点</li>
+<li>専門家との協力</li>
+</ul>
+<strong>発行体の観点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>明確な事業戦略</li>
+<li>規制遵守の徹底</li>
+<li>透明な情報開示</li>
+<li>投資家との良好な関係</li>
+</ul>
+<strong>市場全体</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制環境の整備</li>
+<li>技術インフラの発展</li>
+<li>投資家教育の充実</li>
+<li>国際的な協調</li>
+</ul>`
       },
       {
         type: 'tip',
         title: 'STO投資成功のポイント',
-        content: `**効果的なSTO投資戦略**
-📋 **投資前の準備**
-- 徹底的なデューデリジェンス
-- 規制環境の理解
-- 投資目的の明確化
-- リスク許容度の確認
-🔍 **投資判断の要点**
-- 事業モデルの健全性
-- 技術的な優位性
-- 規制コンプライアンス
-- 流動性の見通し
-💼 **ポートフォリオ管理**
-- 適切な分散投資
-- 定期的な見直し
-- リスク管理の徹底
-- 長期的な視点
-🌐 **市場動向の把握**
-- 規制変更の監視
-- 技術発展の追跡
-- 市場トレンドの分析
-- グローバル展開の理解`
+        content: `<strong>効果的なSTO投資戦略</strong>
+📋 <strong>投資前の準備</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>徹底的なデューデリジェンス</li>
+<li>規制環境の理解</li>
+<li>投資目的の明確化</li>
+<li>リスク許容度の確認</li>
+</ul>
+🔍 <strong>投資判断の要点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業モデルの健全性</li>
+<li>技術的な優位性</li>
+<li>規制コンプライアンス</li>
+<li>流動性の見通し</li>
+</ul>
+💼 <strong>ポートフォリオ管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適切な分散投資</li>
+<li>定期的な見直し</li>
+<li>リスク管理の徹底</li>
+<li>長期的な視点</li>
+</ul>
+🌐 <strong>市場動向の把握</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制変更の監視</li>
+<li>技術発展の追跡</li>
+<li>市場トレンドの分析</li>
+<li>グローバル展開の理解</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -486,27 +632,35 @@ STOは、証券法に準拠してデジタル証券(セキュリティトーク�
       {
         type: 'warning',
         title: 'STO投資の注意点',
-        content: `**重要なリスク要因**
-⚠️ **規制リスク**
-- 法規制の変更
-- 解釈の変更
-- 執行の強化
-- 国際的な規制格差
-⚠️ **技術リスク**
-- スマートコントラクトの脆弱性
-- ブロックチェーン障害
-- セキュリティ侵害
-- 技術的陳腐化
-⚠️ **市場リスク**
-- 流動性不足
-- 価格変動
-- 市場の未成熟
-- 投資家の認知度不足
-⚠️ **投資リスク**
-- 元本毀損の可能性
-- 期待リターン未達
-- 投資期間の長期化
-- 情報の非対称性`
+        content: `<strong>重要なリスク要因</strong>
+⚠️ <strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>法規制の変更</li>
+<li>解釈の変更</li>
+<li>執行の強化</li>
+<li>国際的な規制格差</li>
+</ul>
+⚠️ <strong>技術リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>スマートコントラクトの脆弱性</li>
+<li>ブロックチェーン障害</li>
+<li>セキュリティ侵害</li>
+<li>技術的陳腐化</li>
+</ul>
+⚠️ <strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>流動性不足</li>
+<li>価格変動</li>
+<li>市場の未成熟</li>
+<li>投資家の認知度不足</li>
+</ul>
+⚠️ <strong>投資リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>元本毀損の可能性</li>
+<li>期待リターン未達</li>
+<li>投資期間の長期化</li>
+<li>情報の非対称性</li>
+</ul>`
       },
       ],
     keyPoints: [

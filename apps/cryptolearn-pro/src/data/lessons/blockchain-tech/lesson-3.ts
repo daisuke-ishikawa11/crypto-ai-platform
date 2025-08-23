@@ -17,21 +17,25 @@ export const lesson3: Lesson = {
         content: `
 分散ネットワークにおいて全ての参加者が同じ状態に合意するための仕組みがコンセンサスアルゴリズムです。
 
-**ビザンチン将軍問題:**
+<strong>ビザンチン将軍問題:</strong>
 分散システムにおける合意形成の根本的課題を表現した問題です。
 
-- **問題設定**: 複数の将軍が異なる場所から都市を攻撃する際、連携のための通信が敵に傍受・改ざんされる可能性がある状況
-- **課題**: 裏切り者（悪意ある参加者）がいても正しい合意に達する必要
-- **ブロックチェーンへの適用**: ネットワーク参加者の一部が悪意ある行動をとっても正しい状態を維持
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>問題設定</strong>: 複数の将軍が異なる場所から都市を攻撃する際、連携のための通信が敵に傍受・改ざんされる可能性がある状況</li>
+<li><strong>課題</strong>: 裏切り者（悪意ある参加者）がいても正しい合意に達する必要</li>
+<li><strong>ブロックチェーンへの適用</strong>: ネットワーク参加者の一部が悪意ある行動をとっても正しい状態を維持</li>
+</ul>
 
-**FLP不可能性定理:**
+<strong>FLP不可能性定理:</strong>
 非同期分散システムにおいて、ノードが故障する可能性がある場合、決定的な合意アルゴリズムは存在しないことを証明した定理。
 
-**CAP定理:**
+<strong>CAP定理:</strong>
 分散システムにおいて以下の3つの特性を同時に満たすことは不可能：
-- **Consistency（一貫性）**: 全てのノードが同じデータを持つ
-- **Availability（可用性）**: システムが常に稼働している
-- **Partition tolerance（分断耐性）**: ネットワーク分断に対する耐性
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>Consistency（一貫性）</strong>: 全てのノードが同じデータを持つ</li>
+<li><strong>Availability（可用性）</strong>: システムが常に稼働している</li>
+<li><strong>Partition tolerance（分断耐性）</strong>: ネットワーク分断に対する耐性</li>
+</ul>
 
 ブロックチェーンは通常、ConsistencyとPartition toleranceを優先し、Availabilityを一部犠牲にします。
         `
@@ -42,12 +46,12 @@ export const lesson3: Lesson = {
         content: `
 PoWは計算量による競争でブロック生成権を決定するコンセンサスアルゴリズムです。
 
-**動作原理:**
-1. **ナンス探索**: 特定の条件を満たすハッシュ値を見つけるまで計算
-2. **難易度調整**: ブロック生成間隔を一定に保つ
-3. **最長チェーンルール**: 最も多くの計算量が投入されたチェーンを正当とみなす
+<strong>動作原理:</strong>
+1. <strong>ナンス探索</strong>: 特定の条件を満たすハッシュ値を見つけるまで計算
+2. <strong>難易度調整</strong>: ブロック生成間隔を一定に保つ
+3. <strong>最長チェーンルール</strong>: 最も多くの計算量が投入されたチェーンを正当とみなす
 
-**具体的なマイニングプロセス:**
+<strong>具体的なマイニングプロセス:</strong>
 \`\`\`
 目標: SHA-256(ブロックヘッダー + ナンス) が特定の値以下になるナンスを発見
 
@@ -61,15 +65,15 @@ PoWは計算量による競争でブロック生成権を決定するコンセ�
 ナンス = 25397: SHA-256("Hello, World!25397") = 0000c3af...（○）
 \`\`\`
 
-**セキュリティモデル:**
-- **51%攻撃**: 過半数の計算力を持つ攻撃者がチェーンを書き換え可能
-- **セルフィッシュマイニング**: 戦略的にブロック公開を遅らせる攻撃
-- **長距離攻撃**: 過去のブロックから分岐した偽のチェーンを構築
+<strong style="color: #1f2937; font-weight: 600;">セキュリティモデル:</strong>
+- <strong style="color: #1f2937; font-weight: 600;">51%攻撃</strong>: 過半数の計算力を持つ攻撃者がチェーンを書き換え可能
+- <strong style="color: #1f2937; font-weight: 600;">セルフィッシュマイニング</strong>: 戦略的にブロック公開を遅らせる攻撃
+- <strong style="color: #1f2937; font-weight: 600;">長距離攻撃</strong>: 過去のブロックから分岐した偽のチェーンを構築
 
-**Bitcoin の実装詳細:**
-- **難易度調整**: 2016ブロック（約2週間）ごとに調整
-- **報酬半減期**: 約4年（210,000ブロック）ごとに報酬が半分
-- **現在の年間電力消費**: 約150 TWh（アルゼンチン1国分相当）
+<strong style="color: #1f2937; font-weight: 600;">Bitcoin の実装詳細:</strong>
+- <strong style="color: #1f2937; font-weight: 600;">難易度調整</strong>: 2016ブロック（約2週間）ごとに調整
+- <strong style="color: #1f2937; font-weight: 600;">報酬半減期</strong>: 約4年（210,000ブロック）ごとに報酬が半分
+- <strong style="color: #1f2937; font-weight: 600;">現在の年間電力消費</strong>: 約150 TWh（アルゼンチン1国分相当）
         `
       },
       {
@@ -78,14 +82,14 @@ PoWは計算量による競争でブロック生成権を決定するコンセ�
         content: `
 PoSは保有量（ステーク）に基づいてブロック生成者を選出するアルゴリズムです。
 
-**基本的なPoS動作:**
-1. **ステーキング**: 暗号資産をロックして検証者としての権利を得る
-2. **確率的選出**: ステーク量に比例した確率でブロック生成者を選出
-3. **スラッシング**: 不正行為に対する罰則（ステークの一部没収）
+<strong>基本的なPoS動作:</strong>
+1. <strong>ステーキング</strong>: 暗号資産をロックして検証者としての権利を得る
+2. <strong>確率的選出</strong>: ステーク量に比例した確率でブロック生成者を選出
+3. <strong>スラッシング</strong>: 不正行為に対する罰則（ステークの一部没収）
 
-**主要なPoS方式:**
+<strong>主要なPoS方式:</strong>
 
-**1. チェーンベースPoS（Ethereum 2.0型）:**
+<strong>1. チェーンベースPoS（Ethereum 2.0型）:</strong>
 \`\`\`
 - エポック制: 32スロット（約6.4分）で1エポック
 - 検証者選出: 疑似ランダムによる選出
@@ -93,21 +97,21 @@ PoSは保有量（ステーク）に基づいてブロック生成者を選出�
 - 最小ステーク: 32 ETH
 \`\`\`
 
-**2. BFTスタイルPoS（Tendermint型）:**
+<strong style="color: #1f2937; font-weight: 600;">2. BFTスタイルPoS（Tendermint型）:</strong>
 \`\`\`
 - 即座のファイナリティ: ブロック承認と同時に確定
 - ビザンチン障害耐性: 1/3未満の悪意ノードまで耐性
 - 複数ラウンド投票: 提案→投票→事前コミット→コミット
 \`\`\`
 
-**ステーキングの経済学:**
-- **報酬計算**: APR = (年間発行量 × 個人ステーク割合) / 総ステーク量
-- **機会コスト**: ロック期間中の他の投資機会の喪失
-- **流動性リスク**: 即座にステークを解除できない（アンボンディング期間）
+<strong style="color: #1f2937; font-weight: 600;">ステーキングの経済学:</strong>
+- <strong style="color: #1f2937; font-weight: 600;">報酬計算</strong>: APR = (年間発行量 × 個人ステーク割合) / 総ステーク量
+- <strong style="color: #1f2937; font-weight: 600;">機会コスト</strong>: ロック期間中の他の投資機会の喪失
+- <strong style="color: #1f2937; font-weight: 600;">流動性リスク</strong>: 即座にステークを解除できない（アンボンディング期間）
 
-**Long Range Attack対策:**
-- **Weak Subjectivity**: 新規参加者は信頼できるチェックポイントが必要
-- **スラッシング条件**: 
+<strong style="color: #1f2937; font-weight: 600;">Long Range Attack対策:</strong>
+- <strong style="color: #1f2937; font-weight: 600;">Weak Subjectivity</strong>: 新規参加者は信頼できるチェックポイントが必要
+- <strong style="color: #1f2937; font-weight: 600;">スラッシング条件</strong>: 
   - 同じ高さで複数ブロックに投票（Equivocation）
   - 矛盾するファイナリティ投票（Finality violation）
         `
@@ -116,39 +120,49 @@ PoSは保有量（ステーク）に基づいてブロック生成者を選出�
         type: 'text',
         title: '他の主要コンセンサスアルゴリズム',
         content: `
-**委任プルーフ・オブ・ステーク（DPoS）:**
+<strong>委任プルーフ・オブ・ステーク（DPoS）:</strong>
 ユーザーが代表者（デリゲート）を選出し、その代表者がブロック生成を行う。
 
-- **特徴**: 高速処理（1-3秒のブロック時間）
-- **実装例**: EOS（21人の Block Producer）、Tron（27人のSuper Representative）
-- **課題**: 中央集権化リスク、代表者間の談合可能性
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: 高速処理（1-3秒のブロック時間）</li>
+<li><strong>実装例</strong>: EOS（21人の Block Producer）、Tron（27人のSuper Representative）</li>
+<li><strong>課題</strong>: 中央集権化リスク、代表者間の談合可能性</li>
+</ul>
 
-**プルーフ・オブ・オーソリティ（PoA）:**
+<strong>プルーフ・オブ・オーソリティ（PoA）:</strong>
 事前に承認された権威者（Authority）のみがブロックを生成。
 
-- **特徴**: 高速・低コスト、エネルギー効率が良い
-- **利用例**: プライベートブロックチェーン、テストネット
-- **課題**: 中央集権化、権威者の信頼性に依存
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: 高速・低コスト、エネルギー効率が良い</li>
+<li><strong>利用例</strong>: プライベートブロックチェーン、テストネット</li>
+<li><strong>課題</strong>: 中央集権化、権威者の信頼性に依存</li>
+</ul>
 
-**実用的ビザンチン障害耐性（pBFT）:**
+<strong>実用的ビザンチン障害耐性（pBFT）:</strong>
 ビザンチン将軍問題を解決する決定論的アルゴリズム。
 
-- **3段階プロトコル**: Pre-prepare → Prepare → Commit
-- **障害耐性**: 全体の1/3未満が悪意ある場合に安全性保証
-- **利用例**: Hyperledger Fabric、Tendermint
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>3段階プロトコル</strong>: Pre-prepare → Prepare → Commit</li>
+<li><strong>障害耐性</strong>: 全体の1/3未満が悪意ある場合に安全性保証</li>
+<li><strong>利用例</strong>: Hyperledger Fabric、Tendermint</li>
+</ul>
 
-**プルーフ・オブ・ストレージ（PoStorage）:**
+<strong>プルーフ・オブ・ストレージ（PoStorage）:</strong>
 ストレージ容量の提供量に基づくコンセンサス。
 
-- **実装例**: Filecoin（Proof of Spacetime + Proof of Replication）
-- **特徴**: 有用な計算（データストレージ）
-- **課題**: 検証の複雑さ、Nothing at Stake問題
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>実装例</strong>: Filecoin（Proof of Spacetime + Proof of Replication）</li>
+<li><strong>特徴</strong>: 有用な計算（データストレージ）</li>
+<li><strong>課題</strong>: 検証の複雑さ、Nothing at Stake問題</li>
+</ul>
 
-**ハイブリッドアプローチ:**
+<strong>ハイブリッドアプローチ:</strong>
 複数のコンセンサスメカニズムを組み合わせ：
-- **Ethereum**: PoW → PoS移行（The Merge）
-- **Bitcoin Cash**: PoW + CTOR（Canonical Transaction Ordering Rule）
-- **Algorand**: Pure Proof of Stake + VRF（Verifiable Random Function）
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>Ethereum</strong>: PoW → PoS移行（The Merge）</li>
+<li><strong>Bitcoin Cash</strong>: PoW + CTOR（Canonical Transaction Ordering Rule）</li>
+<li><strong>Algorand</strong>: Pure Proof of Stake + VRF（Verifiable Random Function）</li>
+</ul>
         `
       }
     ],

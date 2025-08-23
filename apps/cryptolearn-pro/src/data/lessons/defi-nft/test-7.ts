@@ -1,25 +1,30 @@
-import { Test } from '../../types'
+import { CategoryTest } from '@/lib/types/learning'
 
-export const test7: Test = {
+export const defiNftTest7: CategoryTest = {
   id: 'defi-nft-test-7',
   categoryId: 'defi-nft',
-  title: '高度なNFT戦略と将来のトレンド：確認テスト7（レッスン31-35）',
-  description: '高度なNFT投資戦略、新技術動向、将来展望に関する理解度を確認します',
+  title: 'DeFiポートフォリオ管理・規制・未来展望：確認テスト7（レッスン31-35）',
+  description: 'ラグプル・詐欺検出、DeFiポートフォリオ管理、税務処理、規制環境、DeFi・NFTの未来展望に関する理解度を確認します',
+  difficulty: 'advanced',
+  category: 'defi-nft',
+  lessonRange: 'lesson-31-35',
+  passingScore: 80,
+  timeLimit: 25,
   questions: [
     {
-      id: 'q1',
-      question: 'NFT市場における「Alpha Leak」の概念で最も正確な説明は？',
+      id: 'defi-nft-test-7-q1',
+      question: 'ラグプル詐欺の最も一般的な識別方法は？',
       options: [
-        'NFTの価格が下落すること',
-        '一般公開前の有利な投資情報が流出すること',
-        'NFTのメタデータが破損すること',
-        'スマートコントラクトのバグが発見されること'
+        '高い利回りを約束するプロジェクトを避ける',
+        'コントラクトのコード監査と流動性ロック確認',
+        '有名人の推奨のみに依存',
+        '価格の動きのみで判断'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：一般公開前の有利な投資情報が流出すること</strong></p><p><strong>Alpha</strong>は、<strong>一般市場より優位な投資情報</strong>を指します。</p><p><strong>Alpha情報の種類：</strong></p><ul><li><strong>早期情報</strong>：新プロジェクト・パートナーシップ発表</li><li><strong>内部情報</strong>：開発進捗・重要決定</li><li><strong>技術分析</strong>：独自の市場分析・予測</li><li><strong>ネットワーク情報</strong>：業界関係者からの情報</li></ul><p><strong>Alpha Leakの影響：</strong></p><ul><li><strong>価格先行</strong>：発表前の価格上昇</li><li><strong>情報格差</strong>：知る者と知らない者の利益差</li><li><strong>市場効率性</strong>：情報の段階的反映</li><li><strong>投機機会</strong>：短期的な利益獲得機会</li></ul><p><strong>Alpha情報源：</strong></p><ul><li><strong>Discord/Twitter</strong>：開発者・インフルエンサー発言</li><li><strong>オンチェーン分析</strong>：取引パターン・ウォレット動向</li><li><strong>業界ネットワーク</strong>：関係者からの情報</li><li><strong>技術分析</strong>：独自の市場研究</li></ul><p><strong>注意：</strong>内部者取引や市場操作は多くの国で違法行為です。</p>'
+      explanation: '<p><strong>正解：コントラクトのコード監査と流動性ロック確認</strong></p><p><strong>ラグプル詐欺</strong>は、開発者が投資者資金を<strong>一方的に引き出す</strong>悪質な詐欺手法です。</p><p><strong>コード監査の重要ポイント：</strong></p><ul><li><strong>所有者権限</strong>：管理者が単独で資金引き出し可能か</li><li><strong>ミント機能</strong>：無制限のトークン発行機能</li><li><strong>ブラックリスト機能</strong>：特定ユーザーの取引禁止</li><li><strong>タイムロック</strong>：重要変更の事前通知機能</li></ul><p><strong>流動性ロック確認：</strong></p><ul><li><strong>ロック期間</strong>：開発者トークンのロック状況</li><li><strong>ベスティングスケジュール</strong>：段階的リリース計画</li><li><strong>マルチシグ</strong>：複数署名によるコントロール</li><li><strong>DAO統制</strong>：コミュニティ統制の存在</li></ul><p><strong>警告サイン：</strong></p><ul><li>無名の開発チーム</li><li>監査されていないコード</li><li>異常に高いAPY</li><li>プロジェクトの明確なロードマップの欠如</li></ul>'
     },
     {
-      id: 'q2',
+      id: 'defi-nft-test-7-q2',
       question: 'Dynamic NFT における「Chainlink VRF」の最も重要な用途は？',
       options: [
         'NFTの価格を決定する',
@@ -31,7 +36,7 @@ export const test7: Test = {
       explanation: '<p><strong>正解：予測不可能で検証可能なランダム性を提供する</strong></p><p><strong>Chainlink VRF（Verifiable Random Function）</strong>は、<strong>改ざん耐性のある真のランダム性</strong>を提供します。</p><p><strong>Dynamic NFTでの用途：</strong></p><ul><li><strong>進化システム</strong>：ランダムな進化パス・結果</li><li><strong>属性生成</strong>：予測不可能な特性付与</li><li><strong>ゲーム要素</strong>：戦闘結果・報酬抽選</li><li><strong>繁殖システム</strong>：子NFTの特性決定</li></ul><p><strong>VRFの重要性：</strong></p><ul><li><strong>公平性</strong>：誰も結果を事前予測・操作不可</li><li><strong>透明性</strong>：ランダム性の検証可能</li><li><strong>信頼性</strong>：中央集権的操作の排除</li><li><strong>セキュリティ</strong>：暗号学的に安全</li></ul><p><strong>従来手法の問題：</strong></p><ul><li><strong>Block Hash</strong>：マイナーによる操作可能性</li><li><strong>Timestamp</strong>：予測・操作が容易</li><li><strong>Off-chain Random</strong>：中央集権・信頼依存</li></ul><p><strong>実装例：</strong>CyberKongz Evolution, Wolf Game等で採用</p>'
     },
     {
-      id: 'q3',
+      id: 'defi-nft-test-7-q3',
       question: 'NFT投資における「Conviction Trading」戦略の核心は？',
       options: [
         '短期間での高頻度取引',
@@ -43,7 +48,7 @@ export const test7: Test = {
       explanation: '<p><strong>正解：深い調査に基づく長期確信投資</strong></p><p><strong>Conviction Trading</strong>は、<strong>徹底的な研究による確信</strong>に基づく投資アプローチです。</p><p><strong>Conviction投資の要素：</strong></p><ul><li><strong>Deep Research</strong>：プロジェクト・チーム・技術の詳細分析</li><li><strong>Fundamental Analysis</strong>：長期的価値の評価</li><li><strong>Position Sizing</strong>：確信度に応じた投資額決定</li><li><strong>Long-term Hold</strong>：短期変動に動じない保有</li></ul><p><strong>調査領域：</strong></p><ul><li><strong>Team Background</strong>：開発チームの経歴・実績</li><li><strong>Technology Innovation</strong>：技術的革新性・優位性</li><li><strong>Community Strength</strong>：コミュニティの質・活動</li><li><strong>Utility & Roadmap</strong>：実用性・将来計画</li><li><strong>Competitive Position</strong>：競合優位性</li></ul><p><strong>リスク管理：</strong></p><ul><li><strong>適切な分散</strong>：過度の集中回避</li><li><strong>定期的再評価</strong>：前提条件の変化確認</li><li><strong>損切り基準</strong>：基本的条件変化時の対応</li></ul><p><strong>成功例：</strong>初期CryptoPunks, BAYC投資家等</p>'
     },
     {
-      id: 'q4',
+      id: 'defi-nft-test-7-q4',
       question: '「NFT Financialization」の最も先進的な発展形態は？',
       options: [
         'NFT担保融資',
@@ -55,7 +60,7 @@ export const test7: Test = {
       explanation: '<p><strong>正解：Synthetic NFT Derivatives（NFT合成デリバティブ）</strong></p><p><strong>Synthetic NFT Derivatives</strong>は、<strong>NFT価格エクスポージャー</strong>を実NFT保有なしで得る金融商品です。</p><p><strong>合成デリバティブの種類：</strong></p><ul><li><strong>NFT Index Funds</strong>：複数NFTの価格指数</li><li><strong>NFT Options</strong>：NFT購入・売却権</li><li><strong>NFT Futures</strong>：将来のNFT価格で契約</li><li><strong>NFT Swaps</strong>：NFT価格変動の交換</li></ul><p><strong>革新性：</strong></p><ul><li><strong>流動性創出</strong>：非流動的資産の流動的取引</li><li><strong>部分エクスポージャー</strong>：全額投資不要</li><li><strong>ヘッジング</strong>：NFT保有者のリスク管理</li><li><strong>価格発見</strong>：より効率的な価格形成</li><li><strong>アクセシビリティ</strong>：高額NFTへの間接投資</li></ul><p><strong>技術的実装：</strong></p><ul><li><strong>Oracle Integration</strong>：正確な価格データ取得</li><li><strong>AMM Design</strong>：合成資産の流動性確保</li><li><strong>Risk Management</strong>：適切な担保・清算システム</li></ul><p><strong>プラットフォーム：</strong>Synthetix, Mirror Protocol等の応用</p>'
     },
     {
-      id: 'q5',
+      id: 'defi-nft-test-7-q5',
       question: 'Web3における「Soul Bound Token（SBT）」がNFT市場に与える最大の影響は？',
       options: [
         'NFT価格の上昇',

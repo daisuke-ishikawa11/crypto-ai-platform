@@ -608,7 +608,9 @@ FV = P × (1 + r)^t
 </table>
 <p style="margin: 1rem 0 0 0; text-align: center; font-weight: 600; color: #1e40af;">
 "私の富の99%は50歳以降に築かれた"<br/>
-- ウォーレン・バフェット
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ウォーレン・バフェット</li>
+</ul>
 </p>
 </div>
 

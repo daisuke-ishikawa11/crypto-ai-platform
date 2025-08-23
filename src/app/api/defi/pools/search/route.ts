@@ -56,6 +56,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     }
 
     // 1) 内部DB
+    const dbFetchStart = Date.now()
     const supabase = await createClient()
     const base = supabase
       .from('defi_liquidity_pools')
@@ -82,7 +83,8 @@ async function handler(request: NextRequest): Promise<NextResponse> {
           network: String(r.defi_protocols?.blockchain || ''),
           tvl: Number(r.total_liquidity_usd || 0),
           apy: Number(r.apy || 0),
-          volume24h: Number(r.volume_24h_usd || 0)
+          volume24h: Number(r.volume_24h_usd || 0),
+          meta: { fetchedAt: Date.now(), latencyMs: Date.now() - dbFetchStart }
         }))
         .filter(x => x.apy >= minApy && x.apy <= maxApy)
     }
@@ -90,7 +92,9 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     // 2) 外部DEX（Llama/The Graph）
     const includeDexes = includeDexesParam.split(',').map(s => s.trim()).filter(Boolean)
     const keys = [ ...(includeUniswap ? ['uniswap-v3'] : []), ...includeDexes ]
+    const extFetchStart = Date.now()
     const ext = keys.length > 0 ? await fetchDexPools(keys, network) : []
+    const extLatency = Date.now() - extFetchStart
     // Llama由来データを突合用に保持（name/protocol/networkは小文字化）
     const llamaItems = ext.map(e => ({
       name: e.name.toLowerCase(),
@@ -132,6 +136,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
           estimatedVolumeUsd24h: undefined,
           // 主要Graph環境変数の一部をメタとして返却
           graphSourceUrl: 'https://defillama.com',
+          meta: { fetchedAt: Date.now(), latencyMs: extLatency }
         }
       })
 
@@ -160,6 +165,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     const uniTargets = ['ethereum','polygon','arbitrum','optimism','base']
     if ((network === 'all' || uniTargets.includes(network)) && extResults.length < limit) {
       try {
+        const uniStart = Date.now()
         const uni = await runAdapter<Array<{ name: string; tvlUsd?: number; apy?: number; chain: string; feeTier?: number; token0Address?: string; token1Address?: string; estimatedVolumeUsd24h?: number }>>({
           name: 'evm.uniswap.pools',
           kind: 'generic',
@@ -167,6 +173,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
           cacheKeyParams: { limit: 50, net: network }
         })
         if (Array.isArray(uni)) {
+          const uniLatency = Date.now() - uniStart
           const items = uni.map((u) => {
             const match = llamaItems.find(x => x.name === u.name.toLowerCase() && x.protocol.includes('uniswap'))
             const apy = apyKind === 'reward' ? (match?.rewardApy || 0)
@@ -187,6 +194,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
               graphSourceName: 'uniswap-v3',
               estimatedVolumeUsd24h: u.estimatedVolumeUsd24h,
               graphSourceUrl: (u as { sourceGraphUrl?: string }).sourceGraphUrl,
+              meta: { fetchedAt: Date.now(), latencyMs: uniLatency }
             }
           })
           extResults = [...extResults, ...items]

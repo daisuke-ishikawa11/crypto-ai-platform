@@ -133,7 +133,10 @@
       "Bash(./scripts/setup-persistent-mcp.sh:*)",
       "WebSearch",
       "WebFetch(domain:www.jmooc.jp)",
-      "WebFetch(domain:www.coursera.org)"
+      "WebFetch(domain:www.coursera.org)",
+      "mcp__context7__get-library-docs",
+      "Bash(do echo \"Processing $file...\")",
+      "mcp__serena__onboarding"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

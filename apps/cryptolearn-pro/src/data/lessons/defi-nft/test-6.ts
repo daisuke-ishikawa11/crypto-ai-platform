@@ -1,13 +1,18 @@
-import { Test } from '../../types'
+import { CategoryTest } from '@/lib/types/learning'
 
-export const test6: Test = {
+export const defiNftTest6: CategoryTest = {
   id: 'defi-nft-test-6',
   categoryId: 'defi-nft',
-  title: 'NFTファイナンスとGameFi：確認テスト6（レッスン26-30）',
-  description: 'NFTファイナンス、GameFi、Play-to-Earnエコシステムに関する理解度を確認します',
+  title: 'NFTロイヤリティ・DeFi統合・リスク管理：確認テスト6（レッスン26-30）',
+  description: 'NFTロイヤリティ・権利、NFT・DeFi統合、NFT担保融資、DeFiリスクアセスメント、スマートコントラクトセキュリティに関する理解度を確認します',
+  difficulty: 'advanced',
+  category: 'defi-nft',
+  lessonRange: 'lesson-26-30',
+  passingScore: 80,
+  timeLimit: 25,
   questions: [
     {
-      id: 'q1',
+      id: 'defi-nft-test-6-q1',
       question: 'NFT担保融資における「Loan-to-Value（LTV）」比率の適切な設定で最も重要な考慮要素は？',
       options: [
         'NFTの初期購入価格',
@@ -19,7 +24,7 @@ export const test6: Test = {
       explanation: '<p><strong>正解：NFTの流動性とボラティリティ</strong></p><p><strong>LTV（Loan-to-Value）</strong>比率は、<strong>リスク管理の核心</strong>となる指標です。</p><p><strong>流動性の重要性：</strong></p><ul><li><strong>売却可能性</strong>：デフォルト時の担保処分の容易さ</li><li><strong>価格発見</strong>：適正な市場価格の存在</li><li><strong>取引コスト</strong>：売却時の手数料・スリッページ</li><li><strong>時間要素</strong>：売却完了までの期間</li></ul><p><strong>ボラティリティの影響：</strong></p><ul><li><strong>価格変動リスク</strong>：担保価値の急激な変化</li><li><strong>清算閾値</strong>：適切なバッファーの必要性</li><li><strong>リスクプレミアム</strong>：変動率に応じた金利調整</li></ul><p><strong>実際の設定例：</strong></p><ul><li><strong>Blue Chip NFT</strong>：40-50% LTV（流動性高・ボラティリティ中）</li><li><strong>中級NFT</strong>：20-30% LTV（流動性中・ボラティリティ高）</li><li><strong>新興NFT</strong>：10-20% LTV（流動性低・ボラティリティ極高）</li></ul>'
     },
     {
-      id: 'q2',
+      id: 'defi-nft-test-6-q2',
       question: 'GameFiにおける「Play-to-Earn」の持続可能性を保つ最も重要な要素は？',
       options: [
         '新規プレイヤーの継続的な参入',

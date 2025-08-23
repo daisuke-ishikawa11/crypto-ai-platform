@@ -1,5 +1,5 @@
 import type { Lesson } from '../../../types';
-export const lesson18: Lesson = {
+export const export const lesson18: Lesson = {
   id: 'trading-basics-risk-management-fundamentals',
   slug: 'risk-management-fundamentals',
   title: 'リスク管理の基礎',
@@ -62,143 +62,231 @@ export const lesson18: Lesson = {
       },
       {
         type: 'text',
-        content: `# 基本的な損失制御手法
-## ストップロス（損切り）
-### ストップロスの基本
-**ストップロス**は、損失が拡大する前に自動的にポジションを決済する、リスク管理の最も基本的で重要な手法です。
-### ストップロス設定の方法
-#### 金額ベース
-- **固定金額**: 1回の取引で失ってもよい金額を設定
-- **例**: $100の損失で必ず損切り
-- **利点**: 計算が簡単、資金管理しやすい
-- **注意**: 市場の状況を考慮しない
-#### パーセンテージベース
-- **固定比率**: 投資金額の一定比率で設定
-- **例**: エントリー価格から3%下で損切り
-- **利点**: ポジションサイズに比例した損失制御
-- **計算**: $50,000でエントリー → 3%なら$48,500で損切り
-#### テクニカルベース
-- **サポート・レジスタンス**: 重要価格レベルの突破で損切り
-- **移動平均線**: 重要移動平均線の割れで損切り
-- **ATR**: 平均的な値動きの倍数で設定
-- **利点**: 市場の動きに合理的な根拠
-### 基本的なストップロス戦略
-#### 初期ストップロス
-1. **エントリー時**: 必ず同時にストップロス注文を設定
-2. **価格設定**: エントリー理由が崩れる価格レベル
-3. **金額確認**: 許容損失額を超えないことを確認
-4. **注文種類**: 成行・指値・逆指値の選択
-#### トレーリングストップ
-1. **基本概念**: 利益が出ている間、ストップロスを有利な方向に移動
-2. **移動方法**: 一定の値幅または比率で自動調整
-3. **利点**: 利益確保と更なる利益追求の両立
-4. **注意点**: 過度に近すぎるとノイズで決済される
-## 利益確定（利確）戦略
-### 基本的な利確手法
-#### リスクリワード比での設定
-- **1:2比率**: リスク$100に対して利益$200を目標
-- **1:3比率**: より大きな利益を狙う比率
-- **計算例**: $50,000エントリー、$47,000ストップ → $56,000利確
-#### 段階的利確
-1. **第1利確**: ポジションの1/3を早めに利確
-2. **第2利確**: ポジションの1/3を中間目標で利確
-3. **第3利確**: 残り1/3をトレンド終了まで保持
-4. **メリット**: 利益確保と大きな利益追求の両立
-### テクニカル分析での利確
-- **レジスタンスレベル**: 重要な抵抗線手前で利確
-- **フィボナッチ**: 重要な戻し水準での利確
-- **移動平均線**: 重要な移動平均線での利確
-- **チャートパターン**: 目標価格の達成で利確`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的な損失制御手法</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ストップロス（損切り）</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ストップロスの基本</h4>
+<p style="margin-bottom: 1rem;"><strong>ストップロス</strong>は、損失が拡大する前に自動的にポジションを決済する、リスク管理の最も基本的で重要な手法です。</p>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ストップロス設定の方法</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">金額ベース</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>固定金額</strong>: 1回の取引で失ってもよい金額を設定</li>
+<li><strong>例</strong>: $100の損失で必ず損切り</li>
+<li><strong>利点</strong>: 計算が簡単、資金管理しやすい</li>
+<li><strong>注意</strong>: 市場の状況を考慮しない</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">パーセンテージベース</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>固定比率</strong>: 投資金額の一定比率で設定</li>
+<li><strong>例</strong>: エントリー価格から3%下で損切り</li>
+<li><strong>利点</strong>: ポジションサイズに比例した損失制御</li>
+<li><strong>計算</strong>: $50,000でエントリー → 3%なら$48,500で損切り</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">テクニカルベース</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>サポート・レジスタンス</strong>: 重要価格レベルの突破で損切り</li>
+<li><strong>移動平均線</strong>: 重要移動平均線の割れで損切り</li>
+<li><strong>ATR</strong>: 平均的な値動きの倍数で設定</li>
+<li><strong>利点</strong>: 市場の動きに合理的な根拠</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的なストップロス戦略</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">初期ストップロス</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>エントリー時</strong>: 必ず同時にストップロス注文を設定</li>
+<li><strong>価格設定</strong>: エントリー理由が崩れる価格レベル</li>
+<li><strong>金額確認</strong>: 許容損失額を超えないことを確認</li>
+<li><strong>注文種類</strong>: 成行・指値・逆指値の選択</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">トレーリングストップ</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>基本概念</strong>: 利益が出ている間、ストップロスを有利な方向に移動</li>
+<li><strong>移動方法</strong>: 一定の値幅または比率で自動調整</li>
+<li><strong>利点</strong>: 利益確保と更なる利益追求の両立</li>
+<li><strong>注意点</strong>: 過度に近すぎるとノイズで決済される</li>
+</ol>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">利益確定（利確）戦略</h3>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的な利確手法</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リスクリワード比での設定</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>1:2比率</strong>: リスク$100に対して利益$200を目標</li>
+<li><strong>1:3比率</strong>: より大きな利益を狙う比率</li>
+<li><strong>計算例</strong>: $50,000エントリー、$47,000ストップ → $56,000利確</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">段階的利確</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>第1利確</strong>: ポジションの1/3を早めに利確</li>
+<li><strong>第2利確</strong>: ポジションの1/3を中間目標で利確</li>
+<li><strong>第3利確</strong>: 残り1/3をトレンド終了まで保持</li>
+<li><strong>メリット</strong>: 利益確保と大きな利益追求の両立</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">テクニカル分析での利確</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>レジスタンスレベル</strong>: 重要な抵抗線手前で利確</li>
+<li><strong>フィボナッチ</strong>: 重要な戻し水準での利確</li>
+<li><strong>移動平均線</strong>: 重要な移動平均線での利確</li>
+<li><strong>チャートパターン</strong>: 目標価格の達成で利確</li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実際の適用例：ビットコイン取引での基本的リスク管理
-### 2024年春の実例
-**取引設定**
-- **資金**: $10,000(取引用資金)
-- **リスク許容**: 1回の取引で$200まで(2%ルール)
-- **通貨**: ビットコイン(BTC)
-- **エントリー価格**: $60,000
-**ストップロス設定**
-- **設定価格**: $58,000(3.33%下)
-- **損失額**: $2,000÷10=$200(ポジションサイズ調整)
-- **ポジションサイズ**: 0.1BTC($6,000分)
-- **実際リスク**: $200(目標通り)
-**利確戦略**
-- **第1利確**: $64,000(1:2リスクリワード)
-- **第2利確**: $68,000(1:4リスクリワード)
-- **最終利確**: トレンドライン割れまで保持
-**実際の結果**
-- **経過1**: $61,000まで上昇、第1利確で0.03BTC決済
-- **経過2**: $66,000まで上昇、第2利確で0.04BTC決済
-- **経過3**: $72,000でトレンドライン割れ、残り0.03BTC決済
-- **最終損益**: $600の利益(6%リターン、リスク$200)
-**学習ポイント**: 基本的なリスク管理ルールの一貫した適用により、小さなリスクで安定した利益を実現`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実際の適用例：ビットコイン取引での基本的リスク管理</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2024年春の実例</h3>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>取引設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $10,000(取引用資金)</li>
+<li><strong>リスク許容</strong>: 1回の取引で$200まで(2%ルール)</li>
+<li><strong>通貨</strong>: ビットコイン(BTC)</li>
+<li><strong>エントリー価格</strong>: $60,000</li>
+</ul>
+</div>
+
+<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ストップロス設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>設定価格</strong>: $58,000(3.33%下)</li>
+<li><strong>損失額</strong>: $2,000÷10=$200(ポジションサイズ調整)</li>
+<li><strong>ポジションサイズ</strong>: 0.1BTC($6,000分)</li>
+<li><strong>実際リスク</strong>: $200(目標通り)</li>
+</ul>
+</div>
+
+<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>利確戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>第1利確</strong>: $64,000(1:2リスクリワード)</li>
+<li><strong>第2利確</strong>: $68,000(1:4リスクリワード)</li>
+<li><strong>最終利確</strong>: トレンドライン割れまで保持</li>
+</ul>
+</div>
+
+<div style="background: #e3f2fd; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>実際の結果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>経過1</strong>: $61,000まで上昇、第1利確で0.03BTC決済</li>
+<li><strong>経過2</strong>: $66,000まで上昇、第2利確で0.04BTC決済</li>
+<li><strong>経過3</strong>: $72,000でトレンドライン割れ、残り0.03BTC決済</li>
+<li><strong>最終損益</strong>: $600の利益(6%リターン、リスク$200)</li>
+</ul>
+</div>
+
+<p style="margin: 1rem 0;"><strong>学習ポイント</strong>: 基本的なリスク管理ルールの一貫した適用により、小さなリスクで安定した利益を実現</p>`
       },
       {
         type: 'tip',
-        content: `**リスク管理活用のコツ**
-1. **基本ルールの徹底**:
-   - 2%ルール: 1回の取引で資金の2%以上リスクを取らない
-   - 事前設定: エントリー前に必ずストップロスと利確を決める
-   - 一貫性: すべての取引で同じルールを適用
-2. **感情制御**:
-   - 機械的実行: 設定したルール通りに機械的に実行
-   - 損切り躊躇の克服: 小さな損失で大きな損失を防ぐ
-   - 利確の我慢: 目標に達したら欲張らずに利確
-3. **継続的改善**: 取引記録をつけて定期的にルールを見直し、市場環境に合わせて調整！`
+        content: `<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; border-left: 4px solid #4caf50; margin: 1rem 0;">
+<strong>リスク管理活用のコツ</strong>
+<h4 style="color: #2e7d32; margin: 0 0 0.5rem 0;">1. 基本ルールの徹底</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>2%ルール: 1回の取引で資金の2%以上リスクを取らない</li>
+<li>事前設定: エントリー前に必ずストップロスと利確を決める</li>
+<li>一貫性: すべての取引で同じルールを適用</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">2. 感情制御</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>機械的実行: 設定したルール通りに機械的に実行</li>
+<li>損切り躊躇の克服: 小さな損失で大きな損失を防ぐ</li>
+<li>利確の我慢: 目標に達したら欲張らずに利確</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">3. 継続的改善</h4>
+<p style="margin: 0;">取引記録をつけて定期的にルールを見直し、市場環境に合わせて調整！</p>
+</div>`
       },
       {
         type: 'text',
-        content: `# 基本的なポジションサイジング
-## ポジションサイズの決定方法
-### 固定金額法
-**毎回同じ金額でポジションを取る最もシンプルな方法**
-- **例**: 毎回$1,000分のポジション
-- **利点**: 計算が簡単、一貫性がある
-- **欠点**: リスクレベルが価格によって変動
-### 固定比率法
-**資金の一定比率でポジションを取る方法**
-- **例**: 常に資金の10%でポジション
-- **計算**: $10,000資金なら$1,000分のポジション
-- **利点**: 資金の増減に連動
-- **注意**: ボラティリティを考慮しない
-### リスクベース法（推奨）
-**許容損失額からポジションサイズを逆算する方法**
-#### 計算式
-**ポジションサイズ = 許容損失額 ÷ (エントリー価格 - ストップロス価格)**
-#### 実例計算
-- **資金**: $10,000
-- **リスク**: 2%($200)
-- **エントリー**: $50,000
-- **ストップロス**: $48,000
-- **価格差**: $2,000
-- **ポジションサイズ**: $200 ÷ $2,000 = 0.1BTC
-### リスク分散の基本
-#### 銘柄分散
-- **集中回避**: 1銘柄に資金の20%以上投資しない
-- **相関確認**: 似た動きをする銘柄への重複投資回避
-- **時間分散**: 一度にすべて投資せず、時期を分ける
-#### 戦略分散
-- **トレンドフォロー**: 上昇トレンドに乗る戦略
-- **逆張り**: 売られすぎからの反発を狙う戦略
-- **レンジ取引**: 価格帯での往復を狙う戦略
-- **組み合わせ**: 複数戦略でリスク分散
-## 資金管理の実践
-### 基本的な資金配分
-#### 3分割法
-1. **投資資金**: 60%(積極的運用)
-2. **安全資金**: 30%(安全資産・現金)
-3. **緊急資金**: 10%(生活費・緊急時)
-### 投資資金の細分化
-- **短期取引**: 40%(1日-1週間)
-- **中期保有**: 40%(1週間-3ヶ月)
-- **長期投資**: 20%(3ヶ月以上)
-### レバレッジの基本的な考え方
-- **初心者**: レバレッジ使用しない(1倍)
-- **中級者**: 最大2-3倍まで
-- **上級者**: 5倍まで(十分な経験後)
-- **絶対禁止**: 10倍を超える高レバレッジ`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的なポジションサイジング</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ポジションサイズの決定方法</h3>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">固定金額法</h4>
+<p style="margin-bottom: 1rem;"><strong>毎回同じ金額でポジションを取る最もシンプルな方法</strong></p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>例</strong>: 毎回$1,000分のポジション</li>
+<li><strong>利点</strong>: 計算が簡単、一貫性がある</li>
+<li><strong>欠点</strong>: リスクレベルが価格によって変動</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">固定比率法</h4>
+<p style="margin-bottom: 1rem;"><strong>資金の一定比率でポジションを取る方法</strong></p>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>例</strong>: 常に資金の10%でポジション</li>
+<li><strong>計算</strong>: $10,000資金なら$1,000分のポジション</li>
+<li><strong>利点</strong>: 資金の増減に連動</li>
+<li><strong>注意</strong>: ボラティリティを考慮しない</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リスクベース法（推奨）</h4>
+<p style="margin-bottom: 1rem;"><strong>許容損失額からポジションサイズを逆算する方法</strong></p>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">計算式</h4>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ポジションサイズ = 許容損失額 ÷ (エントリー価格 - ストップロス価格)</strong>
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実例計算</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $10,000</li>
+<li><strong>リスク</strong>: 2%($200)</li>
+<li><strong>エントリー</strong>: $50,000</li>
+<li><strong>ストップロス</strong>: $48,000</li>
+<li><strong>価格差</strong>: $2,000</li>
+<li><strong>ポジションサイズ</strong>: $200 ÷ $2,000 = 0.1BTC</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リスク分散の基本</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">銘柄分散</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>集中回避</strong>: 1銘柄に資金の20%以上投資しない</li>
+<li><strong>相関確認</strong>: 似た動きをする銘柄への重複投資回避</li>
+<li><strong>時間分散</strong>: 一度にすべて投資せず、時期を分ける</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">戦略分散</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>トレンドフォロー</strong>: 上昇トレンドに乗る戦略</li>
+<li><strong>逆張り</strong>: 売られすぎからの反発を狙う戦略</li>
+<li><strong>レンジ取引</strong>: 価格帯での往復を狙う戦略</li>
+<li><strong>組み合わせ</strong>: 複数戦略でリスク分散</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">資金管理の実践</h3>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的な資金配分</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">3分割法</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>投資資金</strong>: 60%(積極的運用)</li>
+<li><strong>安全資金</strong>: 30%(安全資産・現金)</li>
+<li><strong>緊急資金</strong>: 10%(生活費・緊急時)</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">投資資金の細分化</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>短期取引</strong>: 40%(1日-1週間)</li>
+<li><strong>中期保有</strong>: 40%(1週間-3ヶ月)</li>
+<li><strong>長期投資</strong>: 20%(3ヶ月以上)</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">レバレッジの基本的な考え方</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>初心者</strong>: レバレッジ使用しない(1倍)</li>
+<li><strong>中級者</strong>: 最大2-3倍まで</li>
+<li><strong>上級者</strong>: 5倍まで(十分な経験後)</li>
+<li><strong>絶対禁止</strong>: 10倍を超える高レバレッジ</li>
+</ul>`
       },
       {
         type: 'text',
@@ -219,36 +307,58 @@ export const lesson18: Lesson = {
       },
       {
         type: 'warning',
-        content: `**リスク管理実践時の注意点**
-### 1. 感情的な判断の排除
-**問題**: 損切りへの躊躇、利確への焦り
-**対策**:
-- 機械的なルール適用
-- 事前に設定した価格での自動執行
-- 感情を排除した客観的判断
-- 取引日記による振り返り
-### 2. ルール違反の危険性
-**問題**: 一度の大きな利益で調子に乗る
-**対策**:
-- 基本ルールの一貫した適用
-- 利益が出ても慢心しない
-- 損失時こそルール遵守
-- 定期的なルール見直し
-### 3. 過度なリスク回避
-**問題**: リスクを取らなすぎて機会損失
-**対策**:
-- 適切なリスクレベルの維持
-- 2%ルールの範囲内でのリスク
-- 機会損失も損失と認識
-- バランスの取れたアプローチ
-### 4. 複雑化の回避
-**問題**: 複雑すぎるルールで混乱
-**対策**:
-- シンプルで理解しやすいルール
-- 基本原則の徹底
-- 段階的なスキル向上
-- 実行可能性を重視
-**成功の秘訣**: リスク管理は技術ではなく習慣です。シンプルなルールを一貫して実行し続けることが、長期的な成功への最短路です。`
+        content: `<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; border-left: 4px solid #ff9800; margin: 1rem 0;">
+<strong>リスク管理実践時の注意点</strong>
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">1. 感情的な判断の排除</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 損切りへの躊躇、利確への焦り<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機械的なルール適用</li>
+<li>事前に設定した価格での自動執行</li>
+<li>感情を排除した客観的判断</li>
+<li>取引日記による振り返り</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">2. ルール違反の危険性</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 一度の大きな利益で調子に乗る<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基本ルールの一貫した適用</li>
+<li>利益が出ても慢心しない</li>
+<li>損失時こそルール遵守</li>
+<li>定期的なルール見直し</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">3. 過度なリスク回避</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: リスクを取らなすぎて機会損失<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適切なリスクレベルの維持</li>
+<li>2%ルールの範囲内でのリスク</li>
+<li>機会損失も損失と認識</li>
+<li>バランスの取れたアプローチ</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">4. 複雑化の回避</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 複雑すぎるルールで混乱<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>シンプルで理解しやすいルール</li>
+<li>基本原則の徹底</li>
+<li>段階的なスキル向上</li>
+<li>実行可能性を重視</li>
+</ul>
+</div>
+
+<p style="margin: 1rem 0; font-weight: bold;">成功の秘訣: リスク管理は技術ではなく習慣です。シンプルなルールを一貫して実行し続けることが、長期的な成功への最短路です。</p>
+</div>`
       },
       ],
     keyPoints: [

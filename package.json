@@ -19,6 +19,8 @@
     "test:unit": "jest --testPathIgnorePatterns=e2e",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
+    "test:defi": "playwright test -c playwright-defi.config.ts",
+    "test:alerts": "playwright test -c playwright-alerts.config.ts",
     "test:coverage": "jest --coverage",
     "security:scan": "npm audit --audit-level=moderate",
     "production:check": "npm run type-check && npm run lint && npm run test",

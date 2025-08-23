@@ -1,22 +1,27 @@
-import { Test } from '../../types'
+import { CategoryTest } from '@/lib/types/learning'
 
-export const test5: Test = {
+export const defiNftTest5: CategoryTest = {
   id: 'defi-nft-test-5',
   categoryId: 'defi-nft',
-  title: '高度なDeFiとセキュリティ：確認テスト5（レッスン21-25）',
-  description: '高度なDeFi戦略、セキュリティ対策、リスク管理に関する理解度を確認します',
+  title: 'NFT作成・評価・ゲーミング活用：確認テスト5（レッスン21-25）',
+  description: 'NFT作成・ミント、NFT評価手法、ゲーミング・ユーティリティNFT、NFT取引戦略、フラクショナルNFTに関する理解度を確認します',
+  difficulty: 'intermediate',
+  category: 'defi-nft',
+  lessonRange: 'lesson-21-25',
+  passingScore: 80,
+  timeLimit: 25,
   questions: [
     {
-      id: 'q1',
-      question: 'DeFi における「MEV（Maximal Extractable Value）」の最も正確な説明は？',
+      id: 'defi-nft-test-5-q1',
+      question: 'NFT作成時に最も重要な技術的考慮事項は？',
       options: [
-        'プロトコルの最大収益可能性',
-        'ブロック生成者が取引順序操作で得られる価値',
-        'ユーザーが獲得可能な最大利益',
-        'プロトコルの総資産価値'
+        '画像の高解像度',
+        'メタデータの適切な設計と保存',
+        '作品の商用利用可能性',
+        'クリエイターの知名度'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：ブロック生成者が取引順序操作で得られる価値</strong></p><p><strong>MEV（Maximal Extractable Value）</strong>は、<strong>ブロック内の取引順序を操作</strong>することで得られる追加価値です。</p><p><strong>MEV抽出手法：</strong></p><ul><li><strong>Front-running</strong>：ユーザー取引の前に実行</li><li><strong>Back-running</strong>：ユーザー取引の後に実行</li><li><strong>Sandwich Attack</strong>：前後を挟んで利益獲得</li><li><strong>Arbitrage</strong>：価格差を利用した裁定取引</li></ul><p><strong>具体例：</strong></p><ol><li>大口DAI→ETH取引を検知</li><li>事前にETH購入（価格上昇前）</li><li>大口取引実行（ETH価格上昇）</li><li>高値でETH売却（利益確定）</li></ol><p><strong>対策：</strong></p><ul><li>MEV-resistant AMM設計</li><li>Private Mempool利用</li><li>コミット・リビール方式</li><li>時間遅延付き実行</li></ul>'
+      explanation: '<p><strong>正解：メタデータの適切な設計と保存</strong></p><p><strong>メタデータ</strong>はNFTの<strong>実际のコンテンツや属性情報</strong>を含む重要な要素です。</p><p><strong>メタデータの主要要素：</strong></p><ul><li><strong>作品名</strong>：NFTのタイトル</li><li><strong>説明</strong>：作品の詳細情報</li><li><strong>画像URL</strong>：実際のコンテンツへのリンク</li><li><strong>属性・特性</strong>：ユニークな特徴やレア度</li></ul><p><strong>保存方法の選択：</strong></p><ul><li><strong>IPFS</strong>：分散ストレージ（推奨）</li><li><strong>Arweave</strong>：永続的保存</li><li><strong>中央集権サーバー</strong>：リスクあり</li><li><strong>オンチェーン</strong>：コスト高だが最安全</li></ul><p><strong>メタデータのリスク：</strong></p><ul><li>リンク切れ：中央集権サーバーの関閉</li><li>変更不可：ブロックチェーン上では修正不可</li><li>標準化：JSONスキーマの一貫性</li></ul>'
     },
     {
       id: 'q2',

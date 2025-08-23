@@ -17,30 +17,32 @@ export const lesson2: Lesson = {
         content: `
 暗号学は古代から情報の秘匿に使われてきましたが、コンピューターの発達により数学的な厳密さを持つ現代暗号学へと進化しました。
 
-**暗号学の発展段階：**
-1. **古典暗号（紀元前～1970年代）**
+<strong>暗号学の発展段階：</strong>
+1. <strong>古典暗号（紀元前～1970年代）</strong>
    - シーザー暗号、換字暗号
    - エニグマ機械
    - 秘匿性に依存
 
-2. **現代暗号（1970年代～）**
+2. <strong>現代暗号（1970年代～）</strong>
    - 数学的な安全性証明
    - 公開鍵暗号の発明
    - 計算量理論に基づく設計
 
-**ブロックチェーンで使用される暗号技術：**
-- **ハッシュ関数**: データ整合性の保証
-- **デジタル署名**: 認証と否認防止
-- **マークルツリー**: 効率的な検証構造
-- **楕円曲線暗号**: 効率的な公開鍵暗号
-- **コミット・リビール**: プライバシー保護
+<strong>ブロックチェーンで使用される暗号技術：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ハッシュ関数</strong>: データ整合性の保証</li>
+<li><strong>デジタル署名</strong>: 認証と否認防止</li>
+<li><strong>マークルツリー</strong>: 効率的な検証構造</li>
+<li><strong>楕円曲線暗号</strong>: 効率的な公開鍵暗号</li>
+<li><strong>コミット・リビール</strong>: プライバシー保護</li>
+</ul>
 
-**セキュリティの基本原則：**
-1. **機密性（Confidentiality）**: 情報の秘匿
-2. **完全性（Integrity）**: データの改ざん検出
-3. **可用性（Availability）**: システムの稼働継続
-4. **真正性（Authenticity）**: 送信者の身元確認
-5. **否認防止（Non-repudiation）**: 行為の否定防止
+<strong>セキュリティの基本原則：</strong>
+1. <strong>機密性（Confidentiality）</strong>: 情報の秘匿
+2. <strong>完全性（Integrity）</strong>: データの改ざん検出
+3. <strong>可用性（Availability）</strong>: システムの稼働継続
+4. <strong>真正性（Authenticity）</strong>: 送信者の身元確認
+5. <strong>否認防止（Non-repudiation）</strong>: 行為の否定防止
         `
       },
       {
@@ -49,30 +51,30 @@ export const lesson2: Lesson = {
         content: `
 ハッシュ関数は任意長のデータを固定長の値に変換する一方向関数です。
 
-**ハッシュ関数の数学的性質：**
-1. **効率性**: 高速な計算が可能
-2. **決定性**: 同じ入力から必ず同じ出力
-3. **一方向性**: 逆算が計算論的に困難
-4. **雪崩効果**: 入力の微小変化で出力が大きく変化
-5. **衝突耐性**: 異なる入力から同じ出力を得ることが困難
+<strong>ハッシュ関数の数学的性質：</strong>
+1. <strong>効率性</strong>: 高速な計算が可能
+2. <strong>決定性</strong>: 同じ入力から必ず同じ出力
+3. <strong>一方向性</strong>: 逆算が計算論的に困難
+4. <strong>雪崩効果</strong>: 入力の微小変化で出力が大きく変化
+5. <strong>衝突耐性</strong>: 異なる入力から同じ出力を得ることが困難
 
-**主要なハッシュ関数：**
+<strong>主要なハッシュ関数：</strong>
 
-**SHA-256（Bitcoin等で使用）：**
+<strong>SHA-256（Bitcoin等で使用）：</strong>
 \`\`\`
 メッセージブロック: 512ビット単位で処理
 出力: 256ビット（64桁の16進数）
 安全性レベル: 128ビット（2^128回の計算が必要）
 \`\`\`
 
-**Keccak-256（Ethereum等で使用）：**
+<strong style="color: #1f2937; font-weight: 600;">Keccak-256（Ethereum等で使用）：</strong>
 \`\`\`
 可変長入力対応
 スポンジ構造による柔軟性
 SHA-3として標準化
 \`\`\`
 
-**実際のハッシュ計算例：**
+<strong style="color: #1f2937; font-weight: 600;">実際のハッシュ計算例：</strong>
 \`\`\`
 入力: "blockchain"
 SHA-256: 239900a65b8e8c0b5d0c0b6e1de6c6a6d9f9e1c8b5a2c9d8f6e4c3a2b1c0d9e8
@@ -89,21 +91,23 @@ SHA-256: d23d7d5e9c7b6a4e8d5c3b2a1f0e9d8c7b6a5948372615092481635084927364
         content: `
 デジタル署名は公開鍵暗号を用いた認証技術で、メッセージの真正性と完全性を保証します。
 
-**公開鍵暗号の基本概念：**
-- **鍵ペア**: 数学的に関連する公開鍵と秘密鍵
-- **一方向性**: 公開鍵から秘密鍵の推測は困難
-- **相互変換**: 一方で暗号化したものは他方で復号化
+<strong>公開鍵暗号の基本概念：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>鍵ペア</strong>: 数学的に関連する公開鍵と秘密鍵</li>
+<li><strong>一方向性</strong>: 公開鍵から秘密鍵の推測は困難</li>
+<li><strong>相互変換</strong>: 一方で暗号化したものは他方で復号化</li>
+</ul>
 
-**デジタル署名の手順：**
+<strong>デジタル署名の手順：</strong>
 
-**1. 署名生成（送信者）:**
+<strong>1. 署名生成（送信者）:</strong>
 \`\`\`
 1. メッセージのハッシュ値を計算
 2. 秘密鍵でハッシュ値を暗号化（署名）
 3. メッセージと署名を一緒に送信
 \`\`\`
 
-**2. 署名検証（受信者）:**
+<strong style="color: #1f2937; font-weight: 600;">2. 署名検証（受信者）:</strong>
 \`\`\`
 1. 送信者の公開鍵を入手
 2. 署名を公開鍵で復号化
@@ -111,13 +115,13 @@ SHA-256: d23d7d5e9c7b6a4e8d5c3b2a1f0e9d8c7b6a5948372615092481635084927364
 4. 両方のハッシュ値が一致すれば署名有効
 \`\`\`
 
-**楕円曲線デジタル署名アルゴリズム（ECDSA）:**
+<strong style="color: #1f2937; font-weight: 600;">楕円曲線デジタル署名アルゴリズム（ECDSA）:</strong>
 Bitcoinで使用される主要な署名方式
 - secp256k1曲線を使用
 - 256ビットの秘密鍵から公開鍵を生成
 - 署名は(r, s)の組で表現
 
-**実装例（概念的）:**
+<strong style="color: #1f2937; font-weight: 600;">実装例（概念的）:</strong>
 \`\`\`python
 # 秘密鍵（ランダムな256ビット数）
 private_key = 0x1234567890abcdef...
@@ -140,12 +144,14 @@ is_valid = verify(signature, message_hash, public_key)
         content: `
 マークルツリーは多数のデータを効率的に検証するための二分木構造です。
 
-**マークルツリーの構造：**
-- **リーフノード**: 個別のデータのハッシュ値
-- **内部ノード**: 子ノード2つのハッシュ値を結合したハッシュ
-- **ルートハッシュ**: ツリー全体を代表する単一のハッシュ値
+<strong>マークルツリーの構造：</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>リーフノード</strong>: 個別のデータのハッシュ値</li>
+<li><strong>内部ノード</strong>: 子ノード2つのハッシュ値を結合したハッシュ</li>
+<li><strong>ルートハッシュ</strong>: ツリー全体を代表する単一のハッシュ値</li>
+</ul>
 
-**構築手順：**
+<strong>構築手順：</strong>
 \`\`\`
 1. 各トランザクションのハッシュ値を計算（リーフ）
 2. 隣接する2つのハッシュを結合してハッシュ化
@@ -153,12 +159,12 @@ is_valid = verify(signature, message_hash, public_key)
 4. データ数が奇数の場合は最後の値を複製
 \`\`\`
 
-**検証の効率性：**
-- **完全検証**: すべてのデータをダウンロード・検証
-- **マークル証明**: O(log n)の少数のハッシュで検証可能
-- **SPV（Simplified Payment Verification）**: ライトクライアントでの検証
+<strong style="color: #1f2937; font-weight: 600;">検証の効率性：</strong>
+- <strong style="color: #1f2937; font-weight: 600;">完全検証</strong>: すべてのデータをダウンロード・検証
+- <strong style="color: #1f2937; font-weight: 600;">マークル証明</strong>: O(log n)の少数のハッシュで検証可能
+- <strong style="color: #1f2937; font-weight: 600;">SPV（Simplified Payment Verification）</strong>: ライトクライアントでの検証
 
-**具体例（4つのトランザクション）:**
+<strong style="color: #1f2937; font-weight: 600;">具体例（4つのトランザクション）:</strong>
 \`\`\`
           Root Hash
          /          \\
@@ -169,7 +175,7 @@ Hash(A) Hash(B) Hash(C) Hash(D)
   Tx A    Tx B    Tx C    Tx D
 \`\`\`
 
-**マークル証明の実例：**
+<strong style="color: #1f2937; font-weight: 600;">マークル証明の実例：</strong>
 Tx Bの存在を証明するために必要なもの：
 - Hash(A): Tx Bの兄弟ノード
 - Hash(C,D): 上位レベルでの兄弟ノード

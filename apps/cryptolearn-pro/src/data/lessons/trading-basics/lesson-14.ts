@@ -85,193 +85,243 @@ export const lesson14: Lesson = {
       {
         type: 'text',
         content: `# ADXの基本的な活用法
-## トレンド強度の判定
-### 強いトレンド(ADX 25以上)
-- **条件**: ADXが25を上回り、上昇継続
-- **戦略**: トレンドフォロー戦略採用
-- **エントリー**: DI線の方向に順張り
-- **保有**: ADXが25以上の間は基本保持
-### 弱いトレンド・レンジ(ADX 20以下)
-- **条件**: ADXが20を下回り、横ばいまたは下降
-- **戦略**: レンジ戦略または静観
-- **エントリー**: 逆張りまたはブレイクアウト待ち
-- **注意**: トレンドフォローは避ける
-## DI線による方向判定
-### +DI > -DI(上昇トレンド)
-- **意味**: 上昇の力が下降の力を上回る
-- **条件**: +DIが-DIを上から推移
-- **戦略**: 買いポジション優先
-- **確認**: ADX 25以上で信頼性向上
-### -DI > +DI(下降トレンド)
-- **意味**: 下降の力が上昇の力を上回る
-- **条件**: -DIが+DIを上から推移
-- **戦略**: 売りポジション優先
-- **確認**: ADX 25以上で信頼性向上
-## DI線のクロスオーバー
-### +DI/-DIゴールデンクロス
-- **発生**: +DIが-DIを下から上抜け
-- **意味**: 上昇トレンドの開始可能性
-- **確認**: ADX上昇同伴で信頼性向上
-- **エントリー**: クロス確認後の買いポジション
-### +DI/-DIデッドクロス
-- **発生**: +DIが-DIを上から下抜け
-- **意味**: 下降トレンドの開始可能性
-- **確認**: ADX上昇同伴で信頼性向上
-- **エントリー**: クロス確認後の売りポジション
-## ADXトレンドの活用
-### ADX上昇局面
-- **意味**: トレンド強化継続中
-- **戦略**: 既存トレンド方向への追随
-- **ポジション**: トレンド方向で積極的保有
-- **注意**: 50超えでの反転可能性
-### ADX下降局面  
-- **意味**: トレンド弱化、終了可能性
-- **戦略**: ポジション縮小・利確検討
-- **新規**: 新規エントリーは慎重に
-- **準備**: レンジ戦略への切り替え準備`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">トレンド強度の判定</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">強いトレンド(ADX 25以上)</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>条件</strong>: ADXが25を上回り、上昇継続</li>
+<li><strong>戦略</strong>: トレンドフォロー戦略採用</li>
+<li><strong>エントリー</strong>: DI線の方向に順張り</li>
+<li><strong>保有</strong>: ADXが25以上の間は基本保持</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">弱いトレンド・レンジ(ADX 20以下)</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>条件</strong>: ADXが20を下回り、横ばいまたは下降</li>
+<li><strong>戦略</strong>: レンジ戦略または静観</li>
+<li><strong>エントリー</strong>: 逆張りまたはブレイクアウト待ち</li>
+<li><strong>注意</strong>: トレンドフォローは避ける</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">DI線による方向判定</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">+DI > -DI(上昇トレンド)</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>意味</strong>: 上昇の力が下降の力を上回る</li>
+<li><strong>条件</strong>: +DIが-DIを上から推移</li>
+<li><strong>戦略</strong>: 買いポジション優先</li>
+<li><strong>確認</strong>: ADX 25以上で信頼性向上</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">-DI > +DI(下降トレンド)</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>意味</strong>: 下降の力が上昇の力を上回る</li>
+<li><strong>条件</strong>: -DIが+DIを上から推移</li>
+<li><strong>戦略</strong>: 売りポジション優先</li>
+<li><strong>確認</strong>: ADX 25以上で信頼性向上</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">DI線のクロスオーバー</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">+DI/-DIゴールデンクロス</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>発生</strong>: +DIが-DIを下から上抜け</li>
+<li><strong>意味</strong>: 上昇トレンドの開始可能性</li>
+<li><strong>確認</strong>: ADX上昇同伴で信頼性向上</li>
+<li><strong>エントリー</strong>: クロス確認後の買いポジション</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">+DI/-DIデッドクロス</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>発生</strong>: +DIが-DIを上から下抜け</li>
+<li><strong>意味</strong>: 下降トレンドの開始可能性</li>
+<li><strong>確認</strong>: ADX上昇同伴で信頼性向上</li>
+<li><strong>エントリー</strong>: クロス確認後の売りポジション</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ADXトレンドの活用</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX上昇局面</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>意味</strong>: トレンド強化継続中</li>
+<li><strong>戦略</strong>: 既存トレンド方向への追随</li>
+<li><strong>ポジション</strong>: トレンド方向で積極的保有</li>
+<li><strong>注意</strong>: 50超えでの反転可能性</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX下降局面  </h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>意味</strong>: トレンド弱化、終了可能性</li>
+<li><strong>戦略</strong>: ポジション縮小・利確検討</li>
+<li><strong>新規</strong>: 新規エントリーは慎重に</li>
+<li><strong>準備</strong>: レンジ戦略への切り替え準備</li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実際のトレード例：ビットコイン分析
-### 2024年春季のADX活用例
-**3月上旬：強いトレンド発生の確認**
-- **価格状況**: $60,000から急上昇開始
-- **ADX**: 15→35への急上昇(トレンド強化)
-- **DI状況**: +DI=40、-DI=15(明確な上昇優勢)
-- **シグナル**: ADX25突破 + DI線優勢確認
-- **戦略**: $62,000での追加買いエントリー
-- **結果**: 2週間で$73,000まで18%上昇
-**4月中旬：トレンド継続の確認**
-- **価格状況**: $70,000台での高値圏推移
-- **ADX**: 45で高水準維持(強いトレンド継続)
-- **調整**: 一時的な3%調整発生
-- **判断**: ADX高水準のためトレンド継続期待
-- **戦略**: 調整での押し目買い実行
-- **保有**: ADX25以上のため基本ホールド継続
-- **結果**: 10日後に新高値$75,000更新
-**5月：トレンド終了の早期察知**
-- **価格状況**: $75,000で高値圏停滞
-- **ADX**: 50→35への下降開始(トレンド弱化)
-- **DI変化**: +DI/-DI差の縮小確認
-- **警戒**: トレンド終了の可能性示唆
-- **戦略**: ADX35割れで段階的利確開始
-- **結果**: その後2週間で$65,000まで13%調整
-**学習ポイント**: ADXは方向性ではなく強度を示すため、DI線との組み合わせが必須`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実際のトレード例：ビットコイン分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2024年春季のADX活用例</h3>
+<strong>3月上旬：強いトレンド発生の確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格状況</strong>: $60,000から急上昇開始</li>
+<li><strong>ADX</strong>: 15→35への急上昇(トレンド強化)</li>
+<li><strong>DI状況</strong>: +DI=40、-DI=15(明確な上昇優勢)</li>
+<li><strong>シグナル</strong>: ADX25突破 + DI線優勢確認</li>
+<li><strong>戦略</strong>: $62,000での追加買いエントリー</li>
+<li><strong>結果</strong>: 2週間で$73,000まで18%上昇</li>
+</ul>
+<strong>4月中旬：トレンド継続の確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格状況</strong>: $70,000台での高値圏推移</li>
+<li><strong>ADX</strong>: 45で高水準維持(強いトレンド継続)</li>
+<li><strong>調整</strong>: 一時的な3%調整発生</li>
+<li><strong>判断</strong>: ADX高水準のためトレンド継続期待</li>
+<li><strong>戦略</strong>: 調整での押し目買い実行</li>
+<li><strong>保有</strong>: ADX25以上のため基本ホールド継続</li>
+<li><strong>結果</strong>: 10日後に新高値$75,000更新</li>
+</ul>
+<strong>5月：トレンド終了の早期察知</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格状況</strong>: $75,000で高値圏停滞</li>
+<li><strong>ADX</strong>: 50→35への下降開始(トレンド弱化)</li>
+<li><strong>DI変化</strong>: +DI/-DI差の縮小確認</li>
+<li><strong>警戒</strong>: トレンド終了の可能性示唆</li>
+<li><strong>戦略</strong>: ADX35割れで段階的利確開始</li>
+<li><strong>結果</strong>: その後2週間で$65,000まで13%調整</li>
+</ul>
+<strong>学習ポイント</strong>: ADXは方向性ではなく強度を示すため、DI線との組み合わせが必須`
       },
       {
         type: 'tip',
-        content: `**ADX活用のコツ**
-1. **ADXとDI線の組み合わせ**:
+        content: `<strong>ADX活用のコツ</strong>
+1. <strong>ADXとDI線の組み合わせ</strong>:
    - ADX単独では方向性不明
    - 必ずDI線で方向性確認
    - 両者の一致でシグナル信頼性向上
-2. **段階的な判定**:
+2. <strong>段階的な判定</strong>:
    - ADX20: トレンド可能性の芽生え,
    - ADX25: トレンド確定の基準,
    - ADX40: 極めて強いトレンド,
    - ADX50+: 反転リスクも考慮
-3. **時間軸の活用**: 長期時間軸でのADX分析で大局的トレンド把握！`
+3. <strong>時間軸の活用</strong>: 長期時間軸でのADX分析で大局的トレンド把握！`
       },
       {
         type: 'text',
         content: `# 実践的なADX戦略
-## トレンドフォロー戦略
-### 基本的なトレンド判定手法
-1. **ADX確認**: ADXが25以上で上昇中
-2. **方向確認**: DI線の優勢方向確認
-3. **エントリー**: 優勢DI方向への順張り
-4. **保有**: ADX25以上維持中のポジション継続
-5. **エグジット**: ADX25割れまたはDI線逆転
-### 段階的エントリー戦略
-- **第1段階**: ADX20突破での試し玉
-- **第2段階**: ADX25確定での本格エントリー
-- **第3段階**: ADX30超での追加ポジション
-- **利確**: ADX40以上での段階的利確
-### リスク管理
-- **ストップロス**: DI線逆転で損切り
-- **ポジションサイズ**: ADXレベルに応じた調整
-- **保有期間**: ADX推移に応じた柔軟対応
-## レンジブレイクアウト戦略
-### レンジ相場の確認
-1. **ADX状態**: ADX20以下で横ばい推移
-2. **価格確認**: 明確なレンジ形成確認
-3. **ブレイク準備**: レンジ上下限での待機
-4. **ADX変化**: ADX上昇開始の確認
-### ブレイクアウトエントリー
-- **価格ブレイク**: レンジ上下限の明確突破
-- **ADX確認**: ADX上昇開始の同時確認
-- **DI確認**: ブレイク方向のDI優勢確認
-- **エントリー**: 3条件揃い後のエントリー
-## 複合戦略の活用
-### ADX + 移動平均線
-- **トレンド**: 移動平均線で大方向確認
-- **強度**: ADXでトレンド強度確認
-- **エントリー**: 両者一致でのエントリー
-- **フィルター**: ADX弱い時の取引回避
-### ADX + RSI
-- **過熱感**: RSIで買われすぎ・売られすぎ確認
-- **継続性**: ADXでトレンド継続性確認
-- **タイミング**: RSI調整 + ADX継続での追加
-- **警戒**: 両指標極値での反転注意
-### ADX + ボリンジャーバンド
-- **ブレイク**: バンド突破 + ADX上昇
-- **継続**: バンド外推移 + ADX維持
-- **反転**: バンド内復帰 + ADX下降
-- **確認**: 価格・モメンタム両面での判定`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">トレンドフォロー戦略</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">基本的なトレンド判定手法</h3>
+1. <strong>ADX確認</strong>: ADXが25以上で上昇中
+2. <strong>方向確認</strong>: DI線の優勢方向確認
+3. <strong>エントリー</strong>: 優勢DI方向への順張り
+4. <strong>保有</strong>: ADX25以上維持中のポジション継続
+5. <strong>エグジット</strong>: ADX25割れまたはDI線逆転
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">段階的エントリー戦略</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>第1段階</strong>: ADX20突破での試し玉</li>
+<li><strong>第2段階</strong>: ADX25確定での本格エントリー</li>
+<li><strong>第3段階</strong>: ADX30超での追加ポジション</li>
+<li><strong>利確</strong>: ADX40以上での段階的利確</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">リスク管理</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ストップロス</strong>: DI線逆転で損切り</li>
+<li><strong>ポジションサイズ</strong>: ADXレベルに応じた調整</li>
+<li><strong>保有期間</strong>: ADX推移に応じた柔軟対応</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">レンジブレイクアウト戦略</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">レンジ相場の確認</h3>
+1. <strong>ADX状態</strong>: ADX20以下で横ばい推移
+2. <strong>価格確認</strong>: 明確なレンジ形成確認
+3. <strong>ブレイク準備</strong>: レンジ上下限での待機
+4. <strong>ADX変化</strong>: ADX上昇開始の確認
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ブレイクアウトエントリー</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格ブレイク</strong>: レンジ上下限の明確突破</li>
+<li><strong>ADX確認</strong>: ADX上昇開始の同時確認</li>
+<li><strong>DI確認</strong>: ブレイク方向のDI優勢確認</li>
+<li><strong>エントリー</strong>: 3条件揃い後のエントリー</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">複合戦略の活用</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX + 移動平均線</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>トレンド</strong>: 移動平均線で大方向確認</li>
+<li><strong>強度</strong>: ADXでトレンド強度確認</li>
+<li><strong>エントリー</strong>: 両者一致でのエントリー</li>
+<li><strong>フィルター</strong>: ADX弱い時の取引回避</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX + RSI</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>過熱感</strong>: RSIで買われすぎ・売られすぎ確認</li>
+<li><strong>継続性</strong>: ADXでトレンド継続性確認</li>
+<li><strong>タイミング</strong>: RSI調整 + ADX継続での追加</li>
+<li><strong>警戒</strong>: 両指標極値での反転注意</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX + ボリンジャーバンド</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ブレイク</strong>: バンド突破 + ADX上昇</li>
+<li><strong>継続</strong>: バンド外推移 + ADX維持</li>
+<li><strong>反転</strong>: バンド内復帰 + ADX下降</li>
+<li><strong>確認</strong>: 価格・モメンタム両面での判定</li>
+</ul>`
       },
       {
         type: 'text',
         content: `# ADXの高度な活用法
-## マルチタイムフレーム分析
-### 時間軸別の活用
-- **長期軸(週足)**: 大局的トレンド強度確認
-- **中期軸(日足)**: メイントレンド・戦略決定
-- **短期軸(4時間足)**: エントリータイミング調整
-### 統合判断手法
-1. **週足**: 大局的トレンド方向とADX確認
-2. **日足**: 中期的なトレンド強度評価
-3. **4時間足**: 具体的なエントリーポイント
-4. **一致**: 複数時間軸でのADX・DI一致
-## ADXパターン分析
-### ADXの上昇パターン
-- **急上昇**: 短期間でのADX急上昇(強いトレンド開始)
-- **緩上昇**: 徐々のADX上昇(トレンド育成中)
-- **継続**: 高水準でのADX維持(トレンド継続)
-### ADXの下降パターン  
-- **急下降**: 短期間でのADX急下降(トレンド終了)
-- **緩下降**: 徐々のADX下降(トレンド弱化)
-- **低位**: 低水準でのADX維持(レンジ継続)
-## 市場特性への適応
-### 暗号通貨市場での調整
-- **標準期間**: 14期間(基本)
-- **高ボラ調整**: 10期間(より敏感)
-- **安定重視**: 21期間(ノイズ除去)
-### ADX閾値の調整
-- **標準**: 25(トレンド確定)
-- **敏感**: 20(早期確認)
-- **厳格**: 30(強いトレンドのみ)
-## 季節性・サイクル分析
-### 暗号通貨の季節パターン
-- **Q1**: 年始ラリー期(ADX上昇期待)
-- **Q2**: 調整期(ADX下降傾向)
-- **Q3**: 夏枯れ期(ADX低位推移)
-- **Q4**: 年末ラリー期(ADX上昇期待)
-### サイクルとの組み合わせ
-1. **4年サイクル**: 半減期サイクルとADX分析
-2. **年間サイクル**: 季節性とADXトレンド
-3. **月間サイクル**: 月末月初効果の考慮
-4. **統合**: 複数サイクルでの総合判断
-## 実践的な改善ポイント
-### バックテスト検証
-- **期間**: 過去2-3年のデータ検証
-- **パラメーター**: 最適期間・閾値の検証
-- **成績**: 勝率・リスクリワード比分析
-- **改善**: 結果に基づく手法調整
-### リアルタイム監視
-- **アラート**: ADX25突破・割れアラート設定
-- **DI監視**: DI線クロスの自動通知
-- **複合**: 他指標との組み合わせ通知
-- **管理**: シグナル品質の継続評価`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">マルチタイムフレーム分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">時間軸別の活用</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>長期軸(週足)</strong>: 大局的トレンド強度確認</li>
+<li><strong>中期軸(日足)</strong>: メイントレンド・戦略決定</li>
+<li><strong>短期軸(4時間足)</strong>: エントリータイミング調整</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">統合判断手法</h3>
+1. <strong>週足</strong>: 大局的トレンド方向とADX確認
+2. <strong>日足</strong>: 中期的なトレンド強度評価
+3. <strong>4時間足</strong>: 具体的なエントリーポイント
+4. <strong>一致</strong>: 複数時間軸でのADX・DI一致
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ADXパターン分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADXの上昇パターン</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>急上昇</strong>: 短期間でのADX急上昇(強いトレンド開始)</li>
+<li><strong>緩上昇</strong>: 徐々のADX上昇(トレンド育成中)</li>
+<li><strong>継続</strong>: 高水準でのADX維持(トレンド継続)</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADXの下降パターン  </h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>急下降</strong>: 短期間でのADX急下降(トレンド終了)</li>
+<li><strong>緩下降</strong>: 徐々のADX下降(トレンド弱化)</li>
+<li><strong>低位</strong>: 低水準でのADX維持(レンジ継続)</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">市場特性への適応</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">暗号通貨市場での調整</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>標準期間</strong>: 14期間(基本)</li>
+<li><strong>高ボラ調整</strong>: 10期間(より敏感)</li>
+<li><strong>安定重視</strong>: 21期間(ノイズ除去)</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ADX閾値の調整</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>標準</strong>: 25(トレンド確定)</li>
+<li><strong>敏感</strong>: 20(早期確認)</li>
+<li><strong>厳格</strong>: 30(強いトレンドのみ)</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">季節性・サイクル分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">暗号通貨の季節パターン</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>Q1</strong>: 年始ラリー期(ADX上昇期待)</li>
+<li><strong>Q2</strong>: 調整期(ADX下降傾向)</li>
+<li><strong>Q3</strong>: 夏枯れ期(ADX低位推移)</li>
+<li><strong>Q4</strong>: 年末ラリー期(ADX上昇期待)</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">サイクルとの組み合わせ</h3>
+1. <strong>4年サイクル</strong>: 半減期サイクルとADX分析
+2. <strong>年間サイクル</strong>: 季節性とADXトレンド
+3. <strong>月間サイクル</strong>: 月末月初効果の考慮
+4. <strong>統合</strong>: 複数サイクルでの総合判断
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践的な改善ポイント</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">バックテスト検証</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>期間</strong>: 過去2-3年のデータ検証</li>
+<li><strong>パラメーター</strong>: 最適期間・閾値の検証</li>
+<li><strong>成績</strong>: 勝率・リスクリワード比分析</li>
+<li><strong>改善</strong>: 結果に基づく手法調整</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">リアルタイム監視</h3>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>アラート</strong>: ADX25突破・割れアラート設定</li>
+<li><strong>DI監視</strong>: DI線クロスの自動通知</li>
+<li><strong>複合</strong>: 他指標との組み合わせ通知</li>
+<li><strong>管理</strong>: シグナル品質の継続評価</li>
+</ul>`
       },
       {
         type: 'text',
@@ -292,36 +342,44 @@ export const lesson14: Lesson = {
       },
       {
         type: 'warning',
-        content: `**ADX使用時の注意点**
-### 1. 方向性の誤認リスク
-**問題**: ADX単独での方向性判断は不可能
-**対策**:
-- 必ずDI線との組み合わせ使用
-- +DI/-DIの優劣関係確認
-- 価格チャートとの整合性確認
-- 他の方向性指標との併用
-### 2. 遅行指標の限界
-**問題**: ADXはトレンド確定後のシグナル
-**対策**:
-- 早期シグナルへの過度な期待回避
-- トレンド初期段階での慎重判断
-- 他の先行指標との組み合わせ
-- リスク管理の徹底
-### 3. 極値での反転リスク
-**問題**: ADX50超での反転可能性増大
-**対策**:
-- 高ADX値での利確検討
-- ポジションサイズの段階的縮小
-- 反転シグナルへの注意深い監視
-- 利益確定ルールの事前設定
-### 4. レンジ相場での誤用
-**問題**: ADX低位時のトレンドフォロー適用
-**対策**:
-- ADX20以下での戦略変更
-- レンジ戦略への適切な切り替え
-- ブレイクアウト待機姿勢
-- 無駄な売買の回避
-**成功の秘訣**: ADXは「いつトレンドフォローを行うべきか」を教えてくれる重要な指標です。相場環境の正確な把握が成功の鍵となります。`
+        content: `<strong>ADX使用時の注意点</strong>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">1. 方向性の誤認リスク</h3>
+<strong>問題</strong>: ADX単独での方向性判断は不可能
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>必ずDI線との組み合わせ使用</li>
+<li>+DI/-DIの優劣関係確認</li>
+<li>価格チャートとの整合性確認</li>
+<li>他の方向性指標との併用</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2. 遅行指標の限界</h3>
+<strong>問題</strong>: ADXはトレンド確定後のシグナル
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>早期シグナルへの過度な期待回避</li>
+<li>トレンド初期段階での慎重判断</li>
+<li>他の先行指標との組み合わせ</li>
+<li>リスク管理の徹底</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">3. 極値での反転リスク</h3>
+<strong>問題</strong>: ADX50超での反転可能性増大
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高ADX値での利確検討</li>
+<li>ポジションサイズの段階的縮小</li>
+<li>反転シグナルへの注意深い監視</li>
+<li>利益確定ルールの事前設定</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">4. レンジ相場での誤用</h3>
+<strong>問題</strong>: ADX低位時のトレンドフォロー適用
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ADX20以下での戦略変更</li>
+<li>レンジ戦略への適切な切り替え</li>
+<li>ブレイクアウト待機姿勢</li>
+<li>無駄な売買の回避</li>
+</ul>
+<strong>成功の秘訣</strong>: ADXは「いつトレンドフォローを行うべきか」を教えてくれる重要な指標です。相場環境の正確な把握が成功の鍵となります。`
       },
       ],
     keyPoints: [

@@ -16,303 +16,405 @@ export const lesson14: Lesson = {
       {
         type: 'quiz',
         title: '国際投資の基本概念',
-        content: `**国際投資とは**
+        content: `<strong>国際投資とは</strong>
 国際投資は、自国以外の市場や通貨建ての資産に投資することです。暗号通貨市場においても、地域差や規制差を活用した投資機会が存在します。
-## 国際投資の利点
-**1. 分散効果**
-- 地理的リスクの分散
-- 規制リスクの分散
-- 経済サイクルの違い
-- 相関性の低下
-**2. 成長機会**
-- 新興市場での高成長
-- 先進市場での安定性
-- 地域特有の機会
-- 技術発展の恩恵
-**3. 通貨の多様化**
-- 通貨リスクの分散
-- インフレヘッジ
-- 購買力の保護
-- 為替変動の活用
-## 暗号通貨の国際投資特性
-**グローバル市場の特徴**
-- 24時間365日取引
-- 国境を超えた流動性
-- 統一的な資産性質
-- 規制の地域差
-**地域別の特徴**
-- **北米**：規制整備、機関投資
-- **欧州**：MiCA規制完全施行済み(2024年12月30日)、統一市場
-- **アジア**：技術革新、個人投資
-- **新興国**：金融包摂、高成長
-## 2024年の国際投資環境
-**規制の収束**
-- 国際的な規制協調
-- 標準化の進展
-- 相互承認の拡大
-- 規制アービトラージの縮小
-**市場の成熟**
-- 機関投資家の参入
-- 流動性の改善
-- 価格発見の効率化
-- インフラの整備
-**地政学的要因**
-- 米中関係の影響
-- 制裁措置の拡大
-- 通貨戦争の可能性
-- 地域ブロック化`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">国際投資の利点</h2>
+<strong>1. 分散効果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>地理的リスクの分散</li>
+<li>規制リスクの分散</li>
+<li>経済サイクルの違い</li>
+<li>相関性の低下</li>
+</ul>
+<strong>2. 成長機会</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新興市場での高成長</li>
+<li>先進市場での安定性</li>
+<li>地域特有の機会</li>
+<li>技術発展の恩恵</li>
+</ul>
+<strong>3. 通貨の多様化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>通貨リスクの分散</li>
+<li>インフレヘッジ</li>
+<li>購買力の保護</li>
+<li>為替変動の活用</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">暗号通貨の国際投資特性</h2>
+<strong>グローバル市場の特徴</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>24時間365日取引</li>
+<li>国境を超えた流動性</li>
+<li>統一的な資産性質</li>
+<li>規制の地域差</li>
+</ul>
+<strong>地域別の特徴</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>北米</strong>：規制整備、機関投資</li>
+<li><strong>欧州</strong>：MiCA規制完全施行済み(2024年12月30日)、統一市場</li>
+<li><strong>アジア</strong>：技術革新、個人投資</li>
+<li><strong>新興国</strong>：金融包摂、高成長</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の国際投資環境</h2>
+<strong>規制の収束</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>国際的な規制協調</li>
+<li>標準化の進展</li>
+<li>相互承認の拡大</li>
+<li>規制アービトラージの縮小</li>
+</ul>
+<strong>市場の成熟</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機関投資家の参入</li>
+<li>流動性の改善</li>
+<li>価格発見の効率化</li>
+<li>インフラの整備</li>
+</ul>
+<strong>地政学的要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>米中関係の影響</li>
+<li>制裁措置の拡大</li>
+<li>通貨戦争の可能性</li>
+<li>地域ブロック化</li>
+</ul>`
       },
       {
         type: 'text',
         title: '通貨リスクとヘッジ戦略',
-        content: `## 通貨リスクの種類
-**1. 取引リスク**
-- 売買時の為替変動
-- 決済までの期間
-- 短期的な影響
-- 直接的な損益
-**2. 換算リスク**
-- 財務諸表の換算
-- 評価の変動
-- 会計上の影響
-- 報告通貨の統一
-**3. 経済リスク**
-- 長期的な競争力
-- 市場シェアの変化
-- 投資価値の変動
-- 戦略的な影響
-## ヘッジ手法
-**直接ヘッジ**
-- 先物為替予約
-- 為替オプション
-- 通貨スワップ
-- 通貨先物
-**間接ヘッジ**
-- 現地通貨建て借入
-- 自然ヘッジ
-- 通貨分散
-- 地域分散投資
-**動的ヘッジ**
-- 市場状況に応じた調整
-- ボラティリティ連動
-- 相関関係の変化対応
-- 費用対効果の最適化
-## 暗号通貨での通貨ヘッジ
-**ステーブルコインの活用**
-- USD連動：USDC、USDT
-- EUR連動：EURS
-- 多通貨バスケット：DAI
-- 中央銀行デジタル通貨
-**合成通貨の作成**
-- 複数通貨の組み合わせ
-- 重み付けの調整
-- 動的リバランス
-- リスク分散効果
-**デリバティブ活用**
-- 通貨先物
-- 通貨オプション
-- 通貨スワップ
-- 無期限契約`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">通貨リスクの種類</h2>
+<strong>1. 取引リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>売買時の為替変動</li>
+<li>決済までの期間</li>
+<li>短期的な影響</li>
+<li>直接的な損益</li>
+</ul>
+<strong>2. 換算リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>財務諸表の換算</li>
+<li>評価の変動</li>
+<li>会計上の影響</li>
+<li>報告通貨の統一</li>
+</ul>
+<strong>3. 経済リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期的な競争力</li>
+<li>市場シェアの変化</li>
+<li>投資価値の変動</li>
+<li>戦略的な影響</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ヘッジ手法</h2>
+<strong>直接ヘッジ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>先物為替予約</li>
+<li>為替オプション</li>
+<li>通貨スワップ</li>
+<li>通貨先物</li>
+</ul>
+<strong>間接ヘッジ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現地通貨建て借入</li>
+<li>自然ヘッジ</li>
+<li>通貨分散</li>
+<li>地域分散投資</li>
+</ul>
+<strong>動的ヘッジ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場状況に応じた調整</li>
+<li>ボラティリティ連動</li>
+<li>相関関係の変化対応</li>
+<li>費用対効果の最適化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">暗号通貨での通貨ヘッジ</h2>
+<strong>ステーブルコインの活用</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>USD連動：USDC、USDT</li>
+<li>EUR連動：EURS</li>
+<li>多通貨バスケット：DAI</li>
+<li>中央銀行デジタル通貨</li>
+</ul>
+<strong>合成通貨の作成</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数通貨の組み合わせ</li>
+<li>重み付けの調整</li>
+<li>動的リバランス</li>
+<li>リスク分散効果</li>
+</ul>
+<strong>デリバティブ活用</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>通貨先物</li>
+<li>通貨オプション</li>
+<li>通貨スワップ</li>
+<li>無期限契約</li>
+</ul>`
       },
       {
         type: 'example',
         title: '国際投資戦略の実践例',
-        content: `## 戦略例1：地域分散投資
-**投資額：$2,000,000**
-**地域別配分**
-- 北米(40%)：$800,000
-- 欧州(30%)：$600,000
-- アジア(20%)：$400,000
-- 新興国(10%)：$200,000
-**具体的な投資先**
-- 北米：Coinbase、Grayscale GBTC
-- 欧州：ETP暗号通貨ETF
-- アジア：日本暗号通貨ETF、韓国取引所
-- 新興国：ブラジル暗号通貨ファンド
-**通貨ヘッジ戦略**
-- 50%ヘッジ：先物為替予約
-- 25%自然ヘッジ：現地通貨建て
-- 25%無ヘッジ：為替変動活用
-**期待効果**
-- 地域リスクの分散
-- 為替変動の活用
-- 規制リスクの軽減
-- 成長機会の捕捉
-## 戦略例2：通貨アービトラージ
-**機会の特定**
-- 同一暗号通貨の地域価格差
-- 例：BTC価格(日本プレミアム)
-- 差額：2-5%程度
-**実行戦略**
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例1：地域分散投資</h2>
+<strong>投資額：$2,000,000</strong>
+<strong>地域別配分</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>北米(40%)：$800,000</li>
+<li>欧州(30%)：$600,000</li>
+<li>アジア(20%)：$400,000</li>
+<li>新興国(10%)：$200,000</li>
+</ul>
+<strong>具体的な投資先</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>北米：Coinbase、Grayscale GBTC</li>
+<li>欧州：ETP暗号通貨ETF</li>
+<li>アジア：日本暗号通貨ETF、韓国取引所</li>
+<li>新興国：ブラジル暗号通貨ファンド</li>
+</ul>
+<strong>通貨ヘッジ戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>50%ヘッジ：先物為替予約</li>
+<li>25%自然ヘッジ：現地通貨建て</li>
+<li>25%無ヘッジ：為替変動活用</li>
+</ul>
+<strong>期待効果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>地域リスクの分散</li>
+<li>為替変動の活用</li>
+<li>規制リスクの軽減</li>
+<li>成長機会の捕捉</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例2：通貨アービトラージ</h2>
+<strong>機会の特定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>同一暗号通貨の地域価格差</li>
+<li>例：BTC価格(日本プレミアム)</li>
+<li>差額：2-5%程度</li>
+</ul>
+<strong>実行戦略</strong>
 1. 低価格地域での購入
 2. 高価格地域での売却
 3. 為替ヘッジの実施
 4. 利益確定
-**リスク管理**
-- 為替変動リスク
-- 送金時間リスク
-- 流動性リスク
-- 規制変更リスク
-**実績**
-- 年間収益率：8-12%
-- 取引回数：月10-15回
-- 平均利益：1.5-3%
-- 成功率：75-80%
-## 戦略例3：新興国投資
-**対象国**
-- ブラジル、インド、ナイジェリア
-- 高いインフレ率
-- 通貨の不安定性
-- 暗号通貨需要の高さ
-**投資アプローチ**
-- 現地取引所の活用
-- ローカル暗号通貨
-- P2P取引の利用
-- 現地パートナーとの連携
-**リスク要因**
-- 政治的リスク
-- 規制変更リスク
-- 為替統制リスク
-- 流動性リスク
-**期待リターン**
-- 高いリターン期待：15-25%
-- 高いリスク：30-50%変動
-- 分散効果：低相関
-- 学習効果：新市場理解`
+<strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>為替変動リスク</li>
+<li>送金時間リスク</li>
+<li>流動性リスク</li>
+<li>規制変更リスク</li>
+</ul>
+<strong>実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>年間収益率：8-12%</li>
+<li>取引回数：月10-15回</li>
+<li>平均利益：1.5-3%</li>
+<li>成功率：75-80%</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例3：新興国投資</h2>
+<strong>対象国</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ブラジル、インド、ナイジェリア</li>
+<li>高いインフレ率</li>
+<li>通貨の不安定性</li>
+<li>暗号通貨需要の高さ</li>
+</ul>
+<strong>投資アプローチ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現地取引所の活用</li>
+<li>ローカル暗号通貨</li>
+<li>P2P取引の利用</li>
+<li>現地パートナーとの連携</li>
+</ul>
+<strong>リスク要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>政治的リスク</li>
+<li>規制変更リスク</li>
+<li>為替統制リスク</li>
+<li>流動性リスク</li>
+</ul>
+<strong>期待リターン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高いリターン期待：15-25%</li>
+<li>高いリスク：30-50%変動</li>
+<li>分散効果：低相関</li>
+<li>学習効果：新市場理解</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'グローバル投資の実務',
-        content: `## 投資実行の流れ
-**1. 市場調査**
-- 各国の規制環境
-- 税制の確認
-- 取引所の選択
-- カストディの手配
-**2. 口座開設**
-- KYC/AML手続き
-- 必要書類の準備
-- 本人確認の実施
-- 承認の取得
-**3. 資金移動**
-- 送金方法の選択
-- 為替レートの確認
-- 送金コストの計算
-- 着金の確認
-**4. 投資実行**
-- 市場分析の実施
-- 注文の執行
-- 約定の確認
-- 記録の保持
-## 税務・会計処理
-**国際税務**
-- 源泉徴収税
-- 二重課税防止
-- 外国税額控除
-- 移転価格税制
-**会計処理**
-- 外貨建て取引
-- 為替換算
-- 評価方法
-- 開示要件
-**記録管理**
-- 取引記録の保持
-- 為替レートの記録
-- 税務計算の根拠
-- 監査証跡の確保
-## コンプライアンス
-**規制遵守**
-- 各国の投資規制
-- 資本移動規制
-- 報告義務
-- 許可要件
-**リスク管理**
-- 集中度管理
-- 流動性管理
-- 信用リスク管理
-- 運用リスク管理`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資実行の流れ</h2>
+<strong>1. 市場調査</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各国の規制環境</li>
+<li>税制の確認</li>
+<li>取引所の選択</li>
+<li>カストディの手配</li>
+</ul>
+<strong>2. 口座開設</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>KYC/AML手続き</li>
+<li>必要書類の準備</li>
+<li>本人確認の実施</li>
+<li>承認の取得</li>
+</ul>
+<strong>3. 資金移動</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>送金方法の選択</li>
+<li>為替レートの確認</li>
+<li>送金コストの計算</li>
+<li>着金の確認</li>
+</ul>
+<strong>4. 投資実行</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場分析の実施</li>
+<li>注文の執行</li>
+<li>約定の確認</li>
+<li>記録の保持</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">税務・会計処理</h2>
+<strong>国際税務</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>源泉徴収税</li>
+<li>二重課税防止</li>
+<li>外国税額控除</li>
+<li>移転価格税制</li>
+</ul>
+<strong>会計処理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>外貨建て取引</li>
+<li>為替換算</li>
+<li>評価方法</li>
+<li>開示要件</li>
+</ul>
+<strong>記録管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引記録の保持</li>
+<li>為替レートの記録</li>
+<li>税務計算の根拠</li>
+<li>監査証跡の確保</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">コンプライアンス</h2>
+<strong>規制遵守</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各国の投資規制</li>
+<li>資本移動規制</li>
+<li>報告義務</li>
+<li>許可要件</li>
+</ul>
+<strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>集中度管理</li>
+<li>流動性管理</li>
+<li>信用リスク管理</li>
+<li>運用リスク管理</li>
+</ul>`
       },
       {
         type: 'text',
         title: '2024年の投資機会',
-        content: `## 地域別の投資機会
-**北米**
-- ビットコインETF拡大
-- 機関投資家の本格参入
-- 規制環境の安定化
-- 伝統的金融との統合
-**欧州**
-- MiCA規制の施行
-- 統一市場の形成
-- 機関投資家向け商品
-- 持続可能性重視
-**アジア**
-- 日本の暗号通貨ETF
-- 香港のデジタル資産ハブ
-- シンガポールの金融革新
-- 韓国の技術発展
-**新興国**
-- 中南米の暗号通貨導入
-- アフリカの金融包摂
-- 東南アジアの成長
-- 中東の投資拡大
-## 通貨別の投資戦略
-**USD建て投資**
-- 基軸通貨の安定性
-- 豊富な投資商品
-- 高い流動性
-- グローバル基準
-**EUR建て投資**
-- 統一市場の恩恵
-- 規制の透明性
-- 機関投資家の参入
-- 持続可能性重視
-**円建て投資**
-- 低金利環境
-- 安定した規制
-- 技術革新
-- 長期投資文化
-**その他通貨**
-- 高成長期待
-- 分散効果
-- 新興市場プレミアム
-- 技術導入の恩恵
-## 新しい投資形態
-**デジタル資産**
-- 中央銀行デジタル通貨
-- 企業発行デジタル通貨
-- 地域通貨トークン
-- 資産担保トークン
-**国際協力**
-- 多国間投資ファンド
-- 国際的な規制調和
-- 相互承認制度
-- 技術標準の統一`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">地域別の投資機会</h2>
+<strong>北米</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ビットコインETF拡大</li>
+<li>機関投資家の本格参入</li>
+<li>規制環境の安定化</li>
+<li>伝統的金融との統合</li>
+</ul>
+<strong>欧州</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>MiCA規制の施行</li>
+<li>統一市場の形成</li>
+<li>機関投資家向け商品</li>
+<li>持続可能性重視</li>
+</ul>
+<strong>アジア</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>日本の暗号通貨ETF</li>
+<li>香港のデジタル資産ハブ</li>
+<li>シンガポールの金融革新</li>
+<li>韓国の技術発展</li>
+</ul>
+<strong>新興国</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>中南米の暗号通貨導入</li>
+<li>アフリカの金融包摂</li>
+<li>東南アジアの成長</li>
+<li>中東の投資拡大</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">通貨別の投資戦略</h2>
+<strong>USD建て投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基軸通貨の安定性</li>
+<li>豊富な投資商品</li>
+<li>高い流動性</li>
+<li>グローバル基準</li>
+</ul>
+<strong>EUR建て投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>統一市場の恩恵</li>
+<li>規制の透明性</li>
+<li>機関投資家の参入</li>
+<li>持続可能性重視</li>
+</ul>
+<strong>円建て投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>低金利環境</li>
+<li>安定した規制</li>
+<li>技術革新</li>
+<li>長期投資文化</li>
+</ul>
+<strong>その他通貨</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高成長期待</li>
+<li>分散効果</li>
+<li>新興市場プレミアム</li>
+<li>技術導入の恩恵</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">新しい投資形態</h2>
+<strong>デジタル資産</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>中央銀行デジタル通貨</li>
+<li>企業発行デジタル通貨</li>
+<li>地域通貨トークン</li>
+<li>資産担保トークン</li>
+</ul>
+<strong>国際協力</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>多国間投資ファンド</li>
+<li>国際的な規制調和</li>
+<li>相互承認制度</li>
+<li>技術標準の統一</li>
+</ul>`
       },
       {
         type: 'tip',
         title: '国際投資成功のポイント',
-        content: `**効果的な国際投資**
-🌍 **地域の理解**
-- 各国の規制環境
-- 文化的な違い
-- 経済発展段階
-- 政治的安定性
-💱 **通貨管理**
-- 為替リスクの評価
-- 適切なヘッジ戦略
-- コストの最適化
-- 機会の活用
-📊 **分散投資**
-- 地域分散
-- 通貨分散
-- 時間分散
-- 戦略分散
-🔍 **継続的監視**
-- 規制変更の追跡
-- 市場環境の変化
-- 政治情勢の監視
-- 経済指標の分析`
+        content: `<strong>効果的な国際投資</strong>
+🌍 <strong>地域の理解</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各国の規制環境</li>
+<li>文化的な違い</li>
+<li>経済発展段階</li>
+<li>政治的安定性</li>
+</ul>
+💱 <strong>通貨管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>為替リスクの評価</li>
+<li>適切なヘッジ戦略</li>
+<li>コストの最適化</li>
+<li>機会の活用</li>
+</ul>
+📊 <strong>分散投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>地域分散</li>
+<li>通貨分散</li>
+<li>時間分散</li>
+<li>戦略分散</li>
+</ul>
+🔍 <strong>継続的監視</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制変更の追跡</li>
+<li>市場環境の変化</li>
+<li>政治情勢の監視</li>
+<li>経済指標の分析</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -357,27 +459,35 @@ export const lesson14: Lesson = {
       {
         type: 'warning',
         title: '国際投資の注意点',
-        content: `**国際投資のリスク**
-⚠️ **通貨リスク**
-- 為替変動の影響
-- 予期しない通貨危機
-- 中央銀行の介入
-- 金利政策の変更
-⚠️ **規制リスク**
-- 法律の変更
-- 規制の強化
-- 資本移動規制
-- 税制の変更
-⚠️ **政治リスク**
-- 政権交代の影響
-- 政策変更
-- 地政学的緊張
-- 社会不安
-⚠️ **実務リスク**
-- 言語の問題
-- 時差の影響
-- 文化的違い
-- 現地情報の不足`
+        content: `<strong>国際投資のリスク</strong>
+⚠️ <strong>通貨リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>為替変動の影響</li>
+<li>予期しない通貨危機</li>
+<li>中央銀行の介入</li>
+<li>金利政策の変更</li>
+</ul>
+⚠️ <strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>法律の変更</li>
+<li>規制の強化</li>
+<li>資本移動規制</li>
+<li>税制の変更</li>
+</ul>
+⚠️ <strong>政治リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>政権交代の影響</li>
+<li>政策変更</li>
+<li>地政学的緊張</li>
+<li>社会不安</li>
+</ul>
+⚠️ <strong>実務リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>言語の問題</li>
+<li>時差の影響</li>
+<li>文化的違い</li>
+<li>現地情報の不足</li>
+</ul>`
       },
       ],
     keyPoints: [

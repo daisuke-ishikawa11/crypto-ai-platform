@@ -1,13 +1,13 @@
-import { Lesson } from '@/lib/types/learning';
-import { categoryTest } from './category-test';
-import { test1 } from './test-1';
-import { test2 } from './test-2';
-import { test3 } from './test-3';
-import { test4 } from './test-4';
-import { test5 } from './test-5';
-import { test6 } from './test-6';
-import { test7 } from './test-7';
-import { test8 } from './test-8';
+import { Lesson, CategoryTest } from '@/lib/types/learning';
+import { tradingBasicsCategoryTest } from './category-test';
+import { tradingBasicsTest1 } from './test-1';
+import { tradingBasicsTest2 } from './test-2';
+import { tradingBasicsTest3 } from './test-3';
+import { tradingBasicsTest4 } from './test-4';
+import { tradingBasicsTest5 } from './test-5';
+import { tradingBasicsTest6 } from './test-6';
+import { tradingBasicsTest7 } from './test-7';
+import { tradingBasicsTest8 } from './test-8';
 import { lesson1 } from './lesson-1';
 import { lesson2 } from './lesson-2';
 import { lesson3 } from './lesson-3';
@@ -137,16 +137,16 @@ export const tradingBasicsLessons: Lesson[] = [
 //    covering technical analysis mastery with practical applications
 
 // Export category test and lesson tests
-export { categoryTest as tradingBasicsCategoryTest };
+export { tradingBasicsCategoryTest };
 
 // Export 5-lesson tests (レッスン5つごとの確認テスト)
-export const tradingBasicsTests = [
-  test1,  // Lessons 1-5
-  test2,  // Lessons 6-10
-  test3,  // Lessons 11-15
-  test4,  // Lessons 16-20
-  test5,  // Lessons 21-25
-  test6,  // Lessons 26-30
-  test7,  // Lessons 31-35
-  test8,  // Lessons 36-40
+export const tradingBasicsTests: CategoryTest[] = [
+  tradingBasicsTest1,  // Lessons 1-5
+  tradingBasicsTest2,  // Lessons 6-10
+  tradingBasicsTest3,  // Lessons 11-15
+  tradingBasicsTest4,  // Lessons 16-20
+  tradingBasicsTest5,  // Lessons 21-25
+  tradingBasicsTest6,  // Lessons 26-30
+  tradingBasicsTest7,  // Lessons 31-35
+  tradingBasicsTest8,  // Lessons 36-40
 ]; 

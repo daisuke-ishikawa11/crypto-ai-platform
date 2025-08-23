@@ -17,56 +17,72 @@ export const lesson7: Lesson = {
         content: `
 暗号資産事業におけるライセンスや登録は、事業の種類や地域によって複数の種類が存在し、それぞれ異なる要件や手続きが必要です。
 
-**主要なライセンスの種類：**
+<strong>主要なライセンスの種類：</strong>
 
-**1. 交換業ライセンス**
-- 暗叶資産と法定通貨の交換サービス
-- 顧客からの暗号資産の保管サービス
-- 取引マッチングサービスの提供
-- 暗号資産間の交換サービス
+<strong>1. 交換業ライセンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗叶資産と法定通貨の交換サービス</li>
+<li>顧客からの暗号資産の保管サービス</li>
+<li>取引マッチングサービスの提供</li>
+<li>暗号資産間の交換サービス</li>
+</ul>
 
-**2. カストディライセンス**
-- 顧客の暗号資産の保管・管理
-- 秘密鍵の管理とセキュリティ
-- コールドストレージサービス
-- マルチシグなチャーサービス
+<strong>2. カストディライセンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>顧客の暗号資産の保管・管理</li>
+<li>秘密鍵の管理とセキュリティ</li>
+<li>コールドストレージサービス</li>
+<li>マルチシグなチャーサービス</li>
+</ul>
 
-**3. ウォレットサービス**
-- ホットウォレットの提供
-- モバイルウォレットアプリ
-- ハードウェアウォレットの販売
-- マルチカレンシー対応
+<strong>3. ウォレットサービス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ホットウォレットの提供</li>
+<li>モバイルウォレットアプリ</li>
+<li>ハードウェアウォレットの販売</li>
+<li>マルチカレンシー対応</li>
+</ul>
 
-**4. 決済サービス**
-- 暗叶資産による決済システム
-- マーチャント向け決済サービス
-- クロスボーダー送金サービス
-- ステーブルコイン発行サービス
+<strong>4. 決済サービス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗叶資産による決済システム</li>
+<li>マーチャント向け決済サービス</li>
+<li>クロスボーダー送金サービス</li>
+<li>ステーブルコイン発行サービス</li>
+</ul>
 
-**5. 投資サービス**
-- 暗叶資産の投資助言サービス
-- ポートフォリオ管理サービス
-- ヘッジファンドの運用
-- ICO・トークンセールの主引受
+<strong>5. 投資サービス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗叶資産の投資助言サービス</li>
+<li>ポートフォリオ管理サービス</li>
+<li>ヘッジファンドの運用</li>
+<li>ICO・トークンセールの主引受</li>
+</ul>
 
-**地域別ライセンス体系：**
+<strong>地域別ライセンス体系：</strong>
 
-**日本**
-- 金融庁登録：暗叶資産交換業者
-- 関東財務局登録：第一種金融商品取引業
-- 総務省登録：特定記録産面の電子提供業務
+<strong>日本</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>金融庁登録：暗叶資産交換業者</li>
+<li>関東財務局登録：第一種金融商品取引業</li>
+<li>総務省登録：特定記録産面の電子提供業務</li>
+</ul>
 
-**アメリカ**
-- FinCEN登録：Money Services Business（MSB）
-- 各州登録：Money Transmitter License（MTL）
-- SEC登録：Investment Advisor、Broker-Dealer
-- CFTC登録：Commodity Trading Advisor（CTA）
+<strong>アメリカ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>FinCEN登録：Money Services Business（MSB）</li>
+<li>各州登録：Money Transmitter License（MTL）</li>
+<li>SEC登録：Investment Advisor、Broker-Dealer</li>
+<li>CFTC登録：Commodity Trading Advisor（CTA）</li>
+</ul>
 
-**欧州連合**
-- MiCAライセンス：Crypto-Asset Service Provider（CASP）
-- 投資サービスライセンス：MiFID II
-- 銀行ライセンス：Credit Institution License
-- E-Moneyライセンス：Electronic Money Institution
+<strong>欧州連合</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>MiCAライセンス：Crypto-Asset Service Provider（CASP）</li>
+<li>投資サービスライセンス：MiFID II</li>
+<li>銀行ライセンス：Credit Institution License</li>
+<li>E-Moneyライセンス：Electronic Money Institution</li>
+</ul>
         `
       },
       {
@@ -75,62 +91,78 @@ export const lesson7: Lesson = {
         content: `
 ライセンス取得は複雑なプロセスであり、十分な準備と継続的なフォローアップが必要です。
 
-**事前準備フェーズ：**
+<strong>事前準備フェーズ：</strong>
 
-**1. 事業計画の策定**
-- 事業モデルの明確化
-- ターゲット顧客層の特定
-- 技術アーキテクチャの設計
-- リスク管理戦略の構築
-- 競合他社分析と差別化戦略
+<strong>1. 事業計画の策定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業モデルの明確化</li>
+<li>ターゲット顧客層の特定</li>
+<li>技術アーキテクチャの設計</li>
+<li>リスク管理戦略の構築</li>
+<li>競合他社分析と差別化戦略</li>
+</ul>
 
-**2. 法人設立とガバナンス**
-- 適切な法人形態の選択
-- 資本金の調達と確保
-- 取締役と経営陣の選任
-- コンプライアンス担当者の任命
-- 組織体制と権限委任の整備
+<strong>2. 法人設立とガバナンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適切な法人形態の選択</li>
+<li>資本金の調達と確保</li>
+<li>取締役と経営陣の選任</li>
+<li>コンプライアンス担当者の任命</li>
+<li>組織体制と権限委任の整備</li>
+</ul>
 
-**3. システムとインフラ整備**
-- ITシステムの構築とテスト
-- セキュリティ対策の実装
-- バックアップと災害対策
-- 第三者監査とペネトレーションテスト
+<strong>3. システムとインフラ整備</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ITシステムの構築とテスト</li>
+<li>セキュリティ対策の実装</li>
+<li>バックアップと災害対策</li>
+<li>第三者監査とペネトレーションテスト</li>
+</ul>
 
-**申請書作成と提出：**
+<strong>申請書作成と提出：</strong>
 
-**1. 必要書類の整備**
-- 事業計画書と収支予測
-- 組織体制とガバナンス体制
-- ITシステムの詳細説明
-- リスク管理ポリシー
-- コンプライアンスマニュアル
+<strong>1. 必要書類の整備</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事業計画書と収支予測</li>
+<li>組織体制とガバナンス体制</li>
+<li>ITシステムの詳細説明</li>
+<li>リスク管理ポリシー</li>
+<li>コンプライアンスマニュアル</li>
+</ul>
 
-**2. 人的要件の充足**
-- 経営陣の適格性証明
-- 専門資格や経験の証明
-- コンプライアンス研修の完了
-- 犯罪歴等のバックグラウンドチェック
+<strong>2. 人的要件の充足</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>経営陣の適格性証明</li>
+<li>専門資格や経験の証明</li>
+<li>コンプライアンス研修の完了</li>
+<li>犯罪歴等のバックグラウンドチェック</li>
+</ul>
 
-**3. 財務要件の充足**
-- 最低資本金の確保
-- 債券や保険の手配
-- 適切な会計システムの整備
-- 外部監査人の選任
+<strong>3. 財務要件の充足</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>最低資本金の確保</li>
+<li>債券や保険の手配</li>
+<li>適切な会計システムの整備</li>
+<li>外部監査人の選任</li>
+</ul>
 
-**当局対応とフォローアップ：**
+<strong>当局対応とフォローアップ：</strong>
 
-**1. 申請書の審査プロセス**
-- 一次審査と追加資料の要求
-- ヒアリングやプレゼンテーションの実施
-- 現地調査やシステム監査
-- 最終的な申請結果の通知
+<strong>1. 申請書の審査プロセス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>一次審査と追加資料の要求</li>
+<li>ヒアリングやプレゼンテーションの実施</li>
+<li>現地調査やシステム監査</li>
+<li>最終的な申請結果の通知</li>
+</ul>
 
-**2. ライセンス取得後の対応**
-- ライセンス証の発行と公示
-- 事業開始の届出
-- 初回報告書の提出
-- 定期的なコンプライアンス報告
+<strong>2. ライセンス取得後の対応</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ライセンス証の発行と公示</li>
+<li>事業開始の届出</li>
+<li>初回報告書の提出</li>
+<li>定期的なコンプライアンス報告</li>
+</ul>
         `
       },
       {
@@ -139,59 +171,75 @@ export const lesson7: Lesson = {
         content: `
 ライセンス取得後も継続的な管理とコンプライアンスが必要で、適切な管理体制の構築が事業の持続可能性に直結します。
 
-**定期的な報告義務：**
+<strong>定期的な報告義務：</strong>
 
-**1. 財務報告**
-- 月次・四半期・年次の財務報告書
-- 適切な会計基準による作成
-- 外部監査人による監査報告書
-- 自己資本比率の管理と報告
+<strong>1. 財務報告</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>月次・四半期・年次の財務報告書</li>
+<li>適切な会計基準による作成</li>
+<li>外部監査人による監査報告書</li>
+<li>自己資本比率の管理と報告</li>
+</ul>
 
-**2. 業務報告**
-- 顧客数や取引件数の統計
-- システムの程動状況や障害報告
-- セキュリティインシデントの報告
-- コンプライアンス違反や苦情の報告
+<strong>2. 業務報告</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>顧客数や取引件数の統計</li>
+<li>システムの程動状況や障害報告</li>
+<li>セキュリティインシデントの報告</li>
+<li>コンプライアンス違反や苦情の報告</li>
+</ul>
 
-**3. リスク管理報告**
-- リスクアセスメントの更新
-- ストレステストの実施結果
-- 流動性リスクの管理状況
-- 市場リスクや信用リスクの報告
+<strong>3. リスク管理報告</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リスクアセスメントの更新</li>
+<li>ストレステストの実施結果</li>
+<li>流動性リスクの管理状況</li>
+<li>市場リスクや信用リスクの報告</li>
+</ul>
 
-**内部管理体制の維持：**
+<strong>内部管理体制の維持：</strong>
 
-**1. 組織体制の管理**
-- 取締役会や監査役会の適切な運営
-- コンプライアンス委員会の設置と運営
-- 内部監査機能の維持と強化
-- リスク管理委員会の機能充実
+<strong>1. 組織体制の管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取締役会や監査役会の適切な運営</li>
+<li>コンプライアンス委員会の設置と運営</li>
+<li>内部監査機能の維持と強化</li>
+<li>リスク管理委員会の機能充実</li>
+</ul>
 
-**2. 人材管理**
-- 経営陣や重要な人事の届出義務
-- 定期的なコンプライアンス研修の実施
-- 適格性や専門性の維持
-- 内部通報制度の整備と運用
+<strong>2. 人材管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>経営陣や重要な人事の届出義務</li>
+<li>定期的なコンプライアンス研修の実施</li>
+<li>適格性や専門性の維持</li>
+<li>内部通報制度の整備と運用</li>
+</ul>
 
-**3. システムの維持管理**
-- システムの定期的なアップデート
-- セキュリティパッチの適用
-- バックアップや災害対策のテスト
-- 第三者もしくは継続的なシステム監査
+<strong>3. システムの維持管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>システムの定期的なアップデート</li>
+<li>セキュリティパッチの適用</li>
+<li>バックアップや災害対策のテスト</li>
+<li>第三者もしくは継続的なシステム監査</li>
+</ul>
 
-**当局との継続的な関係：**
+<strong>当局との継続的な関係：</strong>
 
-**1. 定期的なコミュニケーション**
-- 解釈やガイダンスの照会
-- 新規サービスや商品の事前相談
-- 総合的な監督指導への対応
-- 業界団体の活動への参加
+<strong>1. 定期的なコミュニケーション</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>解釈やガイダンスの照会</li>
+<li>新規サービスや商品の事前相談</li>
+<li>総合的な監督指導への対応</li>
+<li>業界団体の活動への参加</li>
+</ul>
 
-**2. 法改正への対応**
-- 新しい法令や規則の情報収集
-- 必要なシステムや手続きの変更
-- コンプライアンス体制のアップデート
-- 継続的な教育と研修の実施
+<strong>2. 法改正への対応</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新しい法令や規則の情報収集</li>
+<li>必要なシステムや手続きの変更</li>
+<li>コンプライアンス体制のアップデート</li>
+<li>継続的な教育と研修の実施</li>
+</ul>
         `
       }
     ],

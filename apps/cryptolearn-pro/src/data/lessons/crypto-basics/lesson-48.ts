@@ -368,7 +368,7 @@ export const lesson48: Lesson = {
   </div>
 </div>
 
-          **対象顧客セグメント:**
+          <strong>対象顧客セグメント:</strong>
           \`\`\`
           Tier 1顧客 ($100M+):
           - 大型ヘッジファンド
@@ -389,9 +389,9 @@ export const lesson48: Lesson = {
           - フィンテック企業
           \`\`\`
 
-          **主要プライムブローカー分析:**
+          <strong>主要プライムブローカー分析:</strong>
 
-          **Galaxy Digital:**
+          <strong>Galaxy Digital:</strong>
           \`\`\`
           統合デジタル資産サービス:
           
@@ -427,7 +427,7 @@ export const lesson48: Lesson = {
           - 高可用性インフラ
           \`\`\`
 
-          **Genesis Global Trading:**
+          <strong>Genesis Global Trading:</strong>
           \`\`\`
           OTC・機関取引大手:
           
@@ -456,7 +456,7 @@ export const lesson48: Lesson = {
           - 業界構造変化促進
           \`\`\`
 
-          **B2C2:**
+          <strong>B2C2:</strong>
           \`\`\`
           機関向け流動性プロバイダー:
           
@@ -485,7 +485,7 @@ export const lesson48: Lesson = {
           - リスク管理能力
           \`\`\`
 
-          **Hidden Road:**
+          <strong>Hidden Road:</strong>
           \`\`\`
           次世代プライムブローカー:
           
@@ -514,9 +514,9 @@ export const lesson48: Lesson = {
           - パートナーシップ拡大
           \`\`\`
 
-          **サービス構成要素詳細:**
+          <strong>サービス構成要素詳細:</strong>
 
-          **取引執行・流動性:**
+          <strong>取引執行・流動性:</strong>
           \`\`\`
           マルチ取引所アクセス:
           - 20-50 取引所統合
@@ -543,7 +543,7 @@ export const lesson48: Lesson = {
           - 継続的改善
           \`\`\`
 
-          **証券貸借・資金調達:**
+          <strong>証券貸借・資金調達:</strong>
           \`\`\`
           デジタル資産貸借:
           
@@ -572,7 +572,7 @@ export const lesson48: Lesson = {
           - 成長率: 年50%+
           \`\`\`
 
-          **リスク管理・報告:**
+          <strong>リスク管理・報告:</strong>
           \`\`\`
           統合リスク管理:
           
@@ -607,7 +607,7 @@ export const lesson48: Lesson = {
           - カスタマイズ可能
           \`\`\`
 
-          **技術インフラ・API:**
+          <strong>技術インフラ・API:</strong>
           \`\`\`
           プラットフォーム機能:
           
@@ -636,9 +636,9 @@ export const lesson48: Lesson = {
           - 監査ログ・追跡
           \`\`\`
 
-          **価格体系・経済モデル:**
+          <strong>価格体系・経済モデル:</strong>
 
-          **手数料構造:**
+          <strong>手数料構造:</strong>
           \`\`\`
           取引手数料:
           - スポット: 0.05-0.25%
@@ -665,7 +665,7 @@ export const lesson48: Lesson = {
           - 教育・トレーニング: 定額制
           \`\`\`
 
-          **経済効果・ROI:**
+          <strong>経済効果・ROI:</strong>
           \`\`\`
           顧客メリット:
           
@@ -688,27 +688,27 @@ export const lesson48: Lesson = {
           - 流動性リスク: 統合管理
           \`\`\`
 
-          **市場トレンド・将来展望:**
+          <strong>市場トレンド・将来展望:</strong>
 
-          **技術革新方向:**
+          <strong>技術革新方向:</strong>
           - AI・機械学習統合
           - ブロックチェーン決済
           - 量子耐性セキュリティ
           - クロスチェーン統合
 
-          **サービス拡張:**
+          <strong>サービス拡張:</strong>
           - DeFi統合サービス
           - NFT・デジタル資産
           - ESG・持続可能投資
           - 包括的資産管理
 
-          **競争環境変化:**
+          <strong>競争環境変化:</strong>
           - 伝統金融機関参入
           - フィンテック統合
           - 規制環境整備
           - 国際的統合促進
 
-          **課題と機会:**
+          <strong>課題と機会:</strong>
           - 規制不確実性
           - システミックリスク
           - 技術的複雑性
@@ -721,9 +721,9 @@ export const lesson48: Lesson = {
         content: `
           暗号通貨市場の成熟により、伝統的金融に匹敵する専門サービスが急速に発展しています。
 
-          **投資銀行・資本市場サービス:**
+          <strong>投資銀行・資本市場サービス:</strong>
 
-          **暗号通貨IPO・上場支援:**
+          <strong>暗号通貨IPO・上場支援:</strong>
           \`\`\`
           主要取扱事例:
           
@@ -752,7 +752,7 @@ export const lesson48: Lesson = {
           - Bitcoin ETF代替投資
           \`\`\`
 
-          **M&A・企業再編:**
+          <strong>M&A・企業再編:</strong>
           \`\`\`
           主要M&A事例:
           
@@ -781,7 +781,7 @@ export const lesson48: Lesson = {
           - 統合効果大きい
           \`\`\`
 
-          **債券・構造化商品:**
+          <strong>債券・構造化商品:</strong>
           \`\`\`
           Corporate Bond発行:
           
@@ -810,9 +810,9 @@ export const lesson48: Lesson = {
           - 市場リスク評価
           \`\`\`
 
-          **アセットマネジメント・ウェルスマネジメント:**
+          <strong>アセットマネジメント・ウェルスマネジメント:</strong>
 
-          **機関投資家向け運用:**
+          <strong>機関投資家向け運用:</strong>
           \`\`\`
           主要運用会社:
           
@@ -841,7 +841,7 @@ export const lesson48: Lesson = {
           - 機関・個人両対応
           \`\`\`
 
-          **富裕層向けサービス:**
+          <strong>富裕層向けサービス:</strong>
           \`\`\`
           プライベートウェルス:
           
@@ -870,7 +870,7 @@ export const lesson48: Lesson = {
           - 集中リスク管理
           \`\`\`
 
-          **ヘッジファンド・オルタナティブ投資:**
+          <strong>ヘッジファンド・オルタナティブ投資:</strong>
           \`\`\`
           戦略分類:
           
@@ -905,9 +905,9 @@ export const lesson48: Lesson = {
           - Three Arrows Capital: 破綻
           \`\`\`
 
-          **保険・リスク管理サービス:**
+          <strong>保険・リスク管理サービス:</strong>
 
-          **暗号通貨保険商品:**
+          <strong>暗号通貨保険商品:</strong>
           \`\`\`
           保険種類:
           
@@ -936,7 +936,7 @@ export const lesson48: Lesson = {
           - デジタル遺産保険
           \`\`\`
 
-          **保険プロバイダー:**
+          <strong>保険プロバイダー:</strong>
           \`\`\`
           専門保険会社:
           
@@ -965,9 +965,9 @@ export const lesson48: Lesson = {
           - Zurich: リスク評価
           \`\`\`
 
-          **税務・会計・コンプライアンスサービス:**
+          <strong>税務・会計・コンプライアンスサービス:</strong>
 
-          **専門税務サービス:**
+          <strong>専門税務サービス:</strong>
           \`\`\`
           税務計算・最適化:
           
@@ -996,7 +996,7 @@ export const lesson48: Lesson = {
           - Lukka: 機関投資家特化
           \`\`\`
 
-          **会計・監査サービス:**
+          <strong>会計・監査サービス:</strong>
           \`\`\`
           Big 4対応:
           
@@ -1031,7 +1031,7 @@ export const lesson48: Lesson = {
           - 開示要件
           \`\`\`
 
-          **法務・規制コンプライアンス:**
+          <strong>法務・規制コンプライアンス:</strong>
           \`\`\`
           専門法律事務所:
           
@@ -1060,9 +1060,9 @@ export const lesson48: Lesson = {
           - Cooley LLP
           \`\`\`
 
-          **技術コンサルティング・システム統合:**
+          <strong>技術コンサルティング・システム統合:</strong>
 
-          **ブロックチェーン開発:**
+          <strong>ブロックチェーン開発:</strong>
           \`\`\`
           開発サービス:
           
@@ -1091,27 +1091,27 @@ export const lesson48: Lesson = {
           - Alchemy: 開発者インフラ
           \`\`\`
 
-          **市場展望・成長機会:**
+          <strong>市場展望・成長機会:</strong>
 
-          **市場規模予測:**
+          <strong>市場規模予測:</strong>
           - 2024年: $50B サービス市場
           - 2030年: $500B 予測
           - 年平均成長率: 50%+
           - 地域別成長格差
 
-          **成長ドライバー:**
+          <strong>成長ドライバー:</strong>
           - 機関投資家参入加速
           - 規制環境整備
           - 技術インフラ成熟
           - 専門人材増加
 
-          **参入障壁・競争要因:**
+          <strong>参入障壁・競争要因:</strong>
           - 規制認可取得
           - 技術的専門性
           - 顧客信頼構築
           - 資本・保険要件
 
-          **長期的変革:**
+          <strong>長期的変革:</strong>
           - 伝統金融との統合
           - 新たなビジネスモデル
           - 技術的イノベーション

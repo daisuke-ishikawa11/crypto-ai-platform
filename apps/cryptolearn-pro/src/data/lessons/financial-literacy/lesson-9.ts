@@ -19,14 +19,18 @@ export const lesson9: Lesson = {
         title: 'レッスン概要',
         content: `このレッスンでは投資倫理とコンプライアンスについて学習します。
 <h2 style="color: #2d3748; border-bottom: 3px solid #4299e1; padding-bottom: 8px; margin: 24px 0 16px 0;">学習目標</h2>
-- 投資倫理とコンプライアンスの基本概念を理解する
-- 実践的な活用方法を学ぶ
-- リスクと注意点を把握する
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資倫理とコンプライアンスの基本概念を理解する</li>
+<li>実践的な活用方法を学ぶ</li>
+<li>リスクと注意点を把握する</li>
+</ul>
 
 <h2 style="color: #2d3748; border-bottom: 3px solid #4299e1; padding-bottom: 8px; margin: 24px 0 16px 0;">重要なポイント</h2>
-- 基本的な知識から応用まで段階的に学習
-- 実例を通じた理解の深化
-- 適切なリスク管理の重要性
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基本的な知識から応用まで段階的に学習</li>
+<li>実例を通じた理解の深化</li>
+<li>適切なリスク管理の重要性</li>
+</ul>
 
 <h2 style="color: #2d3748; border-bottom: 3px solid #4299e1; padding-bottom: 8px; margin: 24px 0 16px 0;">この分野の重要性</h2>
 投資倫理とコンプライアンスは現代の投資・暗号通貨分野で重要な役割を果たしています。
@@ -53,10 +57,12 @@ export const lesson9: Lesson = {
 <h2 style="color: #2d3748; border-bottom: 3px solid #4299e1; padding-bottom: 8px; margin: 24px 0 16px 0;">応用例</h2>
 
 より高度な活用方法：
-- 複合的な戦略の組み合わせ
-- リスク管理の徹底
-- 継続的な改善プロセス
-- 市場環境への適応`
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複合的な戦略の組み合わせ</li>
+<li>リスク管理の徹底</li>
+<li>継続的な改善プロセス</li>
+<li>市場環境への適応</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -90,27 +96,35 @@ export const lesson9: Lesson = {
         title: '注意点とリスク',
         content: `<strong>重要な注意事項</strong>
 ⚠️ <strong>リスク管理</strong>
-- 投資倫理とコンプライアンスには固有のリスクが存在
-- 適切な知識なしに実行しない
-- 常に最新情報を確認
-- 投資額は余裕資金の範囲内で
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資倫理とコンプライアンスには固有のリスクが存在</li>
+<li>適切な知識なしに実行しない</li>
+<li>常に最新情報を確認</li>
+<li>投資額は余裕資金の範囲内で</li>
+</ul>
 
 ⚠️ <strong>実践前の確認</strong>
-- 十分な理解の確保
-- 小額での練習実施
-- 専門家への相談検討
-- 法的要件の確認
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>十分な理解の確保</li>
+<li>小額での練習実施</li>
+<li>専門家への相談検討</li>
+<li>法的要件の確認</li>
+</ul>
 
 ⚠️ <strong>継続的な学習</strong>
-- 技術の進歩に対応
-- 市場状況の変化に注意
-- 定期的な知識のアップデート
-- リスク評価の見直し
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術の進歩に対応</li>
+<li>市場状況の変化に注意</li>
+<li>定期的な知識のアップデート</li>
+<li>リスク評価の見直し</li>
+</ul>
 
 ⚠️ <strong>免責事項</strong>
-- 投資判断は自己責任
-- 損失の可能性を理解
-- 専門的アドバイスの重要性`
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資判断は自己責任</li>
+<li>損失の可能性を理解</li>
+<li>専門的アドバイスの重要性</li>
+</ul>`
       },
     ],
     keyPoints: [

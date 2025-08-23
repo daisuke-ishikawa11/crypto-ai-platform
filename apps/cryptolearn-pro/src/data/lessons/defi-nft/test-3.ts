@@ -1,70 +1,75 @@
-import { Test } from '../../types'
+import { CategoryTest } from '@/lib/types/learning'
 
-export const test3: Test = {
+export const defiNftTest3: CategoryTest = {
   id: 'defi-nft-test-3',
   categoryId: 'defi-nft',
-  title: 'NFTユーティリティとエコシステム：確認テスト3（レッスン11-15）',
-  description: 'NFTのユーティリティ、エコシステム、実用的な活用方法に関する理解度を確認します',
+  title: 'Compound・Aave・フラッシュローン・DeFi保険：確認テスト3（レッスン11-15）',
+  description: 'Compound・Aaveプロトコル、フラッシュローン、ステーキング・ガバナンス、DeFi保険、合成資産に関する理解度を確認します',
+  difficulty: 'intermediate',
+  category: 'defi-nft',
+  lessonRange: 'lesson-11-15',
+  passingScore: 80,
+  timeLimit: 25,
   questions: [
     {
-      id: 'q1',
-      question: 'NFTの「Membership Utility」で最も持続可能なモデルは？',
+      id: 'defi-nft-test-3-q1',
+      question: 'CompoundプロトコルにおけるcTokenの主な機能は？',
       options: [
-        '一度きりのイベント参加権',
-        '継続的な価値提供とコミュニティ運営',
-        '高額な年会費制度',
-        '転売制限による価値固定'
+        '取引手数料の支払い',
+        '貸出資産の利息蓄積と預金証明',
+        'プロトコルのガバナンス投票',
+        '流動性マイニング報酬の配布'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：継続的な価値提供とコミュニティ運営</strong></p><p><strong>持続可能なMembership Utility</strong>は、<strong>長期的な価値創造</strong>に焦点を当てる必要があります。</p><p><strong>成功要素：</strong></p><ul><li><strong>継続的価値提供</strong>：定期的な特典・コンテンツ</li><li><strong>コミュニティ運営</strong>：活発な交流促進</li><li><strong>エボルビング特典</strong>：時代に合わせた進化</li><li><strong>実用性の拡大</strong>：新たなユーティリティ追加</li></ul><p><strong>成功事例：</strong></p><ul><li><strong>Bored Ape Yacht Club</strong>：継続的イベント・特典</li><li><strong>VeeFriends</strong>：Gary Vaynerchuk の定期イベント</li><li><strong>World of Women</strong>：教育・エンパワーメントプログラム</li></ul><p>一時的な特典よりも、<strong>持続的なエンゲージメント</strong>が重要です。</p>'
+      explanation: '<p><strong>正解：貸出資産の利息蓄積と預金証明</strong></p><p><strong>cToken</strong>は、Compoundプロトコルにおける<strong>預金証明書トークン</strong>です。</p><p><strong>cTokenの仕組み：</strong></p><ul><li><strong>預金時</strong>：供給資産に対してcTokenを受け取り</li><li><strong>利息蓄積</strong>：時間経過とともにcTokenの価値が増加</li><li><strong>引出時</strong>：cTokenを返却して元本+利息を受取</li><li><strong>流動性</strong>：cToken自体も取引・担保利用可能</li></ul><p><strong>例：</strong></p><ul><li>100 DAI預金 → 100 cDAI受取</li><li>1年後：cDAIの価値が1.05 DAIに上昇</li><li>100 cDAI返却 → 105 DAI受取（5%利息）</li></ul><p><strong>応用：</strong>cTokenは他のDeFiプロトコルで担保としても利用可能です。</p>'
     },
     {
-      id: 'q2',
-      question: 'NFTの「Commercial Rights」について最も正確な説明は？',
+      id: 'defi-nft-test-3-q2',
+      question: 'Aaveプロトコルの最大の特徴は？',
       options: [
-        'すべてのNFTに自動的に付与される',
-        'ブロックチェーン上で技術的に保証される',
-        'プロジェクトごとにライセンス条項が異なる',
-        '政府によって統一的に規制される'
+        '固定金利のみの提供',
+        'フラッシュローンと変動・安定金利の選択',
+        '中央集権的な資産管理',
+        'KYC要求による本人確認'
+      ],
+      correctAnswer: 1,
+      explanation: '<p><strong>正解：フラッシュローンと変動・安定金利の選択</strong></p><p><strong>Aave</strong>は、多様な貸付オプションを提供する先進的なDeFiプロトコルです。</p><p><strong>Aaveの主要機能：</strong></p><ul><li><strong>フラッシュローン</strong>：担保不要の瞬間借入・返済</li><li><strong>変動金利</strong>：市場需給に応じた金利変動</li><li><strong>安定金利</strong>：短期固定金利オプション</li><li><strong>aToken</strong>：利息が自動蓄積される預金トークン</li></ul><p><strong>フラッシュローンの活用：</strong></p><ul><li><strong>アービトラージ</strong>：取引所間の価格差利用</li><li><strong>債務借り換え</strong>：より有利な条件への変更</li><li><strong>担保スワップ</strong>：担保資産の種類変更</li><li><strong>清算機会</strong>：効率的な清算実行</li></ul><p><strong>革新性：</strong>従来不可能だった大額無担保取引を1トランザクション内で実現</p>'
+    },
+    {
+      id: 'defi-nft-test-3-q3',
+      question: 'フラッシュローンで最も重要な制約は？',
+      options: [
+        '最大借入額の制限',
+        '高い利息率の支払い',
+        '同一トランザクション内での借入・返済完了',
+        'KYC認証の必要性'
       ],
       correctAnswer: 2,
-      explanation: '<p><strong>正解：プロジェクトごとにライセンス条項が異なる</strong></p><p><strong>Commercial Rights（商用利用権）</strong>は、<strong>各プロジェクトの独自条項</strong>によって定義されます。</p><p><strong>ライセンス形態：</strong></p><ul><li><strong>Full Commercial Rights</strong>：完全な商用利用可</li><li><strong>Limited Commercial</strong>：売上制限等の条件付き</li><li><strong>Personal Use Only</strong>：個人利用のみ</li><li><strong>No Rights</strong>：権利なし</li></ul><p><strong>代表的な事例：</strong></p><ul><li><strong>Bored Apes</strong>：完全商用利用可（売上制限なし）</li><li><strong>CryptoPunks</strong>：個人利用のみ</li><li><strong>Azuki</strong>：年間$200万の売上制限</li></ul><p><strong>注意点：</strong></p><ul><li>法的効力は管轄地域による</li><li>ライセンス変更の可能性</li><li>権利行使の実効性に限界</li></ul>'
+      explanation: '<p><strong>正解：同一トランザクション内での借入・返済完了</strong></p><p><strong>フラッシュローン</strong>の根本的特徴は<strong>アトミック実行</strong>です。</p><p><strong>アトミック実行の仕組み：</strong></p><ul><li><strong>All or Nothing</strong>：全て成功するか、全て失敗するか</li><li><strong>瞬間完了</strong>：1つのトランザクション内で借入→実行→返済</li><li><strong>返済保証</strong>：返済できない場合は取引全体が失敗</li><li><strong>無担保可能</strong>：返済が技術的に保証されるため</li></ul><p><strong>典型的な実行フロー：</strong></p><ol><li>プールから資金借入</li><li>アービトラージ等の操作実行</li><li>利益確定</li><li>元本＋手数料を返済</li><li>残りが利益として確定</li></ol><p><strong>失敗パターン：</strong>どの段階でも失敗すると、取引全体がロールバックされます</p>'
     },
     {
-      id: 'q3',
-      question: 'Play-to-EarnゲームにおけるNFTの最も重要な価値要素は？',
+      id: 'defi-nft-test-3-q4',
+      question: 'DeFiにおけるステーキングの主な目的は？',
       options: [
-        '見た目の美しさ',
-        'ゲーム内でのユーティリティ（性能・機能）',
-        '初期購入価格の高さ',
-        'クリエイターの知名度'
+        '価格の安定化のみ',
+        'セキュリティ向上とガバナンス参加',
+        'トークンの永久ロック',
+        '取引手数料の削減'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：ゲーム内でのユーティリティ（性能・機能）</strong></p><p><strong>Play-to-Earn（P2E）</strong>ゲームでは、NFTの<strong>実用的価値</strong>が最重要です。</p><p><strong>重要なユーティリティ：</strong></p><ul><li><strong>戦闘力・攻撃力</strong>：ゲーム進行に直接影響</li><li><strong>収益性能</strong>：トークン獲得効率</li><li><strong>希少スキル</strong>：特別な能力・機能</li><li><strong>成長可能性</strong>：レベルアップ・進化</li><li><strong>多用途性</strong>：複数ゲームでの利用可能性</li></ul><p><strong>成功事例：</strong></p><ul><li><strong>Axie Infinity</strong>：バトル性能が価格決定</li><li><strong>The Sandbox</strong>：LANDの位置・特性</li><li><strong>Gods Unchained</strong>：カードの戦略的価値</li></ul><p>見た目より<strong>機能性</strong>が価値の源泉となります。</p>'
+      explanation: '<p><strong>正解：セキュリティ向上とガバナンス参加</strong></p><p><strong>DeFiステーキング</strong>は、<strong>プロトコルのセキュリティと分散ガバナンス</strong>を実現する仕組みです。</p><p><strong>ステーキングの目的：</strong></p><ul><li><strong>セキュリティ向上</strong>：悪意的行為への経済的抑制</li><li><strong>ガバナンス参加</strong>：プロトコル決定への関与</li><li><strong>長期コミット</strong>：プロジェクト成功への動機付け</li><li><strong>流動性制御</strong>：市場供給量の調整</li></ul><p><strong>報酬メカニズム：</strong></p><ul><li><strong>ステーキング報酬</strong>：プロトコル収益の分配</li><li><strong>ガバナンス権</strong>：重要決定への投票権</li><li><strong>優先権</strong>：新サービスへの早期アクセス</li><li><strong>手数料割引</strong>：プラットフォーム利用優遇</li></ul><p><strong>リスク：</strong>スラッシング（悪意的行為時の担保没収）もあるため、責任ある参加が重要</p>'
     },
     {
-      id: 'q4',
-      question: 'NFTの「Interoperability」（相互運用性）が最も価値を発揮する分野は？',
+      id: 'defi-nft-test-3-q5',
+      question: 'DeFi保険プロトコルの主な保障対象は？',
       options: [
-        'デジタルアート収集',
-        'ゲームとメタバース',
-        '音楽業界',
-        '不動産取引'
+        '価格変動リスクのみ',
+        'スマートコントラクトリスクと技術的失敗',
+        'ユーザーの操作ミス',
+        '規制変更リスク'
       ],
       correctAnswer: 1,
-      explanation: '<p><strong>正解：ゲームとメタバース</strong></p><p><strong>Interoperability（相互運用性）</strong>は、<strong>複数プラットフォーム間</strong>でのNFT利用を可能にします。</p><p><strong>ゲーム・メタバースでの価値：</strong></p><ul><li><strong>アバター・装備の流用</strong>：複数ゲーム間での利用</li><li><strong>メタバース横断</strong>：異なる仮想世界での活用</li><li><strong>エコシステム拡大</strong>：利用機会の増加</li><li><strong>投資価値向上</strong>：汎用性による価値増大</li></ul><p><strong>技術的実現：</strong></p><ul><li><strong>標準規格</strong>：ERC-721, ERC-1155</li><li><strong>クロスチェーン</strong>：異なるブロックチェーン間</li><li><strong>API連携</strong>：外部サービスとの統合</li><li><strong>メタデータ標準</strong>：共通フォーマット</li></ul><p><strong>現実的課題：</strong>技術的・ビジネス的な調整が複雑ですが、将来的には大きな価値を持つ可能性があります。</p>'
-    },
-    {
-      id: 'q5',
-      question: 'NFTコミュニティの「Governance Token」との連携で最も効果的な活用方法は？',
-      options: [
-        'NFT保有者への自動配布',
-        'NFT保有による議決権の重み付け',
-        'NFTとトークンの固定レート交換',
-        'NFT価格連動トークン価値'
-      ],
-      correctAnswer: 1,
-      explanation: '<p><strong>正解：NFT保有による議決権の重み付け</strong></p><p><strong>NFT + Governance Token</strong>の連携は、<strong>コミュニティ運営の質</strong>を向上させます。</p><p><strong>効果的な連携モデル：</strong></p><ul><li><strong>重み付き投票</strong>：NFT保有で投票力増加</li><li><strong>ティア制度</strong>：NFTレベルによる権限差</li><li><strong>特別提案権</strong>：NFT保有者限定の提案権</li><li><strong>早期投票権</strong>：NFT保有者の優先投票</li></ul><p><strong>メリット：</strong></p><ul><li><strong>長期コミット促進</strong>：NFT保有によるステーク</li><li><strong>質の高い判断</strong>：投資している人の意見</li><li><strong>スパム防止</strong>：NFT保有という参入障壁</li><li><strong>価値相乗効果</strong>：NFTとトークンの価値向上</li></ul><p><strong>実例：</strong>ApeCoin + Bored Ape の DAO投票システム</p>'
+      explanation: '<p><strong>正解：スマートコントラクトリスクと技術的失敗</strong></p><p><strong>DeFi保険</strong>は、<strong>技術的リスク</strong>に対する保護を提供します。</p><p><strong>主要な保障内容：</strong></p><ul><li><strong>スマートコントラクトバグ</strong>：コードの欠陥による損失</li><li><strong>ハッキング攻撃</strong>：外部攻撃による資金流出</li><li><strong>Oracle失敗</strong>：価格データ異常による損失</li><li><strong>ガバナンス攻撃</strong>：悪意的な提案による損害</li></ul><p><strong>DeFi保険の仕組み：</strong></p><ul><li><strong>リスクプール</strong>：保険料の集約・運用</li><li><strong>査定プロセス</strong>：事故時の損害評価</li><li><strong>ステーキング</strong>：保険者による担保提供</li><li><strong>分散決定</strong>：コミュニティによる保険金支払判定</li></ul><p><strong>主要プロトコル：</strong>Nexus Mutual, Cover Protocol, InsurAce等</p>'
     },
     {
       id: 'q6',

@@ -16,256 +16,344 @@ export const lesson7: Lesson = {
       {
         type: 'quiz',
         title: 'オプション取引の基本概念',
-        content: `**オプションとは**
+        content: `<strong>オプションとは</strong>
 オプションは、特定の期日に特定の価格で資産を売買する「権利」を取引する金融商品です。暗号通貨市場でも、ビットコインやイーサリアムなどのオプション取引が活発に行われています。
-## オプションの基本要素
-**1. 権利の種類**
-- **コールオプション**：買う権利
-- **プットオプション**：売る権利
-- **権利行使**：オプションを実行すること
-- **権利放棄**：オプションを実行しないこと
-**2. 主要パラメータ**
-- **行使価格(Strike Price)**：約定価格
-- **満期日(Expiration Date)**：権利が終了する日
-- **プレミアム(Premium)**：オプション購入費用
-- **原資産(Underlying Asset)**：対象となる資産
-**3. 取引当事者**
-- **買い手(Long)**：権利を購入する側
-- **売り手(Short)**：権利を売却する側
-- **権利と義務**：買い手は権利、売り手は義務
-## 暗号通貨オプションの特徴
-**高いボラティリティ**
-- 伝統的資産より価格変動が大きい
-- オプションプレミアムが高い
-- 大きな利益機会と損失リスク
-- 時間減衰の影響が大きい
-**24/7取引**
-- 土日祝日関係なく取引可能
-- 世界的なイベントに即座に反応
-- 継続的な価格発見メカニズム
-- 流動性の時間帯変動
-**2024年の市場環境**
-- 機関投資家の参入増加
-- オプション取引所の拡大
-- 規制環境の整備
-- 商品バリエーションの増加`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">オプションの基本要素</h2>
+<strong>1. 権利の種類</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>コールオプション</strong>：買う権利</li>
+<li><strong>プットオプション</strong>：売る権利</li>
+<li><strong>権利行使</strong>：オプションを実行すること</li>
+<li><strong>権利放棄</strong>：オプションを実行しないこと</li>
+</ul>
+<strong>2. 主要パラメータ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>行使価格(Strike Price)</strong>：約定価格</li>
+<li><strong>満期日(Expiration Date)</strong>：権利が終了する日</li>
+<li><strong>プレミアム(Premium)</strong>：オプション購入費用</li>
+<li><strong>原資産(Underlying Asset)</strong>：対象となる資産</li>
+</ul>
+<strong>3. 取引当事者</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>買い手(Long)</strong>：権利を購入する側</li>
+<li><strong>売り手(Short)</strong>：権利を売却する側</li>
+<li><strong>権利と義務</strong>：買い手は権利、売り手は義務</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">暗号通貨オプションの特徴</h2>
+<strong>高いボラティリティ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>伝統的資産より価格変動が大きい</li>
+<li>オプションプレミアムが高い</li>
+<li>大きな利益機会と損失リスク</li>
+<li>時間減衰の影響が大きい</li>
+</ul>
+<strong>24/7取引</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>土日祝日関係なく取引可能</li>
+<li>世界的なイベントに即座に反応</li>
+<li>継続的な価格発見メカニズム</li>
+<li>流動性の時間帯変動</li>
+</ul>
+<strong>2024年の市場環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機関投資家の参入増加</li>
+<li>オプション取引所の拡大</li>
+<li>規制環境の整備</li>
+<li>商品バリエーションの増加</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'オプション戦略の実践',
-        content: `## 基本的なオプション戦略
-**1. ロング・コール(Long Call)**
-- 強気相場で使用
-- 上昇の恩恵を受ける
-- 損失は限定的(プレミアム分のみ)
-- 利益は理論的に無限大
-**2. ロング・プット(Long Put)**
-- 弱気相場で使用
-- 下落の恩恵を受ける
-- 損失は限定的(プレミアム分のみ)
-- 利益は原資産価格がゼロまで
-**3. ショート・コール(Short Call)**
-- 横ばいから弱気相場で使用
-- プレミアム収入を得る
-- 利益は限定的(プレミアム分のみ)
-- 損失は理論的に無限大
-**4. ショート・プット(Short Put)**
-- 横ばいから強気相場で使用
-- プレミアム収入を得る
-- 利益は限定的(プレミアム分のみ)
-- 損失は大きく限定的
-## 複合戦略
-**ストラドル(Straddle)**
-- 同じ行使価格のコール・プットを同時購入
-- 大きな価格変動を期待
-- 方向性を問わない戦略
-- 高いボラティリティが必要
-**ストラングル(Strangle)**
-- 異なる行使価格のコール・プットを同時購入
-- より安いコストで実行可能
-- より大きな価格変動が必要
-- リスクリワード比の調整
-**スプレッド戦略**
-- **ブル・スプレッド**：上昇相場用
-- **ベア・スプレッド**：下落相場用
-- **バタフライ・スプレッド**：横ばい相場用
-- **コンドル・スプレッド**：レンジ相場用
-## 実践的な戦略選択
-**市場環境別戦略**
-- **強気相場**：ロング・コール、ブル・スプレッド
-- **弱気相場**：ロング・プット、ベア・スプレッド
-- **横ばい相場**：ショート・ストラドル、バタフライ
-- **高ボラティリティ**：ロング・ストラドル、ストラングル`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的なオプション戦略</h2>
+<strong>1. ロング・コール(Long Call)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>強気相場で使用</li>
+<li>上昇の恩恵を受ける</li>
+<li>損失は限定的(プレミアム分のみ)</li>
+<li>利益は理論的に無限大</li>
+</ul>
+<strong>2. ロング・プット(Long Put)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>弱気相場で使用</li>
+<li>下落の恩恵を受ける</li>
+<li>損失は限定的(プレミアム分のみ)</li>
+<li>利益は原資産価格がゼロまで</li>
+</ul>
+<strong>3. ショート・コール(Short Call)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>横ばいから弱気相場で使用</li>
+<li>プレミアム収入を得る</li>
+<li>利益は限定的(プレミアム分のみ)</li>
+<li>損失は理論的に無限大</li>
+</ul>
+<strong>4. ショート・プット(Short Put)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>横ばいから強気相場で使用</li>
+<li>プレミアム収入を得る</li>
+<li>利益は限定的(プレミアム分のみ)</li>
+<li>損失は大きく限定的</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">複合戦略</h2>
+<strong>ストラドル(Straddle)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>同じ行使価格のコール・プットを同時購入</li>
+<li>大きな価格変動を期待</li>
+<li>方向性を問わない戦略</li>
+<li>高いボラティリティが必要</li>
+</ul>
+<strong>ストラングル(Strangle)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>異なる行使価格のコール・プットを同時購入</li>
+<li>より安いコストで実行可能</li>
+<li>より大きな価格変動が必要</li>
+<li>リスクリワード比の調整</li>
+</ul>
+<strong>スプレッド戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ブル・スプレッド</strong>：上昇相場用</li>
+<li><strong>ベア・スプレッド</strong>：下落相場用</li>
+<li><strong>バタフライ・スプレッド</strong>：横ばい相場用</li>
+<li><strong>コンドル・スプレッド</strong>：レンジ相場用</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践的な戦略選択</h2>
+<strong>市場環境別戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>強気相場</strong>：ロング・コール、ブル・スプレッド</li>
+<li><strong>弱気相場</strong>：ロング・プット、ベア・スプレッド</li>
+<li><strong>横ばい相場</strong>：ショート・ストラドル、バタフライ</li>
+<li><strong>高ボラティリティ</strong>：ロング・ストラドル、ストラングル</li>
+</ul>`
       },
       {
         type: 'example',
         title: 'オプション取引の実例',
-        content: `## ケーススタディ：ビットコインオプション
-**シナリオ設定**
-- 現在のBTC価格：$45,000
-- 予想：今後1ヶ月で大きく上昇
-- 戦略：ロング・コール
-**取引詳細**
-- 権利行使価格：$50,000
-- 満期：30日後
-- プレミアム：$2,000
-- 契約サイズ：1 BTC
-**シナリオ分析**
-**強気シナリオ(BTC = $55,000)**
-- 内在的価値：$55,000 - $50,000 = $5,000
-- 純利益：$5,000 - $2,000 = $3,000
-- 利益率：150%
-**横ばいシナリオ(BTC = $45,000)**
-- 内在的価値：$0(権利放棄)
-- 純損失：$2,000
-- 損失率：100%
-**弱気シナリオ(BTC = $40,000)**
-- 内在的価値：$0(権利放棄)
-- 純損失：$2,000
-- 損失率：100%
-## 複合戦略の例：ストラドル
-**市場予想**
-- 現在のETH価格：$2,500
-- 予想：大きな価格変動(方向不明)
-- 戦略：ロング・ストラドル
-**取引詳細**
-- 行使価格：$2,500(ATM)
-- 満期：14日後
-- コール・プレミアム：$150
-- プット・プレミアム：$150
-- 総コスト：$300
-**損益分岐点**
-- 上方：$2,500 + $300 = $2,800
-- 下方：$2,500 - $300 = $2,200
-**シナリオ分析**
-- ETH = $3,000：利益 = $200
-- ETH = $2,000：利益 = $200
-- ETH = $2,500：損失 = $300(最大損失)`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ケーススタディ：ビットコインオプション</h2>
+<strong>シナリオ設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現在のBTC価格：$45,000</li>
+<li>予想：今後1ヶ月で大きく上昇</li>
+<li>戦略：ロング・コール</li>
+</ul>
+<strong>取引詳細</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>権利行使価格：$50,000</li>
+<li>満期：30日後</li>
+<li>プレミアム：$2,000</li>
+<li>契約サイズ：1 BTC</li>
+</ul>
+<strong>シナリオ分析</strong>
+<strong>強気シナリオ(BTC = $55,000)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>内在的価値：$55,000 - $50,000 = $5,000</li>
+<li>純利益：$5,000 - $2,000 = $3,000</li>
+<li>利益率：150%</li>
+</ul>
+<strong>横ばいシナリオ(BTC = $45,000)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>内在的価値：$0(権利放棄)</li>
+<li>純損失：$2,000</li>
+<li>損失率：100%</li>
+</ul>
+<strong>弱気シナリオ(BTC = $40,000)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>内在的価値：$0(権利放棄)</li>
+<li>純損失：$2,000</li>
+<li>損失率：100%</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">複合戦略の例：ストラドル</h2>
+<strong>市場予想</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現在のETH価格：$2,500</li>
+<li>予想：大きな価格変動(方向不明)</li>
+<li>戦略：ロング・ストラドル</li>
+</ul>
+<strong>取引詳細</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>行使価格：$2,500(ATM)</li>
+<li>満期：14日後</li>
+<li>コール・プレミアム：$150</li>
+<li>プット・プレミアム：$150</li>
+<li>総コスト：$300</li>
+</ul>
+<strong>損益分岐点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>上方：$2,500 + $300 = $2,800</li>
+<li>下方：$2,500 - $300 = $2,200</li>
+</ul>
+<strong>シナリオ分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ETH = $3,000：利益 = $200</li>
+<li>ETH = $2,000：利益 = $200</li>
+<li>ETH = $2,500：損失 = $300(最大損失)</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'ギリシャ文字とリスク管理',
-        content: `## オプションのギリシャ文字
-**デルタ(Δ)**
-- 原資産価格変動に対する感応度
-- 範囲：-1.0〜+1.0
-- コール：0〜+1.0
-- プット：-1.0〜0
-- ポートフォリオのデルタ中性
-**ガンマ(Γ)**
-- デルタの変化率
-- 価格変動の加速度
-- ATM(At-The-Money)で最大
-- 満期近くで急激に変化
-**セータ(Θ)**
-- 時間減衰の影響
-- 1日経過による価値減少
-- 満期近くで加速
-- オプション売り手に有利
-**ベガ(ν)**
-- インプライド・ボラティリティへの感応度
-- ボラティリティ1%変化での価値変動
-- ATMで最大
-- 満期までの時間に比例
-**ロー(ρ)**
-- 金利変化への感応度
-- 暗号通貨では影響小
-- 長期オプションで重要
-- 金利上昇でコール有利
-## リスク管理の実践
-**デルタヘッジ**
-- ポートフォリオのデルタを中性化
-- 価格変動リスクを軽減
-- 継続的な調整が必要
-- 取引コストを考慮
-**ガンマリスク**
-- 大きな価格変動時の影響
-- デルタヘッジの限界
-- 頻繁な調整が必要
-- 市場急変時の対応
-**ボラティリティリスク**
-- インプライド・ボラティリティの変化
-- 市場の不確実性への反応
-- ベガの管理
-- ボラティリティ予測の重要性`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">オプションのギリシャ文字</h2>
+<strong>デルタ(Δ)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>原資産価格変動に対する感応度</li>
+<li>範囲：-1.0〜+1.0</li>
+<li>コール：0〜+1.0</li>
+<li>プット：-1.0〜0</li>
+<li>ポートフォリオのデルタ中性</li>
+</ul>
+<strong>ガンマ(Γ)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>デルタの変化率</li>
+<li>価格変動の加速度</li>
+<li>ATM(At-The-Money)で最大</li>
+<li>満期近くで急激に変化</li>
+</ul>
+<strong>セータ(Θ)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>時間減衰の影響</li>
+<li>1日経過による価値減少</li>
+<li>満期近くで加速</li>
+<li>オプション売り手に有利</li>
+</ul>
+<strong>ベガ(ν)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>インプライド・ボラティリティへの感応度</li>
+<li>ボラティリティ1%変化での価値変動</li>
+<li>ATMで最大</li>
+<li>満期までの時間に比例</li>
+</ul>
+<strong>ロー(ρ)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>金利変化への感応度</li>
+<li>暗号通貨では影響小</li>
+<li>長期オプションで重要</li>
+<li>金利上昇でコール有利</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理の実践</h2>
+<strong>デルタヘッジ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ポートフォリオのデルタを中性化</li>
+<li>価格変動リスクを軽減</li>
+<li>継続的な調整が必要</li>
+<li>取引コストを考慮</li>
+</ul>
+<strong>ガンマリスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>大きな価格変動時の影響</li>
+<li>デルタヘッジの限界</li>
+<li>頻繁な調整が必要</li>
+<li>市場急変時の対応</li>
+</ul>
+<strong>ボラティリティリスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>インプライド・ボラティリティの変化</li>
+<li>市場の不確実性への反応</li>
+<li>ベガの管理</li>
+<li>ボラティリティ予測の重要性</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'デリバティブ商品の活用',
-        content: `## 先物取引
-**先物の基本**
-- 将来の特定日に特定価格で売買する契約
-- 標準化された契約
-- 証拠金取引
-- 決済期日の存在
-**先物の活用法**
-- **ヘッジ**：価格変動リスクの軽減
-- **投機**：価格変動からの利益追求
-- **裁定**：現物との価格差利用
-- **ポートフォリオ管理**：迅速な調整
-**永続先物(パーペチュアル)**
-- 満期のない先物契約
-- 資金調達率による調整
-- 高い流動性
-- 継続的な価格発見
-## スワップ取引
-**通貨スワップ**
-- 異なる通貨間の交換
-- 為替リスクのヘッジ
-- 長期契約
-- 機関投資家向け
-**金利スワップ**
-- 固定金利と変動金利の交換
-- 金利リスクのヘッジ
-- 暗号通貨では限定的
-- DeFiでの新しい展開
-## 構造化商品
-**元本保証型商品**
-- 元本の保護
-- 上昇相場での利益参加
-- 複雑な仕組み
-- 高いコスト
-**レバレッジ商品**
-- 価格変動の拡大
-- 高いリスク・リターン
-- 証拠金取引
-- 厳格なリスク管理
-## 2024年の新しい商品
-**DeFi デリバティブ**
-- 分散型オプション取引所
-- 自動化された取引
-- 透明性の向上
-- 新しいリスク要因
-**トークン化デリバティブ**
-- NFTによる権利の表現
-- 新しい取引形態
-- 流動性の向上
-- 技術的な革新`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">先物取引</h2>
+<strong>先物の基本</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>将来の特定日に特定価格で売買する契約</li>
+<li>標準化された契約</li>
+<li>証拠金取引</li>
+<li>決済期日の存在</li>
+</ul>
+<strong>先物の活用法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ヘッジ</strong>：価格変動リスクの軽減</li>
+<li><strong>投機</strong>：価格変動からの利益追求</li>
+<li><strong>裁定</strong>：現物との価格差利用</li>
+<li><strong>ポートフォリオ管理</strong>：迅速な調整</li>
+</ul>
+<strong>永続先物(パーペチュアル)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>満期のない先物契約</li>
+<li>資金調達率による調整</li>
+<li>高い流動性</li>
+<li>継続的な価格発見</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">スワップ取引</h2>
+<strong>通貨スワップ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>異なる通貨間の交換</li>
+<li>為替リスクのヘッジ</li>
+<li>長期契約</li>
+<li>機関投資家向け</li>
+</ul>
+<strong>金利スワップ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>固定金利と変動金利の交換</li>
+<li>金利リスクのヘッジ</li>
+<li>暗号通貨では限定的</li>
+<li>DeFiでの新しい展開</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">構造化商品</h2>
+<strong>元本保証型商品</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>元本の保護</li>
+<li>上昇相場での利益参加</li>
+<li>複雑な仕組み</li>
+<li>高いコスト</li>
+</ul>
+<strong>レバレッジ商品</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>価格変動の拡大</li>
+<li>高いリスク・リターン</li>
+<li>証拠金取引</li>
+<li>厳格なリスク管理</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の新しい商品</h2>
+<strong>DeFi デリバティブ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散型オプション取引所</li>
+<li>自動化された取引</li>
+<li>透明性の向上</li>
+<li>新しいリスク要因</li>
+</ul>
+<strong>トークン化デリバティブ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>NFTによる権利の表現</li>
+<li>新しい取引形態</li>
+<li>流動性の向上</li>
+<li>技術的な革新</li>
+</ul>`
       },
       {
         type: 'tip',
         title: 'オプション取引成功の秘訣',
-        content: `**成功するためのポイント**
-📊 **市場理解**
-- ボラティリティパターンの把握
-- 時間減衰の影響理解
-- 流動性の重要性
-- 市場参加者の行動
-🎯 **戦略選択**
-- 市場環境に応じた戦略
-- リスク許容度との整合
-- 資金管理の重要性
-- 複数戦略の組み合わせ
-📈 **技術分析**
-- サポート・レジスタンス
-- ボラティリティ指標
-- 時間軸の選択
-- エントリー・エグジット
-⚡ **実行管理**
-- 適切なタイミング
-- 流動性の確保
-- スリッページの最小化
-- 継続的な調整`
+        content: `<strong>成功するためのポイント</strong>
+📊 <strong>市場理解</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ボラティリティパターンの把握</li>
+<li>時間減衰の影響理解</li>
+<li>流動性の重要性</li>
+<li>市場参加者の行動</li>
+</ul>
+🎯 <strong>戦略選択</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場環境に応じた戦略</li>
+<li>リスク許容度との整合</li>
+<li>資金管理の重要性</li>
+<li>複数戦略の組み合わせ</li>
+</ul>
+📈 <strong>技術分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>サポート・レジスタンス</li>
+<li>ボラティリティ指標</li>
+<li>時間軸の選択</li>
+<li>エントリー・エグジット</li>
+</ul>
+⚡ <strong>実行管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適切なタイミング</li>
+<li>流動性の確保</li>
+<li>スリッページの最小化</li>
+<li>継続的な調整</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -310,27 +398,35 @@ export const lesson7: Lesson = {
       {
         type: 'warning',
         title: 'オプション・デリバティブ取引の注意点',
-        content: `**高リスク投資商品**
-⚠️ **複雑性**
-- 多くの変数が価格に影響
-- 高度な知識が必要
-- 計算の複雑さ
-- 戦略の理解困難
-⚠️ **時間減衰**
-- 時間経過による価値減少
-- 満期近くで加速
-- 利益機会の制限
-- タイミングの重要性
-⚠️ **流動性リスク**
-- 取引量の制限
-- ビッド・アスクスプレッド
-- 決済困難の可能性
-- 価格操作のリスク
-⚠️ **レバレッジリスク**
-- 小さな変動での大きな損失
-- 証拠金不足の危険
-- 強制決済の可能性
-- 心理的プレッシャー`
+        content: `<strong>高リスク投資商品</strong>
+⚠️ <strong>複雑性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>多くの変数が価格に影響</li>
+<li>高度な知識が必要</li>
+<li>計算の複雑さ</li>
+<li>戦略の理解困難</li>
+</ul>
+⚠️ <strong>時間減衰</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>時間経過による価値減少</li>
+<li>満期近くで加速</li>
+<li>利益機会の制限</li>
+<li>タイミングの重要性</li>
+</ul>
+⚠️ <strong>流動性リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引量の制限</li>
+<li>ビッド・アスクスプレッド</li>
+<li>決済困難の可能性</li>
+<li>価格操作のリスク</li>
+</ul>
+⚠️ <strong>レバレッジリスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>小さな変動での大きな損失</li>
+<li>証拠金不足の危険</li>
+<li>強制決済の可能性</li>
+<li>心理的プレッシャー</li>
+</ul>`
       },
       ],
     keyPoints: [

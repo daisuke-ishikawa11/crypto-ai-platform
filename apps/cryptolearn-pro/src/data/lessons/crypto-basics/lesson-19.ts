@@ -237,51 +237,51 @@ export const lesson19: Lesson = {
         orderIndex: 3,
         type: 'text',
         content: `
-          **Polygon (MATIC)**
+          <strong>Polygon (MATIC)</strong>
 
-          **特徴：**
+          <strong>特徴：</strong>
           - Ethereumとの高い互換性
           - 手数料：$0.001-0.01
           - 処理速度：7,000+ TPS
           - DeFi、NFT、ゲームで広く採用
 
-          **エコシステム：**
+          <strong>エコシステム：</strong>
           - Aave、Uniswap、SushiSwap
           - OpenSea、Decentraland
           - 1,000以上のDApps
 
-          **Arbitrum**
+          <strong>Arbitrum</strong>
 
-          **技術：**
+          <strong>技術：</strong>
           - Optimistic Rollup技術
           - EVM完全互換
           - 手数料：約90%削減
 
-          **採用状況：**
+          <strong>採用状況：</strong>
           - Uniswap V3で$2B以上のTVL
           - GMX、Treasure DAO
           - 開発者フレンドリー
 
-          **Optimism**
+          <strong>Optimism</strong>
 
-          **特徴：**
+          <strong>特徴：</strong>
           - 最も早いOptimistic Rollup
           - EVM互換性
           - $OPトークンによるガバナンス
 
-          **独自の取り組み：**
+          <strong>独自の取り組み：</strong>
           - Retroactive Public Goods Funding
           - コミュニティ主導の成長
           - 持続可能な開発支援
 
-          **zkSync**
+          <strong>zkSync</strong>
 
-          **技術的優位性：**
+          <strong>技術的優位性：</strong>
           - zk-SNARK証明
           - 即座の finality
           - より高いセキュリティ
 
-          **ロードマップ：**
+          <strong>ロードマップ：</strong>
           - zkSync Era（メインネット稼働中）
           - 完全なEVM互換性
           - Account Abstraction
@@ -291,42 +291,42 @@ export const lesson19: Lesson = {
         type: 'text',
         title: 'Layer 2の実用化と未来',
         content: `
-          **現在の採用状況：**
+          <strong>現在の採用状況：</strong>
 
-          **DeFi分野：**
+          <strong>DeFi分野：</strong>
           - Polygon上のQuickSwap：日間取引量$50M+
           - Arbitrum Uniswap：$2B+ TVL
           - zkSync上の複数DEX展開
 
-          **NFT分野：**
+          <strong>NFT分野：</strong>
           - OpenSea Polygon対応：ガス料金ほぼ無料
           - ImmutableX：ゲーム特化
           - 大量mint時のコスト削減
 
-          **ゲーム分野：**
+          <strong>ゲーム分野：</strong>
           - Axie Infinity → Ronin（専用サイドチェーン）
           - Gods Unchained → ImmutableX
           - The Sandbox → Polygon
 
-          **ユーザー体験の改善：**
-          - **取引速度**: 数秒で確認
-          - **手数料**: $0.001-0.1
-          - **使いやすさ**: Web2ライクな体験
-          - **環境負荷**: 大幅な削減
+          <strong>ユーザー体験の改善：</strong>
+          - <strong>取引速度</strong>: 数秒で確認
+          - <strong>手数料</strong>: $0.001-0.1
+          - <strong>使いやすさ</strong>: Web2ライクな体験
+          - <strong>環境負荷</strong>: 大幅な削減
 
-          **今後の発展方向：**
+          <strong>今後の発展方向：</strong>
 
-          **技術的進化：**
+          <strong>技術的進化：</strong>
           - ZK技術の更なる発達
           - クロスチェーン相互運用性
           - プライバシー保護強化
 
-          **エコシステム成長：**
+          <strong>エコシステム成長：</strong>
           - 企業採用の加速
           - DApp開発の活発化
           - 新しいビジネスモデル
 
-          **課題と解決策：**
+          <strong>課題と解決策：</strong>
           - 流動性の分散問題 → ブリッジ技術改善
           - セキュリティの確保 → 監査の充実
           - ユーザー教育 → UX向上

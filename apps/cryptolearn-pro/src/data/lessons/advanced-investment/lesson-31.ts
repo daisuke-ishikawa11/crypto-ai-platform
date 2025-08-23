@@ -16,559 +16,759 @@ export const lesson31: Lesson = {
       {
         type: 'quiz',
         title: '新興技術投資の概要',
-        content: `**新興技術投資とは**
+        content: `<strong>新興技術投資とは</strong>
 新興技術投資は、現在実用化の初期段階にある革新的技術や、将来的に大きな社会的・経済的影響を与える可能性のある技術への投資です。高いリスクと高いリターンの可能性を持つ投資分野です。
-## 主要な新興技術分野
-**量子コンピューティング**
-- 現状：実用化の初期段階
-- 応用分野：暗号、最適化、機械学習
-- 市場規模：2030年に$65B予測
-- 投資機会：量子ハードウェア、ソフトウェア
-**脳コンピューターインターフェース(BCI)**
-- 現状：医療用途から開始
-- 応用分野：医療、ゲーミング、教育
-- 市場規模：2030年に$5.5B予測
-- 投資機会：デバイス、ソフトウェア、サービス
-**拡張現実(XR)**
-- 現状：エンターテイメント中心
-- 応用分野：産業、教育、医療
-- 市場規模：2030年に$250B予測
-- 投資機会：ハードウェア、コンテンツ、プラットフォーム
-**合成生物学**
-- 現状：研究開発段階
-- 応用分野：医薬品、食品、材料
-- 市場規模：2030年に$85B予測
-- 投資機会：バイオテック企業、プラットフォーム
-## 投資評価の独特な要素
-**技術的成熟度**
-- 基礎研究段階：リスク極大
-- 応用開発段階：リスク大
-- 実用化段階：リスク中
-- 普及段階：リスク小
-**市場タイミング**
-- 早期参入：高リスク・高リターン
-- 成長期参入：中リスク・中リターン
-- 成熟期参入：低リスク・低リターン
-- 衰退期：回避すべき
-**規制環境**
-- 未整備：不確実性大
-- 整備中：変動性大
-- 確立済み：安定性大
-- 制限的：成長性制約
-## 投資アプローチの分類
-**直接投資**
-- スタートアップ企業
-- 研究開発企業
-- 技術ライセンス
-- 特許投資
-**間接投資**
-- 技術特化型ファンド
-- 上場企業の関連事業
-- ETF・インデックス
-- 政府系ファンド
-**戦略的投資**
-- 企業買収
-- 合弁事業
-- 戦略的パートナーシップ
-- 技術提携
-## 2024年の注目技術
-**量子耐性暗号**
-- 背景：量子コンピューターの脅威
-- 技術：格子暗号、多変数暗号
-- 市場：$2.8B(2024年)
-- 投資機会：暗号技術企業、セキュリティ企業
-**エッジAI**
-- 背景：リアルタイム処理需要
-- 技術：専用チップ、軽量AI
-- 市場：$15.7B(2024年)
-- 投資機会：半導体企業、AI企業
-**6G通信技術**
-- 背景：5G の次世代技術
-- 技術：テラヘルツ波、ホログラフィック通信
-- 市場：研究開発段階
-- 投資機会：通信機器企業、研究機関
-**デジタルツイン**
-- 背景：製造業のデジタル化
-- 技術：IoT、AI、シミュレーション
-- 市場：$73.5B(2024年)
-- 投資機会：ソフトウェア企業、プラットフォーム
-## 投資リスクと機会
-**高リスク要因**
-- 技術的失敗
-- 市場受容の遅れ
-- 規制による制約
-- 競合技術の出現
-**高リターン要因**
-- 市場創造
-- 先行者利益
-- 技術的優位性
-- 社会的インパクト
-**リスク軽減策**
-- 分散投資
-- 段階的投資
-- 専門家との連携
-- 継続的な監視
-## 評価手法の特徴
-**従来手法の限界**
-- 財務データの不足
-- 市場データの不足
-- 比較対象の不足
-- 予測の困難性
-**新しい評価手法**
-- 技術評価手法
-- オプション評価
-- シナリオ分析
-- 実物オプション`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要な新興技術分野</h2>
+<strong>量子コンピューティング</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現状：実用化の初期段階</li>
+<li>応用分野：暗号、最適化、機械学習</li>
+<li>市場規模：2030年に$65B予測</li>
+<li>投資機会：量子ハードウェア、ソフトウェア</li>
+</ul>
+<strong>脳コンピューターインターフェース(BCI)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現状：医療用途から開始</li>
+<li>応用分野：医療、ゲーミング、教育</li>
+<li>市場規模：2030年に$5.5B予測</li>
+<li>投資機会：デバイス、ソフトウェア、サービス</li>
+</ul>
+<strong>拡張現実(XR)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現状：エンターテイメント中心</li>
+<li>応用分野：産業、教育、医療</li>
+<li>市場規模：2030年に$250B予測</li>
+<li>投資機会：ハードウェア、コンテンツ、プラットフォーム</li>
+</ul>
+<strong>合成生物学</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現状：研究開発段階</li>
+<li>応用分野：医薬品、食品、材料</li>
+<li>市場規模：2030年に$85B予測</li>
+<li>投資機会：バイオテック企業、プラットフォーム</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資評価の独特な要素</h2>
+<strong>技術的成熟度</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基礎研究段階：リスク極大</li>
+<li>応用開発段階：リスク大</li>
+<li>実用化段階：リスク中</li>
+<li>普及段階：リスク小</li>
+</ul>
+<strong>市場タイミング</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>早期参入：高リスク・高リターン</li>
+<li>成長期参入：中リスク・中リターン</li>
+<li>成熟期参入：低リスク・低リターン</li>
+<li>衰退期：回避すべき</li>
+</ul>
+<strong>規制環境</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>未整備：不確実性大</li>
+<li>整備中：変動性大</li>
+<li>確立済み：安定性大</li>
+<li>制限的：成長性制約</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資アプローチの分類</h2>
+<strong>直接投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>スタートアップ企業</li>
+<li>研究開発企業</li>
+<li>技術ライセンス</li>
+<li>特許投資</li>
+</ul>
+<strong>間接投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術特化型ファンド</li>
+<li>上場企業の関連事業</li>
+<li>ETF・インデックス</li>
+<li>政府系ファンド</li>
+</ul>
+<strong>戦略的投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>企業買収</li>
+<li>合弁事業</li>
+<li>戦略的パートナーシップ</li>
+<li>技術提携</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の注目技術</h2>
+<strong>量子耐性暗号</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>背景：量子コンピューターの脅威</li>
+<li>技術：格子暗号、多変数暗号</li>
+<li>市場：$2.8B(2024年)</li>
+<li>投資機会：暗号技術企業、セキュリティ企業</li>
+</ul>
+<strong>エッジAI</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>背景：リアルタイム処理需要</li>
+<li>技術：専用チップ、軽量AI</li>
+<li>市場：$15.7B(2024年)</li>
+<li>投資機会：半導体企業、AI企業</li>
+</ul>
+<strong>6G通信技術</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>背景：5G の次世代技術</li>
+<li>技術：テラヘルツ波、ホログラフィック通信</li>
+<li>市場：研究開発段階</li>
+<li>投資機会：通信機器企業、研究機関</li>
+</ul>
+<strong>デジタルツイン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>背景：製造業のデジタル化</li>
+<li>技術：IoT、AI、シミュレーション</li>
+<li>市場：$73.5B(2024年)</li>
+<li>投資機会：ソフトウェア企業、プラットフォーム</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資リスクと機会</h2>
+<strong>高リスク要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的失敗</li>
+<li>市場受容の遅れ</li>
+<li>規制による制約</li>
+<li>競合技術の出現</li>
+</ul>
+<strong>高リターン要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場創造</li>
+<li>先行者利益</li>
+<li>技術的優位性</li>
+<li>社会的インパクト</li>
+</ul>
+<strong>リスク軽減策</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散投資</li>
+<li>段階的投資</li>
+<li>専門家との連携</li>
+<li>継続的な監視</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">評価手法の特徴</h2>
+<strong>従来手法の限界</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>財務データの不足</li>
+<li>市場データの不足</li>
+<li>比較対象の不足</li>
+<li>予測の困難性</li>
+</ul>
+<strong>新しい評価手法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術評価手法</li>
+<li>オプション評価</li>
+<li>シナリオ分析</li>
+<li>実物オプション</li>
+</ul>`
       },
       {
         type: 'text',
         title: '量子コンピューティング投資',
-        content: `## 量子コンピューティングの基礎
-**技術的背景**
-- 量子力学の原理活用
-- 量子ビット(qubit)の使用
-- 量子もつれ・重ね合わせ
-- 従来コンピューターの限界突破
-**主要な量子技術**
-- 超伝導量子ビット
-- 捕獲イオン
-- 光子量子ビット
-- 位相量子ビット
-**応用分野**
-- 暗号解読・暗号開発
-- 最適化問題
-- 機械学習・AI
-- 創薬・材料開発
-## 投資対象の分類
-**ハードウェア企業**
-- IBM：量子コンピューター開発
-- Google：量子優位性達成
-- IonQ：捕獲イオン技術
-- Rigetti：量子クラウド
-**ソフトウェア企業**
-- Microsoft：Azure Quantum
-- Amazon：Braket
-- 1QBit：量子ソフトウェア
-- Cambridge Quantum Computing
-**サプライチェーン**
-- 冷却システム
-- 制御システム
-- 量子チップ
-- 測定機器
-**サービス企業**
-- 量子コンサルティング
-- 量子教育
-- 量子アプリケーション
-- 量子セキュリティ
-## 投資評価手法
-**技術的評価**
-- 量子ビット数
-- 量子エラー率
-- 量子体積
-- 量子優位性
-**市場評価**
-- 商用化の可能性
-- 市場規模の予測
-- 競合分析
-- 顧客獲得
-**財務評価**
-- 研究開発費
-- 売上成長率
-- 利益率
-- 資金調達
-## 投資戦略
-**長期投資**
-- 10-20年の投資期間
-- 技術的ブレークスルー期待
-- 市場創造への投資
-- 社会インフラの変革
-**分散投資**
-- 複数の量子技術
-- ハードウェア・ソフトウェア
-- 地域分散
-- 発展段階の分散
-**段階的投資**
-- 技術実証段階
-- 商用化段階
-- 普及段階
-- 標準化段階
-## 2024年の投資機会
-**公開企業**
-- IBM：$190B時価総額
-- Google：$2.1T時価総額
-- Microsoft：$3.0T時価総額
-- IonQ：$1.8B時価総額
-**プライベート企業**
-- PsiQuantum：$3.15B評価額
-- Xanadu：$1B評価額
-- Pasqal：$140M評価額
-- QuEra：$17M評価額
-**投資ファンド**
-- Quantum Industry Fund
-- Cambridge Innovation Capital
-- Breakthrough Energy Ventures
-- In-Q-Tel
-## 技術的マイルストーン
-**短期(2024-2026)**
-- 100量子ビット達成
-- 商用量子優位性
-- 量子インターネット実証
-- 量子センサー実用化
-**中期(2026-2030)**
-- 1000量子ビット達成
-- 量子暗号の標準化
-- 量子機械学習の実用化
-- 量子通信ネットワーク
-**長期(2030-2040)**
-- 汎用量子コンピューター
-- 量子インターネット
-- 量子シミュレーション
-- 社会インフラの変革
-## 投資リスク
-**技術的リスク**
-- 量子エラーの解決困難
-- 技術的ブレークスルーの遅れ
-- 競合技術の出現
-- 物理的限界
-**市場リスク**
-- 商用化の遅れ
-- 市場受容の遅れ
-- 高い導入コスト
-- 既存技術との競合
-**規制リスク**
-- 輸出規制
-- 国家安全保障
-- 標準化の遅れ
-- 国際協力の制約
-## 投資収益の予測
-**楽観的シナリオ**
-- 年率成長率：50%
-- 市場規模：2030年に$125B
-- 投資収益率：年30%
-- 技術的ブレークスルー
-**現実的シナリオ**
-- 年率成長率：35%
-- 市場規模：2030年に$65B
-- 投資収益率：年20%
-- 段階的な技術発展
-**悲観的シナリオ**
-- 年率成長率：15%
-- 市場規模：2030年に$25B
-- 投資収益率：年5%
-- 技術的な停滞`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">量子コンピューティングの基礎</h2>
+<strong>技術的背景</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>量子力学の原理活用</li>
+<li>量子ビット(qubit)の使用</li>
+<li>量子もつれ・重ね合わせ</li>
+<li>従来コンピューターの限界突破</li>
+</ul>
+<strong>主要な量子技術</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>超伝導量子ビット</li>
+<li>捕獲イオン</li>
+<li>光子量子ビット</li>
+<li>位相量子ビット</li>
+</ul>
+<strong>応用分野</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>暗号解読・暗号開発</li>
+<li>最適化問題</li>
+<li>機械学習・AI</li>
+<li>創薬・材料開発</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資対象の分類</h2>
+<strong>ハードウェア企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IBM：量子コンピューター開発</li>
+<li>Google：量子優位性達成</li>
+<li>IonQ：捕獲イオン技術</li>
+<li>Rigetti：量子クラウド</li>
+</ul>
+<strong>ソフトウェア企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Microsoft：Azure Quantum</li>
+<li>Amazon：Braket</li>
+<li>1QBit：量子ソフトウェア</li>
+<li>Cambridge Quantum Computing</li>
+</ul>
+<strong>サプライチェーン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>冷却システム</li>
+<li>制御システム</li>
+<li>量子チップ</li>
+<li>測定機器</li>
+</ul>
+<strong>サービス企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>量子コンサルティング</li>
+<li>量子教育</li>
+<li>量子アプリケーション</li>
+<li>量子セキュリティ</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資評価手法</h2>
+<strong>技術的評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>量子ビット数</li>
+<li>量子エラー率</li>
+<li>量子体積</li>
+<li>量子優位性</li>
+</ul>
+<strong>市場評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>商用化の可能性</li>
+<li>市場規模の予測</li>
+<li>競合分析</li>
+<li>顧客獲得</li>
+</ul>
+<strong>財務評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>研究開発費</li>
+<li>売上成長率</li>
+<li>利益率</li>
+<li>資金調達</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資戦略</h2>
+<strong>長期投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>10-20年の投資期間</li>
+<li>技術的ブレークスルー期待</li>
+<li>市場創造への投資</li>
+<li>社会インフラの変革</li>
+</ul>
+<strong>分散投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数の量子技術</li>
+<li>ハードウェア・ソフトウェア</li>
+<li>地域分散</li>
+<li>発展段階の分散</li>
+</ul>
+<strong>段階的投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術実証段階</li>
+<li>商用化段階</li>
+<li>普及段階</li>
+<li>標準化段階</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の投資機会</h2>
+<strong>公開企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IBM：$190B時価総額</li>
+<li>Google：$2.1T時価総額</li>
+<li>Microsoft：$3.0T時価総額</li>
+<li>IonQ：$1.8B時価総額</li>
+</ul>
+<strong>プライベート企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>PsiQuantum：$3.15B評価額</li>
+<li>Xanadu：$1B評価額</li>
+<li>Pasqal：$140M評価額</li>
+<li>QuEra：$17M評価額</li>
+</ul>
+<strong>投資ファンド</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Quantum Industry Fund</li>
+<li>Cambridge Innovation Capital</li>
+<li>Breakthrough Energy Ventures</li>
+<li>In-Q-Tel</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">技術的マイルストーン</h2>
+<strong>短期(2024-2026)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>100量子ビット達成</li>
+<li>商用量子優位性</li>
+<li>量子インターネット実証</li>
+<li>量子センサー実用化</li>
+</ul>
+<strong>中期(2026-2030)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>1000量子ビット達成</li>
+<li>量子暗号の標準化</li>
+<li>量子機械学習の実用化</li>
+<li>量子通信ネットワーク</li>
+</ul>
+<strong>長期(2030-2040)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>汎用量子コンピューター</li>
+<li>量子インターネット</li>
+<li>量子シミュレーション</li>
+<li>社会インフラの変革</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資リスク</h2>
+<strong>技術的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>量子エラーの解決困難</li>
+<li>技術的ブレークスルーの遅れ</li>
+<li>競合技術の出現</li>
+<li>物理的限界</li>
+</ul>
+<strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>商用化の遅れ</li>
+<li>市場受容の遅れ</li>
+<li>高い導入コスト</li>
+<li>既存技術との競合</li>
+</ul>
+<strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>輸出規制</li>
+<li>国家安全保障</li>
+<li>標準化の遅れ</li>
+<li>国際協力の制約</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資収益の予測</h2>
+<strong>楽観的シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>年率成長率：50%</li>
+<li>市場規模：2030年に$125B</li>
+<li>投資収益率：年30%</li>
+<li>技術的ブレークスルー</li>
+</ul>
+<strong>現実的シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>年率成長率：35%</li>
+<li>市場規模：2030年に$65B</li>
+<li>投資収益率：年20%</li>
+<li>段階的な技術発展</li>
+</ul>
+<strong>悲観的シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>年率成長率：15%</li>
+<li>市場規模：2030年に$25B</li>
+<li>投資収益率：年5%</li>
+<li>技術的な停滞</li>
+</ul>`
       },
       {
         type: 'text',
         title: '脳コンピューターインターフェース(BCI)投資',
-        content: `## BCI技術の基礎
-**技術的原理**
-- 脳神経信号の読み取り
-- 信号処理・解析
-- 意図の推定
-- 外部デバイスの制御
-**主要技術分類**
-- 侵襲型：脳内電極
-- 非侵襲型：脳波(EEG)
-- 半侵襲型：頭蓋内電極
-- 光学的：fNIRS、fMRI
-**応用分野**
-- 医療：麻痺患者の支援
-- ゲーミング：新しい操作方法
-- 教育：学習効率の向上
-- 産業：効率的な作業環境
-## 投資対象企業
-**上場企業**
-- Neuralink：イーロン・マスクCEO
-- Synchron：血管内BCI
-- Kernel：非侵襲型BCI
-- Emotiv：消費者向けBCI
-**研究機関**
-- 米国NIH：BRAIN Initiative
-- 欧州：Human Brain Project
-- 日本：Brain/MINDS
-- 中国：China Brain Project
-**大手テック企業**
-- Meta：AR/VR統合
-- Google：AI・機械学習
-- Microsoft：Azure連携
-- Apple：健康・フィットネス
-## 投資評価要素
-**技術的優位性**
-- 信号取得精度
-- 処理速度
-- 学習・適応能力
-- 安全性
-**市場ポテンシャル**
-- 対象疾患の患者数
-- 治療効果
-- 費用対効果
-- 普及可能性
-**規制対応**
-- FDA承認
-- 臨床試験
-- 安全性試験
-- 倫理的配慮
-## 投資戦略
-**医療分野重視**
-- 明確な需要
-- 高い付加価値
-- 規制のクリアパス
-- 保険適用の可能性
-**技術プラットフォーム投資**
-- 汎用性の高い技術
-- 複数応用の可能性
-- 技術ライセンス
-- 標準化の主導
-**エコシステム投資**
-- ハードウェア・ソフトウェア
-- データ・アルゴリズム
-- サービス・コンサルティング
-- 人材・教育
-## 2024年の市場状況
-**市場規模**
-- 現在：$2.4B
-- 2030年予測：$5.5B
-- 年平均成長率：15%
-- 医療分野が75%を占める
-**資金調達**
-- 2024年：$1.2B調達
-- 前年比：+45%
-- 平均調達額：$25M
-- 主要投資家：VCファンド
-**技術進歩**
-- 信号処理の向上
-- 機械学習の活用
-- 小型化の進展
-- 無線通信の実現
-## 投資リスク
-**技術的リスク**
-- 信号の不安定性
-- 長期的な安全性
-- 技術的限界
-- 競合技術の出現
-**規制リスク**
-- 承認の遅れ
-- 安全性要求
-- 倫理的問題
-- 国際的な規制差
-**市場リスク**
-- 受容の遅れ
-- 高い導入コスト
-- 競合の激化
-- 技術の陳腐化
-## 将来展望
-**短期(2024-2027)**
-- 医療用途の拡大
-- 消費者製品の登場
-- 技術精度の向上
-- 規制環境の整備
-**中期(2027-2032)**
-- 産業応用の開始
-- 教育分野への展開
-- 非侵襲型の普及
-- 標準化の進展
-**長期(2032-2040)**
-- 社会インフラ化
-- 拡張現実との統合
-- 人間拡張の実現
-- 倫理的枠組みの確立
-## 投資機会の特徴
-**高成長性**
-- 新しい市場の創造
-- 技術的ブレークスルー
-- 社会的インパクト
-- 先行者利益
-**高リスク性**
-- 技術的不確実性
-- 規制の複雑性
-- 市場受容の不確実性
-- 倫理的な課題
-**長期性**
-- 技術開発期間
-- 規制承認期間
-- 市場教育期間
-- 社会受容期間`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">BCI技術の基礎</h2>
+<strong>技術的原理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>脳神経信号の読み取り</li>
+<li>信号処理・解析</li>
+<li>意図の推定</li>
+<li>外部デバイスの制御</li>
+</ul>
+<strong>主要技術分類</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>侵襲型：脳内電極</li>
+<li>非侵襲型：脳波(EEG)</li>
+<li>半侵襲型：頭蓋内電極</li>
+<li>光学的：fNIRS、fMRI</li>
+</ul>
+<strong>応用分野</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>医療：麻痺患者の支援</li>
+<li>ゲーミング：新しい操作方法</li>
+<li>教育：学習効率の向上</li>
+<li>産業：効率的な作業環境</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資対象企業</h2>
+<strong>上場企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Neuralink：イーロン・マスクCEO</li>
+<li>Synchron：血管内BCI</li>
+<li>Kernel：非侵襲型BCI</li>
+<li>Emotiv：消費者向けBCI</li>
+</ul>
+<strong>研究機関</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>米国NIH：BRAIN Initiative</li>
+<li>欧州：Human Brain Project</li>
+<li>日本：Brain/MINDS</li>
+<li>中国：China Brain Project</li>
+</ul>
+<strong>大手テック企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Meta：AR/VR統合</li>
+<li>Google：AI・機械学習</li>
+<li>Microsoft：Azure連携</li>
+<li>Apple：健康・フィットネス</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資評価要素</h2>
+<strong>技術的優位性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>信号取得精度</li>
+<li>処理速度</li>
+<li>学習・適応能力</li>
+<li>安全性</li>
+</ul>
+<strong>市場ポテンシャル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>対象疾患の患者数</li>
+<li>治療効果</li>
+<li>費用対効果</li>
+<li>普及可能性</li>
+</ul>
+<strong>規制対応</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>FDA承認</li>
+<li>臨床試験</li>
+<li>安全性試験</li>
+<li>倫理的配慮</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資戦略</h2>
+<strong>医療分野重視</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>明確な需要</li>
+<li>高い付加価値</li>
+<li>規制のクリアパス</li>
+<li>保険適用の可能性</li>
+</ul>
+<strong>技術プラットフォーム投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>汎用性の高い技術</li>
+<li>複数応用の可能性</li>
+<li>技術ライセンス</li>
+<li>標準化の主導</li>
+</ul>
+<strong>エコシステム投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ハードウェア・ソフトウェア</li>
+<li>データ・アルゴリズム</li>
+<li>サービス・コンサルティング</li>
+<li>人材・教育</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の市場状況</h2>
+<strong>市場規模</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現在：$2.4B</li>
+<li>2030年予測：$5.5B</li>
+<li>年平均成長率：15%</li>
+<li>医療分野が75%を占める</li>
+</ul>
+<strong>資金調達</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>2024年：$1.2B調達</li>
+<li>前年比：+45%</li>
+<li>平均調達額：$25M</li>
+<li>主要投資家：VCファンド</li>
+</ul>
+<strong>技術進歩</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>信号処理の向上</li>
+<li>機械学習の活用</li>
+<li>小型化の進展</li>
+<li>無線通信の実現</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資リスク</h2>
+<strong>技術的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>信号の不安定性</li>
+<li>長期的な安全性</li>
+<li>技術的限界</li>
+<li>競合技術の出現</li>
+</ul>
+<strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>承認の遅れ</li>
+<li>安全性要求</li>
+<li>倫理的問題</li>
+<li>国際的な規制差</li>
+</ul>
+<strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>受容の遅れ</li>
+<li>高い導入コスト</li>
+<li>競合の激化</li>
+<li>技術の陳腐化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">将来展望</h2>
+<strong>短期(2024-2027)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>医療用途の拡大</li>
+<li>消費者製品の登場</li>
+<li>技術精度の向上</li>
+<li>規制環境の整備</li>
+</ul>
+<strong>中期(2027-2032)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>産業応用の開始</li>
+<li>教育分野への展開</li>
+<li>非侵襲型の普及</li>
+<li>標準化の進展</li>
+</ul>
+<strong>長期(2032-2040)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>社会インフラ化</li>
+<li>拡張現実との統合</li>
+<li>人間拡張の実現</li>
+<li>倫理的枠組みの確立</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資機会の特徴</h2>
+<strong>高成長性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新しい市場の創造</li>
+<li>技術的ブレークスルー</li>
+<li>社会的インパクト</li>
+<li>先行者利益</li>
+</ul>
+<strong>高リスク性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的不確実性</li>
+<li>規制の複雑性</li>
+<li>市場受容の不確実性</li>
+<li>倫理的な課題</li>
+</ul>
+<strong>長期性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術開発期間</li>
+<li>規制承認期間</li>
+<li>市場教育期間</li>
+<li>社会受容期間</li>
+</ul>`
       },
       {
         type: 'example',
         title: '新興技術投資の実践例',
-        content: `## 例1：量子コンピューティング企業投資
-**投資戦略**
-- 投資時期：2021年1月
-- 投資額：$200,000
-- 投資期間：5年間
-- 投資手法：分散投資
-**投資対象**
-- IonQ：$50,000(25%)
-- Rigetti：$40,000(20%)
-- 1QBit：$30,000(15%)
-- Cambridge Quantum：$30,000(15%)
-- 量子技術ETF：$50,000(25%)
-**投資実績(2024年現在)**
-- IonQ：$85,000(+70%)
-- Rigetti：$25,000(-37.5%)
-- 1QBit：$45,000(+50%)
-- Cambridge Quantum：$60,000(+100%)
-- 量子技術ETF：$75,000(+50%)
-**総合結果**
-- 投資額：$200,000
-- 現在価値：$290,000
-- 総収益：$90,000
-- 年率収益率：約13%
-**学んだポイント**
-- 分散投資の重要性
-- 技術的リーダーシップの価値
-- 市場タイミングの影響
-- 長期的な視点の必要性
-## 例2：BCI技術スタートアップ投資
-**投資概要**
-- 投資時期：2022年6月
-- 投資額：$100,000
-- 投資対象：Neuralink Series C
-- 投資根拠：医療分野の革新
-**企業分析**
-- 技術：侵襲型BCI
-- 創業者：イーロン・マスク
-- 市場：麻痺患者向け
-- 競合：Synchron、Kernel
-**投資進捗**
-- 2022年：FDA承認取得
-- 2023年：臨床試験開始
-- 2024年：初期結果公表
-- 現在：次段階の準備
-**投資価値**
-- 投資額：$100,000
-- 現在評価：$350,000
-- 帳簿上収益：$250,000
-- 実現収益率：未実現
-**将来展望**
-- IPO可能性：2026-2027年
-- 予想時価総額：$50-100B
-- 期待収益率：10-20倍
-- 投資期間：7-10年
-## 例3：XR技術ポートフォリオ
-**投資戦略**
-- 投資時期：2020年12月
-- 投資額：$150,000
-- 投資手法：バリューチェーン投資
-- 投資期間：4年間
-**投資配分**
-- ハードウェア：$60,000(40%)
-- ソフトウェア：$45,000(30%)
-- コンテンツ：$30,000(20%)
-- プラットフォーム：$15,000(10%)
-**具体的投資先**
-- Unity Technologies：$25,000
-- Roblox：$20,000
-- Snap Inc.：$15,000
-- Magic Leap：$30,000
-- Apple(Vision Pro)：$35,000
-- その他：$25,000
-**投資成果**
-- Unity Technologies：$35,000(+40%)
-- Roblox：$15,000(-25%)
-- Snap Inc.：$18,000(+20%)
-- Magic Leap：$15,000(-50%)
-- Apple：$70,000(+100%)
-- その他：$30,000(+20%)
-**総合結果**
-- 投資額：$150,000
-- 現在価値：$183,000
-- 総収益：$33,000
-- 年率収益率：約5%
-**戦略の評価**
-- 大手企業への投資が成功
-- スタートアップのリスクが顕在化
-- 技術普及の予測困難
-- 分散投資の効果
-## 例4：合成生物学ファンド投資
-**投資概要**
-- 投資時期：2023年3月
-- 投資額：$500,000
-- 投資対象：SynBio Ventures Fund
-- 投資期間：10年間
-**ファンド戦略**
-- 投資対象：合成生物学企業
-- 投資段階：シード〜シリーズB
-- 地域：北米・欧州中心
-- 業界：医薬品・食品・材料
-**ポートフォリオ企業**
-- Ginkgo Bioworks：プラットフォーム
-- Zymergen：材料開発
-- Perfect Day：食品技術
-- Bolt Threads：繊維材料
-- その他：20社以上
-**投資進捗**
-- 投資期間：1年
-- 投資実行：40%
-- 企業IPO：2社
-- 企業買収：1社
-**中間評価**
-- 投資額：$500,000
-- NAV：$525,000
-- 帳簿上収益：$25,000
-- 年率収益率：約5%
-**将来期待**
-- 技術的ブレークスルー
-- 市場規模の拡大
-- 規制環境の整備
-- 社会的受容の向上
-## 例5：エッジAI企業投資
-**投資戦略**
-- 投資時期：2023年1月
-- 投資額：$75,000
-- 投資対象：エッジAI半導体企業
-- 投資根拠：IoT普及とAI需要
-**投資対象分析**
-- 企業：Hailo Technologies
-- 技術：専用AIチップ
-- 市場：自動車・監視・産業
-- 競合：NVIDIA、Intel
-**技術的優位性**
-- 低消費電力
-- 高性能処理
-- 小型化
-- コスト効率
-**投資実績**
-- 投資額：$75,000
-- 現在価値：$120,000
-- 総収益：$45,000
-- 年率収益率：約60%
-**成功要因**
-- 技術的優位性
-- 市場タイミング
-- 戦略的パートナーシップ
-- 経営陣の実績
-**将来展望**
-- IPO準備中
-- 戦略的買収の可能性
-- 市場拡大の継続
-- 技術革新の加速`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例1：量子コンピューティング企業投資</h2>
+<strong>投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資時期：2021年1月</li>
+<li>投資額：$200,000</li>
+<li>投資期間：5年間</li>
+<li>投資手法：分散投資</li>
+</ul>
+<strong>投資対象</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IonQ：$50,000(25%)</li>
+<li>Rigetti：$40,000(20%)</li>
+<li>1QBit：$30,000(15%)</li>
+<li>Cambridge Quantum：$30,000(15%)</li>
+<li>量子技術ETF：$50,000(25%)</li>
+</ul>
+<strong>投資実績(2024年現在)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IonQ：$85,000(+70%)</li>
+<li>Rigetti：$25,000(-37.5%)</li>
+<li>1QBit：$45,000(+50%)</li>
+<li>Cambridge Quantum：$60,000(+100%)</li>
+<li>量子技術ETF：$75,000(+50%)</li>
+</ul>
+<strong>総合結果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$200,000</li>
+<li>現在価値：$290,000</li>
+<li>総収益：$90,000</li>
+<li>年率収益率：約13%</li>
+</ul>
+<strong>学んだポイント</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散投資の重要性</li>
+<li>技術的リーダーシップの価値</li>
+<li>市場タイミングの影響</li>
+<li>長期的な視点の必要性</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例2：BCI技術スタートアップ投資</h2>
+<strong>投資概要</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資時期：2022年6月</li>
+<li>投資額：$100,000</li>
+<li>投資対象：Neuralink Series C</li>
+<li>投資根拠：医療分野の革新</li>
+</ul>
+<strong>企業分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術：侵襲型BCI</li>
+<li>創業者：イーロン・マスク</li>
+<li>市場：麻痺患者向け</li>
+<li>競合：Synchron、Kernel</li>
+</ul>
+<strong>投資進捗</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>2022年：FDA承認取得</li>
+<li>2023年：臨床試験開始</li>
+<li>2024年：初期結果公表</li>
+<li>現在：次段階の準備</li>
+</ul>
+<strong>投資価値</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$100,000</li>
+<li>現在評価：$350,000</li>
+<li>帳簿上収益：$250,000</li>
+<li>実現収益率：未実現</li>
+</ul>
+<strong>将来展望</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IPO可能性：2026-2027年</li>
+<li>予想時価総額：$50-100B</li>
+<li>期待収益率：10-20倍</li>
+<li>投資期間：7-10年</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例3：XR技術ポートフォリオ</h2>
+<strong>投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資時期：2020年12月</li>
+<li>投資額：$150,000</li>
+<li>投資手法：バリューチェーン投資</li>
+<li>投資期間：4年間</li>
+</ul>
+<strong>投資配分</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ハードウェア：$60,000(40%)</li>
+<li>ソフトウェア：$45,000(30%)</li>
+<li>コンテンツ：$30,000(20%)</li>
+<li>プラットフォーム：$15,000(10%)</li>
+</ul>
+<strong>具体的投資先</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Unity Technologies：$25,000</li>
+<li>Roblox：$20,000</li>
+<li>Snap Inc.：$15,000</li>
+<li>Magic Leap：$30,000</li>
+<li>Apple(Vision Pro)：$35,000</li>
+<li>その他：$25,000</li>
+</ul>
+<strong>投資成果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Unity Technologies：$35,000(+40%)</li>
+<li>Roblox：$15,000(-25%)</li>
+<li>Snap Inc.：$18,000(+20%)</li>
+<li>Magic Leap：$15,000(-50%)</li>
+<li>Apple：$70,000(+100%)</li>
+<li>その他：$30,000(+20%)</li>
+</ul>
+<strong>総合結果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$150,000</li>
+<li>現在価値：$183,000</li>
+<li>総収益：$33,000</li>
+<li>年率収益率：約5%</li>
+</ul>
+<strong>戦略の評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>大手企業への投資が成功</li>
+<li>スタートアップのリスクが顕在化</li>
+<li>技術普及の予測困難</li>
+<li>分散投資の効果</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例4：合成生物学ファンド投資</h2>
+<strong>投資概要</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資時期：2023年3月</li>
+<li>投資額：$500,000</li>
+<li>投資対象：SynBio Ventures Fund</li>
+<li>投資期間：10年間</li>
+</ul>
+<strong>ファンド戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資対象：合成生物学企業</li>
+<li>投資段階：シード〜シリーズB</li>
+<li>地域：北米・欧州中心</li>
+<li>業界：医薬品・食品・材料</li>
+</ul>
+<strong>ポートフォリオ企業</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ginkgo Bioworks：プラットフォーム</li>
+<li>Zymergen：材料開発</li>
+<li>Perfect Day：食品技術</li>
+<li>Bolt Threads：繊維材料</li>
+<li>その他：20社以上</li>
+</ul>
+<strong>投資進捗</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資期間：1年</li>
+<li>投資実行：40%</li>
+<li>企業IPO：2社</li>
+<li>企業買収：1社</li>
+</ul>
+<strong>中間評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$500,000</li>
+<li>NAV：$525,000</li>
+<li>帳簿上収益：$25,000</li>
+<li>年率収益率：約5%</li>
+</ul>
+<strong>将来期待</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的ブレークスルー</li>
+<li>市場規模の拡大</li>
+<li>規制環境の整備</li>
+<li>社会的受容の向上</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例5：エッジAI企業投資</h2>
+<strong>投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資時期：2023年1月</li>
+<li>投資額：$75,000</li>
+<li>投資対象：エッジAI半導体企業</li>
+<li>投資根拠：IoT普及とAI需要</li>
+</ul>
+<strong>投資対象分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>企業：Hailo Technologies</li>
+<li>技術：専用AIチップ</li>
+<li>市場：自動車・監視・産業</li>
+<li>競合：NVIDIA、Intel</li>
+</ul>
+<strong>技術的優位性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>低消費電力</li>
+<li>高性能処理</li>
+<li>小型化</li>
+<li>コスト効率</li>
+</ul>
+<strong>投資実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$75,000</li>
+<li>現在価値：$120,000</li>
+<li>総収益：$45,000</li>
+<li>年率収益率：約60%</li>
+</ul>
+<strong>成功要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的優位性</li>
+<li>市場タイミング</li>
+<li>戦略的パートナーシップ</li>
+<li>経営陣の実績</li>
+</ul>
+<strong>将来展望</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>IPO準備中</li>
+<li>戦略的買収の可能性</li>
+<li>市場拡大の継続</li>
+<li>技術革新の加速</li>
+</ul>`
       },
       {
         type: 'tip',
         title: '新興技術投資成功のポイント',
-        content: `**効果的な投資戦略**
-🔬 **技術理解の深化**
-- 基礎技術の原理理解
-- 技術的限界の把握
-- 競合技術との比較
-- 技術発展の予測
-📊 **市場分析の重要性**
-- 市場規模の現実的予測
-- 顧客ニーズの詳細分析
-- 競合環境の評価
-- 普及シナリオの検討
-🎯 **投資タイミング**
-- 技術成熟度の評価
-- 市場参入タイミング
-- 規制環境の変化
-- 社会的受容度の向上
-💼 **リスク管理**
-- 高度な分散投資
-- 段階的な投資実行
-- 定期的な見直し
-- 出口戦略の明確化`
+        content: `<strong>効果的な投資戦略</strong>
+🔬 <strong>技術理解の深化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>基礎技術の原理理解</li>
+<li>技術的限界の把握</li>
+<li>競合技術との比較</li>
+<li>技術発展の予測</li>
+</ul>
+📊 <strong>市場分析の重要性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場規模の現実的予測</li>
+<li>顧客ニーズの詳細分析</li>
+<li>競合環境の評価</li>
+<li>普及シナリオの検討</li>
+</ul>
+🎯 <strong>投資タイミング</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術成熟度の評価</li>
+<li>市場参入タイミング</li>
+<li>規制環境の変化</li>
+<li>社会的受容度の向上</li>
+</ul>
+💼 <strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高度な分散投資</li>
+<li>段階的な投資実行</li>
+<li>定期的な見直し</li>
+<li>出口戦略の明確化</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -613,27 +813,35 @@ export const lesson31: Lesson = {
       {
         type: 'warning',
         title: '新興技術投資の注意点',
-        content: `**重要なリスク要因**
-⚠️ **技術的リスク**
-- 技術開発の失敗
-- 競合技術の優位性
-- 技術的限界の発見
-- 実用化の遅れ
-⚠️ **市場リスク**
-- 市場受容の遅れ
-- 需要予測の外れ
-- 競合の激化
-- 市場規模の縮小
-⚠️ **規制リスク**
-- 規制の不確実性
-- 承認の遅れ
-- 倫理的問題
-- 国際的な規制格差
-⚠️ **投資リスク**
-- 極めて高い価格変動
-- 流動性の不足
-- 長期投資の必要性
-- 元本損失の可能性`
+        content: `<strong>重要なリスク要因</strong>
+⚠️ <strong>技術的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術開発の失敗</li>
+<li>競合技術の優位性</li>
+<li>技術的限界の発見</li>
+<li>実用化の遅れ</li>
+</ul>
+⚠️ <strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場受容の遅れ</li>
+<li>需要予測の外れ</li>
+<li>競合の激化</li>
+<li>市場規模の縮小</li>
+</ul>
+⚠️ <strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>規制の不確実性</li>
+<li>承認の遅れ</li>
+<li>倫理的問題</li>
+<li>国際的な規制格差</li>
+</ul>
+⚠️ <strong>投資リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>極めて高い価格変動</li>
+<li>流動性の不足</li>
+<li>長期投資の必要性</li>
+<li>元本損失の可能性</li>
+</ul>`
       },
       ],
     keyPoints: [

@@ -1,68 +1,19 @@
-// Advanced Investment Strategies Lessons Export
+import { Lesson } from '@/lib/types/learning';
+import { advancedInvestmentCategoryTest } from './category-test';
+import { advancedInvestmentTest1 } from './test-1';
+import { advancedInvestmentTest2 } from './test-2';
+import { advancedInvestmentTest3 } from './test-3';
+import { advancedInvestmentTest4 } from './test-4';
+import { advancedInvestmentTest5 } from './test-5';
+import { advancedInvestmentTest6 } from './test-6';
+import { advancedInvestmentTest7 } from './test-7';
+import { advancedInvestmentTest8 } from './test-8';
+import { advancedInvestmentTest9 } from './test-9';
+import { advancedInvestmentTest10 } from './test-10';
+import { advancedInvestmentTest11 } from './test-11';
+import { advancedInvestmentTest12 } from './test-12';
 
-// All existing lessons
-export { lesson1 } from './lesson-1';
-export { lesson2 } from './lesson-2';
-export { lesson3 } from './lesson-3';
-export { lesson4 } from './lesson-4';
-export { lesson5 } from './lesson-5';
-export { lesson6 } from './lesson-6';
-export { lesson7 } from './lesson-7';
-export { lesson8 } from './lesson-8';
-export { lesson9 } from './lesson-9';
-export { lesson10 } from './lesson-10';
-export { lesson11 } from './lesson-11';
-export { lesson12 } from './lesson-12';
-export { lesson13 } from './lesson-13';
-export { lesson14 } from './lesson-14';
-export { lesson15 } from './lesson-15';
-export { lesson16 } from './lesson-16';
-export { lesson17 } from './lesson-17';
-export { lesson18 } from './lesson-18';
-export { lesson19 } from './lesson-19';
-export { lesson20 } from './lesson-20';
-export { lesson21 } from './lesson-21';
-export { lesson22 } from './lesson-22';
-export { lesson23 } from './lesson-23';
-export { lesson24 } from './lesson-24';
-export { lesson25 } from './lesson-25';
-export { lesson26 } from './lesson-26';
-export { lesson27 } from './lesson-27';
-export { lesson28 } from './lesson-28';
-export { lesson29 } from './lesson-29';
-export { lesson30 } from './lesson-30';
-export { lesson31 } from './lesson-31';
-export { lesson32 } from './lesson-32';
-export { lesson33 } from './lesson-33';
-export { lesson34 } from './lesson-34';
-export { lesson35 } from './lesson-35';
-export { lesson36 } from './lesson-36';
-export { lesson37 } from './lesson-37';
-export { lesson38 } from './lesson-38';
-export { lesson39 } from './lesson-39';
-export { lesson40 } from './lesson-40';
-export { lesson41 } from './lesson-41';
-export { lesson42 } from './lesson-42';
-export { lesson43 } from './lesson-43';
-export { lesson44 } from './lesson-44';
-export { lesson45 } from './lesson-45';
-export { lesson46 } from './lesson-46';
-export { lesson47 } from './lesson-47';
-export { lesson48 } from './lesson-48';
-export { lesson49 } from './lesson-49';
-export { lesson50 } from './lesson-50';
-export { lesson51 } from './lesson-51';
-export { lesson52 } from './lesson-52';
-export { lesson53 } from './lesson-53';
-export { lesson54 } from './lesson-54';
-export { lesson55 } from './lesson-55';
-export { lesson56 } from './lesson-56';
-export { lesson57 } from './lesson-57';
-export { lesson58 } from './lesson-58';
-export { lesson59 } from './lesson-59';
-export { lesson60 } from './lesson-60';
-
-// Collection of all lessons
+// Import all lessons
 import { lesson1 } from './lesson-1';
 import { lesson2 } from './lesson-2';
 import { lesson3 } from './lesson-3';
@@ -124,7 +75,8 @@ import { lesson58 } from './lesson-58';
 import { lesson59 } from './lesson-59';
 import { lesson60 } from './lesson-60';
 
-export const advancedInvestmentLessons = [
+// Collection of all advanced investment lessons
+export const advancedInvestmentLessons: Lesson[] = [
   lesson1,
   lesson2,
   lesson3,
@@ -185,4 +137,56 @@ export const advancedInvestmentLessons = [
   lesson58,
   lesson59,
   lesson60
+];
+
+// 🎉 ADVANCED INVESTMENT STRATEGIES CURRICULUM - 60/60 lessons (100% complete) ✓
+//
+// ✅ FULLY COMPLETED SECTIONS:
+// ✓ Portfolio Theory & Construction (lessons 1-10): MPT, asset allocation, diversification
+// ✓ Advanced Trading Strategies (lessons 11-20): Options, derivatives, complex strategies
+// ✓ Alternative Investments (lessons 21-30): REITs, commodities, private equity
+// ✓ Quantitative Analysis (lessons 31-40): Statistical models, backtesting, algorithms
+// ✓ Risk Management Systems (lessons 41-50): VaR, stress testing, hedging strategies
+// ✓ Professional Investment Management (lessons 51-60): Institutional strategies, performance analysis
+//
+// 🏆 CURRICULUM STRUCTURE:
+//
+// 📊 PORTFOLIO FUNDAMENTALS (lessons 1-20):
+//    - Modern Portfolio Theory and efficient frontiers
+//    - Asset allocation strategies and rebalancing
+//    - Advanced trading strategies and derivatives
+//    - Options, futures, and complex instruments
+//
+// 🔬 QUANTITATIVE METHODS (lessons 21-40):
+//    - Alternative investment vehicles and analysis
+//    - Statistical modeling and quantitative analysis
+//    - Algorithmic trading and backtesting
+//    - Performance measurement and attribution
+//
+// 🛡️ PROFESSIONAL STRATEGIES (lessons 41-60):
+//    - Advanced risk management systems
+//    - Institutional investment approaches
+//    - Hedge fund and private equity strategies
+//    - Professional portfolio management
+//
+// 💫 ACHIEVEMENT: Complete 60-lesson advanced investment curriculum
+//    covering professional-level strategies and quantitative methods
+
+// Export category test and lesson tests
+export { advancedInvestmentCategoryTest };
+
+// Export 5-lesson tests (レッスン5つごとの確認テスト)
+export const advancedInvestmentTests = [
+  advancedInvestmentTest1,  // Lessons 1-5
+  advancedInvestmentTest2,  // Lessons 6-10
+  advancedInvestmentTest3,  // Lessons 11-15
+  advancedInvestmentTest4,  // Lessons 16-20
+  advancedInvestmentTest5,  // Lessons 21-25
+  advancedInvestmentTest6,  // Lessons 26-30
+  advancedInvestmentTest7,  // Lessons 31-35
+  advancedInvestmentTest8,  // Lessons 36-40
+  advancedInvestmentTest9,  // Lessons 41-45
+  advancedInvestmentTest10, // Lessons 46-50
+  advancedInvestmentTest11, // Lessons 51-55
+  advancedInvestmentTest12, // Lessons 56-60
 ];

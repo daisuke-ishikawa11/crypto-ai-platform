@@ -72,411 +72,501 @@ export const lesson24: Lesson = {
       {
         type: 'text',
         content: `# 基本的な出来高分析手法
-## 出来高移動平均との比較（基礎編）
-### 出来高の平均化
-**計算方法**
-- **5日平均出来高**: 過去5日間の平均取引量
-- **20日平均出来高**: 過去20日間の平均取引量
-- **50日平均出来高**: 過去50日間の平均取引量
-### 基本的な判断基準
-#### 平均比での評価
-- **150%以上**: 非常に高い出来高（重要な動き）
-- **120-150%**: 高い出来高（注目すべき動き）
-- **80-120%**: 通常の出来高（平常時）
-- **80%以下**: 低い出来高（関心低下）
-### 実践例（2025年データ想定）
-**ビットコイン出来高分析**
-- **平均出来高**: 30,000 BTC/日
-- **突破時出来高**: 55,000 BTC/日（183%）
-- **判定**: 重要なブレイクアウトと確認
-- **行動**: ブレイクアウト方向への追随検討
-## 価格帯別出来高（基礎から応用）
-### Volume by Price（価格別出来高）
-**基本概念**
-- **定義**: 各価格レベルで取引された累積出来高
-- **表示**: 横向きのヒストグラム
-- **活用**: サポート・レジスタンスの強度測定
-### 重要な価格レベルの識別
-#### 高出来高価格帯（HVN: High Volume Node）
-- **特徴**: 大量の取引が行われた価格
-- **意味**: 強いサポート・レジスタンスレベル
-- **活用**: 反発・抵抗ポイントとして機能
-#### 低出来高価格帯（LVN: Low Volume Node）
-- **特徴**: 少量の取引しか行われなかった価格
-- **意味**: 弱いサポート・レジスタンス
-- **活用**: 素早く通過する可能性が高い
-### 実践的な活用方法
-**サポート・レジスタンス強度の判定**
-1. **強いサポート**: 過去高出来高価格帯での下落時
-2. **強いレジスタンス**: 過去高出来高価格帯での上昇時
-3. **ブレイクアウト**: 低出来高価格帯の迅速通過
-4. **利確目標**: 次の高出来高価格帯
-## 出来高とトレンドの関係（応用編）
-### 上昇トレンドでの出来高パターン
-**健全な上昇トレンド**
-- **上昇時**: 出来高増加
-- **調整時**: 出来高減少
-- **継続性**: 各高値で出来高確認
-### 上昇トレンド終了の兆候
-**出来高ダイバージェンス**
-- **価格**: 新高値更新
-- **出来高**: 前回高値より減少
-- **意味**: 上昇力の減退
-- **対応**: 利確・ポジション縮小検討
-### 下降トレンドでの出来高パターン
-**健全な下降トレンド**
-- **下落時**: 出来高増加
-- **戻り時**: 出来高減少
-- **継続性**: 各安値で出来高確認
-### 下降トレンド終了の兆候
-**セリングクライマックス**
-- **現象**: 急激な下落 + 異常な出来高急増
-- **意味**: パニック売りの頂点
-- **期待**: 下降トレンド終了・反転の可能性`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">出来高移動平均との比較（基礎編）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">出来高の平均化</h3>
+<strong>計算方法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>5日平均出来高</strong>: 過去5日間の平均取引量</li>
+<li><strong>20日平均出来高</strong>: 過去20日間の平均取引量</li>
+<li><strong>50日平均出来高</strong>: 過去50日間の平均取引量</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">基本的な判断基準</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">平均比での評価</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>150%以上</strong>: 非常に高い出来高（重要な動き）</li>
+<li><strong>120-150%</strong>: 高い出来高（注目すべき動き）</li>
+<li><strong>80-120%</strong>: 通常の出来高（平常時）</li>
+<li><strong>80%以下</strong>: 低い出来高（関心低下）</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践例（2025年データ想定）</h3>
+<strong>ビットコイン出来高分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>平均出来高</strong>: 30,000 BTC/日</li>
+<li><strong>突破時出来高</strong>: 55,000 BTC/日（183%）</li>
+<li><strong>判定</strong>: 重要なブレイクアウトと確認</li>
+<li><strong>行動</strong>: ブレイクアウト方向への追随検討</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">価格帯別出来高（基礎から応用）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Volume by Price（価格別出来高）</h3>
+<strong>基本概念</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>定義</strong>: 各価格レベルで取引された累積出来高</li>
+<li><strong>表示</strong>: 横向きのヒストグラム</li>
+<li><strong>活用</strong>: サポート・レジスタンスの強度測定</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">重要な価格レベルの識別</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">高出来高価格帯（HVN: High Volume Node）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: 大量の取引が行われた価格</li>
+<li><strong>意味</strong>: 強いサポート・レジスタンスレベル</li>
+<li><strong>活用</strong>: 反発・抵抗ポイントとして機能</li>
+</ul>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">低出来高価格帯（LVN: Low Volume Node）</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>特徴</strong>: 少量の取引しか行われなかった価格</li>
+<li><strong>意味</strong>: 弱いサポート・レジスタンス</li>
+<li><strong>活用</strong>: 素早く通過する可能性が高い</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践的な活用方法</h3>
+<strong>サポート・レジスタンス強度の判定</strong>
+1. <strong>強いサポート</strong>: 過去高出来高価格帯での下落時
+2. <strong>強いレジスタンス</strong>: 過去高出来高価格帯での上昇時
+3. <strong>ブレイクアウト</strong>: 低出来高価格帯の迅速通過
+4. <strong>利確目標</strong>: 次の高出来高価格帯
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">出来高とトレンドの関係（応用編）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">上昇トレンドでの出来高パターン</h3>
+<strong>健全な上昇トレンド</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>上昇時</strong>: 出来高増加</li>
+<li><strong>調整時</strong>: 出来高減少</li>
+<li><strong>継続性</strong>: 各高値で出来高確認</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">上昇トレンド終了の兆候</h3>
+<strong>出来高ダイバージェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: 新高値更新</li>
+<li><strong>出来高</strong>: 前回高値より減少</li>
+<li><strong>意味</strong>: 上昇力の減退</li>
+<li><strong>対応</strong>: 利確・ポジション縮小検討</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">下降トレンドでの出来高パターン</h3>
+<strong>健全な下降トレンド</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>下落時</strong>: 出来高増加</li>
+<li><strong>戻り時</strong>: 出来高減少</li>
+<li><strong>継続性</strong>: 各安値で出来高確認</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">下降トレンド終了の兆候</h3>
+<strong>セリングクライマックス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現象</strong>: 急激な下落 + 異常な出来高急増</li>
+<li><strong>意味</strong>: パニック売りの頂点</li>
+<li><strong>期待</strong>: 下降トレンド終了・反転の可能性</li>
+</ul>`
       },
       {
         type: 'text',
         content: `# VWAP（出来高加重平均価格）の基礎から応用
-## VWAPの基本概念
-### VWAP（Volume Weighted Average Price）とは
-**定義**: 出来高で加重した平均価格
-**計算式**: VWAP = Σ(価格 × 出来高) ÷ Σ(出来高)
-**期間**: 通常は1日間（セッション開始から終了まで）
-### VWAPの基本的な意味
-#### 公平価値の指標
-- **機関投資家**: 執行価格の目安として使用
-- **個人投資家**: 現在価格の割安・割高判定
-- **市場全体**: その日の平均的な取引価格
-#### 価格位置による判断
-- **価格 > VWAP**: 買い優勢、強気環境
-- **価格 < VWAP**: 売り優勢、弱気環境
-- **価格 = VWAP**: 均衡状態、転換点の可能性
-## VWAPの実践的活用法（基礎編）
-### サポート・レジスタンスとしての活用
-**VWAPサポート**
-- **現象**: 価格がVWAP付近で下げ止まり
-- **意味**: 買い支えの確認
-- **戦略**: VWAP付近での押し目買い
-**VWAPレジスタンス**
-- **現象**: 価格がVWAP付近で上値重い
-- **意味**: 売り圧力の確認
-- **戦略**: VWAP付近での戻り売り
-### エントリータイミングの改善
-**VWAP反発買い**
-1. **確認**: 価格がVWAPに接近
-2. **待機**: VWAP付近での反発確認
-3. **エントリー**: 反発確認後の買い
-4. **ストップ**: VWAP明確割れ
-### 実践例（2025年想定）
-**イーサリアムVWAP戦略**
-- **VWAP**: $3,250（当日平均）
-- **現在価格**: $3,280（VWAP上）
-- **戦略**: $3,250付近での押し目買い待機
-- **ストップ**: $3,230（VWAP明確割れ）
-- **利確**: $3,350（前日高値）
-## VWAPの高度な活用法（応用編）
-### 複数期間VWAPの組み合わせ
-**異なる期間設定**
-- **日中VWAP**: その日のセッション内
-- **週間VWAP**: 週単位の加重平均
-- **月間VWAP**: 月単位の加重平均
-### マルチタイムフレームVWAP戦略
-**長期・短期の組み合わせ**
-1. **週間VWAP**: 大局的な方向性確認
-2. **日間VWAP**: 中期的なエントリータイミング
-3. **時間内VWAP**: 短期的な精密調整
-### VWAPバンドの活用
-**標準偏差バンドの追加**
-- **上バンド**: VWAP + (標準偏差 × 1)
-- **下バンド**: VWAP - (標準偏差 × 1)
-- **活用**: ボリンジャーバンドと同様の逆張り
-## 機関投資家の動向読み取り
-### VWAPアルゴリズム取引の識別
-**機関投資家の典型的行動**
-- **大口買い**: VWAPlower以下での執行狙い
-- **大口売り**: VWAP以上での執行狙い
-- **分割執行**: VWAP近辺での段階的取引
-### 機関投資家追随戦略
-**VWAP下での買い蓄積**
-1. **観察**: 価格がVWAP下で推移
-2. **出来高確認**: 継続的な買い出来高
-3. **タイミング**: VWAP上抜けでの追随
-4. **利確**: 機関投資家利確レベル想定
-## 暗号通貨特有のVWAP活用
-### 24時間取引の特性
-**グローバル市場の考慮**
-- **アジア時間**: 比較的低出来高
-- **ヨーロッパ時間**: 中程度の出来高
-- **アメリカ時間**: 高出来高
-- **統合VWAP**: 地域別加重の調整
-### 大口取引の影響
-**ホエール（大口投資家）の動向**
-- **異常出来高**: 大口取引の可能性
-- **VWAP乖離**: 大口取引による一時的歪み
-- **復帰**: VWAPへの価格回帰傾向`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">VWAPの基本概念</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">VWAP（Volume Weighted Average Price）とは</h3>
+<strong>定義</strong>: 出来高で加重した平均価格
+<strong>計算式</strong>: VWAP = Σ(価格 × 出来高) ÷ Σ(出来高)
+<strong>期間</strong>: 通常は1日間（セッション開始から終了まで）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">VWAPの基本的な意味</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">公平価値の指標</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機関投資家</strong>: 執行価格の目安として使用</li>
+<li><strong>個人投資家</strong>: 現在価格の割安・割高判定</li>
+<li><strong>市場全体</strong>: その日の平均的な取引価格</li>
+</ul>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">価格位置による判断</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格 > VWAP</strong>: 買い優勢、強気環境</li>
+<li><strong>価格 < VWAP</strong>: 売り優勢、弱気環境</li>
+<li><strong>価格 = VWAP</strong>: 均衡状態、転換点の可能性</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">VWAPの実践的活用法（基礎編）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">サポート・レジスタンスとしての活用</h3>
+<strong>VWAPサポート</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現象</strong>: 価格がVWAP付近で下げ止まり</li>
+<li><strong>意味</strong>: 買い支えの確認</li>
+<li><strong>戦略</strong>: VWAP付近での押し目買い</li>
+</ul>
+<strong>VWAPレジスタンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現象</strong>: 価格がVWAP付近で上値重い</li>
+<li><strong>意味</strong>: 売り圧力の確認</li>
+<li><strong>戦略</strong>: VWAP付近での戻り売り</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">エントリータイミングの改善</h3>
+<strong>VWAP反発買い</strong>
+1. <strong>確認</strong>: 価格がVWAPに接近
+2. <strong>待機</strong>: VWAP付近での反発確認
+3. <strong>エントリー</strong>: 反発確認後の買い
+4. <strong>ストップ</strong>: VWAP明確割れ
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践例（2025年想定）</h3>
+<strong>イーサリアムVWAP戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>VWAP</strong>: $3,250（当日平均）</li>
+<li><strong>現在価格</strong>: $3,280（VWAP上）</li>
+<li><strong>戦略</strong>: $3,250付近での押し目買い待機</li>
+<li><strong>ストップ</strong>: $3,230（VWAP明確割れ）</li>
+<li><strong>利確</strong>: $3,350（前日高値）</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">VWAPの高度な活用法（応用編）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">複数期間VWAPの組み合わせ</h3>
+<strong>異なる期間設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>日中VWAP</strong>: その日のセッション内</li>
+<li><strong>週間VWAP</strong>: 週単位の加重平均</li>
+<li><strong>月間VWAP</strong>: 月単位の加重平均</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">マルチタイムフレームVWAP戦略</h3>
+<strong>長期・短期の組み合わせ</strong>
+1. <strong>週間VWAP</strong>: 大局的な方向性確認
+2. <strong>日間VWAP</strong>: 中期的なエントリータイミング
+3. <strong>時間内VWAP</strong>: 短期的な精密調整
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">VWAPバンドの活用</h3>
+<strong>標準偏差バンドの追加</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>上バンド</strong>: VWAP + (標準偏差 × 1)</li>
+<li><strong>下バンド</strong>: VWAP - (標準偏差 × 1)</li>
+<li><strong>活用</strong>: ボリンジャーバンドと同様の逆張り</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">機関投資家の動向読み取り</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">VWAPアルゴリズム取引の識別</h3>
+<strong>機関投資家の典型的行動</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>大口買い</strong>: VWAPlower以下での執行狙い</li>
+<li><strong>大口売り</strong>: VWAP以上での執行狙い</li>
+<li><strong>分割執行</strong>: VWAP近辺での段階的取引</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">機関投資家追随戦略</h3>
+<strong>VWAP下での買い蓄積</strong>
+1. <strong>観察</strong>: 価格がVWAP下で推移
+2. <strong>出来高確認</strong>: 継続的な買い出来高
+3. <strong>タイミング</strong>: VWAP上抜けでの追随
+4. <strong>利確</strong>: 機関投資家利確レベル想定
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">暗号通貨特有のVWAP活用</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">24時間取引の特性</h3>
+<strong>グローバル市場の考慮</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>アジア時間</strong>: 比較的低出来高</li>
+<li><strong>ヨーロッパ時間</strong>: 中程度の出来高</li>
+<li><strong>アメリカ時間</strong>: 高出来高</li>
+<li><strong>統合VWAP</strong>: 地域別加重の調整</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">大口取引の影響</h3>
+<strong>ホエール（大口投資家）の動向</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>異常出来高</strong>: 大口取引の可能性</li>
+<li><strong>VWAP乖離</strong>: 大口取引による一時的歪み</li>
+<li><strong>復帰</strong>: VWAPへの価格回帰傾向</li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実践的出来高分析：ビットコイン事例研究
-### ケース1: ブレイクアウト時の出来高確認（2025年3月想定）
-**市場状況**: $92,000レジスタンス突破狙い
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践的出来高分析：ビットコイン事例研究</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: ブレイクアウト時の出来高確認（2025年3月想定）</h3>
+<strong>市場状況</strong>: $92,000レジスタンス突破狙い
 
-**出来高分析の経過**
-**突破前の状況**
-- **価格**: $91,500で3回反発失敗
-- **出来高**: 平均25,000 BTC/日
-- **VPA（価格別出来高）**: $91,000-92,000で高出来高蓄積
-- **判定**: 強いレジスタンスレベル
+<strong>出来高分析の経過</strong>
+<strong>突破前の状況</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: $91,500で3回反発失敗</li>
+<li><strong>出来高</strong>: 平均25,000 BTC/日</li>
+<li><strong>VPA（価格別出来高）</strong>: $91,000-92,000で高出来高蓄積</li>
+<li><strong>判定</strong>: 強いレジスタンスレベル</li>
+</ul>
 
-**突破時の出来高確認**
-- **突破価格**: $92,200
-- **突破時出来高**: 68,000 BTC（平均の272%）
-- **VWAP**: $91,800→$92,100に上昇
-- **確認**: 真のブレイクアウトと判定
+<strong>突破時の出来高確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>突破価格</strong>: $92,200</li>
+<li><strong>突破時出来高</strong>: 68,000 BTC（平均の272%）</li>
+<li><strong>VWAP</strong>: $91,800→$92,100に上昇</li>
+<li><strong>確認</strong>: 真のブレイクアウトと判定</li>
+</ul>
 
-**エントリー戦略と結果**
-- **エントリー**: $92,300（出来高確認後）
-- **根拠**: 高出来高での確実なブレイクアウト
-- **ストップ**: $91,500（レジスタンス復帰）
-- **利確目標**: $95,000（次のVPA高値）
-- **結果**: 8日間で$94,800到達、成功
+<strong>エントリー戦略と結果</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>エントリー</strong>: $92,300（出来高確認後）</li>
+<li><strong>根拠</strong>: 高出来高での確実なブレイクアウト</li>
+<li><strong>ストップ</strong>: $91,500（レジスタンス復帰）</li>
+<li><strong>利確目標</strong>: $95,000（次のVPA高値）</li>
+<li><strong>結果</strong>: 8日間で$94,800到達、成功</li>
+</ul>
 
-**学習ポイント**
-- **出来高による確認**: ブレイクアウト真偽の判定
-- **VWAPシフト**: 新しい価格レンジの確認
-- **VPA活用**: 次の目標価格設定
+<strong>学習ポイント</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>出来高による確認</strong>: ブレイクアウト真偽の判定</li>
+<li><strong>VWAPシフト</strong>: 新しい価格レンジの確認</li>
+<li><strong>VPA活用</strong>: 次の目標価格設定</li>
+</ul>
 
-### ケース2: 出来高ダイバージェンス による天井察知（2025年4月想定）
-**背景**: 5週間上昇後の転換点判定
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース2: 出来高ダイバージェンス による天井察知（2025年4月想定）</h3>
+<strong>背景</strong>: 5週間上昇後の転換点判定
 
-**ダイバージェンス形成過程**
-**第1峰**: $98,000到達
-- **価格**: 新高値達成
-- **出来高**: 45,000 BTC（高水準）
-- **VWAP**: $96,500（価格上）
+<strong>ダイバージェンス形成過程</strong>
+<strong>第1峰</strong>: $98,000到達
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: 新高値達成</li>
+<li><strong>出来高</strong>: 45,000 BTC（高水準）</li>
+<li><strong>VWAP</strong>: $96,500（価格上）</li>
+</ul>
 
-**第2峰**: $100,500到達  
-- **価格**: さらなる新高値
-- **出来高**: 32,000 BTC（前回比29%減）
-- **VWAP**: $98,200（価格上だが接近）
+<strong>第2峰</strong>: $100,500到達  
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: さらなる新高値</li>
+<li><strong>出来高</strong>: 32,000 BTC（前回比29%減）</li>
+<li><strong>VWAP</strong>: $98,200（価格上だが接近）</li>
+</ul>
 
-**第3峰**: $102,000到達
-- **価格**: 最高値更新
-- **出来高**: 28,000 BTC（継続減少）
-- **VWAP**: $99,500（価格との乖離縮小）
+<strong>第3峰</strong>: $102,000到達
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: 最高値更新</li>
+<li><strong>出来高</strong>: 28,000 BTC（継続減少）</li>
+<li><strong>VWAP</strong>: $99,500（価格との乖離縮小）</li>
+</ul>
 
-**統合判断と対応**
-- **パターン**: 明確な出来高ダイバージェンス
-- **意味**: 上昇力の段階的減退
-- **戦略**: $101,000での段階的利確開始
-- **ストップ**: $103,500（さらなる高値更新時）
+<strong>統合判断と対応</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>パターン</strong>: 明確な出来高ダイバージェンス</li>
+<li><strong>意味</strong>: 上昇力の段階的減退</li>
+<li><strong>戦略</strong>: $101,000での段階的利確開始</li>
+<li><strong>ストップ</strong>: $103,500（さらなる高値更新時）</li>
+</ul>
 
-**結果**: 1週間後$95,000まで調整、15%の下落回避
+<strong>結果</strong>: 1週間後$95,000まで調整、15%の下落回避
 
-### ケース3: VWAPサポート戦略（2025年5月想定）
-**市場状況**: 上昇トレンド中の押し目買い機会
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース3: VWAPサポート戦略（2025年5月想定）</h3>
+<strong>市場状況</strong>: 上昇トレンド中の押し目買い機会
 
-**VWAPサポート分析**
-**日中VWAP**: $87,500
-**週間VWAP**: $85,200
-**価格動向**: $89,000から$87,800への調整
+<strong>VWAPサポート分析</strong>
+<strong>日中VWAP</strong>: $87,500
+<strong>週間VWAP</strong>: $85,200
+<strong>価格動向</strong>: $89,000から$87,800への調整
 
-**エントリー判断プロセス**
-1. **VWAP接近**: 価格が日中VWAP $87,500に接近
-2. **出来高確認**: 下落時の出来高減少（20,000→15,000 BTC）
-3. **反発確認**: $87,400でのピンバー形成
-4. **VWAP反発**: $87,600でのVWAP上回復
+<strong>エントリー判断プロセス</strong>
+1. <strong>VWAP接近</strong>: 価格が日中VWAP $87,500に接近
+2. <strong>出来高確認</strong>: 下落時の出来高減少（20,000→15,000 BTC）
+3. <strong>反発確認</strong>: $87,400でのピンバー形成
+4. <strong>VWAP反発</strong>: $87,600でのVWAP上回復
 
-**取引実行**
-- **エントリー**: $87,650（VWAP上回復確認）
-- **論理**: 出来高減少下落 + VWAPサポート + 反発確認
-- **ストップ**: $86,800（VWAP明確割れ）
-- **利確**: $90,500（前回高値）
+<strong>取引実行</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>エントリー</strong>: $87,650（VWAP上回復確認）</li>
+<li><strong>論理</strong>: 出来高減少下落 + VWAPサポート + 反発確認</li>
+<li><strong>ストップ</strong>: $86,800（VWAP明確割れ）</li>
+<li><strong>利確</strong>: $90,500（前回高値）</li>
+</ul>
 
-**結果**: 4日間で$90,200到達、3.5%の利益
+<strong>結果</strong>: 4日間で$90,200到達、3.5%の利益
 
-### ケース4: セリングクライマックスの識別（2025年6月想定）
-**状況**: 2週間の下降トレンド終盤
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース4: セリングクライマックスの識別（2025年6月想定）</h3>
+<strong>状況</strong>: 2週間の下降トレンド終盤
 
-**クライマックス形成**
-**下落加速期**: $78,000→$72,000（6日間）
-- **出来高推移**: 30,000→45,000→65,000 BTC/日
-- **VWAP**: 継続的な下方乖離
-- **心理**: パニック売りの拡大
+<strong>クライマックス形成</strong>
+<strong>下落加速期</strong>: $78,000→$72,000（6日間）
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>出来高推移</strong>: 30,000→45,000→65,000 BTC/日</li>
+<li><strong>VWAP</strong>: 継続的な下方乖離</li>
+<li><strong>心理</strong>: パニック売りの拡大</li>
+</ul>
 
-**クライマックス当日**
-- **価格**: $72,000→$68,500→$71,200
-- **出来高**: 95,000 BTC（平均の317%）
-- **パターン**: ロングテール付きハンマー
-- **VWAP**: $70,100（極端な下方乖離）
+<strong>クライマックス当日</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: $72,000→$68,500→$71,200</li>
+<li><strong>出来高</strong>: 95,000 BTC（平均の317%）</li>
+<li><strong>パターン</strong>: ロングテール付きハンマー</li>
+<li><strong>VWAP</strong>: $70,100（極端な下方乖離）</li>
+</ul>
 
-**反転確認と戦略**
-- **翌日**: 出来高40,000 BTC、$71,800終値
-- **判定**: セリングクライマックス完了
-- **エントリー**: $72,200（反発確認後）
-- **根拠**: 異常出来高 + 反転パターン + VWAP回帰
-- **利確**: $76,000-$78,000（段階的）
+<strong>反転確認と戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>翌日</strong>: 出来高40,000 BTC、$71,800終値</li>
+<li><strong>判定</strong>: セリングクライマックス完了</li>
+<li><strong>エントリー</strong>: $72,200（反発確認後）</li>
+<li><strong>根拠</strong>: 異常出来高 + 反転パターン + VWAP回帰</li>
+<li><strong>利確</strong>: $76,000-$78,000（段階的）</li>
+</ul>
 
-**結果**: 2週間で$77,500到達、7.7%の反発利益
+<strong>結果</strong>: 2週間で$77,500到達、7.7%の反発利益
 
-**学習ポイント**: 異常出来高は転換点の重要シグナル`
+<strong>学習ポイント</strong>: 異常出来高は転換点の重要シグナル`
       },
       {
         type: 'tip',
-        content: `**出来高分析活用のコツ**
-1. **基本から応用への段階的習得**:
+        content: `<strong>出来高分析活用のコツ</strong>
+1. <strong>基本から応用への段階的習得</strong>:
    - 基本：出来高移動平均との比較から開始
    - 中級：VWAPサポレジ、価格別出来高の活用
    - 応用：複数指標組み合わせ、機関投資家動向読み
-2. **確認の重要性**:
+2. <strong>確認の重要性</strong>:
    - 価格パターンは出来高で確認
    - ブレイクアウトは出来高急増で確定
    - ダイバージェンスは早期警戒シグナル
-3. **実践的活用**: 出来高は価格の「確信度」を示す。高出来高の動きを重視し、低出来高の動きは疑ってかかる！`
+3. <strong>実践的活用</strong>: 出来高は価格の「確信度」を示す。高出来高の動きを重視し、低出来高の動きは疑ってかかる！`
       },
       {
         type: 'text',
         content: `# 高度な出来高分析手法
-## 出来高プロファイル分析（応用編）
-### Market Profile（マーケットプロファイル）
-**基本概念**
-- **TPO（Time Price Opportunity）**: 時間・価格・機会の三次元分析
-- **Value Area**: 1日の取引量の70%が行われた価格帯
-- **Point of Control（POC）**: 最も多く取引された価格レベル
-### Value Areaの活用
-**Value Area High（VAH）**: 価値エリア上限
-- **機能**: レジスタンスとして機能
-- **ブレイク**: 強気継続のシグナル
-**Value Area Low（VAL）**: 価値エリア下限  
-- **機能**: サポートとして機能
-- **ブレイク**: 弱気継続のシグナル
-### POC（Point of Control）戦略
-**POCの特性**
-- **磁石効果**: 価格がPOCに引き寄せられる傾向
-- **サポレジ**: 強力なサポート・レジスタンスレベル
-- **回帰性**: 価格のPOC回帰頻度の高さ
-## 機関投資家の足跡追跡（高度な応用）
-### Iceberg Orders（氷山注文）の識別
-**特徴的なパターン**
-- **均等な出来高**: 同じ価格レベルでの継続的取引
-- **価格停滞**: 大口注文による価格の横ばい
-- **段階的約定**: 少しずつ消化される大口注文
-### Absorption（吸収）パターン
-**売り吸収（買い蓄積）**
-- **現象**: 継続的売り圧力にも関わらず価格下落せず
-- **意味**: 大口の買い手による売り圧力吸収
-- **期待**: 売り圧力枯渇後の価格上昇
-### Distribution（分散）パターン
-**買い吸収（売り分散）**
-- **現象**: 継続的買い圧力にも関わらず価格上昇せず
-- **意味**: 大口の売り手による買い圧力吸収
-- **期待**: 買い圧力枯渇後の価格下落
-## 季節性・周期性パターン
-### 曜日別出来高パターン
-**月曜日**: 週末ニュース反映で高出来高
-**火水木**: 平常的な取引量
-**金曜日**: ポジション調整で変動
-### 月次・四半期パターン
-**月末**: 機関投資家のリバランシング
-**四半期末**: 大規模なポートフォリオ調整
-**年末**: 税務関連取引、流動性低下
-### イベント前後の出来高変動
-**重要発表前**: 出来高減少（様子見）
-**発表直後**: 出来高急増（反応取引）
-**数日後**: 出来高正常化
-## 複数市場での出来高分析
-### 取引所間の出来高比較
-**メジャー取引所**: Binance、Coinbase、Kraken
-**地域特性**: アジア・ヨーロッパ・アメリカ時間
-**流動性差**: 取引所間のスプレッド・出来高差
-### 統合出来高分析
-**全市場合計**: 真の市場出来高の把握
-**取引所別**: 地域的偏向の確認
-**ペア別**: BTC/USD、BTC/EUR等の差異
-## 出来高ベースリスク管理
-### 流動性リスクの評価
-**Average Daily Volume（ADV）**: 日平均出来高
-**リスク閾値**: ADVの一定割合以下での取引制限
-**大口取引**: 市場インパクトの事前評価
-### ポジションサイズの動的調整
-**高流動性時**: 大きなポジションサイズ
-**低流動性時**: 小さなポジションサイズ
-**出来高激減時**: 新規エントリー停止
-### Volume-based Stop Loss
-**出来高急減**: ストップロス発動
-**異常出来高**: 利確・損切り実行
-**流動性枯渇**: 緊急エグジット`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">出来高プロファイル分析（応用編）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Market Profile（マーケットプロファイル）</h3>
+<strong>基本概念</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>TPO（Time Price Opportunity）</strong>: 時間・価格・機会の三次元分析</li>
+<li><strong>Value Area</strong>: 1日の取引量の70%が行われた価格帯</li>
+<li><strong>Point of Control（POC）</strong>: 最も多く取引された価格レベル</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Value Areaの活用</h3>
+<strong>Value Area High（VAH）</strong>: 価値エリア上限
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機能</strong>: レジスタンスとして機能</li>
+<li><strong>ブレイク</strong>: 強気継続のシグナル</li>
+</ul>
+<strong>Value Area Low（VAL）</strong>: 価値エリア下限  
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機能</strong>: サポートとして機能</li>
+<li><strong>ブレイク</strong>: 弱気継続のシグナル</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">POC（Point of Control）戦略</h3>
+<strong>POCの特性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>磁石効果</strong>: 価格がPOCに引き寄せられる傾向</li>
+<li><strong>サポレジ</strong>: 強力なサポート・レジスタンスレベル</li>
+<li><strong>回帰性</strong>: 価格のPOC回帰頻度の高さ</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">機関投資家の足跡追跡（高度な応用）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Iceberg Orders（氷山注文）の識別</h3>
+<strong>特徴的なパターン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>均等な出来高</strong>: 同じ価格レベルでの継続的取引</li>
+<li><strong>価格停滞</strong>: 大口注文による価格の横ばい</li>
+<li><strong>段階的約定</strong>: 少しずつ消化される大口注文</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Absorption（吸収）パターン</h3>
+<strong>売り吸収（買い蓄積）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現象</strong>: 継続的売り圧力にも関わらず価格下落せず</li>
+<li><strong>意味</strong>: 大口の買い手による売り圧力吸収</li>
+<li><strong>期待</strong>: 売り圧力枯渇後の価格上昇</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Distribution（分散）パターン</h3>
+<strong>買い吸収（売り分散）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現象</strong>: 継続的買い圧力にも関わらず価格上昇せず</li>
+<li><strong>意味</strong>: 大口の売り手による買い圧力吸収</li>
+<li><strong>期待</strong>: 買い圧力枯渇後の価格下落</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">季節性・周期性パターン</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">曜日別出来高パターン</h3>
+<strong>月曜日</strong>: 週末ニュース反映で高出来高
+<strong>火水木</strong>: 平常的な取引量
+<strong>金曜日</strong>: ポジション調整で変動
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">月次・四半期パターン</h3>
+<strong>月末</strong>: 機関投資家のリバランシング
+<strong>四半期末</strong>: 大規模なポートフォリオ調整
+<strong>年末</strong>: 税務関連取引、流動性低下
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">イベント前後の出来高変動</h3>
+<strong>重要発表前</strong>: 出来高減少（様子見）
+<strong>発表直後</strong>: 出来高急増（反応取引）
+<strong>数日後</strong>: 出来高正常化
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">複数市場での出来高分析</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">取引所間の出来高比較</h3>
+<strong>メジャー取引所</strong>: Binance、Coinbase、Kraken
+<strong>地域特性</strong>: アジア・ヨーロッパ・アメリカ時間
+<strong>流動性差</strong>: 取引所間のスプレッド・出来高差
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">統合出来高分析</h3>
+<strong>全市場合計</strong>: 真の市場出来高の把握
+<strong>取引所別</strong>: 地域的偏向の確認
+<strong>ペア別</strong>: BTC/USD、BTC/EUR等の差異
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">出来高ベースリスク管理</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">流動性リスクの評価</h3>
+<strong>Average Daily Volume（ADV）</strong>: 日平均出来高
+<strong>リスク閾値</strong>: ADVの一定割合以下での取引制限
+<strong>大口取引</strong>: 市場インパクトの事前評価
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ポジションサイズの動的調整</h3>
+<strong>高流動性時</strong>: 大きなポジションサイズ
+<strong>低流動性時</strong>: 小さなポジションサイズ
+<strong>出来高激減時</strong>: 新規エントリー停止
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">Volume-based Stop Loss</h3>
+<strong>出来高急減</strong>: ストップロス発動
+<strong>異常出来高</strong>: 利確・損切り実行
+<strong>流動性枯渇</strong>: 緊急エグジット`
       },
       {
         type: 'text',
         content: `# 出来高分析の実践的統合戦略
-## マルチインジケーター出来高戦略
-### 出来高 + 価格パターン
-**組み合わせ例**
-1. **チャートパターン**: ヘッドアンドショルダー形成
-2. **出来高確認**: 右肩で出来高減少確認
-3. **ブレイク**: ネックライン下抜けで出来高急増
-4. **エントリー**: パターン + 出来高の二重確認
-### 出来高 + テクニカル指標
-**RSI + 出来高ダイバージェンス**
-- **価格**: 新高値更新
-- **RSI**: ダイバージェンス形成
-- **出来高**: 高値更新時に減少
-- **統合判断**: 三重のダイバージェンス → 強い反転シグナル
-### 出来高 + サポレジ
-**重要レベル + 出来高確認**
-1. **レベル**: フィボナッチ61.8%到達
-2. **出来高**: レベル到達時に急増
-3. **反応**: 明確な反発・反落確認
-4. **信頼性**: レベル + 出来高の二重確認
-## 時間軸別出来高戦略
-### 短期取引（1分-1時間足）
-**出来高スキャルピング**
-- **確認**: 出来高急増の瞬間特定
-- **エントリー**: 出来高急増と同時
-- **利確**: 短時間での小幅利確
-- **ストップ**: 出来高急減で即座に損切り
-### 中期取引（4時間-日足）
-**VWAP戦略**
-- **環境**: 日中VWAPでの環境認識
-- **エントリー**: VWAPサポレジでのタイミング
-- **管理**: VWAP基準でのポジション管理
-- **利確**: 価格別出来高での目標設定
-### 長期取引（日足-週足）
-**機関投資家追随**
-- **分析**: 週間・月間出来高トレンド
-- **蓄積**: 機関投資家の蓄積フェーズ確認
-- **追随**: 機関主導上昇での追随
-- **利確**: 機関分散フェーズでの利確
-## エラー回避と改善方法
-### よくある間違い
-**出来高の誤解釈**
-- **高出来高 = 必ず良い**: 高出来高でも下落する場合
-- **低出来高 = 悪い**: 低出来高でも健全な調整の場合
-- **出来高のみ重視**: 価格パターンとの乖離無視
-### 改善方法
-**複合的判断**
-1. **出来高 + 価格**: 両方の整合性確認
-2. **出来高 + 時間**: 適切な時間軸での分析
-3. **出来高 + 環境**: 市場環境との整合性
-4. **継続的学習**: 過去の事例分析と改善
-## 成功のための継続的改善
-### 記録と分析
-**出来高日誌**
-- **日付・時間**: 重要な出来高変動の記録
-- **背景**: 出来高変動の原因分析
-- **判断**: その時の判断根拠
-- **結果**: 実際の価格動向
-### 月次レビュー
-**成功パターン**: 出来高分析が的中した事例
-**失敗パターン**: 出来高分析が外れた事例
-**改善点**: 次月への改善計画
-**新発見**: 新しい出来高パターンの発見
-### スキル向上の段階
-**初級**: 基本的な高低出来高の識別
-**中級**: VWAPとの組み合わせ分析
-**上級**: 機関投資家動向の読み取り
-**プロ級**: 独自の出来高戦略開発`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">マルチインジケーター出来高戦略</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">出来高 + 価格パターン</h3>
+<strong>組み合わせ例</strong>
+1. <strong>チャートパターン</strong>: ヘッドアンドショルダー形成
+2. <strong>出来高確認</strong>: 右肩で出来高減少確認
+3. <strong>ブレイク</strong>: ネックライン下抜けで出来高急増
+4. <strong>エントリー</strong>: パターン + 出来高の二重確認
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">出来高 + テクニカル指標</h3>
+<strong>RSI + 出来高ダイバージェンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格</strong>: 新高値更新</li>
+<li><strong>RSI</strong>: ダイバージェンス形成</li>
+<li><strong>出来高</strong>: 高値更新時に減少</li>
+<li><strong>統合判断</strong>: 三重のダイバージェンス → 強い反転シグナル</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">出来高 + サポレジ</h3>
+<strong>重要レベル + 出来高確認</strong>
+1. <strong>レベル</strong>: フィボナッチ61.8%到達
+2. <strong>出来高</strong>: レベル到達時に急増
+3. <strong>反応</strong>: 明確な反発・反落確認
+4. <strong>信頼性</strong>: レベル + 出来高の二重確認
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">時間軸別出来高戦略</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">短期取引（1分-1時間足）</h3>
+<strong>出来高スキャルピング</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>確認</strong>: 出来高急増の瞬間特定</li>
+<li><strong>エントリー</strong>: 出来高急増と同時</li>
+<li><strong>利確</strong>: 短時間での小幅利確</li>
+<li><strong>ストップ</strong>: 出来高急減で即座に損切り</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">中期取引（4時間-日足）</h3>
+<strong>VWAP戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>環境</strong>: 日中VWAPでの環境認識</li>
+<li><strong>エントリー</strong>: VWAPサポレジでのタイミング</li>
+<li><strong>管理</strong>: VWAP基準でのポジション管理</li>
+<li><strong>利確</strong>: 価格別出来高での目標設定</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">長期取引（日足-週足）</h3>
+<strong>機関投資家追随</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>分析</strong>: 週間・月間出来高トレンド</li>
+<li><strong>蓄積</strong>: 機関投資家の蓄積フェーズ確認</li>
+<li><strong>追随</strong>: 機関主導上昇での追随</li>
+<li><strong>利確</strong>: 機関分散フェーズでの利確</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">エラー回避と改善方法</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">よくある間違い</h3>
+<strong>出来高の誤解釈</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>高出来高 = 必ず良い</strong>: 高出来高でも下落する場合</li>
+<li><strong>低出来高 = 悪い</strong>: 低出来高でも健全な調整の場合</li>
+<li><strong>出来高のみ重視</strong>: 価格パターンとの乖離無視</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">改善方法</h3>
+<strong>複合的判断</strong>
+1. <strong>出来高 + 価格</strong>: 両方の整合性確認
+2. <strong>出来高 + 時間</strong>: 適切な時間軸での分析
+3. <strong>出来高 + 環境</strong>: 市場環境との整合性
+4. <strong>継続的学習</strong>: 過去の事例分析と改善
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">成功のための継続的改善</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">記録と分析</h3>
+<strong>出来高日誌</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>日付・時間</strong>: 重要な出来高変動の記録</li>
+<li><strong>背景</strong>: 出来高変動の原因分析</li>
+<li><strong>判断</strong>: その時の判断根拠</li>
+<li><strong>結果</strong>: 実際の価格動向</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">月次レビュー</h3>
+<strong>成功パターン</strong>: 出来高分析が的中した事例
+<strong>失敗パターン</strong>: 出来高分析が外れた事例
+<strong>改善点</strong>: 次月への改善計画
+<strong>新発見</strong>: 新しい出来高パターンの発見
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">スキル向上の段階</h3>
+<strong>初級</strong>: 基本的な高低出来高の識別
+<strong>中級</strong>: VWAPとの組み合わせ分析
+<strong>上級</strong>: 機関投資家動向の読み取り
+<strong>プロ級</strong>: 独自の出来高戦略開発`
       },
       {
         type: 'text',
@@ -497,36 +587,44 @@ export const lesson24: Lesson = {
       },
       {
         type: 'warning',
-        content: `**出来高分析使用時の注意点**
-### 1. 出来高の盲信リスク
-**問題**: 出来高のみに依存した判断
-**対策**:
-- 価格パターンとの組み合わせ確認
-- 市場環境との整合性確認
-- 複数指標での総合的判断
-- 異常値の原因分析
-### 2. 時間軸の不一致
-**問題**: 分析時間軸と取引時間軸の不整合
-**対策**:
-- 取引スタイルに応じた時間軸選択
-- 複数時間軸での整合性確認
-- 上位時間軸での環境認識
-- 下位時間軸での精密タイミング
-### 3. 暗号通貨特有の注意点
-**問題**: 24時間取引、取引所分散、大口影響
-**対策**:
-- 主要取引所での出来高確認
-- 地域時間帯の特性理解
-- 異常出来高の原因分析
-- 流動性リスクの適切な評価
-### 4. 機械的な適用リスク
-**問題**: パターンの機械的適用による誤判断
-**対策**:
-- 市場環境に応じた柔軟な解釈
-- ファンダメンタル要因の考慮
-- 過去事例との比較検証
-- 継続的な学習と改善
-**成功の秘訣**: 出来高は「市場の声」です。価格だけでなく出来高の声に耳を傾け、市場参加者の真の意図を読み取ることが成功の鍵です。`
+        content: `<strong>出来高分析使用時の注意点</strong>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">1. 出来高の盲信リスク</h3>
+<strong>問題</strong>: 出来高のみに依存した判断
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>価格パターンとの組み合わせ確認</li>
+<li>市場環境との整合性確認</li>
+<li>複数指標での総合的判断</li>
+<li>異常値の原因分析</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2. 時間軸の不一致</h3>
+<strong>問題</strong>: 分析時間軸と取引時間軸の不整合
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引スタイルに応じた時間軸選択</li>
+<li>複数時間軸での整合性確認</li>
+<li>上位時間軸での環境認識</li>
+<li>下位時間軸での精密タイミング</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">3. 暗号通貨特有の注意点</h3>
+<strong>問題</strong>: 24時間取引、取引所分散、大口影響
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>主要取引所での出来高確認</li>
+<li>地域時間帯の特性理解</li>
+<li>異常出来高の原因分析</li>
+<li>流動性リスクの適切な評価</li>
+</ul>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">4. 機械的な適用リスク</h3>
+<strong>問題</strong>: パターンの機械的適用による誤判断
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>市場環境に応じた柔軟な解釈</li>
+<li>ファンダメンタル要因の考慮</li>
+<li>過去事例との比較検証</li>
+<li>継続的な学習と改善</li>
+</ul>
+<strong>成功の秘訣</strong>: 出来高は「市場の声」です。価格だけでなく出来高の声に耳を傾け、市場参加者の真の意図を読み取ることが成功の鍵です。`
       }
     ],
     keyPoints: [

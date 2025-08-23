@@ -234,10 +234,12 @@ Ethereum・Polygon・Arbitrum・Optimism等で統一運用。
 <h5 style="color: #e17055; margin-bottom: 10px;">💰 Cross-chain運用実績例</h5>
 <div style="color: #2d3436; line-height: 1.6;">
 <strong>GameFi Character NFT (ID: #8847)</strong><br>
-- Ethereum: 基本キャラクター・レア装備保有<br>
-- Polygon: デイリークエスト・マイクロペイメント<br>
-- Arbitrum: P2E収益・高速取引<br>
-- Base: ソーシャル機能・コミュニティ参加<br>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ethereum: 基本キャラクター・レア装備保有<br></li>
+<li>Polygon: デイリークエスト・マイクロペイメント<br></li>
+<li>Arbitrum: P2E収益・高速取引<br></li>
+<li>Base: ソーシャル機能・コミュニティ参加<br></li>
+</ul>
 <span style="color: #00b894; font-weight: bold;">総資産価値: $18,400 / 30日収益: $2,340</span>
 </div>
 </div>

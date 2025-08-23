@@ -1,5 +1,5 @@
 import type { Lesson } from '../../../types';
-export const lesson20: Lesson = {
+export const export const lesson20: Lesson = {
   id: 'trading-basics-comprehensive-practice',
   slug: 'comprehensive-practice',
   title: '総合実践：基本テクニカル分析の組み合わせ',
@@ -67,221 +67,357 @@ export const lesson20: Lesson = {
       },
       {
         type: 'text',
-        content: `# 基本的な組み合わせパターン
-## パターン1: トレンド確認型
-### 基本構成
-- **主軸**: 移動平均線(20日・50日)
-- **確認**: MACD
-- **タイミング**: RSI
-- **リスク管理**: ATR
-### 分析手順
-1. **トレンド確認**: 20日MA > 50日MA で上昇トレンド
-2. **モメンタム確認**: MACDが正値でシグナル線上抜け
-3. **エントリータイミング**: RSI 30-70圏での押し目
-4. **ストップロス**: ATR 2倍での設定
-### 適用場面
-- **明確なトレンド相場**
-- **中期的な方向感が明確**
-- **リスクを抑えた順張り取引**
-## パターン2: レンジブレイク型
-### 基本構成
-- **レンジ識別**: サポート・レジスタンス
-- **ブレイク確認**: ボリンジャーバンド
-- **強度確認**: 出来高
-- **継続性**: RSI
-### 分析手順
-1. **レンジ確認**: 明確なサポート・レジスタンス形成
-2. **ブレイク待機**: ボリンジャーバンド上下限突破
-3. **出来高確認**: 平均出来高の150%以上
-4. **継続確認**: RSI極値でない(20-80圏)
-### 適用場面
-- **レンジ相場からの脱出局面**
-- **重要価格レベルでの攻防**
-- **新しいトレンドの始まり**
-## パターン3: 逆張り型
-### 基本構成
-- **過熱確認**: RSI・ストキャスティクス
-- **サポート確認**: 重要価格レベル
-- **反転確認**: ローソク足パターン
-- **リスク管理**: 厳格なストップロス
-### 分析手順
-1. **過熱確認**: RSI 70以上(買われすぎ)または30以下(売られすぎ)
-2. **価格レベル**: 重要なサポート・レジスタンス到達
-3. **反転兆候**: ピンバー・十字線等の反転パターン
-4. **早期損切り**: サポート・レジスタンス明確突破で損切り
-### 適用場面
-- **オーバーシュート後の調整**
-- **重要価格レベルでの反発狙い**
-- **短期的な利益確定**`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的な組み合わせパターン</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">パターン1: トレンド確認型</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本構成</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>主軸</strong>: 移動平均線(20日・50日)</li>
+<li><strong>確認</strong>: MACD</li>
+<li><strong>タイミング</strong>: RSI</li>
+<li><strong>リスク管理</strong>: ATR</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">分析手順</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>トレンド確認</strong>: 20日MA > 50日MA で上昇トレンド</li>
+<li><strong>モメンタム確認</strong>: MACDが正値でシグナル線上抜け</li>
+<li><strong>エントリータイミング</strong>: RSI 30-70域での押し目</li>
+<li><strong>ストップロス</strong>: ATR 2倍での設定</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">適用場面</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>明確なトレンド相場</strong></li>
+<li><strong>中期的な方向感が明確</strong></li>
+<li><strong>リスクを抑えた順張り取引</strong></li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">パターン2: レンジブレイク型</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本構成</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>レンジ識別</strong>: サポート・レジスタンス</li>
+<li><strong>ブレイク確認</strong>: ボリンジャーバンド</li>
+<li><strong>強度確認</strong>: 出来高</li>
+<li><strong>継続性</strong>: RSI</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">分析手順</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>レンジ確認</strong>: 明確なサポート・レジスタンス形成</li>
+<li><strong>ブレイク待機</strong>: ボリンジャーバンド上下限突破</li>
+<li><strong>出来高確認</strong>: 平均出来高の150%以上</li>
+<li><strong>継続確認</strong>: RSI極値でない(20-80域)</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">適用場面</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>レンジ相場からの脱出局面</strong></li>
+<li><strong>重要価格レベルでの攻防</strong></li>
+<li><strong>新しいトレンドの始まり</strong></li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">パターン3: 逆張り型</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本構成</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>過熱確認</strong>: RSI・ストキャスティクス</li>
+<li><strong>サポート確認</strong>: 重要価格レベル</li>
+<li><strong>反転確認</strong>: ローソク足パターン</li>
+<li><strong>リスク管理</strong>: 厳格なストップロス</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">分析手順</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>過熱確認</strong>: RSI 70以上(買われすぎ)または30以下(売られすぎ)</li>
+<li><strong>価格レベル</strong>: 重要なサポート・レジスタンス到達</li>
+<li><strong>反転兆候</strong>: ピンバー・十字線等の反転パターン</li>
+<li><strong>早期損切り</strong>: サポート・レジスタンス明確突破で損切り</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">適用場面</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>オーバーシュート後の調整</strong></li>
+<li><strong>重要価格レベルでの反発狙い</strong></li>
+<li><strong>短期的な利益確定</strong></li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実践例：ビットコイン分析（2025年1月想定）
-### ケース1: トレンド確認型の実践
-**市場状況**: ビットコイン $85,000付近で推移
-**分析日**: 2025年1月15日（想定）
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践例：ビットコイン分析（2025年1月想定）</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: トレンド確認型の実践</h3>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>市場状況</strong>: ビットコイン $85,000付近で推移<br>
+<strong>分析日</strong>: 2025年1月15日（想定）
+</div>
 
-**ステップ1: トレンド確認**
-- **20日移動平均**: $82,000（上昇傾向）
-- **50日移動平均**: $78,000（上昇継続）
-- **判定**: 上昇トレンド継続中（20日MA > 50日MA）
+<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ1: トレンド確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>20日移動平均</strong>: $82,000（上昇傾向）</li>
+<li><strong>50日移動平均</strong>: $78,000（上昇継続）</li>
+<li><strong>判定</strong>: 上昇トレンド継続中（20日MA > 50日MA）</li>
+</ul>
+</div>
 
-**ステップ2: MACD確認**
-- **MACD線**: +1,200（正値）
-- **シグナル線**: +800（上抜け継続）
-- **ヒストグラム**: 拡大中（モメンタム強化）
-- **判定**: 上昇モメンタム継続
+<div style="background: #e3f2fd; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ2: MACD確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>MACD線</strong>: +1,200（正値）</li>
+<li><strong>シグナル線</strong>: +800（上抜け継続）</li>
+<li><strong>ヒストグラム</strong>: 拡大中（モメンタム強化）</li>
+<li><strong>判定</strong>: 上昇モメンタム継続</li>
+</ul>
+</div>
 
-**ステップ3: RSI確認**
-- **RSI**: 45（中立圏）
-- **前日**: 55（過熱感なし）
-- **判定**: エントリー可能圏内
+<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ3: RSI確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>RSI</strong>: 45（中立域）</li>
+<li><strong>前日</strong>: 55（過熱感なし）</li>
+<li><strong>判定</strong>: エントリー可能域内</li>
+</ul>
+</div>
 
-**ステップ4: ATRリスク管理**
-- **ATR**: $2,500
-- **エントリー**: $85,000
-- **ストップロス**: $80,000（2×ATR = $5,000下）
-- **利確目標**: $92,500（1.5:1 リスクリワード）
+<div style="background: #fce4ec; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ4: ATRリスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ATR</strong>: $2,500</li>
+<li><strong>エントリー</strong>: $85,000</li>
+<li><strong>ストップロス</strong>: $80,000（2×ATR = $5,000下）</li>
+<li><strong>利確目標</strong>: $92,500（1.5:1 リスクリワード）</li>
+</ul>
+</div>
 
-**結果**: すべての指標が同方向→買いエントリー実行
+<div style="background: #e0f2f1; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>結果</strong>: すべての指標が同方向→買いエントリー実行
+</div>
 
-### ケース2: レンジブレイク型の実践
-**市場状況**: 2週間の$80,000-$90,000レンジ相場
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース2: レンジブレイク型の実践</h3>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>市場状況</strong>: 2週間の$80,000-$90,000レンジ相場
+</div>
 
-**ステップ1: レンジ確認**
-- **レジスタンス**: $90,000（3回反発）
-- **サポート**: $80,000（4回支持）
-- **期間**: 14日間継続
-- **判定**: 明確なレンジ形成
+<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ1: レンジ確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>レジスタンス</strong>: $90,000（3回反発）</li>
+<li><strong>サポート</strong>: $80,000（4回支持）</li>
+<li><strong>期間</strong>: 14日間継続</li>
+<li><strong>判定</strong>: 明確なレンジ形成</li>
+</ul>
+</div>
 
-**ステップ2: ブレイク監視**
-- **現在価格**: $89,500
-- **ボリンジャーバンド上限**: $89,800
-- **監視**: $90,000突破 + ボリンジャー突破
+<div style="background: #e3f2fd; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ2: ブレイク監視</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現在価格</strong>: $89,500</li>
+<li><strong>ボリンジャーバンド上限</strong>: $89,800</li>
+<li><strong>監視</strong>: $90,000突破 + ボリンジャー突破</li>
+</ul>
+</div>
 
-**ステップ3: 出来高確認**
-- **$90,000突破時**: 出来高230%増加
-- **平均出来高**: 100,000 BTC/日
-- **突破時出来高**: 230,000 BTC/日
-- **判定**: 強い突破と判定
+<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ3: 出来高確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>$90,000突破時</strong>: 出来高230%増加</li>
+<li><strong>平均出来高</strong>: 100,000 BTC/日</li>
+<li><strong>突破時出来高</strong>: 230,000 BTC/日</li>
+<li><strong>判定</strong>: 強い突破と判定</li>
+</ul>
+</div>
 
-**ステップ4: 継続性確認**
-- **RSI**: 65（適度な強さ）
-- **MACD**: 上昇転換
-- **判定**: ブレイクアウト継続期待
+<div style="background: #fce4ec; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ステップ4: 継続性確認</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>RSI</strong>: 65（適度な強さ）</li>
+<li><strong>MACD</strong>: 上昇転換</li>
+<li><strong>判定</strong>: ブレイクアウト継続期待</li>
+</ul>
+</div>
 
-**実行**: $90,200でブレイクアウト買い
-**ストップロス**: $88,000（レンジ内復帰で損切り）
-**利確**: $100,000（レンジ幅相当の上昇目標）
+<div style="background: #e0f2f1; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>実行</strong>: $90,200でブレイクアウト買い<br>
+<strong>ストップロス</strong>: $88,000（レンジ内復帰で損切り）<br>
+<strong>利確</strong>: $100,000（レンジ幅相当の上昇目標）
+</div>
 
-**学習ポイント**: 複数指標の一致により、単独判断より確実性の高い取引が可能`
+<div style="background: #f3e5f5; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>学習ポイント</strong>: 複数指標の一致により、単独判断より確実性の高い取引が可能
+</div>`
       },
       {
         type: 'tip',
-        content: `**組み合わせ分析活用のコツ**
-1. **段階的確認**:
-   - 大きな時間軸から小さな時間軸へ順次確認
-   - 長期トレンド確認→中期モメンタム→短期タイミング
-   - 矛盾するシグナルがある場合は見送り
-2. **優先順位設定**:
-   - メイン指標(トレンド系)を最重視
-   - サブ指標(オシレーター)でタイミング調整
-   - 出来高で信頼性確認
-3. **実践的活用**: 最初は2-3個の指標から始めて、慣れてから追加する！`
+        content: `<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; border-left: 4px solid #4caf50; margin: 1rem 0;">
+<strong>組み合わせ分析活用のコツ</strong>
+<h4 style="color: #2e7d32; margin: 0 0 0.5rem 0;">1. 段階的確認</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>大きな時間軸から小さな時間軸へ順次確認</li>
+<li>長期トレンド確認→中期モメンタム→短期タイミング</li>
+<li>矛盾するシグナルがある場合は見送り</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">2. 優先順位設定</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>メイン指標(トレンド系)を最重視</li>
+<li>サブ指標(オシレーター)でタイミング調整</li>
+<li>出来高で信頼性確認</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">3. 実践的活用</h4>
+<p style="margin: 0;">最初は2-3個の指標から始めて、慣れてから追加する！</p>
+</div>`
       },
       {
         type: 'text',
-        content: `# 実際の取引手順
-## 分析から実行までの基本フロー
-### 事前準備段階
-1. **市場環境確認**: 全体的な市場トレンド・重要イベント
-2. **時間軸設定**: 取引スタイルに応じた時間軸選択
-3. **資金管理**: リスク許容額・ポジションサイズの事前決定
-4. **指標設定**: 使用する指標とパラメーターの確認
-### 分析実行段階
-#### ステップ1: 大局観の把握
-- **週足・日足**: 長期トレンドの方向性
-- **主要サポレジ**: 重要価格レベルの確認
-- **市場センチメント**: 全体的な強弱感
-#### ステップ2: 具体的分析
-- **選択した組み合わせパターン**での分析実行
-- **各指標の個別確認**
-- **シグナルの一致度**確認
-#### ステップ3: エントリー判断
-- **すべての条件クリア**: エントリー実行
-- **一部条件未達**: 見送りまたは様子見
-- **矛盾シグナル**: エントリー見送り
-### 実行・管理段階
-#### エントリー実行
-1. **成行・指値**: 市場状況に応じた注文方法選択
-2. **同時注文**: ストップロス・利確注文の同時設定
-3. **記録**: エントリー理由・根拠の記録
-#### ポジション管理
-1. **進捗監視**: 想定通りの展開かを定期確認
-2. **ストップ調整**: 有利な方向への利確確保
-3. **部分利確**: 目標到達時の段階的利確
-4. **損切り実行**: ストップロス到達時の機械的実行
-## 結果検証と改善
-### 取引後の振り返り
-#### 成功取引の分析
-- **成功要因**: どの分析が的中したか
-- **タイミング**: エントリー・エグジットの妥当性
-- **改善点**: より良くできた部分
-#### 失敗取引の分析
-- **失敗原因**: どの分析が外れたか
-- **教訓**: 次回への活かし方
-- **ルール見直し**: 必要に応じた手法修正
-### 継続的改善
-1. **取引記録**: 詳細な記録の継続
-2. **月次見直し**: 成績・手法の定期評価
-3. **スキル向上**: 新しい手法の段階的追加
-4. **メンタル管理**: 感情制御の継続的改善`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実際の取引手順</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">分析から実行までの基本フロー</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">事前準備段階</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>市場環境確認</strong>: 全体的な市場トレンド・重要イベント</li>
+<li><strong>時間軸設定</strong>: 取引スタイルに応じた時間軸選択</li>
+<li><strong>資金管理</strong>: リスク許容額・ポジションサイズの事前決定</li>
+<li><strong>指標設定</strong>: 使用する指標とパラメーターの確認</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">分析実行段階</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ステップ1: 大局観の把握</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>週足・日足</strong>: 長期トレンドの方向性</li>
+<li><strong>主要サポレジ</strong>: 重要価格レベルの確認</li>
+<li><strong>市場センチメント</strong>: 全体的な強弱感</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ステップ2: 具体的分析</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>選択した組み合わせパターン</strong>での分析実行</li>
+<li><strong>各指標の個別確認</strong></li>
+<li><strong>シグナルの一致度</strong>確認</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ステップ3: エントリー判断</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>すべての条件クリア</strong>: エントリー実行</li>
+<li><strong>一部条件未達</strong>: 見送りまたは様子見</li>
+<li><strong>矛盾シグナル</strong>: エントリー見送り</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実行・管理段階</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">エントリー実行</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>成行・指値</strong>: 市場状況に応じた注文方法選択</li>
+<li><strong>同時注文</strong>: ストップロス・利確注文の同時設定</li>
+<li><strong>記録</strong>: エントリー理由・根拠の記録</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ポジション管理</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>進捗監視</strong>: 想定通りの展開かを定期確認</li>
+<li><strong>ストップ調整</strong>: 有利な方向への利確確保</li>
+<li><strong>部分利確</strong>: 目標到達時の段階的利確</li>
+<li><strong>損切り実行</strong>: ストップロス到達時の機械的実行</li>
+</ol>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">結果検証と改善</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">取引後の振り返り</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">成功取引の分析</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>成功要因</strong>: どの分析が的中したか</li>
+<li><strong>タイミング</strong>: エントリー・エグジットの妥当性</li>
+<li><strong>改善点</strong>: より良くできた部分</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">失敗取引の分析</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>失敗原因</strong>: どの分析が外れたか</li>
+<li><strong>教訓</strong>: 次回への活かし方</li>
+<li><strong>ルール見直し</strong>: 必要に応じた手法修正</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">継続的改善</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>取引記録</strong>: 詳細な記録の継続</li>
+<li><strong>月次見直し</strong>: 成績・手法の定期評価</li>
+<li><strong>スキル向上</strong>: 新しい手法の段階的追加</li>
+<li><strong>メンタル管理</strong>: 感情制御の継続的改善</li>
+</ol>`
       },
       {
         type: 'text',
-        content: `# よくある失敗パターンと対策
-## 典型的な失敗パターン
-### パターン1: 指標の過度な依存
-**症状**: 1つの指標のシグナルで即座にエントリー
-**リスク**: ダマシに引っかかりやすい
-**対策**: 
-- 必ず2-3個の指標で確認
-- 異なる種類の指標組み合わせ
-- 時間軸の異なる確認
-### パターン2: 分析の複雑化
-**症状**: 多数の指標を同時使用
-**リスク**: 分析に時間がかかり、機会損失
-**対策**:
-- 指標は3-4個に限定
-- 明確な優先順位設定
-- シンプルなルール作成
-### パターン3: 確認の怠慢
-**症状**: 急いでエントリーして後で後悔
-**リスク**: 計画的でない取引による損失
-**対策**:
-- 事前チェックリスト作成
-- 機械的な手順遵守
-- 急がない意識
-### パターン4: 結果への固執
-**症状**: 1回の成功で慢心、1回の失敗で手法変更
-**リスク**: 一貫性のない取引
-**対策**:
-- 長期的視点での評価
-- 統計的な成績管理
-- 感情と結果の分離
-## 実践的な対策法
-### 事前準備の徹底
-1. **取引計画書**: エントリー・エグジット条件の明文化
-2. **チェックリスト**: 分析手順の標準化
-3. **資金管理ルール**: リスク管理の事前設定
-### 実行時の規律
-1. **機械的実行**: 感情を排除した計画通りの実行
-2. **記録の徹底**: 全取引の詳細記録
-3. **冷静な判断**: 急がず慌てず確実に
-### 継続的改善
-1. **定期評価**: 月次・四半期での成績評価
-2. **手法改善**: データに基づく手法改善
-3. **学習継続**: 新しい知識の段階的習得`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">よくある失敗パターンと対策</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">典型的な失敗パターン</h3>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">パターン1: 指標の過度な依存</h4>
+<div style="margin: 1rem 0;">
+<strong>症状</strong>: 1つの指標のシグナルで即座にエントリー<br>
+<strong>リスク</strong>: ダマシに引っかかりやすい<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>必ず2-3個の指標で確認</li>
+<li>異なる種類の指標組み合わせ</li>
+<li>時間軸の異なる確認</li>
+</ul>
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">パターン2: 分析の複雑化</h4>
+<div style="margin: 1rem 0;">
+<strong>症状</strong>: 多数の指標を同時使用<br>
+<strong>リスク</strong>: 分析に時間がかかり、機会損失<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>指標は3-4個に限定</li>
+<li>明確な優先順位設定</li>
+<li>シンプルなルール作成</li>
+</ul>
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">パターン3: 確認の怠慢</h4>
+<div style="margin: 1rem 0;">
+<strong>症状</strong>: 急いでエントリーして後で後悔<br>
+<strong>リスク</strong>: 計画的でない取引による損失<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事前チェックリスト作成</li>
+<li>機械的な手順遵守</li>
+<li>急がない意識</li>
+</ul>
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">パターン4: 結果への固執</h4>
+<div style="margin: 1rem 0;">
+<strong>症状</strong>: 1回の成功で慢心、1回の失敗で手法変更<br>
+<strong>リスク</strong>: 一貫性のない取引<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期的視点での評価</li>
+<li>統計的な成績管理</li>
+<li>感情と結果の分離</li>
+</ul>
+</div>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">実践的な対策法</h3>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">事前準備の徹底</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>取引計画書</strong>: エントリー・エグジット条件の明文化</li>
+<li><strong>チェックリスト</strong>: 分析手順の標準化</li>
+<li><strong>資金管理ルール</strong>: リスク管理の事前設定</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実行時の規律</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>機械的実行</strong>: 感情を排除した計画通りの実行</li>
+<li><strong>記録の徹底</strong>: 全取引の詳細記録</li>
+<li><strong>冷静な判断</strong>: 急がず慌てず確実に</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">継続的改善</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>定期評価</strong>: 月次・四半期での成績評価</li>
+<li><strong>手法改善</strong>: データに基づく手法改善</li>
+<li><strong>学習継続</strong>: 新しい知識の段階的習得</li>
+</ol>`
       },
       {
         type: 'text',
@@ -302,36 +438,58 @@ export const lesson20: Lesson = {
       },
       {
         type: 'warning',
-        content: `**組み合わせ分析実践時の注意点**
-### 1. 分析麻痺症候群
-**問題**: 多数の指標で分析が複雑化し、決断できない
-**対策**:
-- 使用指標を3-4個に限定
-- 明確な優先順位設定
-- シンプルな判断基準の設定
-- 時間制限を設けた分析
-### 2. 矛盾シグナルの処理
-**問題**: 指標間で相反するシグナルが出現
-**対策**:
-- メイン指標の重視
-- 矛盾時は見送りルール
-- 上位時間軸での確認
-- より多くの一致する指標優先
-### 3. 過度な最適化
-**問題**: 過去データに合わせすぎた手法
-**対策**:
-- 汎用性のある基本手法使用
-- 定期的な手法見直し
-- 複数期間での検証
-- シンプルなルール維持
-### 4. 感情的判断の混入
-**問題**: 分析結果を感情で覆す
-**対策**:
-- 事前計画の厳守
-- 機械的な実行
-- 感情日記の記録
-- 冷静期間の設定
-**成功の秘訣**: 組み合わせ分析は技術の習得よりも、継続的で規律正しい実行が重要です。シンプルなルールを一貫して適用することが長期成功の鍵です。`
+        content: `<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; border-left: 4px solid #ff9800; margin: 1rem 0;">
+<strong>組み合わせ分析実践時の注意点</strong>
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">1. 分析麻痺症候群</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 多数の指標で分析が複雑化し、決断できない<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>使用指標を3-4個に限定</li>
+<li>明確な優先順位設定</li>
+<li>シンプルな判断基準の設定</li>
+<li>時間制限を設けた分析</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">2. 矛盾シグナルの処理</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 指標間で相反するシグナルが出現<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>メイン指標の重視</li>
+<li>矛盾時は見送りルール</li>
+<li>上位時間軸での確認</li>
+<li>より多くの一致する指標優先</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">3. 過度な最適化</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 過去データに合わせすぎた手法<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>汎用性のある基本手法使用</li>
+<li>定期的な手法見直し</li>
+<li>複数期間での検証</li>
+<li>シンプルなルール維持</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">4. 感情的判断の混入</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 分析結果を感情で覆す<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事前計画の厳守</li>
+<li>機械的な実行</li>
+<li>感情日記の記録</li>
+<li>冷静期間の設定</li>
+</ul>
+</div>
+
+<p style="margin: 1rem 0; font-weight: bold;">成功の秘訣: 組み合わせ分析は技術の習得よりも、継続的で規律正しい実行が重要です。シンプルなルールを一貫して適用することが長期成功の鍵です。</p>
+</div>`
       }
     ],
     keyPoints: [
@@ -357,7 +515,7 @@ export const lesson20: Lesson = {
         '売りエントリー'
       ],
       correctAnswer: 1,
-      explanation: 'すべての指標が上昇方向を示している（移動平均線の順行配列、MACD上昇転換、RSI中立圏）ため、買いエントリーが適切です。'
+      explanation: 'すべての指標が上昇方向を示している（移動平均線の順行配列、MACD上昇転換、RSI中立域）ため、買いエントリーが適切です。'
     },
     {
       id: 'trading-basics-comprehensive-practice-q2',

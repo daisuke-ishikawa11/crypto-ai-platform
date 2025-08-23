@@ -1,5 +1,5 @@
 import type { Lesson } from '../../../types';
-export const lesson19: Lesson = {
+export const export const lesson19: Lesson = {
   id: 'trading-basics-portfolio-fundamentals',
   slug: 'portfolio-fundamentals',
   title: 'ポートフォリオの基礎',
@@ -62,190 +62,299 @@ export const lesson19: Lesson = {
       },
       {
         type: 'text',
-        content: `# 基本的な資産配分方法
-## 等分配分（均等配分）
-### 最もシンプルな配分方法
-- **基本**: すべての資産を同じ比率で保有
-- **例**: 4つの暗号通貨をそれぞれ25%ずつ
-- **利点**: 計算が簡単、初心者にも理解しやすい
-- **欠点**: 各資産のリスク特性を考慮しない
-### 実践例
-- **資金**: $10,000
-- **対象**: BTC、ETH、BNB、ADA
-- **配分**: 各$2,500(25%ずつ)
-- **メリット**: 管理が簡単、定期的な調整も分かりやすい
-## 時価総額比例配分
-### 市場規模に応じた配分
-- **基本**: 各暗号通貨の時価総額に比例した配分
-- **例**: BTCが市場の50%なら、ポートフォリオも50%
-- **利点**: 市場の評価を反映した自然な配分
-- **更新**: 時価総額変化に応じた定期調整
-### 実践例(2025年データ)
-- **BTC**: 時価総額60% → ポートフォリオ60%
-- **ETH**: 時価総額25% → ポートフォリオ25%
-- **その他**: 時価総額15% → ポートフォリオ15%
-- **特徴**: 市場主導の自然な重み付け
-## リスクベース配分
-### リスクレベルに応じた配分
-- **低リスク重視**: 安定した資産の比率を高く
-- **中リスク**: バランス型の配分
-- **高リスク許容**: 成長性重視の配分
-### 実践的な配分例
-#### 保守的ポートフォリオ
-- **BTC**: 70%(最も安定)
-- **ETH**: 20%(第2位の安定性)
-- **その他**: 10%(少額の成長狙い)
-#### バランス型ポートフォリオ
-- **BTC**: 50%(コア資産)
-- **ETH**: 30%(成長性とのバランス)
-- **アルトコイン**: 20%(多様化)
-#### 積極的ポートフォリオ
-- **BTC**: 40%(安定性確保)
-- **ETH**: 30%(成長期待)
-- **新興アルト**: 30%(高成長狙い)`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的な資産配分方法</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">等分配分（均等配分）</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">最もシンプルな配分方法</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>基本</strong>: すべての資産を同じ比率で保有</li>
+<li><strong>例</strong>: 4つの暗号通貨をそれぞれ25%ずつ</li>
+<li><strong>利点</strong>: 計算が簡単、初心者にも理解しやすい</li>
+<li><strong>欠点</strong>: 各資産のリスク特性を考慮しない</li>
+</ul>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実践例</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $10,000</li>
+<li><strong>対象</strong>: BTC、ETH、BNB、ADA</li>
+<li><strong>配分</strong>: 各$2,500(25%ずつ)</li>
+<li><strong>メリット</strong>: 管理が簡単、定期的な調整も分かりやすい</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">時価総額比例配分</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">市場規模に応じた配分</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>基本</strong>: 各暗号通貨の時価総額に比例した配分</li>
+<li><strong>例</strong>: BTCが市場の50%なら、ポートフォリオも50%</li>
+<li><strong>利点</strong>: 市場の評価を反映した自然な配分</li>
+<li><strong>更新</strong>: 時価総額変化に応じた定期調整</li>
+</ul>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実践例(2025年データ)</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>BTC</strong>: 時価総額60% → ポートフォリオ60%</li>
+<li><strong>ETH</strong>: 時価総額25% → ポートフォリオ25%</li>
+<li><strong>その他</strong>: 時価総額15% → ポートフォリオ15%</li>
+<li><strong>特徴</strong>: 市場主導の自然な重み付け</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">リスクベース配分</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リスクレベルに応じた配分</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>低リスク重視</strong>: 安定した資産の比率を高く</li>
+<li><strong>中リスク</strong>: バランス型の配分</li>
+<li><strong>高リスク許容</strong>: 成長性重視の配分</li>
+</ul>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実践的な配分例</h4>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">保守的ポートフォリオ</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>BTC</strong>: 70%(最も安定)</li>
+<li><strong>ETH</strong>: 20%(第2位の安定性)</li>
+<li><strong>その他</strong>: 10%(少額の成長狙い)</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">バランス型ポートフォリオ</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>BTC</strong>: 50%(コア資産)</li>
+<li><strong>ETH</strong>: 30%(成長性とのバランス)</li>
+<li><strong>アルトコイン</strong>: 20%(多様化)</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">積極的ポートフォリオ</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>BTC</strong>: 40%(安定性確保)</li>
+<li><strong>ETH</strong>: 30%(成長期待)</li>
+<li><strong>新興アルト</strong>: 30%(高成長狙い)</li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実際のポートフォリオ例：暗号通貨分散投資
-### 2025年の実践的ポートフォリオ例
-**初心者向けシンプルポートフォリオ**
-- **資金**: $5,000
-- **BTC**: $2,500(50% - 安定性重視)
-- **ETH**: $1,500(30% - 成長性期待)
-- **その他**: $1,000(20% - 学習・分散目的)
-- **特徴**: 管理しやすく、リスクも適度
-**中級者向けバランスポートフォリオ**
-- **資金**: $20,000
-- **BTC**: $8,000(40% - コア資産)
-- **ETH**: $6,000(30% - 第2のコア)
-- **レイヤー1**: $4,000(20% - SOL、ADA等)
-- **その他**: $2,000(10% - DeFi、NFT関連)
-- **特徴**: 分散が効いた安定性重視
-**上級者向け戦略的ポートフォリオ**
-- **資金**: $100,000
-- **コア資産(70%)**: BTC $40,000、ETH $30,000
-- **成長資産(20%)**: 新興レイヤー1・レイヤー2 $20,000
-- **投機資産(10%)**: 新しいトレンド・テーマ $10,000
-- **特徴**: リスク管理と成長機会のバランス
-**リバランシング実例**
-- **初期**: BTC 50%、ETH 30%、その他 20%
-- **3ヶ月後**: ETH急騰でBTC 40%、ETH 45%、その他 15%
-- **調整**: ETHを一部売却してBTCとその他を買い増し
-- **調整後**: BTC 50%、ETH 30%、その他 20%に復帰
-- **学習ポイント**: 定期的な配分調整で目標比率を維持`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実際のポートフォリオ例：暗号通貨分散投資</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2025年の実践的ポートフォリオ例</h3>
+
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>初心者向けシンプルポートフォリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $5,000</li>
+<li><strong>BTC</strong>: $2,500(50% - 安定性重視)</li>
+<li><strong>ETH</strong>: $1,500(30% - 成長性期待)</li>
+<li><strong>その他</strong>: $1,000(20% - 学習・分散目的)</li>
+<li><strong>特徴</strong>: 管理しやすく、リスクも適度</li>
+</ul>
+</div>
+
+<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>中級者向けバランスポートフォリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $20,000</li>
+<li><strong>BTC</strong>: $8,000(40% - コア資産)</li>
+<li><strong>ETH</strong>: $6,000(30% - 第2のコア)</li>
+<li><strong>レイヤー1</strong>: $4,000(20% - SOL、ADA等)</li>
+<li><strong>その他</strong>: $2,000(10% - DeFi、NFT関連)</li>
+<li><strong>特徴</strong>: 分散が効いた安定性重視</li>
+</ul>
+</div>
+
+<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>上級者向け戦略的ポートフォリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>資金</strong>: $100,000</li>
+<li><strong>コア資産(70%)</strong>: BTC $40,000、ETH $30,000</li>
+<li><strong>成長資産(20%)</strong>: 新興レイヤー1・レイヤー2 $20,000</li>
+<li><strong>投機資産(10%)</strong>: 新しいトレンド・テーマ $10,000</li>
+<li><strong>特徴</strong>: リスク管理と成長機会のバランス</li>
+</ul>
+</div>
+
+<div style="background: #e3f2fd; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>リバランシング実例</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>初期</strong>: BTC 50%、ETH 30%、その他 20%</li>
+<li><strong>3ヶ月後</strong>: ETH急騰でBTC 40%、ETH 45%、その他 15%</li>
+<li><strong>調整</strong>: ETHを一部売却してBTCとその他を買い増し</li>
+<li><strong>調整後</strong>: BTC 50%、ETH 30%、その他 20%に復帰</li>
+<li><strong>学習ポイント</strong>: 定期的な配分調整で目標比率を維持</li>
+</ul>
+</div>`
       },
       {
         type: 'tip',
-        content: `**ポートフォリオ基礎活用のコツ**
-1. **実用的な配分管理**:
-   - データ期間: 1-2年程度の市場データを参考
-   - 見直し頻度: 月次または四半期ごとの配分確認
-   - 記録管理: 配分変更の理由と結果を記録
-2. **基本的なルール設定**:
-   - 最小配分: 5%以上(極端な集中を避ける)
-   - 最大配分: 50%以下(リスクの過度な集中を防ぐ)
-   - 相関確認: 似た動きをする資産の重複を避ける
-3. **継続的な学習**: 実際の結果を確認し、基本的な配分方法を少しずつ改善！`
+        content: `<div style="background: #e8f5e8; padding: 1rem; border-radius: 4px; border-left: 4px solid #4caf50; margin: 1rem 0;">
+<strong>ポートフォリオ基礎活用のコツ</strong>
+<h4 style="color: #2e7d32; margin: 0 0 0.5rem 0;">1. 実用的な配分管理</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>データ期間: 1-2年程度の市場データを参考</li>
+<li>見直し頻度: 月次または四半期ごとの配分確認</li>
+<li>記録管理: 配分変更の理由と結果を記録</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">2. 基本的なルール設定</h4>
+<ul style="margin: 0; padding-left: 1.5rem;">
+<li>最小配分: 5%以上(極端な集中を避ける)</li>
+<li>最大配分: 50%以下(リスクの過度な集中を防ぐ)</li>
+<li>相関確認: 似た動きをする資産の重複を避ける</li>
+</ul>
+
+<h4 style="color: #2e7d32; margin: 1rem 0 0.5rem 0;">3. 継続的な学習</h4>
+<p style="margin: 0;">実際の結果を確認し、基本的な配分方法を少しずつ改善！</p>
+</div>`
       },
       {
         type: 'text',
-        content: `# 基本的なパフォーマンス測定
-## 基本的なリターン指標
-### 単純リターン
-**計算式**: (期末価値 - 期初価値) ÷ 期初価値 × 100
-#### 実例
-- **期初**: $10,000
-- **期末**: $12,000
-- **リターン**: ($12,000 - $10,000) ÷ $10,000 = 20%
-### 年率リターン
-**計算式**: ((期末価値 ÷ 期初価値)^(1/年数) - 1) × 100
-#### 実例
-- **期初**: $10,000
-- **2年後**: $14,400
-- **年率**: (($14,400 ÷ $10,000)^(1/2) - 1) = 20%/年
-### 基本的なリスク測定
-**ボラティリティ(標準偏差)**
-- **意味**: リターンのばらつき度合い
-- **計算**: 月次リターンの標準偏差
-- **解釈**: 高いほどリスクが大きい
-### 最大ドローダウン
-**計算式**: (ピーク価値 - 最低価値) ÷ ピーク価値
-#### 実例
-- **ピーク**: $15,000
-- **最低**: $12,000
-- **ドローダウン**: ($15,000 - $12,000) ÷ $15,000 = 20%
-## 基本的なリバランシング
-### リバランシングとは
-**定義**: 目標配分と実際の配分が乖離した際に、売買により目標配分に戻すこと
-### リバランシングの判断基準
-- **閾値**: 目標から5%以上の乖離
-- **時間**: 3ヶ月または6ヶ月ごとの定期見直し
-- **イベント**: 大きな市場変動後の緊急調整
-### 実践手順
-1. **現在配分の確認**: 各資産の現在の比率を計算
-2. **乖離度の測定**: 目標配分からの差を確認
-3. **調整必要性**: 閾値を超えているかを判定
-4. **売買の実行**: 過大部分を売却、過少部分を購入
-5. **結果の確認**: 目標配分への回帰を確認
-## 継続的な改善
-### 月次確認項目
-1. **パフォーマンス**: 全体の損益状況
-2. **配分状況**: 目標からの乖離度
-3. **個別資産**: 各資産の動向
-4. **市場環境**: 全体的な市場の変化
-### 記録の重要性
-- **取引記録**: いつ、何を、なぜ売買したか
-- **パフォーマンス記録**: 月次・四半期の成績
-- **学習記録**: 成功・失敗から得た教訓
-- **改善記録**: 戦略の修正内容と理由`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的なパフォーマンス測定</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">基本的なリターン指標</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">単純リターン</h4>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>計算式</strong>: (期末価値 - 期初価値) ÷ 期初価値 × 100
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実例</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>期初</strong>: $10,000</li>
+<li><strong>期末</strong>: $12,000</li>
+<li><strong>リターン</strong>: ($12,000 - $10,000) ÷ $10,000 = 20%</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">年率リターン</h4>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>計算式</strong>: ((期末価値 ÷ 期初価値)^(1/年数) - 1) × 100
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実例</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>期初</strong>: $10,000</li>
+<li><strong>2年後</strong>: $14,400</li>
+<li><strong>年率</strong>: (($14,400 ÷ $10,000)^(1/2) - 1) = 20%/年</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">基本的なリスク測定</h4>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>ボラティリティ(標準偏差)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>意味</strong>: リターンのばらつき度合い</li>
+<li><strong>計算</strong>: 月次リターンの標準偏差</li>
+<li><strong>解釈</strong>: 高いほどリスクが大きい</li>
+</ul>
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">最大ドローダウン</h4>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+<strong>計算式</strong>: (ピーク価値 - 最低価値) ÷ ピーク価値
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実例</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ピーク</strong>: $15,000</li>
+<li><strong>最低</strong>: $12,000</li>
+<li><strong>ドローダウン</strong>: ($15,000 - $12,000) ÷ $15,000 = 20%</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">基本的なリバランシング</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リバランシングとは</h4>
+<p style="margin-bottom: 1rem;"><strong>定義</strong>: 目標配分と実際の配分が乖離した際に、売買により目標配分に戻すこと</p>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">リバランシングの判断基準</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>閾値</strong>: 目標から5%以上の乖離</li>
+<li><strong>時間</strong>: 3ヶ月または6ヶ月ごとの定期見直し</li>
+<li><strong>イベント</strong>: 大きな市場変動後の緊急調整</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">実践手順</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>現在配分の確認</strong>: 各資産の現在の比率を計算</li>
+<li><strong>乖離度の測定</strong>: 目標配分からの差を確認</li>
+<li><strong>調整必要性</strong>: 閾値を超えているかを判定</li>
+<li><strong>売買の実行</strong>: 過大部分を売却、過少部分を購入</li>
+<li><strong>結果の確認</strong>: 目標配分への回帰を確認</li>
+</ol>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">継続的な改善</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">月次確認項目</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>パフォーマンス</strong>: 全体の損益状況</li>
+<li><strong>配分状況</strong>: 目標からの乖離度</li>
+<li><strong>個別資産</strong>: 各資産の動向</li>
+<li><strong>市場環境</strong>: 全体的な市場の変化</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">記録の重要性</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>取引記録</strong>: いつ、何を、なぜ売買したか</li>
+<li><strong>パフォーマンス記録</strong>: 月次・四半期の成績</li>
+<li><strong>学習記録</strong>: 成功・失敗から得た教訓</li>
+<li><strong>改善記録</strong>: 戦略の修正内容と理由</li>
+</ul>`
       },
       {
         type: 'text',
-        content: `# 実践的なポートフォリオ戦略
-## 初心者向け基本戦略
-### 3つの通貨で始める
-1. **BTC**: 50%(最も安定したコア資産)
-2. **ETH**: 30%(成長性とのバランス)
-3. **アルトコイン1つ**: 20%(学習目的)
-### 運用のポイント
-- **少額から開始**: $1,000-$5,000で慣れる
-- **定期投資**: 毎月一定額を投資
-- **感情制御**: 日々の価格変動に一喜一憂しない
-- **学習重視**: まずは基本的な知識習得を優先
-## 中級者向けバランス戦略
-### 5-7通貨での分散
-1. **メジャー通貨**: BTC、ETH(60-70%)
-2. **レイヤー1**: SOL、ADA、AVAX等(20-25%)
-3. **特定テーマ**: DeFi、NFT等(10-15%)
-### 管理手法
-- **月次リバランス**: 目標配分の維持
-- **段階的参入**: 一度に全額投資せず時間分散
-- **利確ルール**: 一定利益での部分利確
-- **損切りルール**: 個別銘柄の損切り基準設定
-## 上級者向け戦略的配分
-### 複合アプローチ
-1. **コア-サテライト戦略**: 
-   - コア(70%): BTC、ETHの安定配分
-   - サテライト(30%): テーマ別・成長狙い
-2. **リスク階層配分**:
-   - 低リスク(50%): 主要通貨
-   - 中リスク(30%): 中堅アルトコイン
-   - 高リスク(20%): 新興・テーマ通貨
-### 高度な管理
-- **相関分析**: 通貨間の相関を考慮した配分
-- **ボラティリティ調整**: リスクレベルに応じた配分
-- **マクロ分析**: 経済環境を考慮した戦略調整
-- **税務最適化**: 税務効率を考慮した売買
-## 長期投資とのバランス
-### 投資期間の使い分け
-- **長期保有(50%)**: 5年以上の保有を前提
-- **中期保有(30%)**: 1-3年の保有期間
-- **短期取引(20%)**: 3ヶ月-1年の機動的運用
-### 時間分散の重要性
-1. **ドルコスト平均**: 定期的な一定額投資
-2. **段階的参入**: 大口投資の時間分散
-3. **利確の分散**: 一度に全てを売らない
-4. **再投資**: 利益の一部を再投資に回す`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践的なポートフォリオ戦略</h2>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">初心者向け基本戦略</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">3つの通貨で始める</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>BTC</strong>: 50%(最も安定したコア資産)</li>
+<li><strong>ETH</strong>: 30%(成長性とのバランス)</li>
+<li><strong>アルトコイン1つ</strong>: 20%(学習目的)</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">運用のポイント</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>少額から開始</strong>: $1,000-$5,000で慣れる</li>
+<li><strong>定期投資</strong>: 毎月一定額を投資</li>
+<li><strong>感情制御</strong>: 日々の価格変動に一喜一憂しない</li>
+<li><strong>学習重視</strong>: まずは基本的な知識習得を優先</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">中級者向けバランス戦略</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">5-7通貨での分散</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>メジャー通貨</strong>: BTC、ETH(60-70%)</li>
+<li><strong>レイヤー1</strong>: SOL、ADA、AVAX等(20-25%)</li>
+<li><strong>特定テーマ</strong>: DeFi、NFT等(10-15%)</li>
+</ol>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">管理手法</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>月次リバランス</strong>: 目標配分の維持</li>
+<li><strong>段階的参入</strong>: 一度に全額投資せず時間分散</li>
+<li><strong>利確ルール</strong>: 一定利益での部分利確</li>
+<li><strong>損切りルール</strong>: 個別銘柄の損切り基準設定</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">上級者向け戦略的配分</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">複合アプローチ</h4>
+<div style="margin: 1rem 0;">
+<strong>1. コア-サテライト戦略</strong>:<br>
+- コア(70%): BTC、ETHの安定配分<br>
+- サテライト(30%): テーマ別・成長狙い<br><br>
+
+<strong>2. リスク階層配分</strong>:<br>
+- 低リスク(50%): 主要通貨<br>
+- 中リスク(30%): 中堅アルトコイン<br>
+- 高リスク(20%): 新興・テーマ通貨
+</div>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">高度な管理</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>相関分析</strong>: 通貨間の相関を考慮した配分</li>
+<li><strong>ボラティリティ調整</strong>: リスクレベルに応じた配分</li>
+<li><strong>マクロ分析</strong>: 経済環境を考慮した戦略調整</li>
+<li><strong>税務最適化</strong>: 税務効率を考慮した売買</li>
+</ul>
+
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">長期投資とのバランス</h3>
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">投資期間の使い分け</h4>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>長期保有(50%)</strong>: 5年以上の保有を前提</li>
+<li><strong>中期保有(30%)</strong>: 1-3年の保有期間</li>
+<li><strong>短期取引(20%)</strong>: 3ヶ月-1年の機動的運用</li>
+</ul>
+
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">時間分散の重要性</h4>
+<ol style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>ドルコスト平均</strong>: 定期的な一定額投資</li>
+<li><strong>段階的参入</strong>: 大口投資の時間分散</li>
+<li><strong>利確の分散</strong>: 一度に全てを売らない</li>
+<li><strong>再投資</strong>: 利益の一部を再投資に回す</li>
+</ol>`
       },
       {
         type: 'text',
@@ -266,36 +375,58 @@ export const lesson19: Lesson = {
       },
       {
         type: 'warning',
-        content: `**ポートフォリオ管理時の注意点**
-### 1. 過度な複雑化
-**問題**: 多数の通貨への分散で管理が複雑化
-**対策**:
-- 初心者は3-5通貨程度に限定
-- 理解できる範囲での投資
-- シンプルな配分ルールの採用
-- 段階的な通貨数増加
-### 2. 感情的な判断
-**問題**: 価格変動に影響された非合理的な配分変更
-**対策**:
-- 事前に決めたルールの遵守
-- 定期的な見直しスケジュール
-- 感情と論理の分離
-- 冷静な期間での判断
-### 3. リバランシングの怠慢
-**問題**: 配分乖離の放置による偏った投資
-**対策**:
-- 定期的な配分確認
-- 明確な閾値設定
-- 自動リバランシング検討
-- 記録による意識向上
-### 4. 手数料の軽視
-**問題**: 頻繁な売買による手数料負担増大
-**対策**:
-- リバランシング頻度の最適化
-- 閾値設定による無駄な取引回避
-- 手数料を考慮した配分調整
-- 長期視点での運用
-**成功の秘訣**: ポートフォリオ管理は技術よりも継続性が重要です。シンプルなルールを一貫して実行し続けることが、長期的な成功への鍵です。`
+        content: `<div style="background: #fff3e0; padding: 1rem; border-radius: 4px; border-left: 4px solid #ff9800; margin: 1rem 0;">
+<strong>ポートフォリオ管理時の注意点</strong>
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">1. 過度な複雑化</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 多数の通貨への分散で管理が複雑化<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>初心者は3-5通貨程度に限定</li>
+<li>理解できる範囲での投資</li>
+<li>シンプルな配分ルールの採用</li>
+<li>段階的な通貨数増加</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">2. 感情的な判断</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 価格変動に影響された非合理的な配分変更<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>事前に決めたルールの遵守</li>
+<li>定期的な見直しスケジュール</li>
+<li>感情と論理の分離</li>
+<li>冷静な期間での判断</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">3. リバランシングの怠慢</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 配分乖離の放置による偏った投資<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的な配分確認</li>
+<li>明確な閾値設定</li>
+<li>自動リバランシング検討</li>
+<li>記録による意識向上</li>
+</ul>
+</div>
+
+<h4 style="color: #f57c00; margin: 0 0 0.5rem 0;">4. 手数料の軽視</h4>
+<div style="margin-bottom: 1rem;">
+<strong>問題</strong>: 頻繁な売買による手数料負担増大<br>
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リバランシング頻度の最適化</li>
+<li>閾値設定による無駄な取引回避</li>
+<li>手数料を考慮した配分調整</li>
+<li>長期視点での運用</li>
+</ul>
+</div>
+
+<p style="margin: 1rem 0; font-weight: bold;">成功の秘訣: ポートフォリオ管理は技術よりも継続性が重要です。シンプルなルールを一貫して実行し続けることが、長期的な成功への鍵です。</p>
+</div>`
       }
     ],
     keyPoints: [

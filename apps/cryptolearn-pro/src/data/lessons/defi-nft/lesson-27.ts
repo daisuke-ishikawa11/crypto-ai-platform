@@ -132,28 +132,30 @@ export const lesson27: Lesson = {
       {
         type: 'example',
         title: '実践例',
-        content: `## 基本的な例
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">基本的な例</h2>
 実際のゲーミングNFTとPlay-to-Earnの活用例：
 
-1. **ステップ1**: 基本設定の確認
+1. <strong>ステップ1</strong>: 基本設定の確認
    - 必要な準備作業の実施
    - リスクレベルの評価
 
-2. **ステップ2**: 実行手順の理解
+2. <strong>ステップ2</strong>: 実行手順の理解
    - 具体的な手法の適用
    - 結果の監視方法
 
-3. **ステップ3**: 結果の分析
+3. <strong>ステップ3</strong>: 結果の分析
    - 成果の測定と評価
    - 改善点の特定
 
-## 応用例
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">応用例</h2>
 
 より高度な活用方法：
-- 複合的な戦略の組み合わせ
-- リスク管理の徹底
-- 継続的な改善プロセス
-- 市場環境への適応`
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複合的な戦略の組み合わせ</li>
+<li>リスク管理の徹底</li>
+<li>継続的な改善プロセス</li>
+<li>市場環境への適応</li>
+</ul>`
       },
       {
         type: 'text',

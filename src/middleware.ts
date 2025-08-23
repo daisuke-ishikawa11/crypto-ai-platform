@@ -6,6 +6,32 @@ import { generateCacheHeaders } from '@/lib/optimization/cache-strategy';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  // 独立系アプリ開発スコープ制御（触らない領域の明示ブロック）
+  const scope = (process.env.APP_ACCESS_SCOPE || '').trim().toLowerCase();
+  if (scope) {
+    const scopes = new Set(scope.split(',').map(s => s.trim()).filter(Boolean));
+    const allow = (p: string): boolean => {
+      // 共通許可: ヘルス/監視/静的
+      if (p.startsWith('/api/health') || p.startsWith('/api/monitoring') || p.startsWith('/_next') || p.startsWith('/static') || p === '/' ) return true;
+      // スコープ別許可
+      if (scopes.has('defi')) {
+        if (p.startsWith('/defi') || p.startsWith('/api/defi') || p.startsWith('/api/ai/defi')) return true;
+      }
+      if (scopes.has('learning') || scopes.has('learn')) {
+        if (p.startsWith('/learning') || p.startsWith('/api/learning')) return true;
+      }
+      if (scopes.has('alerts') || scopes.has('ai-alerts')) {
+        if (p.startsWith('/api/alerts') || p.startsWith('/alerts') || p.startsWith('/api/ai/structured')) return true;
+      }
+      return false;
+    }
+    if (!allow(pathname)) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/blocked';
+      url.searchParams.set('reason', 'out_of_scope');
+      return NextResponse.rewrite(url);
+    }
+  }
   
   // キャッシュ戦略を決定
   let cacheStrategy: string | null = null;

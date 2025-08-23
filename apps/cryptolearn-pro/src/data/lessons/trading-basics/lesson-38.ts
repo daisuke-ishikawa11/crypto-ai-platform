@@ -76,7 +76,7 @@ export const lesson38: Lesson = {
 
 <h2>基本的な取引戦略（基礎）</h2>
 <h3>移動平均クロス戦略</h3>
-**最も基本的なアルゴリズム戦略**
+<strong>最も基本的なアルゴリズム戦略</strong>
 
 <h4>戦略の基本原理</h4>
 <ul>
@@ -87,209 +87,225 @@ export const lesson38: Lesson = {
 </ul>
 
 <h4>実装の基本手順</h4>
-1. **データ取得**: 価格データの継続的取得
-2. **移動平均計算**: 20日・50日移動平均の算出
-3. **クロス判定**: 上抜け・下抜けの検出
-4. **注文執行**: シグナル発生時の自動売買
+1. <strong>データ取得</strong>: 価格データの継続的取得
+2. <strong>移動平均計算</strong>: 20日・50日移動平均の算出
+3. <strong>クロス判定</strong>: 上抜け・下抜けの検出
+4. <strong>注文執行</strong>: シグナル発生時の自動売買
 
 <h3>RSI逆張り戦略（基礎）</h3>
 <h4>戦略設計</h4>
-**買いシグナル**
-- **RSI < 30**: 過売り状態
-- **価格条件**: 直近安値から5%以上下落
-- **出来高条件**: 平均の1.5倍以上
-- **実行**: 成行買い注文
+<strong>買いシグナル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>RSI < 30</strong>: 過売り状態</li>
+<li><strong>価格条件</strong>: 直近安値から5%以上下落</li>
+<li><strong>出来高条件</strong>: 平均の1.5倍以上</li>
+<li><strong>実行</strong>: 成行買い注文</li>
+</ul>
 
-**売りシグナル**
-- **RSI > 70**: 過買い状態
-- **価格条件**: 直近高値から3%以上上昇
-- **利確条件**: 10%利益で自動利確
-- **実行**: 成行売り注文
+<strong>売りシグナル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>RSI > 70</strong>: 過買い状態</li>
+<li><strong>価格条件</strong>: 直近高値から3%以上上昇</li>
+<li><strong>利確条件</strong>: 10%利益で自動利確</li>
+<li><strong>実行</strong>: 成行売り注文</li>
+</ul>
 
-### 高度な取引戦略（応用）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">高度な取引戦略（応用）</h3>
 <h3>アービトラージ戦略</h3>
 <h4>取引所間価格差利用</h4>
-**2025年の暗号資産アービトラージ例**
+<strong>2025年の暗号資産アービトラージ例</strong>
 
-**Binance vs Coinbase価格差戦略**
-1. **監視**: Bitcoin価格を両取引所で同時監視
-2. **閾値**: 0.3%以上の価格差発生
-3. **実行**: 
+<strong>Binance vs Coinbase価格差戦略</strong>
+1. <strong>監視</strong>: Bitcoin価格を両取引所で同時監視
+2. <strong>閾値</strong>: 0.3%以上の価格差発生
+3. <strong>実行</strong>: 
    - 安い取引所で買い
    - 高い取引所で売り
    - 資金移動と利益確定
 
-**実装における注意点**
-- **送金時間**: ブロックチェーン送金の時間遅延
-- **手数料計算**: 取引手数料・送金手数料の考慮
-- **流動性**: 大口取引による価格インパクト
-- **リスク管理**: 価格差縮小リスクの管理
+<strong>実装における注意点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>送金時間</strong>: ブロックチェーン送金の時間遅延</li>
+<li><strong>手数料計算</strong>: 取引手数料・送金手数料の考慮</li>
+<li><strong>流動性</strong>: 大口取引による価格インパクト</li>
+<li><strong>リスク管理</strong>: 価格差縮小リスクの管理</li>
+</ul>
 
 <h3>モメンタム戦略（応用）</h3>
 <h4>ブレイクアウト検出システム</h4>
-**上昇ブレイクアウト戦略**
-1. **レジスタンス特定**: 過去20日の高値
-2. **出来高確認**: 平均の2倍以上
-3. **ブレイクアウト**: 高値を0.5%以上上抜け
-4. **エントリー**: 即座に成行買い
-5. **利確**: 5-10%上昇で段階的利確
-6. **損切り**: 2%下落でストップロス
+<strong>上昇ブレイクアウト戦略</strong>
+1. <strong>レジスタンス特定</strong>: 過去20日の高値
+2. <strong>出来高確認</strong>: 平均の2倍以上
+3. <strong>ブレイクアウト</strong>: 高値を0.5%以上上抜け
+4. <strong>エントリー</strong>: 即座に成行買い
+5. <strong>利確</strong>: 5-10%上昇で段階的利確
+6. <strong>損切り</strong>: 2%下落でストップロス
 
-**下降ブレイクアウト戦略**
-1. **サポート特定**: 過去20日の安値
-2. **出来高確認**: 平均の2倍以上
-3. **ブレイクダウン**: 安値を0.5%以上下抜け
-4. **エントリー**: 空売りまたは既存ポジション売却
-5. **利確**: 5-10%下落で段階的利確
+<strong>下降ブレイクアウト戦略</strong>
+1. <strong>サポート特定</strong>: 過去20日の安値
+2. <strong>出来高確認</strong>: 平均の2倍以上
+3. <strong>ブレイクダウン</strong>: 安値を0.5%以上下抜け
+4. <strong>エントリー</strong>: 空売りまたは既存ポジション売却
+5. <strong>利確</strong>: 5-10%下落で段階的利確
 
 <h2>機械学習を活用した高度戦略</h2>
 
-### 予測モデルの構築（応用）
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">予測モデルの構築（応用）</h3>
 <h3>価格予測アルゴリズム</h3>
 <h4>特徴量（Feature）の設計</h4>
-**テクニカル特徴量**
-- **価格系**: 価格変化率、高値・安値比率
-- **出来高系**: 出来高変化率、VWAP乖離率
-- **ボラティリティ**: 標準偏差、ATR
-- **モメンタム**: ROC、Williams %R
+<strong>テクニカル特徴量</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格系</strong>: 価格変化率、高値・安値比率</li>
+<li><strong>出来高系</strong>: 出来高変化率、VWAP乖離率</li>
+<li><strong>ボラティリティ</strong>: 標準偏差、ATR</li>
+<li><strong>モメンタム</strong>: ROC、Williams %R</li>
+</ul>
 
-**ファンダメンタル特徴量**
-- **オンチェーン**: アクティブアドレス数、取引量
-- **センチメント**: Fear & Greed Index、ソーシャル指標
-- **マクロ経済**: 金利、株式市場、ドルインデックス
+<strong>ファンダメンタル特徴量</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>オンチェーン</strong>: アクティブアドレス数、取引量</li>
+<li><strong>センチメント</strong>: Fear & Greed Index、ソーシャル指標</li>
+<li><strong>マクロ経済</strong>: 金利、株式市場、ドルインデックス</li>
+</ul>
 
 <h4>予測モデルの選択</h4>
-**線形回帰（基礎）**
-- **適用**: 単純な価格トレンド予測
-- **利点**: 解釈しやすい、計算が軽い
-- **制限**: 非線形関係を捉えられない
+<strong>線形回帰（基礎）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>適用</strong>: 単純な価格トレンド予測</li>
+<li><strong>利点</strong>: 解釈しやすい、計算が軽い</li>
+<li><strong>制限</strong>: 非線形関係を捉えられない</li>
+</ul>
 
-**ランダムフォレスト（応用）**
-- **適用**: 複雑なパターン認識
-- **利点**: 過学習に強い、特徴量重要度取得
-- **活用**: 売買タイミング分類
+<strong>ランダムフォレスト（応用）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>適用</strong>: 複雑なパターン認識</li>
+<li><strong>利点</strong>: 過学習に強い、特徴量重要度取得</li>
+<li><strong>活用</strong>: 売買タイミング分類</li>
+</ul>
 
-**LSTM（Long Short-Term Memory）**
-- **適用**: 時系列データの長期依存関係
-- **利点**: 過去の長期パターンを学習
-- **活用**: 次期価格の連続予測`
+<strong>LSTM（Long Short-Term Memory）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>適用</strong>: 時系列データの長期依存関係</li>
+<li><strong>利点</strong>: 過去の長期パターンを学習</li>
+<li><strong>活用</strong>: 次期価格の連続予測</li>
+</ul>`
       },
       {
         type: 'example',
-        content: `## 実践例：アルゴリズム取引システムの構築と運用
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">実践例：アルゴリズム取引システムの構築と運用</h2>
 
-### ケース1: 基本的な移動平均クロス戦略（2025年1月想定）
-**投資額**: $5,000
-**対象**: Bitcoin (BTC)
-**戦略**: 20日・50日移動平均クロス
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ケース1: 基本的な移動平均クロス戦略（2025年1月想定）</h3>
+<strong>投資額</strong>: $5,000
+<strong>対象</strong>: Bitcoin (BTC)
+<strong>戦略</strong>: 20日・50日移動平均クロス
 
-**システム設定**:
-```python
+<strong>システム設定</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # 基本設定
 SHORT_MA = 20  # 短期移動平均
 LONG_MA = 50   # 長期移動平均
 POSITION_SIZE = 0.1  # ポジションサイズ（10%）
 STOP_LOSS = 0.03     # ストップロス（3%）
 TAKE_PROFIT = 0.08   # 利確（8%）
-```
+</div>
 
-**運用実績（3ヶ月）**:
-#### 1月取引例
-- **1/15**: ゴールデンクロス発生 → $92,000でBitcoin購入
-- **取引量**: $500（総資金の10%）
-- **購入量**: 0.0054 BTC
+<strong>運用実績（3ヶ月）</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">1月取引例</h4>
+- <strong>1/15</strong>: ゴールデンクロス発生 → $92,000でBitcoin購入
+- <strong>取引量</strong>: $500（総資金の10%）
+- <strong>購入量</strong>: 0.0054 BTC
 
-#### 2月取引例  
-- **2/8**: デッドクロス発生 → $98,500で売却
-- **利益**: $35（7%の利益）
-- **学習**: 中期トレンドを適切に捉える
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">2月取引例</h4>
+- <strong>2/8</strong>: デッドクロス発生 → $98,500で売却
+- <strong>利益</strong>: $35（7%の利益）
+- <strong>学習</strong>: 中期トレンドを適切に捉える
 
-#### 3月取引例
-- **3/12**: 再度ゴールデンクロス → $89,000で購入
-- **3/28**: 利確ライン到達 → $96,120で売却
-- **利益**: $40（8%の利益）
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">3月取引例</h4>
+- <strong>3/12</strong>: 再度ゴールデンクロス → $89,000で購入
+- <strong>3/28</strong>: 利確ライン到達 → $96,120で売却
+- <strong>利益</strong>: $40（8%の利益）
 
-**累積成果**:
-- **総取引回数**: 6回
-- **勝率**: 67%（4勝2敗）
-- **総利益**: $125
-- **リターン**: 2.5%（3ヶ月）
-- **年率換算**: 約10%
+<strong>累積成果</strong>:
+- <strong>総取引回数</strong>: 6回
+- <strong>勝率</strong>: 67%（4勝2敗）
+- <strong>総利益</strong>: $125
+- <strong>リターン</strong>: 2.5%（3ヶ月）
+- <strong>年率換算</strong>: 約10%
 
-### ケース2: RSI逆張り戦略の実装
-**投資額**: $3,000
-**対象**: Ethereum (ETH)
-**戦略**: RSI過売り・過買い逆張り
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース2: RSI逆張り戦略の実装</h3>
+<strong>投資額</strong>: $3,000
+<strong>対象</strong>: Ethereum (ETH)
+<strong>戦略</strong>: RSI過売り・過買い逆張り
 
-**詳細設定**:
-```python
+<strong>詳細設定</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # RSI設定
 RSI_OVERSOLD = 25    # 過売り閾値
 RSI_OVERBOUGHT = 75  # 過買い閾値
 RSI_PERIOD = 14      # RSI計算期間
 VOLUME_THRESHOLD = 1.5  # 出来高閾値（平均の1.5倍）
-```
+</div>
 
-**運用事例（2ヶ月）**:
-#### ケース2-1: 過売り買い
-- **1/22**: RSI 22、出来高2.1倍 → $2,800でETH購入
-- **購入金額**: $300
-- **1/25**: RSI 45まで回復 → $3,100で売却
-- **利益**: $32（10.7%の利益）
+<strong>運用事例（2ヶ月）</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース2-1: 過売り買い</h4>
+- <strong>1/22</strong>: RSI 22、出来高2.1倍 → $2,800でETH購入
+- <strong>購入金額</strong>: $300
+- <strong>1/25</strong>: RSI 45まで回復 → $3,100で売却
+- <strong>利益</strong>: $32（10.7%の利益）
 
-#### ケース2-2: 過買い売り
-- **2/10**: RSI 78、既存ポジション50%売却
-- **売却価格**: $3,400
-- **2/15**: RSI 55まで下落 → $3,200で買い戻し
-- **利益**: $20（5.9%の利益）
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース2-2: 過買い売り</h4>
+- <strong>2/10</strong>: RSI 78、既存ポジション50%売却
+- <strong>売却価格</strong>: $3,400
+- <strong>2/15</strong>: RSI 55まで下落 → $3,200で買い戻し
+- <strong>利益</strong>: $20（5.9%の利益）
 
-**戦略評価**:
-- **取引頻度**: 月平均4-5回
-- **平均保有期間**: 3-5日
-- **勝率**: 70%
-- **平均利益**: 7%/取引
+<strong>戦略評価</strong>:
+- <strong>取引頻度</strong>: 月平均4-5回
+- <strong>平均保有期間</strong>: 3-5日
+- <strong>勝率</strong>: 70%
+- <strong>平均利益</strong>: 7%/取引
 
-### ケース3: アービトラージ戦略（高頻度取引）
-**投資額**: $10,000
-**戦略**: Binance-Coinbase価格差利用
-**対象**: Bitcoin、Ethereum
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース3: アービトラージ戦略（高頻度取引）</h3>
+<strong>投資額</strong>: $10,000
+<strong>戦略</strong>: Binance-Coinbase価格差利用
+<strong>対象</strong>: Bitcoin、Ethereum
 
-**システム概要**:
-```python
+<strong>システム概要</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # アービトラージ設定
 MIN_SPREAD = 0.003   # 最小価格差（0.3%）
 MAX_POSITION = 0.2   # 最大ポジション（20%）
 EXECUTION_DELAY = 5  # 最大実行遅延（5秒）
-```
+</div>
 
-**実行例（1日の取引）**:
-#### 9:15 AM: Bitcoin価格差発見
-- **Binance**: $94,500
-- **Coinbase**: $95,000
-- **価格差**: 0.53%
-- **実行**: Binanceで$2,000買い、Coinbaseで同額売り
-- **利益**: $10.6（手数料差し引き後）
+<strong>実行例（1日の取引）</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">9:15 AM: Bitcoin価格差発見</h4>
+- <strong>Binance</strong>: $94,500
+- <strong>Coinbase</strong>: $95,000
+- <strong>価格差</strong>: 0.53%
+- <strong>実行</strong>: Binanceで$2,000買い、Coinbaseで同額売り
+- <strong>利益</strong>: $10.6（手数料差し引き後）
 
-#### 2:30 PM: Ethereum価格差
-- **Binance**: $3,850
-- **Coinbase**: $3,890  
-- **価格差**: 1.04%
-- **実行**: $1,500規模で実行
-- **利益**: $15.6
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">2:30 PM: Ethereum価格差</h4>
+- <strong>Binance</strong>: $3,850
+- <strong>Coinbase</strong>: $3,890  
+- <strong>価格差</strong>: 1.04%
+- <strong>実行</strong>: $1,500規模で実行
+- <strong>利益</strong>: $15.6
 
-**日次実績**:
-- **取引回数**: 12回
-- **成功率**: 92%（11回成功）
-- **日次利益**: $89
-- **月次予想**: $1,900（21営業日）
+<strong>日次実績</strong>:
+- <strong>取引回数</strong>: 12回
+- <strong>成功率</strong>: 92%（11回成功）
+- <strong>日次利益</strong>: $89
+- <strong>月次予想</strong>: $1,900（21営業日）
 
-### ケース4: 機械学習予測モデル活用
-**投資額**: $8,000
-**戦略**: LSTM価格予測 + モメンタム分析
-**予測期間**: 24時間後の価格方向
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース4: 機械学習予測モデル活用</h3>
+<strong>投資額</strong>: $8,000
+<strong>戦略</strong>: LSTM価格予測 + モメンタム分析
+<strong>予測期間</strong>: 24時間後の価格方向
 
-**モデル構成**:
-```python
+<strong>モデル構成</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # 特徴量設計
 features = [
     'price_change_1h', 'price_change_4h', 'price_change_24h',
@@ -300,66 +316,66 @@ features = [
 # 予測閾値
 BUY_CONFIDENCE = 0.7   # 70%以上の上昇確率で買い
 SELL_CONFIDENCE = 0.7  # 70%以上の下落確率で売り
-```
+</div>
 
-**運用結果（1ヶ月）**:
-#### 高確度予測トレード
-- **1/5**: 上昇確率78% → $91,000でBTC購入
-- **1/6**: 実際価格 $95,200（4.6%上昇）✓
-- **利益**: $184
+<strong>運用結果（1ヶ月）</strong>:
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">高確度予測トレード</h4>
+- <strong>1/5</strong>: 上昇確率78% → $91,000でBTC購入
+- <strong>1/6</strong>: 実際価格 $95,200（4.6%上昇）✓
+- <strong>利益</strong>: $184
 
-- **1/18**: 下落確率82% → ポジション80%売却
-- **1/19**: 実際価格8%下落 ✓
-- **損失回避**: $320相当
+- <strong>1/18</strong>: 下落確率82% → ポジション80%売却
+- <strong>1/19</strong>: 実際価格8%下落 ✓
+- <strong>損失回避</strong>: $320相当
 
-#### 予測精度分析
-- **上昇予測精度**: 74%（高確度のみ）
-- **下落予測精度**: 71%
-- **全体精度**: 72.5%
-- **偽陽性率**: 28%
+<h4 style="color: #374151; margin: 1rem 0 0.5rem 0;">予測精度分析</h4>
+- <strong>上昇予測精度</strong>: 74%（高確度のみ）
+- <strong>下落予測精度</strong>: 71%
+- <strong>全体精度</strong>: 72.5%
+- <strong>偽陽性率</strong>: 28%
 
-**月次パフォーマンス**:
-- **総利益**: $520
-- **リターン**: 6.5%
-- **シャープレシオ**: 1.42
-- **最大ドローダウン**: 3.2%
+<strong>月次パフォーマンス</strong>:
+- <strong>総利益</strong>: $520
+- <strong>リターン</strong>: 6.5%
+- <strong>シャープレシオ</strong>: 1.42
+- <strong>最大ドローダウン</strong>: 3.2%
 
-### ケース5: 複合戦略システム
-**投資額**: $15,000
-**戦略**: 複数アルゴリズムの組み合わせ
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース5: 複合戦略システム</h3>
+<strong>投資額</strong>: $15,000
+<strong>戦略</strong>: 複数アルゴリズムの組み合わせ
 
-**戦略配分**:
-1. **移動平均クロス（40%）**: $6,000 - 中長期トレンド
-2. **RSI逆張り（30%）**: $4,500 - 短期反転狙い  
-3. **アービトラージ（20%）**: $3,000 - 低リスク収益
-4. **ML予測（10%）**: $1,500 - 高確度機会のみ
+<strong>戦略配分</strong>:
+1. <strong>移動平均クロス（40%）</strong>: $6,000 - 中長期トレンド
+2. <strong>RSI逆張り（30%）</strong>: $4,500 - 短期反転狙い  
+3. <strong>アービトラージ（20%）</strong>: $3,000 - 低リスク収益
+4. <strong>ML予測（10%）</strong>: $1,500 - 高確度機会のみ
 
-**リスク管理**:
-```python
+<strong>リスク管理</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # 全体リスク制御
 MAX_DAILY_LOSS = 0.02     # 日次最大損失2%
 MAX_DRAWDOWN = 0.05       # 最大ドローダウン5%
 CORRELATION_LIMIT = 0.7   # 戦略間相関上限
-```
+</div>
 
-**総合運用成果（3ヶ月）**:
-- **総リターン**: 18.4%
-- **年率換算**: 約73%
-- **勝率**: 68%
-- **最大ドローダウン**: 4.1%
-- **シャープレシオ**: 2.14
+<strong>総合運用成果（3ヶ月）</strong>:
+- <strong>総リターン</strong>: 18.4%
+- <strong>年率換算</strong>: 約73%
+- <strong>勝率</strong>: 68%
+- <strong>最大ドローダウン</strong>: 4.1%
+- <strong>シャープレシオ</strong>: 2.14
 
-**戦略別貢献度**:
-1. **アービトラージ**: 41%（低リスク・安定収益）
-2. **ML予測**: 28%（高確度・高リターン）
-3. **移動平均**: 19%（中期トレンド捕捉）
-4. **RSI逆張り**: 12%（短期収益機会）
+<strong>戦略別貢献度</strong>:
+1. <strong>アービトラージ</strong>: 41%（低リスク・安定収益）
+2. <strong>ML予測</strong>: 28%（高確度・高リターン）
+3. <strong>移動平均</strong>: 19%（中期トレンド捕捉）
+4. <strong>RSI逆張り</strong>: 12%（短期収益機会）
 
-### ケース6: 自動リバランス機能
-**目的**: 市場環境変化に応じた戦略最適化
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ケース6: 自動リバランス機能</h3>
+<strong>目的</strong>: 市場環境変化に応じた戦略最適化
 
-**動的調整システム**:
-```python
+<strong>動的調整システム</strong>:
+<div style="background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
 # 市場環境検出
 def market_regime_detection():
     volatility = calculate_volatility(30)  # 30日ボラティリティ
@@ -371,30 +387,84 @@ def market_regime_detection():
         return "TRENDING"    # トレンド相場
     else:
         return "NORMAL"      # 通常相場
-```
+</div>
 
-**環境別戦略調整**:
-- **レンジ相場**: RSI逆張り重視（60%配分）
-- **トレンド相場**: 移動平均クロス重視（60%配分）
-- **通常相場**: バランス配分（各25%）
+<strong>環境別戦略調整</strong>:
+- <strong>レンジ相場</strong>: RSI逆張り重視（60%配分）
+- <strong>トレンド相場</strong>: 移動平均クロス重視（60%配分）
+- <strong>通常相場</strong>: バランス配分（各25%）
 
-**実績**:
-- **適応精度**: 78%（正しい環境判定）
-- **収益改善**: 15%（固定配分vs動的配分）
-- **リスク軽減**: ドローダウン30%減少`
+<strong>実績</strong>:
+- <strong>適応精度</strong>: 78%（正しい環境判定）
+- <strong>収益改善</strong>: 15%（固定配分vs動的配分）
+- <strong>リスク軽減</strong>: ドローダウン30%減少</div>`
       },
       {
+        type: 'quiz',
+        content: {
+          question: 'アルゴリズム取引の主要な利点として適切でないものはどれですか？',
+          options: [
+            '感情に左右されない客観的な判断',
+            '24時間の継続的な市場監視',
+            '必ず利益を保証する',
+            '高速で精密な取引実行'
+          ],
+          correctAnswer: 2,
+          explanation: 'アルゴリズム取引は利益を保証するものではありません。主な利点は感情制御、継続監視、実行効率の向上です。'
+        }
+      }
+    ],
+    quiz: [
+      {
+        question: 'ゴールデンクロスとは何を表しますか？',
+        options: [
+          '短期移動平均が長期移動平均を下抜けること',
+          '短期移動平均が長期移動平均を上抜けること',
+          'RSIが70を上回ること',
+          '価格がボリンジャーバンド上限を超えること'
+        ],
+        correctAnswer: 1,
+        explanation: 'ゴールデンクロスは短期移動平均が長期移動平均を上抜けることで、買いシグナルとして使われます。'
+      },
+      {
+        question: 'アービトラージ戦略において最も重要な考慮事項は何ですか？',
+        options: [
+          '最大利益の追求',
+          '取引コストと実行時間',
+          '複雑な予測モデルの使用',
+          '長期トレンドの分析'
+        ],
+        correctAnswer: 1,
+        explanation: 'アービトラージでは価格差が短時間で縮小するため、取引コストと実行速度が利益に直結します。'
+      },
+      {
+        question: '機械学習を使った価格予測で最も注意すべき点は何ですか？',
+        options: [
+          '予測精度を100%にすること',
+          '過去データへの過適合',
+          'より複雑なモデルの使用',
+          '予測期間を長くすること'
+        ],
+        correctAnswer: 1,
+        explanation: '過適合は過去データにのみ最適化され、新しいデータに対応できない問題です。汎化性能の確保が重要です。'
+      }
+    ]
+  }
+}
+
+export default lesson38,
+      {
         type: 'tip',
-        content: `**アルゴリズム取引成功のコツ**
-1. **段階的構築**:
+        content: `<strong>アルゴリズム取引成功のコツ</strong>
+1. <strong>段階的構築</strong>:
    - まず簡単な戦略から始める
    - 十分なバックテストを実施
    - 小額から実運用開始
-2. **継続的改善**:
+2. <strong>継続的改善</strong>:
    - 定期的なパフォーマンス分析
    - 市場環境変化への適応
    - 新しい手法の段階的導入
-3. **リスク最優先**: 利益追求よりもリスク管理を最優先し、長期的に安定した収益を目指すことが重要！`
+3. <strong>リスク最優先</strong>: 利益追求よりもリスク管理を最優先し、長期的に安定した収益を目指すことが重要！`
       },
       {
         type: 'text',
@@ -403,81 +473,101 @@ def market_regime_detection():
 <h2>開発環境の構築</h2>
 <h3>必要なツールとライブラリ</h3>
 <h4>プログラミング言語</h4>
-**Python（推奨）**
-- **pandas**: データ処理・分析
-- **numpy**: 数値計算
-- **matplotlib/plotly**: データ可視化
-- **scikit-learn**: 機械学習
-- **ccxt**: 暗号資産取引所API
+<strong>Python（推奨）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>pandas</strong>: データ処理・分析</li>
+<li><strong>numpy</strong>: 数値計算</li>
+<li><strong>matplotlib/plotly</strong>: データ可視化</li>
+<li><strong>scikit-learn</strong>: 機械学習</li>
+<li><strong>ccxt</strong>: 暗号資産取引所API</li>
+</ul>
 
-**JavaScript（Node.js）**
-- **適用**: Webベースシステム
-- **利点**: リアルタイム処理、Web UI統合
-- **ライブラリ**: tulind、technicalindicators
+<strong>JavaScript（Node.js）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>適用</strong>: Webベースシステム</li>
+<li><strong>利点</strong>: リアルタイム処理、Web UI統合</li>
+<li><strong>ライブラリ</strong>: tulind、technicalindicators</li>
+</ul>
 
 <h4>取引所API接続</h4>
-**主要取引所のAPI**
-- **Binance API**: 世界最大の流動性
-- **Coinbase Pro API**: 機関投資家向け
-- **Kraken API**: セキュリティ重視
-- **Bybit API**: デリバティブ特化
+<strong>主要取引所のAPI</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>Binance API</strong>: 世界最大の流動性</li>
+<li><strong>Coinbase Pro API</strong>: 機関投資家向け</li>
+<li><strong>Kraken API</strong>: セキュリティ重視</li>
+<li><strong>Bybit API</strong>: デリバティブ特化</li>
+</ul>
 
 <h3>システムアーキテクチャ設計</h3>
 <h4>基本構成要素</h4>
-**データ収集層**
-- **価格データ**: リアルタイム価格取得
-- **注文板データ**: 流動性・スプレッド情報
-- **取引履歴**: 約定データの蓄積
-- **外部データ**: ニュース、ソーシャルデータ
+<strong>データ収集層</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>価格データ</strong>: リアルタイム価格取得</li>
+<li><strong>注文板データ</strong>: 流動性・スプレッド情報</li>
+<li><strong>取引履歴</strong>: 約定データの蓄積</li>
+<li><strong>外部データ</strong>: ニュース、ソーシャルデータ</li>
+</ul>
 
-**分析・判断層**
-- **テクニカル分析**: 各種指標の計算
-- **シグナル生成**: 売買判断の生成
-- **リスク評価**: ポジション・リスク管理
-- **パフォーマンス分析**: 戦略効果測定
+<strong>分析・判断層</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>テクニカル分析</strong>: 各種指標の計算</li>
+<li><strong>シグナル生成</strong>: 売買判断の生成</li>
+<li><strong>リスク評価</strong>: ポジション・リスク管理</li>
+<li><strong>パフォーマンス分析</strong>: 戦略効果測定</li>
+</ul>
 
-**実行層**
-- **注文管理**: 注文の生成・送信・管理
-- **ポジション管理**: 建玉状況の監視
-- **リスク制御**: ストップロス・利確の実行
-- **エラーハンドリング**: 異常時の対応
+<strong>実行層</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>注文管理</strong>: 注文の生成・送信・管理</li>
+<li><strong>ポジション管理</strong>: 建玉状況の監視</li>
+<li><strong>リスク制御</strong>: ストップロス・利確の実行</li>
+<li><strong>エラーハンドリング</strong>: 異常時の対応</li>
+</ul>
 
-### データ管理とバックテスト
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">データ管理とバックテスト</h3>
 <h3>履歴データの管理</h3>
 <h4>データ収集戦略</h4>
-**価格データ（OHLCV）**
-- **頻度**: 1分、5分、1時間、日次
-- **期間**: 最低2年分の履歴データ
-- **品質**: 欠損値・異常値の処理
-- **保存**: データベース（PostgreSQL、InfluxDB）
+<strong>価格データ（OHLCV）</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>頻度</strong>: 1分、5分、1時間、日次</li>
+<li><strong>期間</strong>: 最低2年分の履歴データ</li>
+<li><strong>品質</strong>: 欠損値・異常値の処理</li>
+<li><strong>保存</strong>: データベース（PostgreSQL、InfluxDB）</li>
+</ul>
 
-**補助データ**
-- **出来高プロファイル**: 価格別出来高分布
-- **オンチェーンデータ**: トランザクション、アドレス数
-- **センチメントデータ**: Fear & Greed、SNS分析
-- **マクロデータ**: 金利、株価、為替
+<strong>補助データ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>出来高プロファイル</strong>: 価格別出来高分布</li>
+<li><strong>オンチェーンデータ</strong>: トランザクション、アドレス数</li>
+<li><strong>センチメントデータ</strong>: Fear & Greed、SNS分析</li>
+<li><strong>マクロデータ</strong>: 金利、株価、為替</li>
+</ul>
 
 <h3>バックテストシステム</h3>
 <h4>正確なシミュレーション</h4>
-**現実的な条件設定**
-- **スリッページ**: 注文時の価格滑り
-- **取引手数料**: Maker/Taker手数料
-- **流動性制約**: 大口注文の価格インパクト
-- **遅延**: 注文執行の時間遅延
+<strong>現実的な条件設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>スリッページ</strong>: 注文時の価格滑り</li>
+<li><strong>取引手数料</strong>: Maker/Taker手数料</li>
+<li><strong>流動性制約</strong>: 大口注文の価格インパクト</li>
+<li><strong>遅延</strong>: 注文執行の時間遅延</li>
+</ul>
 
-**統計的検証**
-- **十分な標本数**: 最低100回以上の取引
-- **複数期間**: 強気・弱気・レンジ相場での検証
-- **ウォークフォワード**: 段階的な期間外検証
-- **Monte Carlo**: 確率的な結果分布分析
+<strong>統計的検証</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li><strong>十分な標本数</strong>: 最低100回以上の取引</li>
+<li><strong>複数期間</strong>: 強気・弱気・レンジ相場での検証</li>
+<li><strong>ウォークフォワード</strong>: 段階的な期間外検証</li>
+<li><strong>Monte Carlo</strong>: 確率的な結果分布分析</li>
+</ul>
 
-## リスク管理システム
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理システム</h2>
 
-### ポジション管理
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">ポジション管理</h3>
 <h3>動的ポジションサイジング</h3>
 <h4>Kelly基準の応用</h4>
-**最適ポジションサイズ計算**
-```python
+<strong>最適ポジションサイズ計算</strong>
+\`\`\`python
 def kelly_position_size(win_rate, avg_win, avg_loss):
     # Kelly Formula: f = (bp - q) / b
     # b = avg_win/avg_loss, p = win_rate, q = 1-win_rate
@@ -488,19 +578,19 @@ def kelly_position_size(win_rate, avg_win, avg_loss):
     kelly_fraction = (b * p - q) / b
     # 実用的には Kelly の 1/4 〜 1/2 を使用
     return min(kelly_fraction * 0.5, 0.1)  # 最大10%制限
-```
+\`\`\`
 
 <h4>リスクパリティ</h4>
-**複数戦略のリスク配分**
-- **ボラティリティ調整**: 各戦略のリスク標準化
-- **相関考慮**: 戦略間相関による調整
-- **動的配分**: 市場環境による配分変更
+<strong>複数戦略のリスク配分</strong>
+- <strong>ボラティリティ調整</strong>: 各戦略のリスク標準化
+- <strong>相関考慮</strong>: 戦略間相関による調整
+- <strong>動的配分</strong>: 市場環境による配分変更
 
-### ストップロス・利確システム
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">ストップロス・利確システム</h3>
 <h3>適応的ストップロス</h3>
 <h4>トレイリングストップ</h4>
-**価格追従型**
-```python
+<strong>価格追従型</strong>
+\`\`\`python
 def trailing_stop_loss(current_price, entry_price, highest_price, trail_percent):
     # 最高値からの一定パーセント下落でストップ
     if current_price > entry_price:  # 利益が出ている場合
@@ -508,72 +598,72 @@ def trailing_stop_loss(current_price, entry_price, highest_price, trail_percent)
         return max(stop_price, entry_price * 1.02)  # 最低2%利益確保
     else:
         return entry_price * (1 - trail_percent)  # 固定ストップロス
-```
+\`\`\`
 
 <h4>ボラティリティ調整ストップ</h4>
-**ATR（Average True Range）ベース**
-- **ATR倍数**: ATRの2-3倍をストップ距離
-- **動的調整**: ボラティリティ変化に対応
-- **最小・最大制限**: 極端な値の制限
+<strong>ATR（Average True Range）ベース</strong>
+- <strong>ATR倍数</strong>: ATRの2-3倍をストップ距離
+- <strong>動的調整</strong>: ボラティリティ変化に対応
+- <strong>最小・最大制限</strong>: 極端な値の制限
 
-### 異常事態対応
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">異常事態対応</h3>
 <h3>システム監視とアラート</h3>
 <h4>異常検知システム</h4>
-**価格異常**
-- **急激変動**: 5分間で10%以上の変動
-- **流動性枯渇**: スプレッド拡大（通常の5倍以上）
-- **取引停止**: 取引所メンテナンス・障害
+<strong>価格異常</strong>
+- <strong>急激変動</strong>: 5分間で10%以上の変動
+- <strong>流動性枯渇</strong>: スプレッド拡大（通常の5倍以上）
+- <strong>取引停止</strong>: 取引所メンテナンス・障害
 
-**システム異常**
-- **API接続エラー**: 連続失敗の検出
-- **データ異常**: 価格データの欠損・異常値
-- **パフォーマンス異常**: 予想外の大幅損失
+<strong>システム異常</strong>
+- <strong>API接続エラー</strong>: 連続失敗の検出
+- <strong>データ異常</strong>: 価格データの欠損・異常値
+- <strong>パフォーマンス異常</strong>: 予想外の大幅損失
 
 <h4>緊急時プロトコル</h4>
-**自動停止条件**
-1. **日次損失**: 2%以上の損失で自動停止
-2. **連続損失**: 5回連続損失で一時停止
-3. **システム異常**: API障害で全ポジション手動移管
-4. **市場異常**: ボラティリティ急上昇で保守的モード
+<strong>自動停止条件</strong>
+1. <strong>日次損失</strong>: 2%以上の損失で自動停止
+2. <strong>連続損失</strong>: 5回連続損失で一時停止
+3. <strong>システム異常</strong>: API障害で全ポジション手動移管
+4. <strong>市場異常</strong>: ボラティリティ急上昇で保守的モード
 
 ## パフォーマンス分析と最適化
 
-### 詳細分析指標
+<h3 style="color: #374151; margin: 1rem 0 0.5rem 0;">詳細分析指標</h3>
 <h3>リターン分析</h3>
 <h4>リスク調整済みリターン</h4>
-**シャープレシオ**
-```python
+<strong>シャープレシオ</strong>
+\`\`\`python
 def sharpe_ratio(returns, risk_free_rate=0.02):
     excess_returns = returns - risk_free_rate/252  # 日次調整
     return np.mean(excess_returns) / np.std(excess_returns) * np.sqrt(252)
-```
+\`\`\`
 
-**ソルティノレシオ**
-- **下方偏差**: 負のリターンのみの標準偏差
-- **より実用的**: 上昇ボラティリティをペナルティにしない
+<strong>ソルティノレシオ</strong>
+- <strong>下方偏差</strong>: 負のリターンのみの標準偏差
+- <strong>より実用的</strong>: 上昇ボラティリティをペナルティにしない
 
 <h3>戦略最適化</h3>
 <h4>パラメータ最適化</h4>
-**グリッドサーチ**
-- **網羅的探索**: 全パラメータ組み合わせ
-- **計算コスト**: 組み合わせ爆発に注意
-- **過適合リスク**: 最適化期間外での検証必須
+<strong>グリッドサーチ</strong>
+- <strong>網羅的探索</strong>: 全パラメータ組み合わせ
+- <strong>計算コスト</strong>: 組み合わせ爆発に注意
+- <strong>過適合リスク</strong>: 最適化期間外での検証必須
 
-**遺伝的アルゴリズム**
-- **効率的探索**: 大きなパラメータ空間
-- **局所最適回避**: 多様性維持機能
-- **実装**: DEAPライブラリの活用
+<strong>遺伝的アルゴリズム</strong>
+- <strong>効率的探索</strong>: 大きなパラメータ空間
+- <strong>局所最適回避</strong>: 多様性維持機能
+- <strong>実装</strong>: DEAPライブラリの活用
 
 <h4>機械学習による改善</h4>
-**強化学習**
-- **Q-Learning**: 価値関数学習
-- **Policy Gradient**: 直接政策最適化
-- **適用例**: 動的なポジションサイジング
+<strong>強化学習</strong>
+- <strong>Q-Learning</strong>: 価値関数学習
+- <strong>Policy Gradient</strong>: 直接政策最適化
+- <strong>適用例</strong>: 動的なポジションサイジング
 
-**アンサンブル学習**
-- **複数モデル**: 異なるアルゴリズムの組み合わせ
-- **重み付き投票**: モデル確度による重み調整
-- **ロバスト性**: 単一モデル依存リスク軽減`
+<strong>アンサンブル学習</strong>
+- <strong>複数モデル</strong>: 異なるアルゴリズムの組み合わせ
+- <strong>重み付き投票</strong>: モデル確度による重み調整
+- <strong>ロバスト性</strong>: 単一モデル依存リスク軽減`
       },
       {
         type: 'text',
@@ -594,40 +684,48 @@ def sharpe_ratio(returns, risk_free_rate=0.02):
       },
       {
         type: 'warning',
-        content: `**アルゴリズム取引の注意点**
-### 1. 過適合（オーバーフィッティング）
-**問題**: 過去データにのみ最適化され実運用で機能しない
-**対策**:
-- 十分な期間外検証（Out-of-Sample）
-- 複数期間での戦略検証
-- パラメータの過度な最適化回避
-- 統計的有意性の確認
+        content: `<strong>アルゴリズム取引の注意点</strong>
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">1. 過適合（オーバーフィッティング）</h3>
+<strong>問題</strong>: 過去データにのみ最適化され実運用で機能しない
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>十分な期間外検証（Out-of-Sample）</li>
+<li>複数期間での戦略検証</li>
+<li>パラメータの過度な最適化回避</li>
+<li>統計的有意性の確認</li>
+</ul>
 
-### 2. システムリスク
-**問題**: 技術的障害による予期しない損失
-**対策**:
-- 冗長化システムの構築
-- 手動介入機能の保持
-- 異常検知・自動停止機能
-- 定期的なシステム監視
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">2. システムリスク</h3>
+<strong>問題</strong>: 技術的障害による予期しない損失
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>冗長化システムの構築</li>
+<li>手動介入機能の保持</li>
+<li>異常検知・自動停止機能</li>
+<li>定期的なシステム監視</li>
+</ul>
 
-### 3. 市場環境変化への対応不足
-**問題**: 過去のパターンが通用しなくなる
-**対策**:
-- 定期的な戦略見直し
-- 複数戦略の組み合わせ
-- 市場レジーム検出機能
-- 適応的パラメータ調整
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">3. 市場環境変化への対応不足</h3>
+<strong>問題</strong>: 過去のパターンが通用しなくなる
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的な戦略見直し</li>
+<li>複数戦略の組み合わせ</li>
+<li>市場レジーム検出機能</li>
+<li>適応的パラメータ調整</li>
+</ul>
 
-### 4. 取引コストの過小評価
-**問題**: 手数料・スリッページによる収益圧迫
-**対策**:
-- 現実的なコスト設定
-- 取引頻度の最適化
-- 流動性の十分な市場選択
-- 取引所手数料の比較検討
+<h3 style="color: #374151; margin: 1.5rem 0 0.75rem 0;">4. 取引コストの過小評価</h3>
+<strong>問題</strong>: 手数料・スリッページによる収益圧迫
+<strong>対策</strong>:
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>現実的なコスト設定</li>
+<li>取引頻度の最適化</li>
+<li>流動性の十分な市場選択</li>
+<li>取引所手数料の比較検討</li>
+</ul>
 
-**成功の秘訣**: アルゴリズム取引は技術力と市場理解の両方が必要です。段階的な構築、継続的な改善、適切なリスク管理により、長期的に安定した自動化収益システムを構築できます。`
+<strong>成功の秘訣</strong>: アルゴリズム取引は技術力と市場理解の両方が必要です。段階的な構築、継続的な改善、適切なリスク管理により、長期的に安定した自動化収益システムを構築できます。`
       }
     ],
     keyPoints: [

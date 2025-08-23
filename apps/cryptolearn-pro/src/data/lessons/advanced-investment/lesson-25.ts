@@ -16,389 +16,525 @@ export const lesson25: Lesson = {
       {
         type: 'quiz',
         title: 'ゲーミング・メタバース投資の概要',
-        content: `**ゲーミング・メタバース投資とは**
+        content: `<strong>ゲーミング・メタバース投資とは</strong>
 ゲーミング・メタバース投資は、仮想世界における経済活動とデジタル資産の価値創造に投資する新しい投資分野です。Play-to-Earn(P2E)、仮想不動産、ゲーム内アイテムなどが主要な投資対象です。
-## 投資対象の分類
-**ゲームトークン**
-- プラットフォームトークン
-- ガバナンストークン
-- ゲーム内通貨
-- 報酬トークン
-**ゲーム内アイテム**
-- キャラクター(NFT)
-- 武器・装備品
-- 土地・建物
-- アート・コレクション
-**メタバース不動産**
-- 仮想土地
-- 商業施設
-- イベント会場
-- 開発用地
-**ゲーミング株式**
-- ゲーム開発会社
-- プラットフォーム運営会社
-- 技術プロバイダー
-- インフラ企業
-## 市場規模と成長性(2024年)
-**市場統計**
-- 全体市場規模：$200B+
-- ブロックチェーンゲーム：$25B
-- メタバース投資：$15B
-- 年間成長率：25-30%
-**参加者数**
-- アクティブゲーマー：30億人
-- P2Eプレイヤー：500万人
-- メタバース利用者：1億人
-- 投資家数：100万人
-**主要プラットフォーム**
-- Ethereum：高価値アイテム
-- Polygon：低コストゲーム
-- Solana：高速取引
-- Immutable X：ゲーム特化
-## 投資機会の特徴
-**高成長性**
-- 新興市場の急成長
-- 技術革新の継続
-- 若年層の高い参加率
-- 国際的な展開
-**収益の多様性**
-- プレイ報酬
-- アイテム売買
-- 土地賃貸
-- 企業投資
-**リスク要因**
-- 技術的未成熟
-- 規制不確実性
-- 高い価格変動
-- 持続可能性への懸念
-## 2024年の主要トレンド
-**AI統合**
-- NPC(Non-Player Character)の高度化
-- 動的なゲーム世界
-- 個別最適化体験
-- 自動化された経済システム
-**相互運用性**
-- マルチチェーン対応
-- アセット移転
-- 統合ウォレット
-- 標準化の進展
-**社会機能の拡充**
-- バーチャルイベント
-- 教育プラットフォーム
-- 商業活動
-- 社会的交流
-**持続可能性**
-- 環境負荷の軽減
-- 長期的な経済モデル
-- コミュニティ主導の発展
-- 公正な報酬分配`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資対象の分類</h2>
+<strong>ゲームトークン</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プラットフォームトークン</li>
+<li>ガバナンストークン</li>
+<li>ゲーム内通貨</li>
+<li>報酬トークン</li>
+</ul>
+<strong>ゲーム内アイテム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>キャラクター(NFT)</li>
+<li>武器・装備品</li>
+<li>土地・建物</li>
+<li>アート・コレクション</li>
+</ul>
+<strong>メタバース不動産</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>仮想土地</li>
+<li>商業施設</li>
+<li>イベント会場</li>
+<li>開発用地</li>
+</ul>
+<strong>ゲーミング株式</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ゲーム開発会社</li>
+<li>プラットフォーム運営会社</li>
+<li>技術プロバイダー</li>
+<li>インフラ企業</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">市場規模と成長性(2024年)</h2>
+<strong>市場統計</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>全体市場規模：$200B+</li>
+<li>ブロックチェーンゲーム：$25B</li>
+<li>メタバース投資：$15B</li>
+<li>年間成長率：25-30%</li>
+</ul>
+<strong>参加者数</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>アクティブゲーマー：30億人</li>
+<li>P2Eプレイヤー：500万人</li>
+<li>メタバース利用者：1億人</li>
+<li>投資家数：100万人</li>
+</ul>
+<strong>主要プラットフォーム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ethereum：高価値アイテム</li>
+<li>Polygon：低コストゲーム</li>
+<li>Solana：高速取引</li>
+<li>Immutable X：ゲーム特化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資機会の特徴</h2>
+<strong>高成長性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新興市場の急成長</li>
+<li>技術革新の継続</li>
+<li>若年層の高い参加率</li>
+<li>国際的な展開</li>
+</ul>
+<strong>収益の多様性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プレイ報酬</li>
+<li>アイテム売買</li>
+<li>土地賃貸</li>
+<li>企業投資</li>
+</ul>
+<strong>リスク要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的未成熟</li>
+<li>規制不確実性</li>
+<li>高い価格変動</li>
+<li>持続可能性への懸念</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の主要トレンド</h2>
+<strong>AI統合</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>NPC(Non-Player Character)の高度化</li>
+<li>動的なゲーム世界</li>
+<li>個別最適化体験</li>
+<li>自動化された経済システム</li>
+</ul>
+<strong>相互運用性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>マルチチェーン対応</li>
+<li>アセット移転</li>
+<li>統合ウォレット</li>
+<li>標準化の進展</li>
+</ul>
+<strong>社会機能の拡充</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>バーチャルイベント</li>
+<li>教育プラットフォーム</li>
+<li>商業活動</li>
+<li>社会的交流</li>
+</ul>
+<strong>持続可能性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>環境負荷の軽減</li>
+<li>長期的な経済モデル</li>
+<li>コミュニティ主導の発展</li>
+<li>公正な報酬分配</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'Play-to-Earnの投資戦略',
-        content: `## P2Eの基本仕組み
-**収益構造**
-- プレイ報酬：ゲーム内通貨獲得
-- アイテム売買：NFT取引
-- ステーキング：トークン保有報酬
-- 土地経営：賃貸収入
-**投資モデル**
-- 直接プレイ：自分でゲームをプレイ
-- 委託運営：他者にプレイを委託
-- 資産投資：ゲーム内アイテム投資
-- トークン投資：ゲーム通貨投資
-## 主要P2Eプラットフォーム
-**Axie Infinity**
-- 概要：ペット育成・バトル
-- 投資額：$500-$5,000
-- 月間収益：$200-$1,000
-- 投資期間：6-12ヶ月
-**The Sandbox**
-- 概要：メタバース・建設
-- 投資額：$1,000-$50,000
-- 月間収益：$100-$5,000
-- 投資期間：12-36ヶ月
-**Decentraland**
-- 概要：仮想不動産・イベント
-- 投資額：$2,000-$100,000
-- 月間収益：$500-$10,000
-- 投資期間：24-60ヶ月
-**Splinterlands**
-- 概要：トレーディングカード
-- 投資額：$100-$2,000
-- 月間収益：$50-$500
-- 投資期間：3-12ヶ月
-## 投資戦略の分類
-**短期収益戦略**
-- 期間：1-6ヶ月
-- 目標：月利5-20%
-- 方法：アクティブプレイ
-- リスク：高い価格変動
-**中期成長戦略**
-- 期間：6-24ヶ月
-- 目標：年利50-200%
-- 方法：アセット蓄積
-- リスク：ゲーム継続性
-**長期投資戦略**
-- 期間：2-5年
-- 目標：年利20-100%
-- 方法：プラットフォーム投資
-- リスク：技術的陳腐化
-## 収益最適化手法
-**複数ゲーム展開**
-- リスク分散効果
-- 収益源の多様化
-- 季節性の活用
-- 専門性の獲得
-**自動化システム**
-- ボット活用
-- 委託運営
-- 定期売買
-- 効率性向上
-**コミュニティ活用**
-- 情報共有
-- 共同投資
-- 教育・指導
-- マーケティング
-**データ分析**
-- 収益性追跡
-- 市場分析
-- 最適化施策
-- 予測モデル
-## リスク管理
-**ゲーム特有リスク**
-- 運営方針変更
-- 経済バランス調整
-- 技術的問題
-- 競合の出現
-**投資リスク**
-- 価格変動
-- 流動性不足
-- 規制変更
-- 詐欺・ハッキング
-**対策方法**
-- 分散投資
-- 段階的投資
-- 情報収集
-- 早期撤退計画`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">P2Eの基本仕組み</h2>
+<strong>収益構造</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プレイ報酬：ゲーム内通貨獲得</li>
+<li>アイテム売買：NFT取引</li>
+<li>ステーキング：トークン保有報酬</li>
+<li>土地経営：賃貸収入</li>
+</ul>
+<strong>投資モデル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>直接プレイ：自分でゲームをプレイ</li>
+<li>委託運営：他者にプレイを委託</li>
+<li>資産投資：ゲーム内アイテム投資</li>
+<li>トークン投資：ゲーム通貨投資</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要P2Eプラットフォーム</h2>
+<strong>Axie Infinity</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>概要：ペット育成・バトル</li>
+<li>投資額：$500-$5,000</li>
+<li>月間収益：$200-$1,000</li>
+<li>投資期間：6-12ヶ月</li>
+</ul>
+<strong>The Sandbox</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>概要：メタバース・建設</li>
+<li>投資額：$1,000-$50,000</li>
+<li>月間収益：$100-$5,000</li>
+<li>投資期間：12-36ヶ月</li>
+</ul>
+<strong>Decentraland</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>概要：仮想不動産・イベント</li>
+<li>投資額：$2,000-$100,000</li>
+<li>月間収益：$500-$10,000</li>
+<li>投資期間：24-60ヶ月</li>
+</ul>
+<strong>Splinterlands</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>概要：トレーディングカード</li>
+<li>投資額：$100-$2,000</li>
+<li>月間収益：$50-$500</li>
+<li>投資期間：3-12ヶ月</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資戦略の分類</h2>
+<strong>短期収益戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>期間：1-6ヶ月</li>
+<li>目標：月利5-20%</li>
+<li>方法：アクティブプレイ</li>
+<li>リスク：高い価格変動</li>
+</ul>
+<strong>中期成長戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>期間：6-24ヶ月</li>
+<li>目標：年利50-200%</li>
+<li>方法：アセット蓄積</li>
+<li>リスク：ゲーム継続性</li>
+</ul>
+<strong>長期投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>期間：2-5年</li>
+<li>目標：年利20-100%</li>
+<li>方法：プラットフォーム投資</li>
+<li>リスク：技術的陳腐化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">収益最適化手法</h2>
+<strong>複数ゲーム展開</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リスク分散効果</li>
+<li>収益源の多様化</li>
+<li>季節性の活用</li>
+<li>専門性の獲得</li>
+</ul>
+<strong>自動化システム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ボット活用</li>
+<li>委託運営</li>
+<li>定期売買</li>
+<li>効率性向上</li>
+</ul>
+<strong>コミュニティ活用</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>情報共有</li>
+<li>共同投資</li>
+<li>教育・指導</li>
+<li>マーケティング</li>
+</ul>
+<strong>データ分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>収益性追跡</li>
+<li>市場分析</li>
+<li>最適化施策</li>
+<li>予測モデル</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスク管理</h2>
+<strong>ゲーム特有リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>運営方針変更</li>
+<li>経済バランス調整</li>
+<li>技術的問題</li>
+<li>競合の出現</li>
+</ul>
+<strong>投資リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>価格変動</li>
+<li>流動性不足</li>
+<li>規制変更</li>
+<li>詐欺・ハッキング</li>
+</ul>
+<strong>対策方法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散投資</li>
+<li>段階的投資</li>
+<li>情報収集</li>
+<li>早期撤退計画</li>
+</ul>`
       },
       {
         type: 'text',
         title: '仮想不動産投資戦略',
-        content: `## 仮想不動産の特徴
-**価値決定要因**
-- 立地(人気エリア)
-- 利用可能性
-- 周辺施設
-- 将来性
-**収益モデル**
-- 賃貸収入
-- 開発収益
-- 転売益
-- 広告収入
-**主要プラットフォーム**
-- Decentraland(MANA)
-- The Sandbox(SAND)
-- Cryptovoxels(ETH)
-- Somnium Space(CUBE)
-## 投資戦略
-**立地重視戦略**
-- 中心地の購入
-- 交通要所
-- 商業地区
-- イベント会場周辺
-**開発戦略**
-- 建物建設
-- 商業施設運営
-- エンターテイメント
-- 教育施設
-**賃貸戦略**
-- 長期賃貸契約
-- 短期レンタル
-- イベント利用
-- 広告スペース
-**転売戦略**
-- 価値向上後売却
-- 区画分割販売
-- 開発権販売
-- 投資ファンド化
-## 価値評価手法
-**比較評価**
-- 類似物件比較
-- 価格履歴分析
-- 立地評価
-- 周辺開発状況
-**収益評価**
-- 賃貸収入予測
-- 開発収益計算
-- 維持費用考慮
-- 税務影響分析
-**技術評価**
-- プラットフォーム技術
-- ユーザー体験
-- 相互運用性
-- 将来的拡張性
-## 投資実例
-**商業地区投資**
-- 立地：中心商業地区
-- 投資額：$50,000
-- 月間賃貸収入：$2,000
-- 年間収益率：48%
-**イベント会場投資**
-- 立地：イベント特化エリア
-- 投資額：$30,000
-- イベント収入：$500/回
-- 年間収益率：60%
-**開発用地投資**
-- 立地：開発予定地
-- 投資額：$20,000
-- 開発後価値：$100,000
-- 投資期間：24ヶ月
-## リスクと対策
-**技術リスク**
-- プラットフォーム技術の限界
-- アップグレード対応
-- 互換性問題
-- セキュリティ脆弱性
-**市場リスク**
-- 需要の変動
-- 競合プラットフォーム
-- 経済環境変化
-- 規制変更
-**流動性リスク**
-- 売却困難
-- 価格下落
-- 取引手数料
-- 時間コスト
-**対策方法**
-- 複数プラットフォーム投資
-- 段階的投資
-- 流動性確保
-- 専門家相談`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">仮想不動産の特徴</h2>
+<strong>価値決定要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地(人気エリア)</li>
+<li>利用可能性</li>
+<li>周辺施設</li>
+<li>将来性</li>
+</ul>
+<strong>収益モデル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>賃貸収入</li>
+<li>開発収益</li>
+<li>転売益</li>
+<li>広告収入</li>
+</ul>
+<strong>主要プラットフォーム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Decentraland(MANA)</li>
+<li>The Sandbox(SAND)</li>
+<li>Cryptovoxels(ETH)</li>
+<li>Somnium Space(CUBE)</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資戦略</h2>
+<strong>立地重視戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>中心地の購入</li>
+<li>交通要所</li>
+<li>商業地区</li>
+<li>イベント会場周辺</li>
+</ul>
+<strong>開発戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>建物建設</li>
+<li>商業施設運営</li>
+<li>エンターテイメント</li>
+<li>教育施設</li>
+</ul>
+<strong>賃貸戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期賃貸契約</li>
+<li>短期レンタル</li>
+<li>イベント利用</li>
+<li>広告スペース</li>
+</ul>
+<strong>転売戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>価値向上後売却</li>
+<li>区画分割販売</li>
+<li>開発権販売</li>
+<li>投資ファンド化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">価値評価手法</h2>
+<strong>比較評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>類似物件比較</li>
+<li>価格履歴分析</li>
+<li>立地評価</li>
+<li>周辺開発状況</li>
+</ul>
+<strong>収益評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>賃貸収入予測</li>
+<li>開発収益計算</li>
+<li>維持費用考慮</li>
+<li>税務影響分析</li>
+</ul>
+<strong>技術評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プラットフォーム技術</li>
+<li>ユーザー体験</li>
+<li>相互運用性</li>
+<li>将来的拡張性</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資実例</h2>
+<strong>商業地区投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地：中心商業地区</li>
+<li>投資額：$50,000</li>
+<li>月間賃貸収入：$2,000</li>
+<li>年間収益率：48%</li>
+</ul>
+<strong>イベント会場投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地：イベント特化エリア</li>
+<li>投資額：$30,000</li>
+<li>イベント収入：$500/回</li>
+<li>年間収益率：60%</li>
+</ul>
+<strong>開発用地投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地：開発予定地</li>
+<li>投資額：$20,000</li>
+<li>開発後価値：$100,000</li>
+<li>投資期間：24ヶ月</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">リスクと対策</h2>
+<strong>技術リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プラットフォーム技術の限界</li>
+<li>アップグレード対応</li>
+<li>互換性問題</li>
+<li>セキュリティ脆弱性</li>
+</ul>
+<strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>需要の変動</li>
+<li>競合プラットフォーム</li>
+<li>経済環境変化</li>
+<li>規制変更</li>
+</ul>
+<strong>流動性リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>売却困難</li>
+<li>価格下落</li>
+<li>取引手数料</li>
+<li>時間コスト</li>
+</ul>
+<strong>対策方法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数プラットフォーム投資</li>
+<li>段階的投資</li>
+<li>流動性確保</li>
+<li>専門家相談</li>
+</ul>`
       },
       {
         type: 'example',
         title: '実践的投資例',
-        content: `## 例1：包括的P2Eポートフォリオ
-**投資戦略**
-- 総投資額：$25,000
-- 分散投資：5つのゲーム
-- 投資期間：12ヶ月
-- 目標収益率：年80%
-**ポートフォリオ構成**
-- Axie Infinity：$8,000(32%)
-- The Sandbox：$7,000(28%)
-- Splinterlands：$4,000(16%)
-- Gods Unchained：$3,000(12%)
-- 新興ゲーム：$3,000(12%)
-**年間収益実績**
-- Axie Infinity：$6,400(80%)
-- The Sandbox：$4,900(70%)
-- Splinterlands：$3,200(80%)
-- Gods Unchained：$1,800(60%)
-- 新興ゲーム：$4,500(150%)
-- 総収益：$20,800(83%)
-**成功要因**
-- 分散投資効果
-- 各ゲームの特性活用
-- 適切なタイミング
-- 継続的な最適化
-## 例2：メタバース不動産投資
-**投資対象：Decentraland**
-- 投資額：$40,000
-- 購入時期：2021年10月
-- 土地サイズ：2x2 LAND
-- 立地：Fashion District
-**開発計画**
-- 建物：デジタルギャラリー
-- 投資額：$10,000
-- 開発期間：3ヶ月
-- 運営開始：2022年1月
-**収益構造**
-- 賃貸収入：$1,500/月
-- イベント収入：$800/月
-- 広告収入：$400/月
-- 総月収：$2,700
-**年間収益**
-- 総収入：$32,400
-- 維持費用：$3,600
-- 純収益：$28,800
-- 投資収益率：57.6%
-**追加価値**
-- 土地価値上昇：$60,000
-- 建物価値：$25,000
-- 総資産価値：$85,000
-- 総収益率：170%
-## 例3：ゲーミングトークン投資
-**投資戦略**
-- 投資手法：DCA(Dollar Cost Averaging)
-- 投資期間：24ヶ月
-- 月間投資額：$1,000
-- 総投資額：$24,000
-**投資対象**
-- SAND：30%($7,200)
-- MANA：25%($6,000)
-- AXS：20%($4,800)
-- GALA：15%($3,600)
-- その他：10%($2,400)
-**成果(24ヶ月後)**
-- SAND：$14,400(100%)
-- MANA：$9,600(60%)
-- AXS：$7,200(50%)
-- GALA：$7,200(100%)
-- その他：$4,800(100%)
-- 総価値：$43,200(80%)
-**投資のメリット**
-- 時間分散効果
-- 価格変動リスク軽減
-- 継続的な学習機会
-- 感情的判断の排除
-## 例4：委託運営ビジネス
-**ビジネスモデル**
-- 資産購入：$50,000
-- 運営委託：10名のプレイヤー
-- 報酬分配：収益の70%を運営者
-- 管理手数料：収益の30%
-**運営実績**
-- 月間総収益：$8,000
-- 運営者分配：$5,600
-- 管理手数料：$2,400
-- 純収益：$2,400(月利4.8%)
-**年間収益**
-- 総収益：$28,800
-- 投資収益率：57.6%
-- 追加投資：$25,000
-- 規模拡大：プレイヤー20名
-**成功要因**
-- 優秀なプレイヤー選定
-- 適切な報酬設計
-- 継続的なサポート
-- 効率的な管理システム`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例1：包括的P2Eポートフォリオ</h2>
+<strong>投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総投資額：$25,000</li>
+<li>分散投資：5つのゲーム</li>
+<li>投資期間：12ヶ月</li>
+<li>目標収益率：年80%</li>
+</ul>
+<strong>ポートフォリオ構成</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Axie Infinity：$8,000(32%)</li>
+<li>The Sandbox：$7,000(28%)</li>
+<li>Splinterlands：$4,000(16%)</li>
+<li>Gods Unchained：$3,000(12%)</li>
+<li>新興ゲーム：$3,000(12%)</li>
+</ul>
+<strong>年間収益実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Axie Infinity：$6,400(80%)</li>
+<li>The Sandbox：$4,900(70%)</li>
+<li>Splinterlands：$3,200(80%)</li>
+<li>Gods Unchained：$1,800(60%)</li>
+<li>新興ゲーム：$4,500(150%)</li>
+<li>総収益：$20,800(83%)</li>
+</ul>
+<strong>成功要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散投資効果</li>
+<li>各ゲームの特性活用</li>
+<li>適切なタイミング</li>
+<li>継続的な最適化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例2：メタバース不動産投資</h2>
+<strong>投資対象：Decentraland</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額：$40,000</li>
+<li>購入時期：2021年10月</li>
+<li>土地サイズ：2x2 LAND</li>
+<li>立地：Fashion District</li>
+</ul>
+<strong>開発計画</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>建物：デジタルギャラリー</li>
+<li>投資額：$10,000</li>
+<li>開発期間：3ヶ月</li>
+<li>運営開始：2022年1月</li>
+</ul>
+<strong>収益構造</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>賃貸収入：$1,500/月</li>
+<li>イベント収入：$800/月</li>
+<li>広告収入：$400/月</li>
+<li>総月収：$2,700</li>
+</ul>
+<strong>年間収益</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総収入：$32,400</li>
+<li>維持費用：$3,600</li>
+<li>純収益：$28,800</li>
+<li>投資収益率：57.6%</li>
+</ul>
+<strong>追加価値</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>土地価値上昇：$60,000</li>
+<li>建物価値：$25,000</li>
+<li>総資産価値：$85,000</li>
+<li>総収益率：170%</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例3：ゲーミングトークン投資</h2>
+<strong>投資戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資手法：DCA(Dollar Cost Averaging)</li>
+<li>投資期間：24ヶ月</li>
+<li>月間投資額：$1,000</li>
+<li>総投資額：$24,000</li>
+</ul>
+<strong>投資対象</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>SAND：30%($7,200)</li>
+<li>MANA：25%($6,000)</li>
+<li>AXS：20%($4,800)</li>
+<li>GALA：15%($3,600)</li>
+<li>その他：10%($2,400)</li>
+</ul>
+<strong>成果(24ヶ月後)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>SAND：$14,400(100%)</li>
+<li>MANA：$9,600(60%)</li>
+<li>AXS：$7,200(50%)</li>
+<li>GALA：$7,200(100%)</li>
+<li>その他：$4,800(100%)</li>
+<li>総価値：$43,200(80%)</li>
+</ul>
+<strong>投資のメリット</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>時間分散効果</li>
+<li>価格変動リスク軽減</li>
+<li>継続的な学習機会</li>
+<li>感情的判断の排除</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例4：委託運営ビジネス</h2>
+<strong>ビジネスモデル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>資産購入：$50,000</li>
+<li>運営委託：10名のプレイヤー</li>
+<li>報酬分配：収益の70%を運営者</li>
+<li>管理手数料：収益の30%</li>
+</ul>
+<strong>運営実績</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>月間総収益：$8,000</li>
+<li>運営者分配：$5,600</li>
+<li>管理手数料：$2,400</li>
+<li>純収益：$2,400(月利4.8%)</li>
+</ul>
+<strong>年間収益</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総収益：$28,800</li>
+<li>投資収益率：57.6%</li>
+<li>追加投資：$25,000</li>
+<li>規模拡大：プレイヤー20名</li>
+</ul>
+<strong>成功要因</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>優秀なプレイヤー選定</li>
+<li>適切な報酬設計</li>
+<li>継続的なサポート</li>
+<li>効率的な管理システム</li>
+</ul>`
       },
       {
         type: 'tip',
         title: 'ゲーミング・メタバース投資のコツ',
-        content: `**成功するための戦略**
-🎮 **ゲーム選択の重要性**
-- コミュニティの活発さ
-- 開発チームの実績
-- 経済設計の持続性
-- 技術的な革新性
-🏗️ **メタバース投資のポイント**
-- 立地の将来性評価
-- 利用用途の多様性
-- プラットフォームの成長性
-- 相互運用性の確保
-💰 **収益最適化の手法**
-- 複数収益源の確保
-- 自動化システムの活用
-- コミュニティとの連携
-- 継続的な最適化
-⚡ **リスク管理の重要性**
-- 投資額の上限設定
-- 段階的な投資実行
-- 定期的な見直し
-- 早期撤退計画の準備`
+        content: `<strong>成功するための戦略</strong>
+🎮 <strong>ゲーム選択の重要性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>コミュニティの活発さ</li>
+<li>開発チームの実績</li>
+<li>経済設計の持続性</li>
+<li>技術的な革新性</li>
+</ul>
+🏗️ <strong>メタバース投資のポイント</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>立地の将来性評価</li>
+<li>利用用途の多様性</li>
+<li>プラットフォームの成長性</li>
+<li>相互運用性の確保</li>
+</ul>
+💰 <strong>収益最適化の手法</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数収益源の確保</li>
+<li>自動化システムの活用</li>
+<li>コミュニティとの連携</li>
+<li>継続的な最適化</li>
+</ul>
+⚡ <strong>リスク管理の重要性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資額の上限設定</li>
+<li>段階的な投資実行</li>
+<li>定期的な見直し</li>
+<li>早期撤退計画の準備</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -443,27 +579,35 @@ export const lesson25: Lesson = {
       {
         type: 'warning',
         title: 'ゲーミング・メタバース投資の注意点',
-        content: `**重要なリスク要因**
-⚠️ **技術的リスク**
-- プラットフォームの技術的限界
-- スケーラビリティの問題
-- セキュリティ脆弱性
-- 相互運用性の不足
-⚠️ **市場リスク**
-- 極めて高い価格変動性
-- 流動性の急激な低下
-- 投機的バブルの発生
-- 競合プラットフォームの脅威
-⚠️ **規制リスク**
-- ゲーミング規制の強化
-- 仮想通貨規制の影響
-- 税務処理の複雑化
-- 国際的な規制格差
-⚠️ **運営リスク**
-- ゲーム運営方針の変更
-- 経済バランスの調整
-- サービス終了のリスク
-- 開発チームの問題`
+        content: `<strong>重要なリスク要因</strong>
+⚠️ <strong>技術的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プラットフォームの技術的限界</li>
+<li>スケーラビリティの問題</li>
+<li>セキュリティ脆弱性</li>
+<li>相互運用性の不足</li>
+</ul>
+⚠️ <strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>極めて高い価格変動性</li>
+<li>流動性の急激な低下</li>
+<li>投機的バブルの発生</li>
+<li>競合プラットフォームの脅威</li>
+</ul>
+⚠️ <strong>規制リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ゲーミング規制の強化</li>
+<li>仮想通貨規制の影響</li>
+<li>税務処理の複雑化</li>
+<li>国際的な規制格差</li>
+</ul>
+⚠️ <strong>運営リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ゲーム運営方針の変更</li>
+<li>経済バランスの調整</li>
+<li>サービス終了のリスク</li>
+<li>開発チームの問題</li>
+</ul>`
       },
       ],
     keyPoints: [

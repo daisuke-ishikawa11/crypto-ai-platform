@@ -16,284 +16,378 @@ export const lesson9: Lesson = {
       {
         type: 'quiz',
         title: 'クロスチェーン投資の基本概念',
-        content: `**クロスチェーン投資とは**
+        content: `<strong>クロスチェーン投資とは</strong>
 クロスチェーン投資は、複数のブロックチェーンネットワークを横断して投資機会を活用する戦略です。各チェーンの特性を理解し、最適な投資配分を行うことで、収益機会を最大化します。
-## 主要ブロックチェーンの特徴
-**Ethereum**
-- 最大のDeFiエコシステム
-- 豊富なプロトコル
-- 高い流動性
-- 高いガス代
-**Binance Smart Chain (BSC)**
-- 低コスト取引
-- 高速処理
-- 中央集権的な性格
-- 豊富なプロジェクト
-**Polygon**
-- Ethereum互換性
-- 低コスト
-- 高いTPS
-- 企業採用
-**Avalanche**
-- 高速ファイナリティ
-- 低コスト
-- サブネット機能
-- 成長するエコシステム
-**Solana**
-- 超高速処理
-- 低コスト
-- 独自のエコシステム
-- NFT市場の強み
-## 2024年の市場環境
-**マルチチェーンの標準化**
-- 投資家の分散投資
-- プロトコルのマルチチェーン展開
-- 流動性の分散
-- 相互接続性の向上
-**新興チェーンの成長**
-- Layer 2の拡大
-- 特化型ブロックチェーン
-- 企業向けソリューション
-- 新しい投資機会`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要ブロックチェーンの特徴</h2>
+<strong>Ethereum</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>最大のDeFiエコシステム</li>
+<li>豊富なプロトコル</li>
+<li>高い流動性</li>
+<li>高いガス代</li>
+</ul>
+<strong>Binance Smart Chain (BSC)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>低コスト取引</li>
+<li>高速処理</li>
+<li>中央集権的な性格</li>
+<li>豊富なプロジェクト</li>
+</ul>
+<strong>Polygon</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ethereum互換性</li>
+<li>低コスト</li>
+<li>高いTPS</li>
+<li>企業採用</li>
+</ul>
+<strong>Avalanche</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高速ファイナリティ</li>
+<li>低コスト</li>
+<li>サブネット機能</li>
+<li>成長するエコシステム</li>
+</ul>
+<strong>Solana</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>超高速処理</li>
+<li>低コスト</li>
+<li>独自のエコシステム</li>
+<li>NFT市場の強み</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の市場環境</h2>
+<strong>マルチチェーンの標準化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>投資家の分散投資</li>
+<li>プロトコルのマルチチェーン展開</li>
+<li>流動性の分散</li>
+<li>相互接続性の向上</li>
+</ul>
+<strong>新興チェーンの成長</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Layer 2の拡大</li>
+<li>特化型ブロックチェーン</li>
+<li>企業向けソリューション</li>
+<li>新しい投資機会</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'ブリッジングとインターオペラビリティ',
-        content: `## ブリッジング技術
-**ブリッジの種類**
-1. **ネイティブブリッジ**
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ブリッジング技術</h2>
+<strong>ブリッジの種類</strong>
+1. <strong>ネイティブブリッジ</strong>
    - チェーン公式のブリッジ
    - 高いセキュリティ
    - 限定的な機能
    - 例：Polygon Bridge、Arbitrum Bridge
-2. **サードパーティブリッジ**
+2. <strong>サードパーティブリッジ</strong>
    - 外部開発のブリッジ
    - 豊富な機能
    - 追加リスク
    - 例：Multichain、Hop Protocol
-3. **流動性ブリッジ**
+3. <strong>流動性ブリッジ</strong>
    - 流動性プール利用
    - 高速転送
    - 手数料が発生
    - 例：Stargate、Across
-## 主要なブリッジプロトコル
-**LayerZero**
-- オムニチェーンプロトコル
-- 軽量な設計
-- 高いセキュリティ
-- 多様なアプリケーション
-**Chainlink CCIP**
-- 確実なメッセージ配信
-- 高いセキュリティ標準
-- 企業採用
-- 包括的なソリューション
-**Wormhole**
-- 幅広いチェーン対応
-- 高い流動性
-- 過去のハッキング歴
-- 継続的な改善
-## ブリッジングのリスク
-**技術的リスク**
-- スマートコントラクトバグ
-- ハッキングリスク
-- 検証者の不正
-- 通信遅延
-**経済的リスク**
-- 手数料の変動
-- 流動性不足
-- 価格スリッページ
-- 機会損失
-**運用リスク**
-- 複雑な操作
-- ユーザーエラー
-- 取引失敗
-- 資金の一時的ロック`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">主要なブリッジプロトコル</h2>
+<strong>LayerZero</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>オムニチェーンプロトコル</li>
+<li>軽量な設計</li>
+<li>高いセキュリティ</li>
+<li>多様なアプリケーション</li>
+</ul>
+<strong>Chainlink CCIP</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>確実なメッセージ配信</li>
+<li>高いセキュリティ標準</li>
+<li>企業採用</li>
+<li>包括的なソリューション</li>
+</ul>
+<strong>Wormhole</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>幅広いチェーン対応</li>
+<li>高い流動性</li>
+<li>過去のハッキング歴</li>
+<li>継続的な改善</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ブリッジングのリスク</h2>
+<strong>技術的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>スマートコントラクトバグ</li>
+<li>ハッキングリスク</li>
+<li>検証者の不正</li>
+<li>通信遅延</li>
+</ul>
+<strong>経済的リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>手数料の変動</li>
+<li>流動性不足</li>
+<li>価格スリッページ</li>
+<li>機会損失</li>
+</ul>
+<strong>運用リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複雑な操作</li>
+<li>ユーザーエラー</li>
+<li>取引失敗</li>
+<li>資金の一時的ロック</li>
+</ul>`
       },
       {
         type: 'example',
         title: 'クロスチェーン投資戦略の実例',
-        content: `## 戦略例1：利回り最適化戦略
-**投資額：$500,000**
-**チェーン別配分**
-- Ethereum(40%)：$200,000
-- Polygon(25%)：$125,000
-- Avalanche(20%)：$100,000
-- Arbitrum(15%)：$75,000
-**Ethereum投資**
-- Aave USDC レンディング：$100,000(年率5%)
-- Uniswap V3 ETH/USDC：$100,000(年率15%)
-**Polygon投資**
-- QuickSwap MATIC/USDC：$75,000(年率25%)
-- Aave Polygon USDC：$50,000(年率8%)
-**Avalanche投資**
-- Trader Joe AVAX/USDC：$60,000(年率20%)
-- Benqi USDC：$40,000(年率6%)
-**Arbitrum投資**
-- GMX GLP ステーキング：$75,000(年率18%)
-**期待年率**
-- 加重平均：約14.5%
-- 年間期待収益：$72,500
-## 戦略例2：裁定取引戦略
-**シナリオ**
-- 同一プロトコルの異なるチェーン間の利回り差
-- 例：Aave Ethereum vs Aave Polygon
-**実行手順**
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例1：利回り最適化戦略</h2>
+<strong>投資額：$500,000</strong>
+<strong>チェーン別配分</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Ethereum(40%)：$200,000</li>
+<li>Polygon(25%)：$125,000</li>
+<li>Avalanche(20%)：$100,000</li>
+<li>Arbitrum(15%)：$75,000</li>
+</ul>
+<strong>Ethereum投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Aave USDC レンディング：$100,000(年率5%)</li>
+<li>Uniswap V3 ETH/USDC：$100,000(年率15%)</li>
+</ul>
+<strong>Polygon投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>QuickSwap MATIC/USDC：$75,000(年率25%)</li>
+<li>Aave Polygon USDC：$50,000(年率8%)</li>
+</ul>
+<strong>Avalanche投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Trader Joe AVAX/USDC：$60,000(年率20%)</li>
+<li>Benqi USDC：$40,000(年率6%)</li>
+</ul>
+<strong>Arbitrum投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>GMX GLP ステーキング：$75,000(年率18%)</li>
+</ul>
+<strong>期待年率</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>加重平均：約14.5%</li>
+<li>年間期待収益：$72,500</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例2：裁定取引戦略</h2>
+<strong>シナリオ</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>同一プロトコルの異なるチェーン間の利回り差</li>
+<li>例：Aave Ethereum vs Aave Polygon</li>
+</ul>
+<strong>実行手順</strong>
 1. 利回り差の監視(年率3%以上)
 2. 低利回りチェーンから資金移動
 3. 高利回りチェーンで投資
 4. 定期的な最適化
-**コスト考慮**
-- ブリッジング手数料：0.1-0.5%
-- ガス代：チェーンにより変動
-- 機会コスト：移動時間中の収益損失
-**収益計算**
-- 利回り差：3%
-- 移動コスト：0.3%
-- 純益：2.7%(年率)
-## 戦略例3：リスク分散戦略
-**リスク分散の観点**
-- 技術的リスク分散
-- 規制リスク分散
-- 市場リスク分散
-- 流動性リスク分散
-**配分戦略**
-- 主要チェーン(70%)：Ethereum、BSC
-- 成長チェーン(20%)：Polygon、Avalanche
-- 新興チェーン(10%)：Solana、Fantom
-**モニタリング**
-- 週次でのリバランス
-- 月次での戦略見直し
-- 四半期での大幅調整
-- 継続的な市場分析`
+<strong>コスト考慮</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ブリッジング手数料：0.1-0.5%</li>
+<li>ガス代：チェーンにより変動</li>
+<li>機会コスト：移動時間中の収益損失</li>
+</ul>
+<strong>収益計算</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>利回り差：3%</li>
+<li>移動コスト：0.3%</li>
+<li>純益：2.7%(年率)</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">戦略例3：リスク分散戦略</h2>
+<strong>リスク分散の観点</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的リスク分散</li>
+<li>規制リスク分散</li>
+<li>市場リスク分散</li>
+<li>流動性リスク分散</li>
+</ul>
+<strong>配分戦略</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>主要チェーン(70%)：Ethereum、BSC</li>
+<li>成長チェーン(20%)：Polygon、Avalanche</li>
+<li>新興チェーン(10%)：Solana、Fantom</li>
+</ul>
+<strong>モニタリング</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>週次でのリバランス</li>
+<li>月次での戦略見直し</li>
+<li>四半期での大幅調整</li>
+<li>継続的な市場分析</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'マルチチェーンポートフォリオ管理',
-        content: `## ポートフォリオ設計原則
-**1. 戦略的配分**
-- 長期的な視点
-- 各チェーンの特性考慮
-- 投資目標との整合性
-- リスク許容度の反映
-**2. 戦術的配分**
-- 短期的な機会活用
-- 市場環境の変化対応
-- 利回り格差の活用
-- 流動性の最適化
-**3. 動的リバランス**
-- 定期的な見直し
-- 自動化の活用
-- コスト効率の考慮
-- 税務上の最適化
-## 管理ツールとプラットフォーム
-**ポートフォリオ管理**
-- DeBank：包括的なポートフォリオ追跡
-- Zapper：マルチチェーン資産管理
-- Rotki：オープンソース管理ツール
-- Coingecko：価格と収益追跡
-**自動化ツール**
-- Rebalance：自動リバランス
-- Instadapp：DeFi操作の自動化
-- Furucombo：複雑な取引の組み合わせ
-- Argent：スマートウォレット機能
-**分析ツール**
-- DeFi Pulse：プロトコル分析
-- Token Terminal：財務分析
-- Dune Analytics：カスタム分析
-- Messari：包括的な市場分析
-## 税務とコンプライアンス
-**税務上の考慮**
-- 各国の規制遵守
-- 取引記録の保持
-- 利益計算の正確性
-- 申告の適切性
-**記録管理**
-- 全取引の記録
-- ブリッジング記録
-- 手数料の追跡
-- 税務計算の自動化
-**コンプライアンス**
-- KYC/AML対応
-- 制裁リスト確認
-- 地域規制の遵守
-- 報告義務の履行`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">ポートフォリオ設計原則</h2>
+<strong>1. 戦略的配分</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期的な視点</li>
+<li>各チェーンの特性考慮</li>
+<li>投資目標との整合性</li>
+<li>リスク許容度の反映</li>
+</ul>
+<strong>2. 戦術的配分</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>短期的な機会活用</li>
+<li>市場環境の変化対応</li>
+<li>利回り格差の活用</li>
+<li>流動性の最適化</li>
+</ul>
+<strong>3. 動的リバランス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的な見直し</li>
+<li>自動化の活用</li>
+<li>コスト効率の考慮</li>
+<li>税務上の最適化</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">管理ツールとプラットフォーム</h2>
+<strong>ポートフォリオ管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>DeBank：包括的なポートフォリオ追跡</li>
+<li>Zapper：マルチチェーン資産管理</li>
+<li>Rotki：オープンソース管理ツール</li>
+<li>Coingecko：価格と収益追跡</li>
+</ul>
+<strong>自動化ツール</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Rebalance：自動リバランス</li>
+<li>Instadapp：DeFi操作の自動化</li>
+<li>Furucombo：複雑な取引の組み合わせ</li>
+<li>Argent：スマートウォレット機能</li>
+</ul>
+<strong>分析ツール</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>DeFi Pulse：プロトコル分析</li>
+<li>Token Terminal：財務分析</li>
+<li>Dune Analytics：カスタム分析</li>
+<li>Messari：包括的な市場分析</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">税務とコンプライアンス</h2>
+<strong>税務上の考慮</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各国の規制遵守</li>
+<li>取引記録の保持</li>
+<li>利益計算の正確性</li>
+<li>申告の適切性</li>
+</ul>
+<strong>記録管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>全取引の記録</li>
+<li>ブリッジング記録</li>
+<li>手数料の追跡</li>
+<li>税務計算の自動化</li>
+</ul>
+<strong>コンプライアンス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>KYC/AML対応</li>
+<li>制裁リスト確認</li>
+<li>地域規制の遵守</li>
+<li>報告義務の履行</li>
+</ul>`
       },
       {
         type: 'text',
         title: '新興技術とトレンド',
-        content: `## 次世代インターオペラビリティ
-**Cosmos生態系**
-- Internet of Blockchains
-- IBC(Inter-Blockchain Communication)
-- 主権的なブロックチェーン
-- 水平的なスケーラビリティ
-**Polkadot生態系**
-- 共有セキュリティ
-- パラチェーン機能
-- 相互運用性
-- 統合されたエコシステム
-**Layer 0プロトコル**
-- インフラストラクチャ層
-- 複数チェーンの基盤
-- セキュリティの共有
-- 開発効率の向上
-## 2024年の新トレンド
-**AppChain(アプリケーション専用チェーン)**
-- 特定用途に最適化
-- 高い性能
-- カスタマイズ性
-- 独自のエコシステム
-**Modular Blockchain**
-- 機能の分離
-- 専門化による効率化
-- 相互運用性
-- 柔軟な設計
-**Intent-based Architecture**
-- ユーザー意図の直接実行
-- 複雑性の抽象化
-- 効率的な実行
-- 改善されたUX
-## 投資機会の展望
-**インフラストラクチャ投資**
-- ブリッジプロトコル
-- オラクルネットワーク
-- クロスチェーンDEX
-- 管理プラットフォーム
-**新興チェーン投資**
-- 初期段階の投資
-- 高いリターン期待
-- 高いリスク
-- 情報収集の重要性
-**統合サービス**
-- ワンストップソリューション
-- ユーザビリティの向上
-- 市場シェア拡大
-- 安定した収益`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">次世代インターオペラビリティ</h2>
+<strong>Cosmos生態系</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>Internet of Blockchains</li>
+<li>IBC(Inter-Blockchain Communication)</li>
+<li>主権的なブロックチェーン</li>
+<li>水平的なスケーラビリティ</li>
+</ul>
+<strong>Polkadot生態系</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>共有セキュリティ</li>
+<li>パラチェーン機能</li>
+<li>相互運用性</li>
+<li>統合されたエコシステム</li>
+</ul>
+<strong>Layer 0プロトコル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>インフラストラクチャ層</li>
+<li>複数チェーンの基盤</li>
+<li>セキュリティの共有</li>
+<li>開発効率の向上</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の新トレンド</h2>
+<strong>AppChain(アプリケーション専用チェーン)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>特定用途に最適化</li>
+<li>高い性能</li>
+<li>カスタマイズ性</li>
+<li>独自のエコシステム</li>
+</ul>
+<strong>Modular Blockchain</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機能の分離</li>
+<li>専門化による効率化</li>
+<li>相互運用性</li>
+<li>柔軟な設計</li>
+</ul>
+<strong>Intent-based Architecture</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ユーザー意図の直接実行</li>
+<li>複雑性の抽象化</li>
+<li>効率的な実行</li>
+<li>改善されたUX</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">投資機会の展望</h2>
+<strong>インフラストラクチャ投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ブリッジプロトコル</li>
+<li>オラクルネットワーク</li>
+<li>クロスチェーンDEX</li>
+<li>管理プラットフォーム</li>
+</ul>
+<strong>新興チェーン投資</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>初期段階の投資</li>
+<li>高いリターン期待</li>
+<li>高いリスク</li>
+<li>情報収集の重要性</li>
+</ul>
+<strong>統合サービス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ワンストップソリューション</li>
+<li>ユーザビリティの向上</li>
+<li>市場シェア拡大</li>
+<li>安定した収益</li>
+</ul>`
       },
       {
         type: 'tip',
         title: 'クロスチェーン投資成功のコツ',
-        content: `**効率的な管理のポイント**
-🌐 **情報収集**
-- 各チェーンの最新情報
-- 新しいプロトコルの監視
-- 利回り変動の追跡
-- 技術開発の動向
-⚡ **効率的な実行**
-- ガス代の最適化
-- ブリッジング手数料の比較
-- 取引タイミングの選択
-- 自動化ツールの活用
-🎯 **リスク管理**
-- 適切な分散投資
-- 各チェーンのリスク評価
-- 定期的な見直し
-- 緊急時の対応準備
-📊 **継続的な最適化**
-- 定期的なリバランス
-- 新しい機会の評価
-- 戦略の見直し
-- 学習と改善`
+        content: `<strong>効率的な管理のポイント</strong>
+🌐 <strong>情報収集</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>各チェーンの最新情報</li>
+<li>新しいプロトコルの監視</li>
+<li>利回り変動の追跡</li>
+<li>技術開発の動向</li>
+</ul>
+⚡ <strong>効率的な実行</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ガス代の最適化</li>
+<li>ブリッジング手数料の比較</li>
+<li>取引タイミングの選択</li>
+<li>自動化ツールの活用</li>
+</ul>
+🎯 <strong>リスク管理</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>適切な分散投資</li>
+<li>各チェーンのリスク評価</li>
+<li>定期的な見直し</li>
+<li>緊急時の対応準備</li>
+</ul>
+📊 <strong>継続的な最適化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的なリバランス</li>
+<li>新しい機会の評価</li>
+<li>戦略の見直し</li>
+<li>学習と改善</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -338,27 +432,35 @@ export const lesson9: Lesson = {
       {
         type: 'warning',
         title: 'クロスチェーン投資の注意点',
-        content: `**複雑性とリスク**
-⚠️ **技術的複雑性**
-- 複数チェーンの理解が必要
-- ブリッジング操作の複雑さ
-- セキュリティリスクの増大
-- 技術的な知識要求
-⚠️ **運用上の課題**
-- 複数ウォレットの管理
-- 各チェーンの資金管理
-- 税務計算の複雑さ
-- 時間とコストの増大
-⚠️ **市場リスク**
-- 流動性の分散
-- 各チェーンの価格差
-- 規制リスクの多様化
-- 技術的な障害リスク
-⚠️ **新興技術リスク**
-- 未成熟な技術
-- 標準化の不足
-- 競争の激化
-- 技術的な変化`
+        content: `<strong>複雑性とリスク</strong>
+⚠️ <strong>技術的複雑性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数チェーンの理解が必要</li>
+<li>ブリッジング操作の複雑さ</li>
+<li>セキュリティリスクの増大</li>
+<li>技術的な知識要求</li>
+</ul>
+⚠️ <strong>運用上の課題</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>複数ウォレットの管理</li>
+<li>各チェーンの資金管理</li>
+<li>税務計算の複雑さ</li>
+<li>時間とコストの増大</li>
+</ul>
+⚠️ <strong>市場リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>流動性の分散</li>
+<li>各チェーンの価格差</li>
+<li>規制リスクの多様化</li>
+<li>技術的な障害リスク</li>
+</ul>
+⚠️ <strong>新興技術リスク</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>未成熟な技術</li>
+<li>標準化の不足</li>
+<li>競争の激化</li>
+<li>技術的な変化</li>
+</ul>`
       },
       ],
     keyPoints: [

@@ -16,237 +16,317 @@ export const lesson20: Lesson = {
       {
         type: 'quiz',
         title: '暗号通貨基本分析の概要',
-        content: `**基本分析の重要性**
+        content: `<strong>基本分析の重要性</strong>
 暗号通貨の基本分析は、プロジェクトの技術的価値、経済的価値、社会的価値を総合的に評価する分析手法です。短期的な価格変動に左右されない長期的な投資判断の基盤となります。
-## 伝統的基本分析との違い
-**評価対象の違い**
-- 企業 → プロトコル・エコシステム
-- 財務諸表 → オンチェーンデータ
-- 収益性 → ネットワーク価値
-- 資産価値 → トークンユーティリティ
-**指標の違い**
-- P/E比 → P/S比、NVT比
-- ROE → 手数料収入/TVL
-- 配当利回り → ステーキング利回り
-- 簿価 → ネットワーク価値
-## 分析フレームワーク
-**技術分析**
-- 技術的革新性
-- 実装の完成度
-- 拡張性・効率性
-- セキュリティ
-**経済分析**
-- トークノミクス
-- 収益モデル
-- 市場規模
-- 競合状況
-**社会分析**
-- 開発者活動
-- コミュニティ
-- 採用状況
-- 規制環境
-## 2024年の評価環境
-**市場の成熟化**
-- 機関投資家の参入
-- 基本分析の重要性増加
-- 長期投資の増加
-- 価値投資の普及
-**データの充実**
-- オンチェーンデータの活用
-- 透明性の向上
-- 分析ツールの発展
-- 標準化の進展`
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">伝統的基本分析との違い</h2>
+<strong>評価対象の違い</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>企業 → プロトコル・エコシステム</li>
+<li>財務諸表 → オンチェーンデータ</li>
+<li>収益性 → ネットワーク価値</li>
+<li>資産価値 → トークンユーティリティ</li>
+</ul>
+<strong>指標の違い</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>P/E比 → P/S比、NVT比</li>
+<li>ROE → 手数料収入/TVL</li>
+<li>配当利回り → ステーキング利回り</li>
+<li>簿価 → ネットワーク価値</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">分析フレームワーク</h2>
+<strong>技術分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的革新性</li>
+<li>実装の完成度</li>
+<li>拡張性・効率性</li>
+<li>セキュリティ</li>
+</ul>
+<strong>経済分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>トークノミクス</li>
+<li>収益モデル</li>
+<li>市場規模</li>
+<li>競合状況</li>
+</ul>
+<strong>社会分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>開発者活動</li>
+<li>コミュニティ</li>
+<li>採用状況</li>
+<li>規制環境</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">2024年の評価環境</h2>
+<strong>市場の成熟化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>機関投資家の参入</li>
+<li>基本分析の重要性増加</li>
+<li>長期投資の増加</li>
+<li>価値投資の普及</li>
+</ul>
+<strong>データの充実</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>オンチェーンデータの活用</li>
+<li>透明性の向上</li>
+<li>分析ツールの発展</li>
+<li>標準化の進展</li>
+</ul>`
       },
       {
         type: 'text',
         title: 'トークノミクス分析',
-        content: `## 供給メカニズム
-**発行上限**
-- 固定供給：ビットコイン(2100万枚)
-- 無制限供給：イーサリアム(年率約0.5%)
-- 減少供給：バーン機能付き
-- 動的供給：アルゴリズム調整
-**発行スケジュール**
-- 初期分配：プリマイン、ICO
-- 継続的発行：マイニング、ステーキング
-- 段階的発行：ベスティング
-- イベント発行：エアドロップ
-**需要メカニズム**
-- ユーティリティ需要
-- 投機的需要
-- 保有インセンティブ
-- ネットワーク効果
-## 価値捕獲メカニズム
-**手数料収入**
-- 取引手数料
-- プロトコル手数料
-- サービス手数料
-- 燃焼(バーン)効果
-**ステーキング報酬**
-- バリデーター報酬
-- 委任報酬
-- 流動性報酬
-- ガバナンス報酬
-**価値蓄積**
-- 長期保有インセンティブ
-- ロック期間設定
-- 利用連動報酬
-- 希少性創出
-## 評価指標
-**NVT比(Network Value to Transaction)**
-- 時価総額 / 取引量
-- 株式のP/E比に相当
-- 過大評価・過小評価の判定
-- 時系列での比較
-**P/S比(Price to Sales)**
-- 時価総額 / 収益
-- プロトコル収益の評価
-- 収益性の比較
-- 成長性の評価
-**TVL(Total Value Locked)**
-- プロトコル内資産総額
-- 利用度の指標
-- 信頼性の指標
-- 成長性の指標`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">供給メカニズム</h2>
+<strong>発行上限</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>固定供給：ビットコイン(2100万枚)</li>
+<li>無制限供給：イーサリアム(年率約0.5%)</li>
+<li>減少供給：バーン機能付き</li>
+<li>動的供給：アルゴリズム調整</li>
+</ul>
+<strong>発行スケジュール</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>初期分配：プリマイン、ICO</li>
+<li>継続的発行：マイニング、ステーキング</li>
+<li>段階的発行：ベスティング</li>
+<li>イベント発行：エアドロップ</li>
+</ul>
+<strong>需要メカニズム</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>ユーティリティ需要</li>
+<li>投機的需要</li>
+<li>保有インセンティブ</li>
+<li>ネットワーク効果</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">価値捕獲メカニズム</h2>
+<strong>手数料収入</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引手数料</li>
+<li>プロトコル手数料</li>
+<li>サービス手数料</li>
+<li>燃焼(バーン)効果</li>
+</ul>
+<strong>ステーキング報酬</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>バリデーター報酬</li>
+<li>委任報酬</li>
+<li>流動性報酬</li>
+<li>ガバナンス報酬</li>
+</ul>
+<strong>価値蓄積</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>長期保有インセンティブ</li>
+<li>ロック期間設定</li>
+<li>利用連動報酬</li>
+<li>希少性創出</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">評価指標</h2>
+<strong>NVT比(Network Value to Transaction)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>時価総額 / 取引量</li>
+<li>株式のP/E比に相当</li>
+<li>過大評価・過小評価の判定</li>
+<li>時系列での比較</li>
+</ul>
+<strong>P/S比(Price to Sales)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>時価総額 / 収益</li>
+<li>プロトコル収益の評価</li>
+<li>収益性の比較</li>
+<li>成長性の評価</li>
+</ul>
+<strong>TVL(Total Value Locked)</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プロトコル内資産総額</li>
+<li>利用度の指標</li>
+<li>信頼性の指標</li>
+<li>成長性の指標</li>
+</ul>`
       },
       {
         type: 'example',
         title: '基本分析の実践例',
-        content: `## 例1：Uniswap(UNI)の基本分析
-**技術分析**
-- 革新的なAMM技術
-- 高い流動性効率
-- 多様な機能(V3の集中流動性)
-- 強固なセキュリティ
-**経済分析**
-- 手数料収入：年間$1B+
-- TVL：$5B+
-- 取引量：日次$1B+
-- 市場シェア：DEX市場の60%
-**トークノミクス**
-- 総供給量：10億UNI
-- 流通量：7.5億UNI
-- 保有者：40万+
-- ガバナンス機能
-**評価**
-- NVT比：適正範囲
-- P/S比：競合より低い
-- 成長性：高い
-- 投資判断：買い
-## 例2：Chainlink(LINK)の基本分析
-**技術分析**
-- 分散型オラクルネットワーク
-- 高い信頼性
-- 豊富な価格フィード
-- 多様な用途
-**経済分析**
-- 統合数：1000+
-- 取引量：兆単位
-- 市場シェア：70%+
-- 成長性：継続的
-**トークノミクス**
-- 総供給量：10億LINK
-- 流通量：5億LINK
-- ノード報酬：継続的
-- ネットワーク効果
-**評価**
-- 技術的優位性：高い
-- 市場ポジション：支配的
-- 成長性：継続的
-- 投資判断：長期保有
-## 例3：Solana(SOL)の基本分析
-**技術分析**
-- 高速処理：50,000 TPS
-- 低コスト：$0.0001/取引
-- 革新的なコンセンサス
-- 豊富なエコシステム
-**経済分析**
-- 開発者数：2,000+
-- DApps数：400+
-- TVL：$1B+
-- 取引量：日次億単位
-**トークノミクス**
-- 総供給量：5億SOL
-- 流通量：4億SOL
-- インフレ率：年8%→1.5%
-- ステーキング率：70%+
-**評価**
-- 技術的優位性：高い
-- 成長性：非常に高い
-- 競争力：強い
-- 投資判断：成長投資`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例1：Uniswap(UNI)の基本分析</h2>
+<strong>技術分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>革新的なAMM技術</li>
+<li>高い流動性効率</li>
+<li>多様な機能(V3の集中流動性)</li>
+<li>強固なセキュリティ</li>
+</ul>
+<strong>経済分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>手数料収入：年間$1B+</li>
+<li>TVL：$5B+</li>
+<li>取引量：日次$1B+</li>
+<li>市場シェア：DEX市場の60%</li>
+</ul>
+<strong>トークノミクス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総供給量：10億UNI</li>
+<li>流通量：7.5億UNI</li>
+<li>保有者：40万+</li>
+<li>ガバナンス機能</li>
+</ul>
+<strong>評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>NVT比：適正範囲</li>
+<li>P/S比：競合より低い</li>
+<li>成長性：高い</li>
+<li>投資判断：買い</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例2：Chainlink(LINK)の基本分析</h2>
+<strong>技術分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>分散型オラクルネットワーク</li>
+<li>高い信頼性</li>
+<li>豊富な価格フィード</li>
+<li>多様な用途</li>
+</ul>
+<strong>経済分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>統合数：1000+</li>
+<li>取引量：兆単位</li>
+<li>市場シェア：70%+</li>
+<li>成長性：継続的</li>
+</ul>
+<strong>トークノミクス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総供給量：10億LINK</li>
+<li>流通量：5億LINK</li>
+<li>ノード報酬：継続的</li>
+<li>ネットワーク効果</li>
+</ul>
+<strong>評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的優位性：高い</li>
+<li>市場ポジション：支配的</li>
+<li>成長性：継続的</li>
+<li>投資判断：長期保有</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">例3：Solana(SOL)の基本分析</h2>
+<strong>技術分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>高速処理：50,000 TPS</li>
+<li>低コスト：$0.0001/取引</li>
+<li>革新的なコンセンサス</li>
+<li>豊富なエコシステム</li>
+</ul>
+<strong>経済分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>開発者数：2,000+</li>
+<li>DApps数：400+</li>
+<li>TVL：$1B+</li>
+<li>取引量：日次億単位</li>
+</ul>
+<strong>トークノミクス</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>総供給量：5億SOL</li>
+<li>流通量：4億SOL</li>
+<li>インフレ率：年8%→1.5%</li>
+<li>ステーキング率：70%+</li>
+</ul>
+<strong>評価</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術的優位性：高い</li>
+<li>成長性：非常に高い</li>
+<li>競争力：強い</li>
+<li>投資判断：成長投資</li>
+</ul>`
       },
       {
         type: 'text',
         title: '定量的評価手法',
-        content: `## 割引キャッシュフロー法
-**将来収益の予測**
-- プロトコル収益の予測
-- 手数料収入の成長
-- 市場拡大の影響
-- 競合の影響
-**割引率の設定**
-- リスクフリーレート
-- 市場リスクプレミアム
-- 個別リスク
-- 流動性リスク
-**現在価値の計算**
-- 予測期間の設定
-- 残存価値の計算
-- 感応度分析
-- シナリオ分析
-## 比較評価法
-**類似プロジェクト比較**
-- 同セクター内の比較
-- 評価倍率の比較
-- 成長率の比較
-- 市場ポジションの比較
-**マーケット・マルチプル**
-- P/S比の比較
-- P/B比の比較
-- EV/EBITDA比の比較
-- 業界平均との比較
-## オンチェーンデータ活用
-**ネットワーク活動**
-- アクティブアドレス数
-- 取引回数・金額
-- 手数料収入
-- 開発者活動
-**価値指標**
-- MVRV比
-- NVT比
-- 実現キャップ
-- HODLer分析
-**市場指標**
-- 取引所流入・流出
-- 大口保有者動向
-- 機関投資家動向
-- 感情指標`
+        content: `<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">割引キャッシュフロー法</h2>
+<strong>将来収益の予測</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>プロトコル収益の予測</li>
+<li>手数料収入の成長</li>
+<li>市場拡大の影響</li>
+<li>競合の影響</li>
+</ul>
+<strong>割引率の設定</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>リスクフリーレート</li>
+<li>市場リスクプレミアム</li>
+<li>個別リスク</li>
+<li>流動性リスク</li>
+</ul>
+<strong>現在価値の計算</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>予測期間の設定</li>
+<li>残存価値の計算</li>
+<li>感応度分析</li>
+<li>シナリオ分析</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">比較評価法</h2>
+<strong>類似プロジェクト比較</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>同セクター内の比較</li>
+<li>評価倍率の比較</li>
+<li>成長率の比較</li>
+<li>市場ポジションの比較</li>
+</ul>
+<strong>マーケット・マルチプル</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>P/S比の比較</li>
+<li>P/B比の比較</li>
+<li>EV/EBITDA比の比較</li>
+<li>業界平均との比較</li>
+</ul>
+<h2 style="color: #1e40af; margin: 2rem 0 1rem 0;">オンチェーンデータ活用</h2>
+<strong>ネットワーク活動</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>アクティブアドレス数</li>
+<li>取引回数・金額</li>
+<li>手数料収入</li>
+<li>開発者活動</li>
+</ul>
+<strong>価値指標</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>MVRV比</li>
+<li>NVT比</li>
+<li>実現キャップ</li>
+<li>HODLer分析</li>
+</ul>
+<strong>市場指標</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>取引所流入・流出</li>
+<li>大口保有者動向</li>
+<li>機関投資家動向</li>
+<li>感情指標</li>
+</ul>`
       },
       {
         type: 'tip',
         title: '基本分析の実践ポイント',
-        content: `**効果的な分析手法**
-🔍 **多角的な分析**
-- 技術・経済・社会面の統合
-- 定量・定性両面の評価
-- 短期・長期の視点
-- 複数の評価手法
-📊 **データの活用**
-- オンチェーンデータの重視
-- 公開情報の活用
-- 第三者分析の参考
-- 継続的な監視
-🎯 **投資判断の基準**
-- 明確な評価基準
-- 相対的な優位性
-- 長期的な成長性
-- リスクとリターンの評価
-⏰ **継続的な見直し**
-- 定期的な分析更新
-- 市場環境の変化対応
-- 新情報の反映
-- 投資仮説の検証`
+        content: `<strong>効果的な分析手法</strong>
+🔍 <strong>多角的な分析</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>技術・経済・社会面の統合</li>
+<li>定量・定性両面の評価</li>
+<li>短期・長期の視点</li>
+<li>複数の評価手法</li>
+</ul>
+📊 <strong>データの活用</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>オンチェーンデータの重視</li>
+<li>公開情報の活用</li>
+<li>第三者分析の参考</li>
+<li>継続的な監視</li>
+</ul>
+🎯 <strong>投資判断の基準</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>明確な評価基準</li>
+<li>相対的な優位性</li>
+<li>長期的な成長性</li>
+<li>リスクとリターンの評価</li>
+</ul>
+⏰ <strong>継続的な見直し</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>定期的な分析更新</li>
+<li>市場環境の変化対応</li>
+<li>新情報の反映</li>
+<li>投資仮説の検証</li>
+</ul>`
       },
       {
         type: 'quiz',
@@ -291,27 +371,35 @@ export const lesson20: Lesson = {
       {
         type: 'warning',
         title: '基本分析の注意点',
-        content: `**分析の限界**
-⚠️ **データの制約**
-- 限られた歴史データ
-- 標準化の不足
-- 情報の非対称性
-- 操作の可能性
-⚠️ **評価の困難性**
-- 新しい技術の評価
-- 将来予測の不確実性
-- 市場の非効率性
-- 投機的要素の影響
-⚠️ **技術の変化**
-- 急速な技術進歩
-- 新しい競合の出現
-- 規制環境の変化
-- 市場構造の変化
-⚠️ **実行の困難性**
-- 理論と実践の差
-- 市場タイミングの重要性
-- 心理的要因の影響
-- 流動性の制約`
+        content: `<strong>分析の限界</strong>
+⚠️ <strong>データの制約</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>限られた歴史データ</li>
+<li>標準化の不足</li>
+<li>情報の非対称性</li>
+<li>操作の可能性</li>
+</ul>
+⚠️ <strong>評価の困難性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>新しい技術の評価</li>
+<li>将来予測の不確実性</li>
+<li>市場の非効率性</li>
+<li>投機的要素の影響</li>
+</ul>
+⚠️ <strong>技術の変化</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>急速な技術進歩</li>
+<li>新しい競合の出現</li>
+<li>規制環境の変化</li>
+<li>市場構造の変化</li>
+</ul>
+⚠️ <strong>実行の困難性</strong>
+<ul style="margin: 1rem 0; padding-left: 1.5rem;">
+<li>理論と実践の差</li>
+<li>市場タイミングの重要性</li>
+<li>心理的要因の影響</li>
+<li>流動性の制約</li>
+</ul>`
       },
       ],
     keyPoints: [
