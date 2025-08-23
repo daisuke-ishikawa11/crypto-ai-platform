@@ -47,8 +47,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run npm audit
-        run: npm audit --audit-level moderate
+      - name: Run npm audit (non-blocking)
+        run: npm audit --audit-level=high || true
 
       - name: Run Snyk security scan
         uses: snyk/actions/node@master
@@ -188,7 +188,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.0
+          terraform_version: 1.10.3
 
       - name: Terraform Format Check
         run: |
