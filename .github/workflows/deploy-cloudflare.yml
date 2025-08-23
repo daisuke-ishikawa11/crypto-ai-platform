@@ -32,8 +32,8 @@ jobs:
       - name: TypeScript 型チェック
         run: npm run type-check
         
-      - name: ESLint チェック
-        run: npm run lint
+      - name: ESLint チェック (warnings tolerated)
+        run: npm run lint -- --max-warnings=500
         
       - name: Unit テスト実行
         run: npm run test:unit

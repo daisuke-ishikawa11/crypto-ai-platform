@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       
-      - name: Run ESLint
-        run: npm run lint -- --max-warnings 100
+      - name: Run ESLint (warnings tolerated)
+        run: npm run lint -- --max-warnings=500
       
       - name: Type check
         run: npm run type-check

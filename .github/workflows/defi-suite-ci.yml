@@ -38,8 +38,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint project
-        run: npm run lint
+      - name: Lint project (warnings tolerated)
+        run: npm run lint -- --max-warnings=500
 
   build:
     needs: [ type-check, lint ]

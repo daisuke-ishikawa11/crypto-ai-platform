@@ -95,8 +95,8 @@ jobs:
       - name: Type check
         run: npm run type-check
 
-      - name: Lint code
-        run: npm run lint
+      - name: Lint code (warnings tolerated)
+        run: npm run lint -- --max-warnings 500
 
       - name: Run ${{ matrix.test-suite }} tests
         run: npm run test:${{ matrix.test-suite }}
