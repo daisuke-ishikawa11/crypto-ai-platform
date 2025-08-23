@@ -95,8 +95,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY || 'dummy-anthropic-key' }}
           SKIP_ENV_VALIDATION: true
           
-      - name: OpenNext変換
-        run: npx open-next build
+      - name: OpenNext変換（依存がある場合のみ）
+        run: |
+          node -e "try{const p=require('./package.json');process.exit(p?.dependencies?.['open-next']||p?.devDependencies?.['open-next']?0:1)}catch(e){process.exit(1)}" \
+            && npx open-next build \
+            || echo "open-next dependency not found; skip transform"
         
       - name: ビルド成果物アップロード
         uses: actions/upload-artifact@v4

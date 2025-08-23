@@ -60,13 +60,23 @@ jobs:
         run: npm ci
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: Check for E2E tests
+        id: check_e2e
+        run: |
+          if npx playwright test --list | grep -qi "no tests found\|0 tests"; then
+            echo "has_e2e=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_e2e=true" >> $GITHUB_OUTPUT
+          fi
       - name: Build
+        if: steps.check_e2e.outputs.has_e2e == 'true'
         run: npm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
           SUPABASE_SERVICE_KEY: dummy-service-key
       - name: Start app
+        if: steps.check_e2e.outputs.has_e2e == 'true'
         run: |
           NEXT_DISABLE_SOURCEMAPS=1 NODE_OPTIONS="--max-old-space-size=2048" npm run start &
           for i in {1..60}; do
@@ -74,12 +84,8 @@ jobs:
             sleep 1
           done
       - name: Run E2E tests (skip if no tests)
-        run: |
-          if npx playwright test --list | grep -qi "no tests found\|0 tests"; then
-            echo "No E2E tests found. Skipping.";
-            exit 0;
-          fi
-          npm run test:e2e
+        if: steps.check_e2e.outputs.has_e2e == 'true'
+        run: npm run test:e2e
         env:
           BASE_URL: http://localhost:3000
           OPENAI_API_KEY: dummy-openai-key
