@@ -201,9 +201,11 @@ jobs:
         run: wrangler deploy --env production
         
       - name: カスタムドメイン設定
+        env:
+          CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN }}
         run: |
-          wrangler route add "${{ secrets.CUSTOM_DOMAIN }}/*" crypto-ai-platform --env production
-        if: ${{ secrets.CUSTOM_DOMAIN != '' }}
+          wrangler route add "${CUSTOM_DOMAIN}/*" crypto-ai-platform --env production
+        if: ${{ env.CUSTOM_DOMAIN != '' }}
         
       - name: 本番ヘルスチェック
         run: |
