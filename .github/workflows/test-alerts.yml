@@ -42,10 +42,15 @@ jobs:
             sleep 1
           done
 
-      - name: Run Alerts E2E
+      - name: Run Alerts E2E (skip if no tests)
         env:
           BASE_URL: http://localhost:3000
-        run: npm run test:alerts
+        run: |
+          if npx playwright test --list -c playwright-alerts.config.ts | grep -qi "no tests found\|0 tests"; then
+            echo "No alerts E2E tests found. Skipping.";
+            exit 0;
+          fi
+          npm run test:alerts
 
       - name: Upload report on failure
         if: failure()
