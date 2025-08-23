@@ -23,7 +23,7 @@ jobs:
       - name: Node.js セットアップ
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
           
       - name: 依存関係インストール
@@ -50,6 +50,13 @@ jobs:
         run: |
           npm run build
           npx bundlesize
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+          SUPABASE_SERVICE_KEY: dummy-service-key
+          OPENAI_API_KEY: dummy-openai-key
+          ANTHROPIC_API_KEY: dummy-anthropic-key
+          SKIP_ENV_VALIDATION: true
 
   # 🔧 ビルド & デプロイ準備
   build:
@@ -64,7 +71,7 @@ jobs:
       - name: Node.js セットアップ
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
           
       - name: 依存関係インストール
@@ -81,6 +88,10 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || secrets.SUPABASE_STAGING_SERVICE_KEY || 'dummy-service-key' }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || 'dummy-openai-key' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY || 'dummy-anthropic-key' }}
+          SKIP_ENV_VALIDATION: true
           
       - name: OpenNext変換
         run: npx open-next build
@@ -267,3 +278,5 @@ jobs:
         if: false # 実装時に有効化
 
 # セキュリティ設定（注意: GitHub Actionsのトップレベルでは 'security' キーは未対応のため削除）
+
+
