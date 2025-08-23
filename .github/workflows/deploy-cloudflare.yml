@@ -203,7 +203,7 @@ jobs:
       - name: カスタムドメイン設定
         run: |
           wrangler route add "${{ secrets.CUSTOM_DOMAIN }}/*" crypto-ai-platform --env production
-        if: ${{ secrets.CUSTOM_DOMAIN }}
+        if: ${{ secrets.CUSTOM_DOMAIN != '' }}
         
       - name: 本番ヘルスチェック
         run: |
@@ -264,19 +264,4 @@ jobs:
           echo "アラート設定を更新中..."
         if: false # 実装時に有効化
 
-# セキュリティ設定
-security:
-  permissions:
-    contents: read
-    deployments: write
-    
-  secrets:
-    required:
-      - CLOUDFLARE_API_TOKEN
-      - CLOUDFLARE_ACCOUNT_ID
-      - NEXT_PUBLIC_SUPABASE_URL
-      - NEXT_PUBLIC_SUPABASE_ANON_KEY
-      - SUPABASE_SERVICE_KEY
-      - OPENAI_API_KEY
-      - STRIPE_SECRET_KEY
-      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+# セキュリティ設定（注意: GitHub Actionsのトップレベルでは 'security' キーは未対応のため削除）
