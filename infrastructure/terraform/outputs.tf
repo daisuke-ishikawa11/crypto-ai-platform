@@ -294,16 +294,12 @@ output "configure_kubectl" {
 
 output "application_url" {
   description = "Application URL"
-  value = var.environment == "production" ? 
-    "https://crypto-ai-platform.com" : 
-    "https://staging.crypto-ai-platform.com"
+  value       = var.environment == "production" ? "https://crypto-ai-platform.com" : "https://staging.crypto-ai-platform.com"
 }
 
 output "grafana_url" {
   description = "Grafana URL (if enabled)"
-  value = var.environment == "production" ? 
-    "https://grafana.crypto-ai-platform.com" : 
-    null
+  value       = var.environment == "production" ? "https://grafana.crypto-ai-platform.com" : null
 }
 
 ################################################################################
@@ -336,7 +332,5 @@ output "redis_connection_info" {
 
 output "estimated_monthly_cost" {
   description = "Estimated monthly cost (approximate)"
-  value = var.environment == "production" ? 
-    "~$800-1200 USD (depends on usage)" : 
-    "~$200-400 USD (depends on usage)"
+  value       = var.environment == "production" ? "~$800-1200 USD (depends on usage)" : "~$200-400 USD (depends on usage)"
 }

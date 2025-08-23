@@ -644,9 +644,7 @@ resource "random_password" "redis_auth_token" {
 module "cloudfront" {
   source = "terraform-aws-modules/cloudfront/aws"
 
-  aliases = var.environment == "production" ? 
-    ["crypto-ai-platform.com", "www.crypto-ai-platform.com"] : 
-    ["staging.crypto-ai-platform.com"]
+  aliases = var.environment == "production" ? ["crypto-ai-platform.com", "www.crypto-ai-platform.com"] : ["staging.crypto-ai-platform.com"]
 
   comment             = "${local.name} CloudFront distribution"
   default_root_object = "index.html"

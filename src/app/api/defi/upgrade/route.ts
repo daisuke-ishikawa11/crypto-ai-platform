@@ -7,7 +7,7 @@ import Stripe from 'stripe'
 import { getStripe } from '@/lib/stripe/config'
 import { isRecord } from '@/lib/types/guards'
 
-const stripe = getStripe()
+// Stripeはビルド時に未設定でも落ちないよう遅延取得する
 
 async function handler(request: NextRequest): Promise<NextResponse> {
   const { method } = request
@@ -78,6 +78,7 @@ async function handleUpgrade(
 
   try {
     // Stripe顧客作成または取得
+    const stripe = getStripe()
     let customerId = profile.stripe_customer_id
     
     if (!customerId) {
