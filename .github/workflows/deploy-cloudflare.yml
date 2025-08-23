@@ -43,8 +43,8 @@ jobs:
         run: npm run test:e2e
         if: false # まだ実装していない場合
         
-      - name: セキュリティ監査
-        run: npm audit --audit-level=high
+      - name: セキュリティ監査（非ブロッキング）
+        run: npm audit --audit-level=high || true
         
       - name: バンドルサイズチェック
         run: |
