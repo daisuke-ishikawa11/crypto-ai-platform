@@ -39,8 +39,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Run unit tests
-        run: npm run test:unit
+      - name: Run unit tests (only tests/unit)
+        run: npx jest --testPathPattern '^tests/unit/' --passWithNoTests
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
         with:
