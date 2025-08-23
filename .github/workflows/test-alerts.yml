@@ -1,0 +1,49 @@
+name: E2E - Alerts Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  e2e-alerts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps
+
+      - name: Build app
+        run: npm run build
+
+      - name: Start app (scoped to alerts)
+        run: |
+          APP_ACCESS_SCOPE=alerts NEXT_DISABLE_SOURCEMAPS=1 NODE_OPTIONS="--max-old-space-size=2048" npm run start &
+          for i in {1..60}; do
+            curl -fsS http://localhost:3000/api/health && break
+            sleep 1
+          done
+
+      - name: Run Alerts E2E
+        env:
+          BASE_URL: http://localhost:3000
+        run: npm run test:alerts
+
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-alerts
+          path: playwright-report
+

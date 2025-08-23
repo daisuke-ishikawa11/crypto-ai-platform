@@ -648,3 +648,7 @@ export const lesson25: Lesson = {
       correctAnswer: 1,
       explanation: 'ボラティリティが高い時は予想以上の値動きリスクがあるため、ポジションサイズを小さくしてリスクを抑制することが適切です。'
     }
+  ],
+  lastUpdated: '2025-08-17',
+  factChecked: true
+};

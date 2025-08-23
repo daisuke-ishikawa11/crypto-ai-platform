@@ -8,5 +8,3 @@ test.describe('DeFi smoke', () => {
     expect(r2.ok()).toBeTruthy()
   })
 })
-
-
