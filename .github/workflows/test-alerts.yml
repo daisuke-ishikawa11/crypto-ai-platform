@@ -11,6 +11,11 @@ jobs:
   e2e-alerts:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+      OPENAI_API_KEY: dummy-openai-key
+      ANTHROPIC_API_KEY: dummy-anthropic-key
     steps:
       - name: Checkout
         uses: actions/checkout@v4
