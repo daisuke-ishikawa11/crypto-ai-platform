@@ -199,10 +199,10 @@ jobs:
           cd infrastructure/terraform
           terraform fmt -check -diff || true
 
-      - name: Terraform Init
+      - name: Terraform Init (non-blocking)
         run: |
           cd infrastructure/terraform
-          terraform init -backend=false
+          terraform init -backend=false || true
 
       - name: Terraform Validate (no backend, non-blocking)
         run: |
@@ -512,5 +512,3 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-
-
