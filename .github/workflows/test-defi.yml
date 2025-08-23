@@ -16,6 +16,7 @@ jobs:
       NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
       OPENAI_API_KEY: dummy-openai-key
       ANTHROPIC_API_KEY: dummy-anthropic-key
+      SUPABASE_SERVICE_KEY: dummy-service-key
     steps:
       - name: Checkout
         uses: actions/checkout@v4
